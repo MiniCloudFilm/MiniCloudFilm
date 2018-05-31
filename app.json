@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/user",
+    "pages/counList/counList",
+    "pages/expertList/expert",
+    "pages/reportList/report",
+    "pages/consultation/consultation",
+    "pages/film/film",
+    "pages/login/login",
+    "pages/patientReg/patientReg"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1C7EFF",
+    "navigationBarTitleText": "主页",
+    "navigationBarTextStyle": "#fff"
+  },
+  "tabBar": {
+    "color": "#8E8E8E",
+    "selectedColor": "#1C7EFF",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "image/home.png",
+        "selectedIconPath": "image/homes.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/counList/counList",
+        "iconPath": "image/interactive.png",
+        "selectedIconPath": "image/interactives.png",
+        "text": "咨询列表"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "image/people.png",
+        "selectedIconPath": "image/peoples.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

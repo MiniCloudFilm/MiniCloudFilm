@@ -1,0 +1,3 @@
+ <view>
+    <navigator url="../login/login">登录</navigator>
+ </view>

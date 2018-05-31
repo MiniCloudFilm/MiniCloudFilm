@@ -1,0 +1,80 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="page-body">
+    <view class="page-section">
+      <swiper indicator-dots="true" indicator-color="rgb(255, 255, 255)" indicator-active-color="#ccc" autoplay="true" current="0" interval="5000" duration="500" circular="true">
+        <block wx:for="{{bannerList}}" wx:key="*this">
+          <swiper-item>
+            <view>
+              <image src="{{item}}"></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <view class="nav">
+    <view>
+      <navigator url="../expertList/expert" hover-class="navigator-hover">
+        <view class="navT">
+          <text class="iconfont icon-document expertT"></text>
+        </view>
+        <view>
+          <text>专家咨询</text>
+        </view>
+      </navigator>
+    </view>
+    <view>
+      <navigator url="../reportList/report">
+        <view class="navT">
+          <text class="iconfont icon-document reportT"></text>
+        </view>
+        <view>
+          <text>报告解读</text>
+        </view>
+      </navigator>
+    </view>
+    <view>
+
+      <navigator url="../film/film">
+        <view class="navT">
+          <text class="iconfont icon-document filmT"></text>
+        </view>
+        <view>
+          <text>医学影像视频</text>
+        </view>
+
+      </navigator>
+    </view>
+    <view>
+      <view class="navT">
+        <text class="iconfont icon-more moreT"></text>
+      </view>
+      <view>
+        <text>开发中</text>
+      </view>
+    </view>
+  </view>
+  <view class="main">
+    <view>
+      <navigator url="../consultation/consultation">
+        <view class="navT">
+          <text class="iconfont icon-qrcode consultation"></text>
+        </view>
+        <view>
+          <text>远程会诊</text>
+        </view>
+      </navigator>
+    </view>
+  </view>
+  <!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view> -->
+</view>

@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="drop-box">
+    <view>
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          {{region[1]}}
+        </view>
+      </picker>
+    </view>
+    <view>
+      <picker mode="multiSelector" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          放射科
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="docter-box">
+  </view>
+</view>

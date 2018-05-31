@@ -1,0 +1,157 @@
+/* pages/login/login.wxss */
+
+.logo {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.logo image {
+  width: 76px;
+  height: 37px;
+}
+
+.main {
+  width: 100%;
+}
+
+.navbar {
+  margin-top: 40px;
+  display: flex;
+  width: 100%;
+}
+
+.navbar .item {
+  width: 50%;
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 24rpx;
+  color: #ccc;
+  font-family: Microsoft YaHei;
+}
+
+.navbar .item.active {
+  color: #035ead;
+  font-size: 28rpx;
+  font-family: Microsoft YaHei;
+}
+
+.navbar .item.active:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  right: 0;
+  height: 4rpx;
+  width: 40px;
+  background: #035ead;
+  /* font-size: 24rpx; */
+  color: #666;
+  text-align: center;
+  font-family: Microsoft YaHei;
+}
+
+.from-box {
+  margin-top: 30px;
+}
+
+.from-box, .from-box view {
+  width: 100%;
+}
+
+.from {
+  width: 100%;
+}
+
+.placeholder {
+  font-size: 14px;
+  color: #ccc;
+  text-indent: 1em;
+}
+
+.input {
+  margin: 25px 25px;
+  height: 40px;
+  border-radius: 90px;
+  color: rgba(204, 204, 204, 1);
+  font-family: Microsoft Yahei;
+  border: 1px solid rgba(187, 187, 187, 1);
+}
+
+button {
+  margin: 30px 25px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 90px;
+  background-color: rgba(3, 94, 173, 0.09);
+  color: rgba(3, 94, 173, 1);
+  font-size: 14px;
+  text-align: center;
+  font-family: Arial;
+  border: 1px solid rgba(3, 94, 173, 1);
+}
+
+.agree-box {
+  font-size: 10px;
+  text-align: center;
+}
+
+.agree {
+  color: rgba(3, 94, 173, 1);
+  font-family: Arial;
+}
+
+.register-box {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.title-box {
+  display: flex;
+  width: 100%;
+}
+
+.start, .end {
+  width: 40%;
+  position: relative;
+}
+
+.title {
+  width: 20%;
+  text-align: center;
+  font-size: 10px;
+  color: #ccc;
+}
+
+.start:before, .end:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  height: 1px;
+  width: 100%;
+  background: #ccc;
+}
+
+.sel-register {
+  height: 80px;
+  width: 100%;
+  display: flex;
+}
+
+.sel-register navigator {
+  width: 50%;
+  text-align: center;
+  line-height: 80px;
+  color: rgba(3, 94, 173, 1);
+  font-size: 14px;
+  font-family: Arial;
+  border-radius: 5px;
+}
