@@ -1,5 +1,66 @@
 /* pages/user/user.wxss */
-view{
-  text-align:center;
-  margin-top:100px;
+.login-box{
+  height:400rpx;
+  width:100%;
+  /* border-bottom: 1px solid #edeff0; */
+  position:relative;
+}
+.blue{
+  height:50%;
+  background: #1C7EFF;
+} 
+.login{
+  position:absolute;
+  top:32rpx;
+  left:50rpx;
+  box-shadow: 0rpx 10rpx 30rpx rgba(28, 126, 255, 0.1);
+  width:650rpx;
+  height:336rpx;
+  border-radius: 30rpx;
+  background: #fff;
+  text-align: center; 
+}
+.login navigator{
+  text-align: right;
+  margin-top:22rpx;
+  padding-right:22rpx;
+}
+.login image{
+  width:150rpx;
+  height:150rpx;
+}
+.outLogin{
+  font-size:24rpx;
+  color:#48ace9;
+}
+.myName{
+  margin-top:20rpx;
+  font-size:32rpx;
+  line-height: 32rpx;
+  font-weight: bold;
+  color:#2e3135;
+}
+.userList{
+  width:100%;
+  font-size:26rpx;
+  color:#2e3135;
+}
+.explain{
+  padding:0 32rpx;
+  margin-top:200rpx;
+  font-size:22rpx;
+  color:#aaadb2;
+  line-height: 40rpx;
+}
+.weui-cells:before{ 
+  border-top: 1rpx solid #edeff0;
+} 
+.weui-cells:after{ 
+  border-bottom: 1rpx solid #edeff0;
+}
+.weui-cell:before{ 
+  border-top: 1rpx solid #edeff0;
+} 
+.weui-cell__ft_in-access:after {
+  border-color:#edeff0;
 }

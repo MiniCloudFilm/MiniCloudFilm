@@ -1,3 +1,47 @@
- <view>
-    <navigator url="../login/login">登录</navigator>
- </view>
+<view class="container">
+  <view class="login-box">
+    <view class="blue"></view>
+    <view class="login">
+      <navigator class="outLogin" url="../login/login">
+        退出登录
+      </navigator>
+      <view class="myImg">
+        <image src="/image/my.png"></image>
+      </view>
+      <view class="myName">
+        张三丰
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title userList">
+    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <image src="/image/my-account.png" style="margin-right: 5px;vertical-align: middle;width:30px; height: 30px;"></image>
+      </view>
+      <view class="weui-cell__bd">我的账户</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <image src="/image/my-video.png" style="margin-right: 5px;vertical-align: middle;width:30px; height: 30px;"></image>
+      </view>
+      <view class="weui-cell__bd">视频管理</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <image src="/image/my-verify.png" style="margin-right: 5px;vertical-align: middle;width:30px; height: 30px;"></image>
+      </view>
+      <view class="weui-cell__bd">医生认证</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
+  <view class="explain">
+    <view>
+      <text>服务声明：</text>
+    </view>
+    <view>
+      <text> 网络沟通无法像面诊过程那样，不能全面了解您的健康状况，因此医生的健康指导建议仅供参考，具体诊疗请一定要到医院在医生指导下进行！</text>
+    </view> 
+  </view>
+</view>

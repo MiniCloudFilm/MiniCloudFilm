@@ -1,11 +1,11 @@
-// pages/counList/counList.js
+// pages/chRepCon/chRepCon.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isDoctor:true
+  
   },
 
   /**

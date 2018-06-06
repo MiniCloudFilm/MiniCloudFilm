@@ -1,7 +1,7 @@
 /* pages/login/login.wxss */
 
 .logo {
-  margin-top: 40px;
+  margin-top: 80rpx;
   text-align: center;
 }
 
@@ -15,26 +15,21 @@
 }
 
 .navbar {
-  margin-top: 40px;
-  display: flex;
+  margin-top: 80rpx; 
   width: 100%;
 }
 
-.navbar .item {
-  width: 50%;
-  position: relative;
-  flex: auto;
+.navbar .item { 
+  position: relative; 
   text-align: center;
   line-height: 60rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #ccc;
   font-family: Microsoft YaHei;
 }
 
 .navbar .item.active {
-  color: #035ead;
-  font-size: 28rpx;
-  font-family: Microsoft YaHei;
+  color: #035ead; 
 }
 
 .navbar .item.active:after {
@@ -46,7 +41,7 @@
   transform: translateX(-50%);
   right: 0;
   height: 4rpx;
-  width: 40px;
+  width: 80rpx;
   background: #035ead;
   /* font-size: 24rpx; */
   color: #666;
@@ -110,24 +105,19 @@ button {
   bottom: 0;
 }
 
-.title-box {
-  display: flex;
-  width: 100%;
-}
-
-.start, .end {
-  width: 40%;
-  position: relative;
-}
-
+.title-box { 
+  width: 100%; 
+}  
 .title {
   width: 20%;
   text-align: center;
-  font-size: 10px;
+  font-size: 20rpx;
   color: #ccc;
+} 
+.start,.end{
+  position: relative;
 }
-
-.start:before, .end:after {
+.start:before, .end:before {
   content: "";
   display: block;
   position: absolute;
@@ -135,13 +125,12 @@ button {
   left: 0;
   right: 0;
   transform: translateY(-50%);
-  height: 1px;
-  width: 100%;
-  background: #ccc;
+  height: 1px; 
+  border-top:1px solid #ccc;
 }
 
 .sel-register {
-  height: 80px;
+  height: 120rpx;
   width: 100%;
   display: flex;
 }
@@ -149,9 +138,9 @@ button {
 .sel-register navigator {
   width: 50%;
   text-align: center;
-  line-height: 80px;
+  line-height: 120rpx;
   color: rgba(3, 94, 173, 1);
-  font-size: 14px;
+  font-size: 28rpx;
   font-family: Arial;
   border-radius: 5px;
 }

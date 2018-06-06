@@ -1,2 +1,20 @@
-<!--pages/patientReg/patientReg.wxml-->
-<text>pages/patientReg/patientReg.wxml</text>
+ <view class="container"> 
+  <form bindsubmit='formSubmit' binreset='formReset'> 
+  <view>
+    <input type='number' placeholder='请输入手机号' placeholder-class="placeholder"></input> 
+  </view>
+  <view class="code-box">
+    <input type='number' placeholder='请输入验证码' placeholder-class="placeholder"></input>
+    <view class="code">获取验证码</view>
+  </view>
+  <view>
+    <input type='number' placeholder='设置密码' placeholder-class="placeholder"></input>
+  </view>
+  <view>
+    <input type='number' placeholder='确认密码' placeholder-class="placeholder"></input> 
+  </view> 
+  <view>
+    <button formType="submit">登录</button>
+  </view>
+  </form>
+ </view>

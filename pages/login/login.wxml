@@ -1,12 +1,13 @@
 <view class="container">
   <view class="logo">
-    <image src="../../image/logo.png"></image>
+    <image src="/image/logo.png"></image>
   </view>
   <view class="main">
-    <view class="navbar">
-      <view class="item {{currentTab==0?'active':''}}" data-idx="{{0}}" bindtap="navbarTap">患者登录
+    <view class="navbar"> 
+      <view class="weui-flex">
+          <view class="weui-flex__item item {{currentTab==0?'active':''}}" data-idx="{{0}}" bindtap="navbarTap"> 患者登录</view>
+          <view class="weui-flex__item item {{currentTab==1?'active':''}}" data-idx="{{1}}" bindtap="navbarTap">医生登录 </view>
       </view>
-      <view class="item {{currentTab==1?'active':''}}" data-idx="{{1}}" bindtap="navbarTap">医生登录</view>
     </view>
     <view class="from-box">
       <view hidden="{{currentTab !== 0}}" id="one">
@@ -43,15 +44,15 @@
       </view>
     </view>
   </view>
-  <view class="register-box">
-    <view class="title-box">
-      <view class="start"></view>
-      <view class="title">用户注册</view>
-      <view class="end"></view>
-    </view>
+  <view class="register-box"> 
+     <view class="weui-flex title-box">
+        <view class="weui-flex__item start"></view>
+        <view class="title">用户注册</view>
+        <view class="weui-flex__item end"></view>
+      </view>
     <view class="sel-register">
     <navigator url="../patientReg/patientReg">患者注册</navigator>
-    <navigator>医生注册</navigator>
+    <navigator url="../patientReg/patientReg">医生注册</navigator>
     </view>
   </view>
 </view>

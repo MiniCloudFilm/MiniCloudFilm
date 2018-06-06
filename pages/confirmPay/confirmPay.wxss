@@ -1,0 +1,71 @@
+/* pages/confirmPay/confirmPay.wxss */
+.mes-box{  
+  width:100%;
+  padding:60rpx 30rpx 30rpx 30rpx;
+  text-align: center;   
+  font-family: Arial;  
+}
+.user-mes{ 
+  line-height: 36px;
+  color:#2e3135;
+  font-size: 30rpx;  
+  font-weight: bold;
+  margin-bottom:20rpx;
+}
+.user-cont{ 
+  line-height: 30rpx;
+  color: rgba(132, 138, 149, 1);
+  font-size: 28rpx;
+  text-align: left;  
+  padding:0 20rpx;
+  margin-bottom:20rpx;
+}
+.much{ 
+  line-height: 41px;
+  color: rgba(255, 152, 0, 1);
+  font-size: 28px; 
+}
+.choose-pay{
+  width:100%; 
+} 
+.typePay{
+  font-size:26rpx;
+  color:#2e3135;
+}
+.explain{
+  font-size:22rpx;
+  color:#969ba1;
+}
+.weui-cells:before{ 
+  border-top: 1rpx solid #edeff0;
+} 
+.weui-cells:after{ 
+  border-bottom: 1rpx solid #edeff0;
+}
+.weui-cell:before{ 
+  border-top: 1rpx solid #edeff0;
+} 
+.go-pay{
+  position:absolute;
+  bottom:0; 
+  width:100%;
+  padding-bottom:80rpx; 
+}
+.go-pay view{
+  padding-left: 40rpx; 
+  padding-right: 40rpx;
+}
+ .go-pay button{ 
+  box-shadow: 0rpx 10rpx 30rpx rgba(85, 173, 35, 0.2);
+} 
+.checkbox-label{
+  font-size:28rpx;
+  color:#969ba1;  
+  margin-left:10rpx;
+}
+.checkbox-box{
+  margin-bottom:30rpx;
+}
+.go-pay checkbox{
+  transform:scale(0.6); 
+}

@@ -12,69 +12,66 @@
         </block>
       </swiper>
     </view>
-  </view>
-  <view class="nav">
-    <view>
-      <navigator url="../expertList/expert" hover-class="navigator-hover">
-        <view class="navT">
-          <text class="iconfont icon-document expertT"></text>
+    <view class="nav">
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+               <navigator url="../expertList/expert" hover-class="navigator-hover">     
+             <!-- <navigator url="../confirmPay/confirmPay" hover-class="navigator-hover">    -->
+           <!-- <navigator url="../chRepCon/chRepCon" hover-class="navigator-hover">  -->
+            <view class="navT">
+              <image src="/image/icon1.png"></image>
+            </view>
+            <view>
+              <text>专家咨询</text>
+            </view>
+          </navigator>
         </view>
-        <view>
-          <text>专家咨询</text>
+        <view class="weui-flex__item">
+          <navigator url="../reportList/report">
+            <view class="navT">
+              <image src="/image/icon2.png"></image>
+            </view>
+            <view>
+              <text>报告解读</text>
+            </view>
+          </navigator>
         </view>
-      </navigator>
-    </view>
-    <view>
-      <navigator url="../reportList/report">
-        <view class="navT">
-          <text class="iconfont icon-document reportT"></text>
-        </view>
-        <view>
-          <text>报告解读</text>
-        </view>
-      </navigator>
-    </view>
-    <view>
+        <view class="weui-flex__item">
+          <navigator url="../film/film">
+            <view class="navT">
+              <image src="/image/icon3.png"></image>
+            </view>
+            <view>
+              <text>医学视频</text>
+            </view>
 
-      <navigator url="../film/film">
-        <view class="navT">
-          <text class="iconfont icon-document filmT"></text>
+          </navigator>
         </view>
-        <view>
-          <text>医学影像视频</text>
+        <view class="weui-flex__item">
+          <view class="navT">
+              <image src="/image/icon4.png"></image>
+          </view>
+          <view>
+            <text>开发中</text>
+          </view>
         </view>
-
-      </navigator>
-    </view>
-    <view>
-      <view class="navT">
-        <text class="iconfont icon-more moreT"></text>
-      </view>
-      <view>
-        <text>开发中</text>
-      </view>
-    </view>
+      </view> 
+    </view><view class="weui-flex">
+      <view class="weui-flex__item"> </view>
   </view>
   <view class="main">
     <view>
-      <navigator url="../consultation/consultation">
+      <!-- <navigator url="../consultation/consultation">
         <view class="navT">
           <text class="iconfont icon-qrcode consultation"></text>
         </view>
         <view>
           <text>远程会诊</text>
         </view>
-      </navigator>
+      </navigator> -->
     </view>
   </view>
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view> -->
+
+
 </view>

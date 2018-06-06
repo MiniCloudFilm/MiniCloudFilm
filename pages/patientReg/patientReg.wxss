@@ -1,1 +1,45 @@
 /* pages/patientReg/patientReg.wxss */
+.from-box {
+  margin-top: 30px;
+} 
+form, form>view{
+  width: 100%;
+} 
+.code-box{
+  position:relative;
+}
+.code{
+  font-size:28rpx;
+  color:#035EAD;
+  text-align: center;
+  position: absolute;
+  right:52rpx;
+  bottom:10rpx;
+  width:180rpx;
+}
+.placeholder {
+  font-size: 14px;
+  color: #ccc;
+  text-indent: 0.5rem;
+}
+
+input { 
+  margin: 50rpx 52rpx 25px 56rpx; 
+  height: 80rpx; 
+  color: rgba(204, 204, 204, 1);
+  font-family: Microsoft Yahei;
+  border-bottom: 1px solid rgba(187, 187, 187, 1);
+}
+
+button {
+  margin: 80rpx 52rpx 0rpx 56rpx;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 90px;
+  background-color: rgba(3, 94, 173, 0.09);
+  color: rgba(3, 94, 173, 1);
+  font-size: 14px;
+  text-align: center;
+  font-family: Arial;
+  border: 1px solid rgba(3, 94, 173, 1);
+}

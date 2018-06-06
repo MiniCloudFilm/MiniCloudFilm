@@ -1,0 +1,79 @@
+/* pages/chRepCon/chRepCon.wxss */
+.page-body{
+  padding:30rpx;  
+  min-height:100vh;
+  width:100%;
+  background: #f6f6f7;
+} 
+.con-list{
+  margin:0 30rpx; 
+}
+.con-box{ 
+  border-radius: 10rpx;   
+  position:relative;
+  margin-bottom:50rpx;
+  background: #fff;
+  box-shadow: 0px 10rpx 30rpx rgba(0,0,0,0.1);
+}
+.con-box text{
+  color: rgba(69, 69, 72, 1); 
+  font-family: Arial;
+  font-size:14px;
+}
+.con-mes{
+  padding:30rpx 10rpx 0rpx 50rpx; 
+  line-height: 15px;
+  color: rgba(69, 69, 72, 1);
+  font-size: 10px;
+  text-align: left;
+} 
+.con-mes>view{
+  margin-bottom:30rpx;
+} 
+.con-mes>view text:nth-child(2){
+  font-weight: bold;
+} 
+
+.con-mes>view text:nth-child(3){ 
+  color:#616569;
+}
+.icon{
+  position: relative;
+}
+.icon:before{
+    content: "■"; 
+    color:#48ace9;
+    font-size:20rpx; 
+    position:absolute;
+    left:-30rpx;
+    top:0;
+}
+.pay-con{
+  position:absolute;
+  right:20rpx;
+  top:10rpx;
+  z-index:10000;
+}
+.pay-con image{
+  margin-top:10rpx;
+  width:60rpx;
+  height:60rpx;
+}
+.pay-con view{ 
+  width:100%;
+  font-size:26rpx; 
+  color:#1e9ae5;
+  text-align:center;
+  line-height:30rpx;
+}
+.nav-box{
+  text-align: center;
+  border-top:1px solid #dee4e8; 
+  color:#1e9ae5;
+  font-size:24rpx;
+  height:70rpx;
+  line-height: 70rpx;
+}
+.nav-box view:first-child{
+  border-right: 1px solid #dee4e8; 
+}
