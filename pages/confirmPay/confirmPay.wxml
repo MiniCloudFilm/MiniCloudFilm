@@ -1,17 +1,22 @@
 <view class="container">
-  <view class="mes-box">
+   <view class="mes-box" wx:if="{{payType==1}}">
     <view class="user-mes">
-      <text>张三丰</text>-
-      <text>北京大学深圳医院</text>
+       <text>{{doctorP.doctorName}}</text>-
+      <text>报告解读</text> 
     </view>
-    <view class="user-cont">
-      <text>解读的报告：</text>
-      <text>2018-05-06 10:10</text>
-      <text>香港大学深圳医院</text>
-      <text>胸部侧位...</text>
+    <view class="user-cont"> 
+      <text>{{doctorP.belong}}</text> 
     </view>
     <view class="much">
-      <text>￥4.88/次</text>
+      <text>￥{{doctorP.price}}/次</text>
+    </view>
+  </view> 
+  <view class="mes-box" wx:if="{{payType==0}}"> 
+    <view class="user-mes">
+       <text>{{videoP.title}}</text> 
+    </view>
+    <view class="much">
+      <text>￥{{videoP.price}}</text>
     </view>
   </view>
   <view class="weui-cells weui-cells_after-title choose-pay"> 
@@ -44,8 +49,8 @@
     </view> 
     </radio-group>
   </view> 
-  <view class="go-pay"> 
-    <view class="checkbox-box"> 
+  <view class="go-pay" > 
+    <view class="checkbox-box" wx:if="{{payType==1}}"> 
     <checkbox-group bindchange="radioAllow">
       <label class="checkbox-label">
       <checkbox value="2" checked="{{allow}}"/>允许医生再次分享报告进行会诊

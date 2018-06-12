@@ -1,0 +1,70 @@
+<view class="container"> 
+  <view class="docter-box">
+  <navigator url="../ConInterface/ConInterface">
+    <view class="weui-cell doctor-b">
+      <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
+        <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+        <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="doctorMes">
+          <view class="weui-flex">
+            <view class="weui-flex__item">
+              <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
+              <text style="color:#1c7eff;margin-right:20rpx;">已退回</text>
+            </view>
+            <view>
+              <text>10:10</text>
+            </view>
+          </view>
+          <view>
+            <text>咨询的报告:</text>
+            <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
+          </view>
+        </view>
+        <view wx:if="{{!isDoctor}}" class="weui-flex choice">
+          <view class="accept">
+            <button>接收</button>
+          </view>
+          <view class="refuse">
+            <button>退回</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+  </view> 
+  <view class="docter-box">
+    <view class="weui-cell doctor-b">
+      <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
+        <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+        <view style="height:36px;"></view>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="doctorMes">
+          <view class="weui-flex">
+            <view class="weui-flex__item">
+              <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
+              <text style="color:#1c7eff;margin-right:20rpx;">咨询中</text>
+            </view>
+            <view>
+              <text>10:10</text>
+            </view>
+          </view>
+          <view>
+            <text>咨询的报告:</text>
+            <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
+          </view>
+        </view>
+        <view class="weui-flex choice">
+          <view class="accept">
+            <button>接收</button>
+          </view>
+          <view class="refuse">
+            <button>退回</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

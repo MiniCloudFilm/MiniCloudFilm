@@ -6,7 +6,10 @@ Page({
    */
   data: { 
      checked:'true',
-     allow:true
+     allow:true,
+     doctorP:{},
+     videoP:{},
+     payType:0
   }, 
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -15,31 +18,67 @@ Page({
     this.data.allow=!this.data.allow;
   },
   openConfirm: function () {
-    wx.showModal({
-      title: '支付完成',
-      content: '解读咨询已发起,请等待医生接受。',
-      confirmText: "回主页", 
-      confirmColor:"#1c7eff",
-      cancelText: "咨询列表",
-      cancelColor:"#616569",
-      success: function (res) { 
-        if (res.confirm) {
-          wx.reLaunch({
-            url: '../index/index'
-          })
-        } else {
-          wx.reLaunch({
-            url: '../counList/counList'
-          })
+    if (this.data.payType=="0"){
+      wx.showModal({
+        title: '支付完成',
+        content: '是否马上观看视频？',
+        confirmText: "看视频",
+        confirmColor: "#1c7eff",
+        cancelText: "返回列表",
+        cancelColor: "##1c7eff",
+        success: function (res) {
+          if (res.confirm) {
+            wx.redirectTo({
+              url: '../video/video'
+            })
+          } else {
+            wx.redirectTo({
+              url: '../film/film'
+            })
+          }
         }
-      }
-    });
+      });
+    }else{
+      wx.showModal({
+        title: '支付完成',
+        content: '解读咨询已发起,请等待医生接受。',
+        confirmText: "回主页",
+        confirmColor: "#1c7eff",
+        cancelText: "咨询列表",
+        cancelColor: "#616569",
+        success: function (res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../index/index'
+            })
+          } else {
+            wx.switchTab({
+              url: '../counList/counList'
+            })
+          }
+        }
+      });
+    }
+    
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    console.log(options);
+    this.setData({
+      payType: options.type
+    }); 
+    if(options.type=="0"){ 
+      this.setData({
+        videoP:options
+      }); 
+    } else {
+      this.setData({
+        doctorP:options
+      });  
+
+    }
   },
 
   /**

@@ -1,31 +1,31 @@
 <view class="container">
   <view class="page-body">
     <view class="con-list">
-      <view class="con-box">
+      <view class="con-box" wx:for="{{reportList}}" wx:key="index">
         <view class="con-mes">
           <view>
             <text class="icon"></text>
             <text>检查时间：</text>
-            <text>2018-05-25 10:10</text> 
+            <text>{{item.time}}</text> 
           </view>
           <view>
             <text class="icon"></text>
             <text>检查医院：</text>
-            <text>北京大学深圳医院</text>
+            <text>{{item.hospital}}</text>
           </view>
           <view>
             <text class="icon"></text>
             <text>检查部位：</text>
-            <text>腹部</text>
+            <text>{{item.position}}</text>
           </view>
-          <navigator class="pay-con" url="../confirmPay/confirmPay">
+          <view class="pay-con" bindtap="turn">
             <view>
               <image src="/image/icon-zixun.png"> </image>
             </view>
             <view>
                咨询
             </view>
-          </navigator>
+          </view>
         </view>
         <view class="weui-flex nav-box">
           <view class="weui-flex__item">
@@ -35,42 +35,7 @@
             <navigator>查看影像</navigator>
           </view>
         </view>
-      </view>
-      <view class="con-box">
-        <view class="con-mes">
-          <view>
-            <text class="icon"></text>
-            <text>检查时间：</text>
-            <text>2018-05-25 10:10</text> 
-          </view>
-          <view>
-            <text class="icon"></text>
-            <text>检查医院：</text>
-            <text>北京大学深圳医院</text>
-          </view>
-          <view>
-            <text class="icon"></text>
-            <text>检查部位：</text>
-            <text>腹部</text>
-          </view>
-          <navigator class="pay-con" url="../confirmPay/confirmPay">
-            <view>
-              <image src="/image/icon-zixun.png"> </image>
-            </view>
-            <view>
-               咨询
-            </view>
-          </navigator>
-        </view>
-        <view class="weui-flex nav-box">
-          <view class="weui-flex__item">
-            <navigator>报告详情</navigator>
-          </view>
-          <view class="weui-flex__item">
-            <navigator>查看影像</navigator>
-          </view>
-        </view>
-      </view>
+      </view> 
     </view>
   </view>
 </view>

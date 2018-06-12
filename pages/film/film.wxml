@@ -1,2 +1,55 @@
-<!--pages/film/film.wxml-->
-<text>pages/film/film.wxml</text>
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex==index?'active':''}} {{activeIndex == index ? 'weui-bar__item_on' : ''}} " bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view hidden="{{activeIndex != 0}}">   
+            <view class="weui-cell" wx:for="{{videoList}}" wx:if="{{item.isFree}}" bindtap='videoType' id="{{item.isFree}}" wx:key="{{index}}">
+              <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+              <view class="img-box">
+                <image src="{{item.imgSrc}}" style="width: 100px; height: 80px; display: block" /> 
+              </view>
+              </view>
+              <view class="weui-cell__bd">
+                <view style="font-size:26rpx; color:#2e3135;">{{item.title}}</view> 
+                <view class="type">{{item.price==0?"免费":"￥"+item.price}}</view>
+              </view> 
+          </view>   
+        </view>
+        <view hidden="{{activeIndex != 1}}">
+            <view class="weui-cell" wx:for="{{videoList}}" wx:if="{{!item.isFree}}" data-title="{{item.title}}" data-price="{{item.price}}" bindtap='videoType' id="{{item.isFree}}" wx:key="{{index}}">
+              <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+              <view class="img-box">
+                <image src="{{item.imgSrc}}" style="width: 100px; height: 80px; display: block" /> 
+              </view>
+              </view>
+              <view class="weui-cell__bd">
+                <view style="font-size:26rpx; color:#2e3135;">{{item.title}}</view> 
+                <view class="type">{{item.price==0?"免费":"￥"+item.price}}</view>
+              </view> 
+          </view>   
+        </view>
+        <view hidden="{{activeIndex != 2}}">
+           <view class="weui-cell" wx:for="{{videoList}}" wx:if="{{item.isFree}}" bindtap='videoType' data-title="{{item.title}}" data-price="{{item.price}}" id="{{item.isFree}}" wx:key="{{index}}">
+              <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+              <view class="img-box">
+                <image src="{{item.imgSrc}}" style="width: 100px; height: 80px; display: block" /> 
+              </view>
+              </view>
+              <view class="weui-cell__bd">
+                <view style="font-size:26rpx; color:#2e3135;">{{item.title}}</view> 
+                <view class="type">{{item.price==0?"免费":"￥"+item.price}}</view>
+              </view> 
+          </view>   
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

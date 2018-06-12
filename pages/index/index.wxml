@@ -15,7 +15,7 @@
     <view class="nav">
       <view class="weui-flex">
         <view class="weui-flex__item">
-               <navigator url="../expertList/expert" hover-class="navigator-hover">     
+               <navigator url="../expertList/expert?order=before" hover-class="navigator-hover">     
              <!-- <navigator url="../confirmPay/confirmPay" hover-class="navigator-hover">    -->
            <!-- <navigator url="../chRepCon/chRepCon" hover-class="navigator-hover">  -->
             <view class="navT">
@@ -27,7 +27,7 @@
           </navigator>
         </view>
         <view class="weui-flex__item">
-          <navigator url="../reportList/report">
+          <navigator url="../chRepCon/chRepCon?order=before">
             <view class="navT">
               <image src="/image/icon2.png"></image>
             </view>

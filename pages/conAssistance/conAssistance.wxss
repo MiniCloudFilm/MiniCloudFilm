@@ -1,0 +1,36 @@
+/* pages/counList/counList.wxss */
+.docter-box{
+  width:100%;
+  border-bottom:1px solid #e3e3e3;
+} 
+.doctor-b{
+  padding-right:0;
+}
+.doctorImg{
+  height:100%;
+}
+.doctorMes{
+  padding-bottom:10rpx;
+  font-family:Arial;
+  font-size:24rpx;
+  color:#969ba1;
+  padding-right:30rpx;
+}
+.choice{ 
+  font-size:28rpx; 
+  padding-top:16rpx; 
+}  
+button{
+  line-height:50rpx;
+  padding:0 30rpx; 
+  font-size:24rpx;
+}
+.accept button{
+  background: #1c7eff;
+  color:#fff;
+}
+.refuse button{ 
+  color:#969ba1;
+  margin-left:50rpx;
+}
+ 

@@ -1,0 +1,247 @@
+/* pages/chRepCon/chRepCon.wxss */
+.page-body{   
+  min-height:100vh;
+  width:100%;
+  background: #f6f6f7;
+} 
+.con-list{
+  margin:0 30rpx; 
+  margin-top:30rpx;
+}
+.con-box{ 
+  border-radius: 10rpx;   
+  position:relative;
+  margin-bottom:30rpx;
+  background: #fff;
+  box-shadow: 0px 10rpx 30rpx rgba(0,0,0,0.1);
+}
+.con-box text{
+  color: rgba(69, 69, 72, 1); 
+  font-family: Arial;
+  font-size:14px;
+}
+.con-mes{
+  padding:30rpx 100rpx 0rpx 50rpx; 
+  line-height: 15px;
+  color: rgba(69, 69, 72, 1);
+  font-size: 10px;
+  text-align: left;
+} 
+.con-mes>view{
+  margin-bottom:30rpx;
+}   
+ 
+.pay-con{
+  position:absolute;
+  right:20rpx;
+  top:10rpx;
+  z-index:10000;
+}
+.pay-con image{
+  margin-top:10rpx;
+  width:60rpx;
+  height:60rpx;
+}
+.pay-con view{ 
+  width:100%;
+  font-size:26rpx; 
+  color:#1e9ae5;
+  text-align:center;
+  line-height:30rpx;
+}
+.nav-box{
+  text-align: center;
+  border-top:1px solid #dee4e8; 
+  color:#1e9ae5;
+  font-size:24rpx;
+  height:70rpx;
+  line-height: 70rpx;
+}
+.nav-box view:first-child{
+  border-right: 1px solid #dee4e8; 
+}
+.end{
+  margin:0 auto; 
+  width:25%; 
+}
+.end button{ 
+  background: #fff; 
+  color:#ffbf45;
+  font-size:24rpx;
+  line-height: 64rpx;
+  vertical-align: middle; 
+  height:64rpx;
+  box-shadow: 0px 10rpx 30rpx rgba(0,0,0,0.1);
+  position: relative;
+  padding-left:20rpx;
+  padding-right:20rpx;
+
+}
+.end button:after{ border: none; }  
+.end image{
+  width:30rpx;
+  height:30rpx;
+  vertical-align: text-bottom	; 
+}
+.title-box { 
+  width: 80%; 
+  margin:30rpx auto;
+}  
+.title {
+  width: 50%;
+  text-align: center;
+  font-size: 24rpx;
+  color: #dee4e8;
+} 
+.start,.end{
+  position: relative;
+}
+.start:before, .end:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  height: 1px; 
+  border-top:1px solid #dee4e8;
+}
+.time-box{
+  text-align: center;  
+}
+.time {   
+  padding: 5rpx 20rpx 5rpx 20rpx;  
+  width: 200rpx;  
+  font-size: 24rpx;  
+  background-color: #E8E8E8;   
+  border-radius: 10rpx;
+  color:#fff;
+}   
+/* 聊天 */  
+  
+.my_right {  
+  float: right;  
+  position: relative;  
+  right: 40rpx;  
+}  
+  
+.you_left {  
+  float: left;  
+  position: relative;  
+  left: 5rpx;  
+}  
+  
+.new_img {  
+  width: 80rpx;  
+  height: 80rpx;  
+  border-radius: 50%;  
+  background: #ddd;
+}  
+.new_img image{  
+  width: 80rpx;  
+  height: 80rpx;  
+}
+.new_txt {   
+  border-radius: 20rpx;  
+  padding: 10rpx 30rpx 10rpx 30rpx;   
+  font-size:26rpx;
+  position: relative;
+  min-height: 80rpx; 
+  line-height: 50rpx;
+  max-width: 440rpx;
+} 
+.txt_r{ 
+  background-color: #408df5;  
+  color:#fff;
+  margin-right:24rpx;
+}
+.txt_l{ 
+  background-color: #fff; 
+  color:#2e3135;
+  margin-left:24rpx;
+}
+.sanjiao {     
+  position: absolute;  
+  right:-40rpx;
+  top:40rpx;
+  transform: translateY(-50%);
+  width: 0px;  
+  height: 0px;  
+  border-width: 10px;  
+  border-style: solid;  
+}  
+.sanjiao1{
+  position: absolute;  
+  left:-40rpx;
+  top:40rpx;
+  transform: translateY(-50%);
+  width: 0px;  
+  height: 0px;  
+  border-width: 10px;  
+  border-style: solid;  
+}
+.my {  
+  border-color: transparent transparent transparent #408df5;  
+}  
+  
+.you {  
+  border-color: transparent #fff transparent transparent;  
+}  
+  
+.sendmessage {  
+  background-color: white;  
+  width: 100%;  
+  position: fixed;  
+  bottom: 0rpx;  
+  display: flex;  
+  flex-direction: row; 
+  padding:4rpx;  
+}  
+  
+.sendmessage input {  
+  width: 80%;  
+  height: 40px;  
+  background-color: white;  
+  line-height: 40px;  
+  font-size: 14px;  
+  border: 1px solid #dee4e8;  
+  padding-left: 10px; 
+  border-radius: 10rpx; 
+}  
+  
+.sendmessage button {  
+  border: 1px solid white;  
+  width: 18%;  
+  height: 40px;  
+  background: #fff;  
+  color: #000;  
+  line-height: 40px;  
+  font-size: 14px;  
+}  
+.sendmessage image{
+  width:80rpx;
+  height:80rpx;
+}
+ 
+.hei{  
+  margin-top: 50px;  
+  height: 20rpx;  
+}  
+.historycon {  
+  height: 90%;  
+  width: 100%;  
+  flex-direction: column;  
+  display: flex;   
+  border-top: 0px;  
+} 
+.history {  
+  height: 100%;  
+  margin-top: 15px;  
+  margin: 10px;
+  margin-bottom:0;  
+  font-size: 14px;  
+  line-height: 40px;  
+  word-break: break-all;  
+}  
+

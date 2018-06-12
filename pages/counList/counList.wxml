@@ -1,5 +1,6 @@
 <view class="container">
   <view class="docter-box">
+  <navigator url="../ConInterface/ConInterface">
     <view class="weui-cell doctor-b">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
         <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -24,8 +25,10 @@
        
       </view>
     </view>
+    </navigator>
   </view>
   <view class="docter-box">
+  <navigator url="../ConInterface/ConInterface">
     <view class="weui-cell doctor-b">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
         <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -57,6 +60,7 @@
         </view>
       </view>
     </view>
+  </navigator>
   </view>
   <view class="docter-box">
     <view class="weui-cell doctor-b">

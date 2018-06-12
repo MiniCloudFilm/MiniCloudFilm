@@ -8,15 +8,13 @@
 .user-mes{ 
   line-height: 36px;
   color:#2e3135;
-  font-size: 30rpx;  
-  font-weight: bold;
-  margin-bottom:20rpx;
+  font-size: 30rpx;   
+  margin-bottom:10rpx;
 }
 .user-cont{ 
   line-height: 30rpx;
   color: rgba(132, 138, 149, 1);
-  font-size: 28rpx;
-  text-align: left;  
+  font-size: 28rpx; 
   padding:0 20rpx;
   margin-bottom:20rpx;
 }

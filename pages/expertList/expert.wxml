@@ -25,70 +25,37 @@
       </picker>
     </view>
   </view>
-  <view class="docter-box">
+  <view class="docter-box" wx:for="{{doctorList}}" wx:key="index">
     <view class="weui-cell">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-        <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+        <image src="{{item.doctorImg}}" style="width: 122rpx; height: 122rpx; display: block" />
       </view>
       <view class="weui-cell__bd">
         <view class="doctorMes">
           <view style="font-family:Arial;">
-            <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx;">张三丰</text>
-            <text style="color:#616569;margin-right:20rpx;">放射科</text>
-            <text style="color:#616569;">主任医师</text>
+            <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx;">{{item.doctorName}}</text>
+            <text style="color:#616569;margin-right:20rpx;">{{item.department}}</text>
+            <text style="color:#616569;">{{item.position}}</text>
           </view>
           <view >
-            <text style="color:#616569;">北京大学深圳医院</text>
-            <text style="background:#558cd3;color:#fff;border-radius:4px;margin-left:20rpx;padding:8rpx 16rpx;">三甲医院</text>
+            <text style="color:#616569;">{{item.belong}}</text>
+            <text style="background:#558cd3;color:#fff;border-radius:4px;margin-left:20rpx;padding:8rpx 16rpx;">{{item.level}}</text>
           </view>
           <view style="color:  #969ba1;">
             <text>擅长:</text>
-            <text>超声诊断</text>
+            <text>{{item.skill}}</text>
           </view>
         </view>
         <view class="weui-flex shop">
           <view>
-            <text style="color: #FF9800;">￥5.88/次</text>
+            <text style="color: #FF9800;">￥{{item.price}}/次</text>
           </view>
           <view class="weui-flex__item"></view>
           <view>
-            <navigator url="../chRepCon/chRepCon">购买</navigator>
+            <view class="nav" bindtap='turn' data-doctor='{{item.doctorName}}' data-belong='{{item.belong}}' data-price='{{item.price}}' >购买</view> 
           </view>
         </view>
       </view>
     </view>
-  </view> 
-  <view class="docter-box">
-    <view class="weui-cell">
-      <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-        <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
-      </view>
-      <view class="weui-cell__bd">
-        <view class="doctorMes">
-          <view style="font-family:Arial;">
-            <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx;">张三丰</text>
-            <text style="color:#616569;margin-right:20rpx;">放射科</text>
-            <text style="color:#616569;">主任医师</text>
-          </view>
-          <view>
-            <text style="color:#616569;;">北京大学深圳医院</text>
-            <text style="background:#558cd3;color:#fff;border-radius:4px;margin-left:20rpx;padding:8rpx 16rpx;">三甲医院</text>
-          </view>
-          <view style="color:  #969ba1;">
-            <text>擅长:</text>
-            <text>超声诊断</text>
-          </view>
-        </view>
-        <view class="weui-flex shop">
-          <view>
-            <text style="color: #FF9800;">￥5.88/次</text>
-          </view>
-          <view class="weui-flex__item"></view>
-          <view>
-            <navigator url="../chRepCon/chRepCon">购买</navigator>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
+  </view>  
 </view>

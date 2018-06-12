@@ -33,7 +33,7 @@ picker{
   line-height: 54rpx;
   padding-top:16rpx;
 }
-navigator{ 
+.nav{ 
   width:108rpx;
   border-radius: 8rpx;
    font-size:30rpx;

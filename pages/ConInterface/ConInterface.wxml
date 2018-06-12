@@ -1,0 +1,85 @@
+<view class="container">
+  <view class="page-body">
+    <view class="con-list">
+      <view class="con-box">
+        <view class="con-mes">
+          <view>
+            <text>咨询的报告：</text>
+          </view>
+          <view>
+            <text>2017-10-25 10:10  北京大学深圳医院    胸部侧位 ……</text>
+          </view>
+          <navigator class="pay-con" url="../confirmPay/confirmPay">
+            <view>
+              <image src="/image/icon-zixun.png"> </image>
+            </view>
+            <view>
+              协助
+            </view>
+          </navigator>
+        </view>
+        <view class="weui-flex nav-box">
+          <view class="weui-flex__item">
+            <navigator>报告详情</navigator>
+          </view>
+          <view class="weui-flex__item">
+            <navigator>查看影像</navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="end">
+      <button>
+        <image src="/image/icon-end.png"></image>
+        结束咨询</button>
+    </view>
+    <view class="weui-flex title-box">
+      <view class="weui-flex__item start"></view>
+      <view class="title">您正在与XX医生沟通</view>
+      <view class="weui-flex__item end"></view>
+    </view>
+    <view class="historycon">
+      <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="history" wx:for="{{centendata}}" wx:key=''>
+        <view class="time-box">
+          <text class='time'>{{item.time}}</text>
+        </view>
+        <block wx:if="{{item.is_show_right ==1}}">
+          <view class='my_right'>
+            <view class="weui-flex">
+              <view class="new_txt txt_r">
+                <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
+                <view wx:if='{{!item.is_img}}' class='sanjiao my'></view>
+              </view>
+              <view class='new_img'>
+                <image wx:if='{{item.show_rignt}}' src='{{item.head_owner}}'></image>
+              </view>
+            </view>
+            <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
+            <image class='new_img' wx:if='{{item.show_rignt == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}' src='{{item.head_open}}'></image>
+          </view>
+        </block>
+        <block wx:else>
+          <view class='you_left'>
+            <view class="weui-flex">
+              <view class='new_img'>
+                <image wx:if='{{item.show_rignt}}' src='{{item.head_owner}}'></image>
+              </view>
+              <view class="new_txt txt_l">
+                <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
+                <view wx:if='{{!item.is_img}}' class='sanjiao1 you'></view>
+              </view>
+            </view>
+            <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
+            <image class='new_img' wx:if='{{item.show_rignt == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}' src='{{item.head_open}}'></image>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class="sendmessage">
+      <input type="emoji" bindinput="bindChange" confirm-type="done" value='{{news_input_val}}' placeholder="" />
+      <button catchtap="add">发送</button>
+      <input style='display:none' type="" bindinput="bindChange" confirm-type="done" placeholder="" />
+      <!-- <image bindtap="upimg1" class='jia_img' src='/image/icon-upload.png'></image> -->
+    </view>
+  </view>
+</view>
