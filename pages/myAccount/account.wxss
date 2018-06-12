@@ -1,0 +1,27 @@
+/* pages/myAccount/account.wxss */
+.ac-top{
+  width: 90%;
+  margin: auto;
+  padding-top:40rpx;
+  font-size: 28rpx;
+  color: #2e3135; 
+  height: 35rpx;
+  line-height: 35rpx;
+}
+.ac-top text{
+  display: block;
+  float: left;
+}
+.ac-top navigator{
+  display: block;
+  float: right;
+}
+.amount{
+  font-size: 80rpx;
+  font-weight: bold;
+  padding: 112rpx;
+}
+.btn{
+  width: 90%;
+  margin-bottom: 60rpx;
+ }

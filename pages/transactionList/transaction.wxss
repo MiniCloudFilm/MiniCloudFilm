@@ -1,0 +1,29 @@
+/* pages/transactionList/transaction.wxss */
+.item{
+   height: 112rpx; 
+  border-bottom: 1rpx solid #e3e3e3;
+  width: 100%;
+}
+.item .type{
+  font-size:30rpx;
+  color: #2e3135;
+}
+.item .time{
+  font-size: 12px;
+  color: #969ba1;
+}
+.left{
+  float: left;
+  width: 50%;
+  padding-left: 20rpx;
+  padding-top: 14rpx;
+}
+.item text{
+  display: block;
+  float: right;
+  font-size: 44rpx;
+  color: #2e3135;
+  padding-right: 20rpx;
+  line-height: 112rpx;
+  font-weight: bold;
+}

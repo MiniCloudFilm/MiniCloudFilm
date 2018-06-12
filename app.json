@@ -10,11 +10,13 @@
     "pages/login/login",
     "pages/patientReg/patientReg",
     "pages/chRepCon/chRepCon",
-    "pages/confirmPay/confirmPay",
+    "pages/confirmPay/confirmPay", 
     "pages/ConInterface/ConInterface",
     "pages/test/test",
     "pages/conAssistance/conAssistance",
-    "pages/video/video"
+    "pages/video/video",
+    "pages/myAccount/account",
+    "pages/transactionList/transaction" 
   ],
   "window": {
     "backgroundTextStyle": "light",
