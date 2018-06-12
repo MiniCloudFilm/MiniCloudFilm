@@ -29,7 +29,7 @@
 }
 
 .navbar .item.active {
-  color: #035ead; 
+  color: #1C7EFF; 
 }
 
 .navbar .item.active:after {
@@ -42,7 +42,7 @@
   right: 0;
   height: 4rpx;
   width: 80rpx;
-  background: #035ead;
+  background: #1C7EFF;
   /* font-size: 24rpx; */
   color: #666;
   text-align: center;
@@ -82,11 +82,11 @@ button {
   line-height: 40px;
   border-radius: 90px;
   background-color: rgba(3, 94, 173, 0.09);
-  color: rgba(3, 94, 173, 1);
+  color:#1C7EFF;
   font-size: 14px;
   text-align: center;
   font-family: Arial;
-  border: 1px solid rgba(3, 94, 173, 1);
+  border: 1px solid #1C7EFF;
 }
 
 .agree-box {
@@ -95,7 +95,7 @@ button {
 }
 
 .agree {
-  color: rgba(3, 94, 173, 1);
+  color: #1C7EFF;
   font-family: Arial;
 }
 
@@ -139,7 +139,7 @@ button {
   width: 50%;
   text-align: center;
   line-height: 120rpx;
-  color: rgba(3, 94, 173, 1);
+  color: #1C7EFF;
   font-size: 28rpx;
   font-family: Arial;
   border-radius: 5px;

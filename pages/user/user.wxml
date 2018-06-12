@@ -14,7 +14,7 @@
     </view>
   </view>
   <view class="weui-cells weui-cells_after-title userList">
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <navigator url="../myAccount/account" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__hd">
         <image src="/image/my-account.png" style="margin-right: 5px;vertical-align: middle;width:30px; height: 30px;"></image>
       </view>

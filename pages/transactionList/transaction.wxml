@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="item">
+    <view class="left">
+      <view class="type">医生咨询</view>
+      <view class="time">2018-08-08 10:10</view>
+    </view>
+    <text>-5.88</text>
+  </view>
+   <view class="item">
+    <view class="left">
+      <view class="type">医生咨询</view>
+      <view class="time">2018-08-08 10:10</view>
+    </view>
+    <text>-5.88</text>
+  </view>
+
+</view>

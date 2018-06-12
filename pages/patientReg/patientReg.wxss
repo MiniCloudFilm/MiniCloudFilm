@@ -37,9 +37,9 @@ button {
   line-height: 40px;
   border-radius: 90px;
   background-color: rgba(3, 94, 173, 0.09);
-  color: rgba(3, 94, 173, 1);
+  color: #1C7EFF;
   font-size: 14px;
   text-align: center;
   font-family: Arial;
-  border: 1px solid rgba(3, 94, 173, 1);
+  border: 1px solid #1C7EFF;
 }

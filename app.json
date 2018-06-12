@@ -10,7 +10,9 @@
     "pages/login/login",
     "pages/patientReg/patientReg",
     "pages/chRepCon/chRepCon",
-    "pages/confirmPay/confirmPay"
+    "pages/confirmPay/confirmPay",
+    "pages/myAccount/account",
+    "pages/transactionList/transaction"
   ],
   "window": {
     "backgroundTextStyle": "light",
