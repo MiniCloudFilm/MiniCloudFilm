@@ -1,18 +1,39 @@
 // pages/counList/counList.js
+var sliderWidth = 96; 
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isDoctor: true
+    isDoctor: true,
+    tabs: ["接收的会诊", "发起的会诊"],
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0,
+    isAccept:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          sliderLeft: 0,
+          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+        });
+      }
+    });
+  },
+  tabClick: function (e) {
+    console.log(e.currentTarget.offsetLeft);
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id
+    });
   },
 
   /**

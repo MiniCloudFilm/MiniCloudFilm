@@ -13,7 +13,8 @@ Page({
       "../../image/timg1.jpg",
       "../../image/timg2.jpg",
       "../../image/timg3.jpg",
-    ]
+    ],
+    isDoctor:false
   },
   //事件处理函数
   bindViewTap: function() {

@@ -1,0 +1,47 @@
+<!--pages/upload/upload.wxml-->
+<view class="weui-panel">
+  <view class="weui-panel__hd"></view>
+  <view class="weui-panel__bd">
+    <image wx:if="{{!src}}" src="/image/timg1.jpg" style='width:300px;height:225px;'></image>
+    <video wx:if="{{src}}" controls src="{{src}}" poster="/image/timg1.jpg" show-center-play-btn muted></video>
+    <button class="choose" bindtap="chooseVideo">选择视频</button>
+  </view>
+  <view class="weui-panel__ft"></view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">
+        <text>*</text><text>标题</text></view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="为这个视频写上名字吧~" placeholder-class="placeholder" />
+    </view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">
+        <text>*</text><text>价格</text></view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" type="number" placeholder="免费请输入0 单位： 元" placeholder-class="placeholder" />
+    </view>
+  </view>
+</view>
+
+<checkbox-group bindchange="bindAgreeChange" style="margin-top:20rpx;">
+  <label class="weui-agree" for="weuiAgree">
+    <view class="weui-agree__text">
+      <checkbox class="weui-agree__checkbox" color="#74a6ff" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+      <view class="weui-agree__checkbox-icon">
+        <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+      </view>
+      阅读并同意
+      <navigator url="" class="weui-agree__link">《相关条款》</navigator>
+    </view>
+  </label>
+</checkbox-group>
+
+<view class="weui-btn-area">
+  <button class="weui-btn vsub" bindtap="showTopTips">确定</button>
+</view>

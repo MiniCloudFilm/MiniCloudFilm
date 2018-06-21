@@ -1,4 +1,26 @@
 /* pages/counList/counList.wxss */
+page,
+.page,
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{ 
+    text-align: left;
+}
+.weui-navbar__slider{
+  width:50%;
+  height:2px;
+  background:#1c7eff;
+}
+.weui-navbar__item.weui-bar__item_on{
+  color:#1c7eff;
+}
+.weui-navbar{
+  border: none;
+}
 .docter-box{
   width:100%;
   border-bottom:1px solid #e3e3e3;

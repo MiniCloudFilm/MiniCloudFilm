@@ -19,7 +19,7 @@
             <input class="input" password type="text" placeholder="请输入密码" placeholder-class="placeholder" />
           </view>
           <view>
-            <button formType="submit">登录</button>
+            <button formType="submit"  data-role="patient" bindtap="login">登录</button>
           </view>
         </form>
       </view>
@@ -34,7 +34,7 @@
             <input class="input" password type="text" placeholder="请输入密码" placeholder-class="placeholder" />
           </view>
           <view>
-            <button formType="submit">登录</button>
+            <button formType="submit" data-role="doctor" bindtap="login">登录</button>
           </view>
         </form>
       </view>

@@ -1,28 +1,14 @@
-// pages/login/login.js
+// pages/videoMag/videoMag.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    currentTab: 0
-  }, 
-  navbarTap: function (e) {
-    var that = this;
-    that.setData({
-      currentTab: e.currentTarget.dataset.idx 
-    })
-  },
-  login:function(){
-    wx.switchTab({
-      url: '../index/index',
-    })
-  }, 
-  radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
-  },
-  radioAllow: function (e) {
-    this.data.allow = !this.data.allow;
+    videoList: [
+      { "imgSrc": "/image/timg1.jpg", "title": "华中科技大学  张三丰教授  医学影像学ct教学视频", "isFree": true, "isPay": true, "price": 0 },
+      { "imgSrc": "/image/timg1.jpg", "title": "华中科技大学  张三丰教授  医学影像学ct教学视频", "isFree": false, "isPay": false, "price": 5.88 }
+    ]
   },
 
   /**

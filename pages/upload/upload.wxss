@@ -1,0 +1,38 @@
+/* pages/upload/upload.wxss */
+ .weui-panel__hd:after {
+  display: none;
+}
+
+.weui-panel__bd {
+  position: relative;
+  text-align: center;
+  padding: 10px 30px;
+} 
+ 
+.choose{
+  font-size:30rpx;
+}
+ .weui-cells:before{
+  display:none;
+ }
+ .weui-label{
+   width:60px;
+ }
+ .weui-label text{ 
+  font-size:28rpx;
+  color:#2e3135;  
+ }
+ .weui-label text:first-child{
+   font-size:40rpx;
+   color:#fa3b16;
+   vertical-align: text-top;
+ }
+ 
+.placeholder {
+  font-size: 14px;
+  color: #969ba1; 
+}
+button.vsub{
+  background: #1C7EFF;
+  color:#fff;
+}
