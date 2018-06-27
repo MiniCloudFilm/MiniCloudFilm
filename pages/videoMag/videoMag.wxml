@@ -7,14 +7,15 @@
 <view class="weui-cell" wx:for="{{videoList}}" bindtap='videoType' id="{{item.isFree}}" wx:key="{{index}}">
   <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
     <view class="img-box">
-      <image src="{{item.imgSrc}}" style="width: 100px; height: 80px; display: block" />
+      <video url="{{item.videoUrl}}" style="width: 100px; height: 80px; display: block" >
+      </video>
     </view>
   </view>
   <view class="weui-cell__bd">
-    <view style="font-size:26rpx; color:#2e3135;">{{item.title}}</view>
+    <view style="font-size:26rpx; color:#2e3135;">{{item.videoTitle}}</view>
     <view class="weui-flex type">
-      <view class="weui-flex__item">{{item.price==0?"免费":"￥"+item.price}}</view>
-      <navigator  url="../upload/upload"><text style="color:#1c7eff;font-size:24rpx;">管理</text><image style="width:8rpx;height:30rpx;vertical-align:middle; margin-left:10rpx;"  src="/image/icon-set.png"></image></navigator> 
+      <view class="weui-flex__item">{{item.videoIsCharge==1?"￥"+item.videoCharge:"免费"}}</view>
+      <navigator  url="../upload/upload?url={{item.videoUrl}}&title={{item.videoTitle}}&charge={{item.videoCharge}}&id={{item.id}}"><text style="color:#1c7eff;font-size:24rpx;">管理</text><image style="width:8rpx;height:30rpx;vertical-align:middle; margin-left:10rpx;"  src="/image/icon-set.png"></image></navigator> 
     </view>
   </view>
 </view>

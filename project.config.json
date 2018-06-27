@@ -24,13 +24,36 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "交易明细",
+					"pathName": "pages/transactionList/transaction",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "视频管理",
+					"pathName": "pages/videoMag/videoMag",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "专家列表",
+					"pathName": "pages/expertList/expert",
+					"query": ""
+				}
+			]
 		}
 	}
 }

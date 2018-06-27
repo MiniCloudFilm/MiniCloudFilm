@@ -1,17 +1,9 @@
-<view class="container">
-  <view class="item">
+<view class="container"> 
+  <view  wx:for='{{transactionList}}' wx:key="index" class="item">
     <view class="left">
-      <view class="type">医生咨询</view>
-      <view class="time">2018-08-08 10:10</view>
+      <view class="type">{{item.orderType==1?'医生咨询':'视频购买'}}</view>
+      <view class="time">{{item.orderTime}}</view>
     </view>
-    <text>-5.88</text>
-  </view>
-   <view class="item">
-    <view class="left">
-      <view class="type">医生咨询</view>
-      <view class="time">2018-08-08 10:10</view>
-    </view>
-    <text>-5.88</text>
-  </view>
-
+    <text>{{item.orderFee}}</text>
+  </view>  
 </view>

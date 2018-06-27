@@ -1,15 +1,15 @@
 <view class="container">
   <view class="weui-flex drop-box">
     <view class="weui-flex__item">
-      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}"  custom-item="{{customItem}}">
         <view class="picker">
-        <text> {{region[1]}}</text>
+        <text> {{region[2]}}</text>
         <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
     </view>
     <view class="weui-flex__item">
-      <picker mode="multiSelector" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+      <picker   mode="selector" bindchange="bindPickerChange"  value="{{hospital[0].id}}"   range="{{hospital}}"  range-key="{{'name'}}">
         <view class="picker"> 
         <text> 医院</text>
         <image src="/image/arrow-down.png"></image>
