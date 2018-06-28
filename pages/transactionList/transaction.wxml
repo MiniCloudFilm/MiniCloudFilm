@@ -1,5 +1,5 @@
 <view class="container"> 
-  <view  wx:for='{{transactionList}}' wx:key="index" class="item">
+  <view  wx:for='{{transactionList}}' wx:key="index" class="item" bindtap='openDetail'>
     <view class="left">
       <view class="type">{{item.orderType==1?'医生咨询':'视频购买'}}</view>
       <view class="time">{{item.orderTime}}</view>
