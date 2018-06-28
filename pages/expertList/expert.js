@@ -38,6 +38,7 @@ Page({
     }
   },
   getHospital:function(){
+    let that=this;
     let areaName = '';
     console.log(this.data.region[2]);
     if (this.data.region[2] == '全部') {
