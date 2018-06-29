@@ -1,30 +1,31 @@
 // pages/chRepCon/chRepCon.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    reportList: [ 
-    ],
+    reportList: [],
     doctorMes: {}
   },
   turn: function () {
-    if (this.data.doctorMes.order=='before'){
+    if (this.data.doctorMes.order == 'before') {
       wx.navigateTo({
         url: `../expertList/expert`
       })
-    }else{
+    } else {
       wx.navigateTo({
         url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&type=1`
       })
     }
-   
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
     console.log(options.order);
     if (options.order == 'before') {
       this.setData({
@@ -35,6 +36,27 @@ Page({
         doctorMes: options
       })
       console.log(this.data.doctorMes);
+    }
+    if (app.globalData.userList) {
+      wx.request({
+        url: 'http://192.168.131.227:8080/api/v1/report/findReportList', //仅为示例，并非真实的接口地址
+        data: {
+          'token': app.globalData.token,
+          'name': app.globalData.userList.name
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          if (res.data.code == '200') {
+            that.setData({
+              reportList: res.data.data
+            })
+            console.log(res.data)
+          }
+        }
+      })
     }
   },
 

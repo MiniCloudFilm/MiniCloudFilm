@@ -36,11 +36,6 @@ Page({
     })
   },
 
-  openDetail: function () {
-    wx.navigateTo({
-      url: '../payDetail/payDetail'
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
