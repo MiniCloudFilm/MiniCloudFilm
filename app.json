@@ -21,7 +21,9 @@
     "pages/upload/upload",
     "pages/doctorCert/doctorCert",
     "pages/filmshow/fimshow",
-    "pages/reportshow/reportshow"
+    "pages/reportshow/reportshow",
+    "pages/payDetail/payDetail",
+    "pages/pickupCach/pickupCach"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,59 @@
+/* pages/accountDetail/accountDetail.wxss */
+page {
+  background-color: #f7f7f7;
+}
+.container {
+  padding: 0rpx;
+}
+
+.enroll-item {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  width: 750rpx;
+  height: 90rpx;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.item-title {
+  font-size: 30rpx;
+  color: #2e3135;
+  white-space: nowrap;
+}
+
+.item-xing {
+  margin:0 6rpx 0 20rpx;
+  color: #fc6262;
+}
+
+.item-content {
+  font-size: 28rpx;
+  color: #2e3135;
+  flex: 1;
+  text-align: right;
+  padding-right: 24rpx;
+}
+.withdraw-note {
+  font-size: 28rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+.bank-reminder {
+  font-size: 28rpx;
+  margin-left: 20rpx;
+  color: #2e3135;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  padding: 10rpx;
+}
+.sign-up {
+  font-size: 30rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  margin: 50rpx auto 0;
+  background-color: #1C7EFF; 
+  width: 95%;
+  color: white;
+}

@@ -1,13 +1,9 @@
 <view class="container">
   <view class="ac-top">
     <text>总金额(元)</text>
-    <navigator url="../transactionList/transaction">交易明细</navigator>
   </view>
   <view class="amount">88.00</view>
   <view class="btn">
-    <button class="weui-btn" type="primary" bindtap="openConfirm">充值</button>
-  </view>
-  <view class="btn">
-    <button class="weui-btn" type="default" bindtap="openConfirm">提现</button>
+    <button class="weui-btn" type="default" bindtap="pickupCash">提现</button>
   </view>
 </view>
