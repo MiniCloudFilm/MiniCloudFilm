@@ -6,17 +6,17 @@
           <view>
             <text class="icon"></text>
             <text>检查时间：</text>
-            <text>{{item.time}}</text> 
+            <text>{{item.studyTime}}</text> 
           </view>
           <view>
             <text class="icon"></text>
             <text>检查医院：</text>
-            <text>{{item.hospital}}</text>
+            <text>{{item.hospitalName}}</text>
           </view>
           <view>
             <text class="icon"></text>
             <text>检查部位：</text>
-            <text>{{item.position}}</text>
+            <text>{{item.bodyPart}}</text>
           </view>
           <view class="pay-con" bindtap="turn">
             <view>
@@ -29,10 +29,10 @@
         </view>
         <view class="weui-flex nav-box">
           <view class="weui-flex__item">
-            <navigator url='../reportshow/reportshow'>报告详情</navigator>
+            <navigator url='../reportshow/reportshow?studyUid={{item.studyUid}}'>报告详情</navigator>
           </view>
           <view class="weui-flex__item">
-            <navigator url='../filmshow/fimshow'>查看影像</navigator>
+            <navigator url='../filmshow/fimshow?studyUid={{item.studyUid}}'>查看影像</navigator>
           </view>
         </view>
       </view> 

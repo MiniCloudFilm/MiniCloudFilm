@@ -1,16 +1,12 @@
 // pages/chRepCon/chRepCon.js
+var app=getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    reportList: [
-      { "time": "2018-05-25 10:10", "hospital": "北京大学深圳医院", "position": "腹部" },
-      { "time": "2018-05-26 10:10", "hospital": "深圳第一医院", "position": "胸部" },
-      { "time": "2018-06-02 10:10", "hospital": "深圳第二医院", "position": "腿部" },
-      { "time": "2018-06-06 10:10", "hospital": "深圳第三医院", "position": "肩部" }
-    ],
+    reportList: [],
     doctorMes: {}
   },
   turn: function () {
@@ -28,7 +24,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) { 
+    let that=this;
     console.log(options.order);
     if (options.order == 'before') {
       this.setData({
@@ -40,6 +37,27 @@ Page({
       })
       console.log(this.data.doctorMes);
     }
+    if (app.globalData.userList){
+      wx.request({
+        url: 'http://192.168.131.227:8080/api/v1/report/findReportList', //仅为示例，并非真实的接口地址
+        data: {
+          'token': app.globalData.token,
+          'name': app.globalData.userList.name
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          if (res.data.code == '200') {
+            that.setData({
+              reportList: res.data.data
+            })
+            console.log(res.data)
+          }
+        }
+      })
+    } 
   },
 
   /**

@@ -52,6 +52,12 @@
 					"name": "专家列表",
 					"pathName": "pages/expertList/expert",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "登录",
+					"pathName": "pages/login/login",
+					"query": ""
 				}
 			]
 		}

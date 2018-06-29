@@ -11,15 +11,16 @@
     </view>
     <view class="from-box">
       <view hidden="{{currentTab !== 0}}" id="one">
-        <form bindsubmit="formSubmit" bindreset="formReset">
+        <form bindsubmit="formSubmit">
           <view class="section">
-            <input class="input" maxlength="11" type="number" placeholder="请输入手机号" confirm-type="next" placeholder-class="placeholder" />
+            <input class="input" maxlength="11" type="number" placeholder="请输入手机号"   name="userName" confirm-type="next" placeholder-class="placeholder" maxlength='11' bindblur='mobileCheck'/>
           </view>
           <view class="section">
-            <input class="input" password type="text" placeholder="请输入密码" placeholder-class="placeholder" />
+            <input class="input" password type="text" placeholder="请输入密码" name="password"  placeholder-class="placeholder" />
           </view>
           <view>
-            <button formType="submit"  data-role="patient" bindtap="login">登录</button>
+          <!-- bindtap="login" -->
+            <button formType="submit"  data-role="patient" >登录</button>
           </view>
         </form>
       </view>

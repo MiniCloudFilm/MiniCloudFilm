@@ -7,7 +7,7 @@
             <text>咨询的报告：</text>
           </view>
           <view>
-            <text>2017-10-25 10:10  北京大学深圳医院    腹部侧位 ……</text>
+            <text>2017-10-25 10:10  北京大学深圳医院    胸部侧位 ……</text>
           </view>
           <navigator class="pay-con" url="../confirmPay/confirmPay">
             <view>

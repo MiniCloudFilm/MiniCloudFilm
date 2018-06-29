@@ -8,8 +8,8 @@
       <view class="myImg">
         <image src="/image/my.png"></image>
       </view>
-      <view class="myName">
-        张三丰
+      <view class="myName" wx:if="{{userName}}">
+        {{userName}}
       </view>
     </view>
   </view>

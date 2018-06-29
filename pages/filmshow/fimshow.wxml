@@ -1,3 +1,5 @@
 <!--pages/filmshow/fimshow.wxml--> 
 <!-- <web-view src="https://reader.lanwon.com/clinicWebPacsViewMobile/mobile.html#1.2.826.0.1.3680043.2.461.9714596.2091690011"></web-view> -->
-<web-view src="http://193.112.47.86:82/clinicWebPacsViewMobile/mobile.html#1.2.826.0.1.3680043.2.461.9714596.2091690011"></web-view>
+<web-view src="https://reader.lanwon.com/clinicWebPacsViewMobile/mobile.html#{{studyUid}}"></web-view>
+
+<!-- http://193.112.47.86:82/clinicWebPacsViewMobile/mobile.html#1.2.826.0.1.3680043.2.461.9714596.2091690011 -->

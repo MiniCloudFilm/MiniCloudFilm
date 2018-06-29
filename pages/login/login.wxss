@@ -63,8 +63,7 @@
 
 .placeholder {
   font-size: 14px;
-  color: #ccc;
-  text-indent: 1em;
+  color: #ccc; 
 }
 
 .input {
@@ -74,6 +73,7 @@
   color: rgba(204, 204, 204, 1);
   font-family: Microsoft Yahei;
   border: 1px solid rgba(187, 187, 187, 1);
+  padding-left:30rpx;
 }
 
 button {
