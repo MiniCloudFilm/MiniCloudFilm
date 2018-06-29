@@ -5,11 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    reportList: [
-      { "time": "2018-05-25 10:10", "hospital": "北京大学深圳医院", "position": "腹部" },
-      { "time": "2018-05-26 10:10", "hospital": "深圳第一医院", "position": "胸部" },
-      { "time": "2018-06-02 10:10", "hospital": "深圳第二医院", "position": "腿部" },
-      { "time": "2018-06-06 10:10", "hospital": "深圳第三医院", "position": "肩部" }
+    reportList: [ 
     ],
     doctorMes: {}
   },

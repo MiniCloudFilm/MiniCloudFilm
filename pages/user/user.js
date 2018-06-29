@@ -1,18 +1,27 @@
 // pages/user/user.js
+
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    userName:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var s = app.globalData.userList
+    console.log(s);
+    if (app.globalData.userList) {
+      var userList = app.globalData.userList;
+      this.setData({
+        userName: userList.name
+      }) 
+    }
   },
 
   /**
@@ -26,7 +35,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    console.log(app.globalData.userList);
+    if (app.globalData.userList) {
+      var userList = app.globalData.userList;
+      this.setData({
+        userName: userList.name
+      })
+    }
   },
 
   /**
