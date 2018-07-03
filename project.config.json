@@ -58,6 +58,12 @@
 					"name": "登录",
 					"pathName": "pages/login/login",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "注册",
+					"pathName": "pages/patientReg/patientReg",
+					"query": ""
 				}
 			]
 		}

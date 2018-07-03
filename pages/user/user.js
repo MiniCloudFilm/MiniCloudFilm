@@ -6,18 +6,25 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    userName:''
+  data: { 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  outLogin:function(){
+    wx.removeStorageSync('userList');
+    wx.navigateTo(
+      {
+        url:'../login/login'
+      }
+    )
+  },
   onLoad: function (options) {
     var s = app.globalData.userList
     console.log(s);
-    if (app.globalData.userList) {
-      var userList = app.globalData.userList;
+    if( wx.getStorageSync('userList')) {
+      var userList = wx.getStorageSync('userList');
       this.setData({
         userName: userList.name
       }) 

@@ -32,6 +32,9 @@
 .outLogin{
   font-size:24rpx;
   color:#48ace9;
+  text-align: right;
+  padding-top:10rpx;
+  padding-right:20rpx;
 }
 .myName{
   margin-top:20rpx;

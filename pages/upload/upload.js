@@ -46,7 +46,7 @@ Page({
   subVideo: function () {
     var that = this;
     wx.uploadFile({
-      url: `http://192.168.131.227:8080/doctor/api/v1/uploadVideo`,
+      url: `http://192.168.131.63:8080/doctor/api/v1/uploadVideo`,
       filePath: that.data.src,
       name: 'file',
       formData: {

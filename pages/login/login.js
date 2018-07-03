@@ -6,15 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentTab: 0,
-    userName: '',
+    currentTab: 0, 
     userPwd: ""
   },
   //用户手机号
-  userNameInput: function (e) {
+  mobileCheck: function (e) { 
     this.setData({
       userName: e.detail.value
-    })
+    })   
+    wx.setStorageSync('user', e.detail.value)
+    console.log(wx.getStorageSync('user'));
   },
   //用户密码
   userPwdInput: function (e) {
@@ -44,7 +45,7 @@ Page({
       return false;
     }
     wx.request({
-      url: 'http://192.168.131.227:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
       data: {
         'userName': e.detail.value.userName,
         'password': e.detail.value.password,
@@ -58,7 +59,9 @@ Page({
         console.log(res.data)
         if (res.data.code == '200') {
           app.globalData.userList = res.data.data.user;
-          app.globalData.token = res.data.data.token;
+          app.globalData.token = res.data.data.token; 
+          wx.setStorageSync('userList', res.data.data.user)
+          wx.setStorageSync('token', res.data.data.token)
           wx.switchTab({
             url: `../user/user`
           })
@@ -102,11 +105,7 @@ Page({
     //     }
     //   }
     // })
-  },
-  //手机号码校验
-  mobileCheck: function (e) {
-
-  },
+  }, 
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
   },
@@ -118,7 +117,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      userName: wx.getStorageSync('user')
+    })
   },
 
   /**
@@ -131,9 +132,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
+  onShow: function () { 
+},
 
   /**
    * 生命周期函数--监听页面隐藏

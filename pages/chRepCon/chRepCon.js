@@ -39,7 +39,7 @@ Page({
     }
     if (app.globalData.userList) {
       wx.request({
-        url: 'http://192.168.131.227:8080/api/v1/report/findReportList', //仅为示例，并非真实的接口地址
+        url: 'http://192.168.131.63:8080/api/v1/report/findReportList', //仅为示例，并非真实的接口地址
         data: {
           'token': app.globalData.token,
           'name': app.globalData.userList.name

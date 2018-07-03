@@ -2,9 +2,9 @@
   <view class="login-box">
     <view class="blue"></view>
     <view class="login">
-      <navigator class="outLogin" url="../login/login">
+      <view class="outLogin" bindtap='outLogin'>
         退出登录
-      </navigator>
+      </view>
       <view class="myImg">
         <image src="/image/my.png"></image>
       </view>

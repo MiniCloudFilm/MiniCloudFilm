@@ -11,6 +11,7 @@ Page({
     customItem: '全部',
     hospital: [],
     department: [],
+    index:0,
     doctorList: [
       { "doctorImg": "/image/icon-doctor.png", "doctorName": "兰建清", "department": "妇科", "position": "主任医师", "belong": "深圳第一医院", "level": "三甲医院", "skill": "妇科疾病诊断治疗", "price": "8.88" },
       { "doctorImg": "/image/icon-doctor.png", "doctorName": "罗腾可", "department": "放射科", "position": "主任医师", "belong": "北京大学深圳医院", "level": "三甲医院", "skill": "超声诊断", "price": "6.88" },
@@ -39,43 +40,46 @@ Page({
 
     }
   },
-  //获取医院 
-  getHospital: function () {
-    let that = this;
-    let areaName = '';
-    console.log(this.data.region[2]);
-    if (this.data.region[2] == '全部') {
-      if (this.data.region[1] == '全部') {
-        areaName = this.data.region[0];
-      } else {
-        areaName = this.data.region[1];
-      }
-    } else {
-      city = this.data.region[1];
-    }
-    if (this.data.region[2] == '全部') {
-      area = ''
-    } else {
-      area = this.data.region[2];
-    }
-    let apiUrl = `http://192.168.131.227:8080/dict/api/v1/getHospital?provice=${provice}&city=${city}&area=${area}&token=''`;
-    wx.request({
-      url: apiUrl, //仅为示例，并非真实的接口地址
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data)
-        that.setData({
-          hospital: res.data.data
-        })
-      }
-    })
-  },
+  // //获取医院 
+  // getHospital: function () {
+  //   let that = this;
+  //   let areaName = '';
+  //   let city = '';
+  //   let area = ''; 
+  //   let provice='';
+  //   console.log(this.data.region[2]);
+  //   if (this.data.region[2] == '全部') {
+  //     if (this.data.region[1] == '全部') {
+  //       areaName = this.data.region[0];
+  //     } else {
+  //       areaName = this.data.region[1];
+  //     }
+  //   } else {
+  //     city = this.data.region[1];
+  //   }
+  //   if (this.data.region[2] == '全部') {
+  //     area = ''
+  //   } else {
+  //     area = this.data.region[2];
+  //   }
+  //   let apiUrl = `http://192.168.131.63:8080/dict/api/v1/getHospital?provice=${provice}&city=${city}&area=${area}&token=''`;
+  //   wx.request({
+  //     url: apiUrl, //仅为示例，并非真实的接口地址
+  //     header: {
+  //       'content-type': 'application/json' // 默认值
+  //     },
+  //     success: function (res) {
+  //       console.log(res.data)
+  //       that.setData({
+  //         hospital: res.data.data
+  //       })
+  //     }
+  //   })
+  // },
   //获取科室
   getDepartment: function () {
     let that = this;
-    let apiUrl = `http://192.168.131.227:8080/dict/api/v1/getDepartment?hospotalId=${that.data.hospital.id}&token=''`;
+    let apiUrl = `http://192.168.131.63:8080/dict/api/v1/getDepartment?hospotalId=${that.data.hospital.id}&token=''`;
     wx.request({
       url: apiUrl, //仅为示例，并非真实的接口地址
       header: {
@@ -87,6 +91,11 @@ Page({
           department: res.data.data
         })
       }
+    })
+  },
+  bindDepartmentChange:function(e){
+    this.setData({
+      index:e.detail.value
     })
   },
   /**
@@ -112,7 +121,7 @@ Page({
             that.setData({
               region: [resA.result.address_component.province, resA.result.address_component.city, resA.result.address_component.district]
             })
-            that.getHospital();
+            // that.getHospital();
             console.log(resA);
           },
           fail: function (resA) {

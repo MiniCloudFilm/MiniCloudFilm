@@ -70,7 +70,7 @@
   margin: 25px 25px;
   height: 40px;
   border-radius: 90px;
-  color: rgba(204, 204, 204, 1);
+  color:#616569;
   font-family: Microsoft Yahei;
   border: 1px solid rgba(187, 187, 187, 1);
   padding-left:30rpx;
@@ -136,7 +136,7 @@ button {
 }
 
 .sel-register navigator {
-  width: 50%;
+  width: 100%;
   text-align: center;
   line-height: 120rpx;
   color: rgba(3, 94, 173, 1);
