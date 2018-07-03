@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.0.8",
 	"appid": "wxa4cd3f1e2af9b0dd",
-	"projectname": "film",
+	"projectname": "filmDev",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -60,9 +60,14 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": -1, 
 					"name": "注册",
-					"pathName": "pages/patientReg/patientReg",
+					"pathName": "pages/patientReg/patientReg", 
+          "query": ""
+        },{
+          "id": -1,       
+					"name": "对话框",
+					"pathName": "pages/ConInterface/ConInterface", 
 					"query": ""
 				}
 			]

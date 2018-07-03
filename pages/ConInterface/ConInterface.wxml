@@ -39,11 +39,11 @@
       <view class="weui-flex__item end"></view>
     </view>
     <view class="historycon">
-      <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="history" wx:for="{{centendata}}" wx:key=''>
+      <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="history" wx:for="{{allContentList}}" wx:key=''>
         <view class="time-box">
           <text class='time'>{{item.time}}</text>
         </view>
-        <block wx:if="{{item.is_show_right ==1}}">
+        <block wx:if="{{item.is_my==true}}">
           <view class='my_right'>
             <view class="weui-flex">
               <view class="new_txt txt_r">
@@ -51,18 +51,18 @@
                 <view wx:if='{{!item.is_img}}' class='sanjiao my'></view>
               </view>
               <view class='new_img'>
-                <image wx:if='{{item.show_rignt}}' src='{{item.head_owner}}'></image>
+                <image wx:if='{{item.is_my}}' src='{{item.head_owner}}'></image>
               </view>
             </view>
             <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
-            <image class='new_img' wx:if='{{item.show_rignt == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}' src='{{item.head_open}}'></image>
+            <image class='new_img' wx:if='{{item.is_my == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}'></image>
           </view>
         </block>
         <block wx:else>
           <view class='you_left'>
             <view class="weui-flex">
               <view class='new_img'>
-                <image wx:if='{{item.show_rignt}}' src='{{item.head_owner}}'></image>
+                <image wx:if='{{item.is_you}}' src='{{item.head_owner}}'></image>
               </view>
               <view class="new_txt txt_l">
                 <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
@@ -70,15 +70,15 @@
               </view>
             </view>
             <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
-            <image class='new_img' wx:if='{{item.show_rignt == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}' src='{{item.head_open}}'></image>
+            <image class='new_img' wx:if='{{item.is_you == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}'></image>
           </view>
         </block>
       </scroll-view>
     </view>
     <view class="sendmessage">
-      <input type="emoji" bindinput="bindChange" confirm-type="done" value='{{news_input_val}}' placeholder="" />
-      <button catchtap="add">发送</button>
-      <input style='display:none' type="" bindinput="bindChange" confirm-type="done" placeholder="" />
+      <input type="emoji" confirm-type="done" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
+      <button catchtap="submitTo">发送</button>
+      <input style='display:none' type=""  confirm-type="done" placeholder="" />
       <!-- <image bindtap="upimg1" class='jia_img' src='/image/icon-upload.png'></image> -->
     </view>
   </view>
