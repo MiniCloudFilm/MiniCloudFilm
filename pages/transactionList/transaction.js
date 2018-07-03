@@ -13,7 +13,7 @@ Page({
     wx.showNavigationBarLoading();
     pg = pg ? pg : 0; 
     let that = this; 
-    var apiUrl = `http://192.168.131.227:8080/doctor/api/v1/myPayList?userId=1&page=${pg}&token=''`; 
+    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myPayList?userId=1&page=${pg}&token=''`; 
     wx.request({
       url: apiUrl, //仅为示例，并非真实的接口地址
       header: {

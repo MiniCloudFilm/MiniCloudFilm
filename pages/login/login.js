@@ -44,7 +44,7 @@ Page({
       return false;
     }
     wx.request({
-      url: 'http://192.168.131.227:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
       data: {
         'userName': e.detail.value.userName,
         'password': e.detail.value.password,
