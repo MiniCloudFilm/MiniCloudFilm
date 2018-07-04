@@ -2,7 +2,10 @@ var util = require("../../utils/util.js");
 var app = getApp();
 var socketOpen = false;
 var frameBuffer_Data, session, SocketTask;
-var url = 'ws://192.168.131.212:8080/openSocket/164';
+var userList = wx.getStorageSync('userList');
+var myId = JSON.stringify(userList.userId);
+console.log(myId)
+var url = 'ws://192.168.131.212:8080/openSocket/' + myId+'/1';
 var upload_url = '请填写您的图片上传接口地址'
 Page({
   data: {
@@ -11,23 +14,34 @@ Page({
     returnValue: '',
     addImg: false,
     time:'',
+    myPicture:"/image/icon-me1.png",
+    youPicture:"/image/icon-me1.png",
     //格式示例数据，可为空
     allContentList: [{
       "time": "2018-6-7 8:30",
       "content": "cdp生命生命周期函数--监听页面加载生命周期函数--监听页面加载",
       "is_img": false,
-      "head_owner": "/image/icon-me1.png",
-      "is_my": true,
-      "theOtherId":"169"
+      "isMy": true,
+      "theOtherId":"169",
+      "name":"刘冬梅"
     },
       {
         "time": "2018-6-7 8:30",
         "content": "cdp生命生命周期函数--监听页面加载生命周期函数--监听页面加载",
         "is_img": false,
-        "head_owner": "/image/icon-me1.png",
-        "is_you": true,
-        "theOtherId": "164"
-      }],
+        "isMy": false,
+        "theOtherId": "164",
+        "name": "陈德平"
+      },
+      {
+        "time": "2018-6-7 8:30",
+        "content": "cdp生命生命周期函数--监听页面加载生命周期函数--监听页面加载",
+        "is_img": false,
+        "isMy": false,
+        "theOtherId": "164",
+        "name": "陈德平"
+      }
+    ],
     num: 0,
     scrollTop:0
   },
@@ -37,9 +51,10 @@ Page({
     var time = util.formatTime(new Date());
     // 再通过setData更改Page()里面的data，动态更新页面的数据
     this.setData({
-      time: time
+      time: time,
     });
     this.bottom();
+    console.log(this.data.scrollTop)
   },
   // onShow: function (e) {
   //   if (!socketOpen) {
@@ -80,7 +95,11 @@ Page({
       //   } else {
 
       //   }
-      that.data.allContentList.push(onMessage_data);
+      for (var i in onMessage_data) {
+        that.data.allContentList.push(onMessage_data[i]);
+      }
+      // that.data.allContentList.push.apply(that.data.allContentList,onMessage_data);
+      console.log(that.data.allContentList);
         that.setData({
           allContentList: that.data.allContentList
         })
@@ -111,16 +130,26 @@ Page({
 
   // 提交文字
   submitTo: function (e) {
+    if (this.data.inputValue.length==0){
+      wx.showToast({
+        title: '发送内容不能为空',
+        icon: 'none',
+        image: '',
+        duration: 1000
+      });
+      return false;
+    }
     let that = this;
     console.log(socketOpen)
     if (socketOpen) {
       // 如果打开了socket就发送数据给服务器
       var data = {
-        is_my: true,
+        isMy: true,
         content: this.data.inputValue,
         time: util.formatTime(new Date()),
         theOtherId:'169',
-        myId:'164'      
+        myId: myId,
+        dialogId:"1"   
       };
       this.data.allContentList.push(data);
       sendSocketMessage(data);
@@ -179,7 +208,6 @@ Page({
   },
   // 获取hei的id节点然后屏幕焦点调转到这个节点  
   bottom: function () {
-    var that = this;
     this.setData({
       scrollTop: 1000000
     })

@@ -36,7 +36,7 @@ page {
 }
 .withdraw-note {
   font-size: 28rpx;
-  margin-left: 20rpx;
+  margin-left: 30rpx;
   margin-top: 20rpx;
 }
 .bank-reminder {

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -60,14 +60,21 @@
 					"query": ""
 				},
 				{
-					"id": -1, 
+					"id": -1,
 					"name": "注册",
-					"pathName": "pages/patientReg/patientReg", 
-          "query": ""
-        },{
-          "id": -1,       
+					"pathName": "pages/patientReg/patientReg",
+					"query": ""
+				},
+				{
+					"id": -1,
 					"name": "对话框",
-					"pathName": "pages/ConInterface/ConInterface", 
+					"pathName": "pages/ConInterface/ConInterface",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "用户注册",
+					"pathName": "pages/patientReg/patientReg",
 					"query": ""
 				}
 			]

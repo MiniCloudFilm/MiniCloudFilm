@@ -7,7 +7,7 @@
     <input type='number' name="idCard" placeholder='请输入身份证号' placeholder-class="placeholder" bindblur="checkIdcard"></input> 
   </view>
   <view>
-    <input type='number' name="mobile" placeholder='请输入手机号' placeholder-class="placeholder" bindblur="mobileNum"></input> 
+    <input type='number' name="mobile" placeholder='请输入手机号' placeholder-class="placeholder" bindinput="mobileNum"></input> 
   </view>
   <view class="code-box">
     <input type='number' name="code" placeholder='请输入验证码' placeholder-class="placeholder"></input>
@@ -17,8 +17,7 @@
     <input type='number'name="pwd" placeholder='设置密码' placeholder-class="placeholder" bindblur="firstPwd"></input>
   </view>
   <view>
-    <input type='number' placeholder='确认密码' placeholder-class="placeholder"
-bindblur="secondPwd"></input> 
+    <input type='number' placeholder='确认密码' placeholder-class="placeholder" bindblur="secondPwd"></input> 
   </view>
   <view class="section"> 
   <picker bindchange="bindPickerChange" name="userType" value="{{array[index].value}}" range="{{array}}"  range-key="{{'name'}}">

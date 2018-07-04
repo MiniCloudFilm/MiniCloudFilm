@@ -30,6 +30,8 @@ Page({
     })
   },
   formSubmit: function (e) {
+    console.log((e.detail.value.userName));
+    console.log((e.detail.value.userName));
     if (e.detail.value.userName.length == 0) {
       wx.setTopBarText({
         text: '请输入手机号!'
