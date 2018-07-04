@@ -51,23 +51,24 @@ Page({
   submitInfos: function () {
     var compare = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
     var that = this;
-    if (that.data.name.length == 0 || that.data.phoneNumber.length == 0) {
+    if (that.data.name.length == 0) {
       wx.showToast({
-        title: '用户名不能为空',
+        title: '收款人不能为空',
         icon: 'none',
         image: '',
         duration: 1000
       })
     }
-    else if (that.data.phoneNumber.length != 11) {
+    else if (that.data.phoneNumber.length == 0) {
       wx.showToast({
-        title: '手机号长度有误',
+        title: '手机号不能为空',
         icon: 'none',
         image: '',
         duration: 1000
       })
       return false;
-    } else if (!compare.test(this.data.phoneNumber)) {
+    } 
+    else if (!compare.test(this.data.phoneNumber)) {
       wx.showToast({
         title: '请输入正确的手机号！',
         icon: 'none',

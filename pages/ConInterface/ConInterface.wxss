@@ -1,12 +1,16 @@
 /* pages/chRepCon/chRepCon.wxss */
 .page-body{   
-  min-height:100vh;
+  height:100vh;
   width:100%;
   background: #f6f6f7;
+  overflow: hidden;
+  display:flex;
+  flex-direction:column;
 } 
-.con-list{
-  margin:0 30rpx; 
-  margin-top:30rpx;
+.reportInfo{
+  padding:20rpx 30rpx;
+  box-sizing:border-box;
+  height: 380rpx;
 }
 .con-box{ 
   border-radius: 10rpx;   
@@ -18,17 +22,17 @@
 .con-box text{
   color: rgba(69, 69, 72, 1); 
   font-family: Arial;
-  font-size:14px;
+  font-size:28rpx;
 }
 .con-mes{
   padding:30rpx 100rpx 0rpx 50rpx; 
-  line-height: 15px;
+  line-height: 30rpx;
   color: rgba(69, 69, 72, 1);
-  font-size: 10px;
+  font-size: 20rpx;
   text-align: left;
 } 
 .con-mes>view{
-  margin-bottom:30rpx;
+  margin-bottom:20rpx;
 }   
  
 .pay-con{
@@ -51,14 +55,14 @@
 }
 .nav-box{
   text-align: center;
-  border-top:1px solid #dee4e8; 
+  border-top:2rpx solid #dee4e8; 
   color:#1e9ae5;
   font-size:24rpx;
   height:70rpx;
   line-height: 70rpx;
 }
 .nav-box view:first-child{
-  border-right: 1px solid #dee4e8; 
+  border-right: 2rpx solid #dee4e8; 
 }
 .end{
   margin:0 auto; 
@@ -84,8 +88,8 @@
   vertical-align: text-bottom	; 
 }
 .title-box { 
-  width: 80%; 
-  margin:30rpx auto;
+  width: 90%; 
+  margin:16rpx auto 0;
 }  
 .title {
   width: 50%;
@@ -104,8 +108,8 @@
   left: 0;
   right: 0;
   transform: translateY(-50%);
-  height: 1px; 
-  border-top:1px solid #dee4e8;
+  height: 2rpx; 
+  border-top:2rpx solid #dee4e8;
 }
 .time-box{
   text-align: center;  
@@ -119,11 +123,14 @@
   color:#fff;
 }   
 /* 聊天 */  
-  
+ .scrollContainer {
+   flex: 1;
+   overflow: hidden;
+   margin-bottom: 20rpx;
+ }
+
 .my_right {  
   float: right;  
-  position: relative;  
-  right: 40rpx;  
 }  
   
 .you_left {  
@@ -137,6 +144,9 @@
   height: 80rpx;  
   border-radius: 50%;  
   background: #ddd;
+  font-size:22rpx;
+  text-align:center;
+  color:white;
 }  
 .new_img image{  
   width: 80rpx;  
@@ -144,7 +154,7 @@
 }
 .new_txt {   
   border-radius: 20rpx;  
-  padding: 10rpx 30rpx 10rpx 30rpx;   
+  padding: 10rpx 30rpx;   
   font-size:26rpx;
   position: relative;
   line-height: 50rpx;
@@ -153,31 +163,31 @@
 .txt_r{ 
   background-color: #408df5;  
   color:#fff;
-  margin-right:24rpx;
+  margin-right:22rpx;
 }
 .txt_l{ 
   background-color: #fff; 
   color:#2e3135;
-  margin-left:24rpx;
+  margin-left:22rpx;
 }
 .sanjiao {     
   position: absolute;  
-  right:-40rpx;
-  top:40rpx;
+  right:-28rpx;
+  top:35rpx;
   transform: translateY(-50%);
   width: 0px;  
   height: 0px;  
-  border-width: 10px;  
+  border-width: 16rpx;  
   border-style: solid;  
 }  
 .sanjiao1{
   position: absolute;  
-  left:-40rpx;
-  top:40rpx;
+  left:-28rpx;
+  top:35rpx;
   transform: translateY(-50%);
   width: 0px;  
   height: 0px;  
-  border-width: 10px;  
+  border-width: 16rpx;  
   border-style: solid;  
 }
 .my {  
@@ -189,59 +199,54 @@
 }  
   
 .sendmessage {  
-  background-color: white;  
-  width: 100%;  
-  position: fixed;  
-  bottom: 0rpx;  
-  display: flex;  
-  flex-direction: row; 
-  padding:4rpx;  
+  background-color: white;     
+  display: flex;   
+  padding:4rpx;
+  height: 88rpx;
+  box-sizing: border-box; 
 }  
   
 .sendmessage input {  
-  width: 80%;  
-  height: 40px;  
+  width: 78%;  
+  height: 80rpx;  
   background-color: white;  
-  line-height: 40px;  
-  font-size: 14px;  
-  border: 1px solid #dee4e8;  
-  padding-left: 10px; 
-  border-radius: 10rpx; 
+  line-height: 80rpx;  
+  font-size: 28rpx;  
+  border: 2rpx solid #dee4e8;  
+  padding-left: 20rpx; 
+  border-radius: 10rpx;
+  box-sizing:border-box; 
 }  
   
 .sendmessage button {  
-  border: 1px solid white;  
+  border: 2rpx solid white;  
   width: 18%;  
-  height: 40px;  
+  height: 80rpx;  
   background: #fff;  
   color: #000;  
-  line-height: 40px;  
-  font-size: 14px;  
+  line-height: 80rpx;  
+  font-size: 28rpx;  
 }  
 .sendmessage image{
   width:80rpx;
   height:80rpx;
 }
  
-.hei{  
-  margin-top: 50px;  
-  height: 20rpx;  
-}  
-.historycon {  
-  height: 90%;  
+.historycon {
+  height: 100%;  
   width: 100%;  
   flex-direction: column;  
   display: flex;   
   border-top: 0px;  
   margin-bottom: 120rpx;
 } 
-.history {  
-  height: 100%;  
-  margin-top: 15px;  
-  margin: 10px;
+.history {   
+  margin-top: 30rpx;  
+  margin: 20rpx;
   margin-bottom:0;  
-  font-size: 14px;  
-  line-height: 40px;  
-  word-break: break-all;  
-}  
+  font-size: 28rpx;  
+  line-height: 80rpx;  
+  word-break: break-all;
+  overflow:hidden;  
+}
 

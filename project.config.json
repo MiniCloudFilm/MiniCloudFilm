@@ -94,6 +94,12 @@
 					"name": "支付",
 					"pathName": "pages/confirmPay/confirmPay",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "用户注册",
+					"pathName": "pages/patientReg/patientReg",
+					"query": ""
 				}
 			]
 		}
