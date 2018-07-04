@@ -13,8 +13,7 @@ Page({
       "../../image/timg1.jpg",
       "../../image/timg2.jpg",
       "../../image/timg3.jpg",
-    ],
-    isDoctor:false
+    ] 
   },
   //事件处理函数
   bindViewTap: function() {
@@ -22,7 +21,18 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function () { 
+    console.log(app.globalData.userList);
+    let user = app.globalData.userList;
+    if (user){
+      this.setData({
+        userType:user.userType
+      })
+    }else{ 
+      this.setData({
+        userType: ''
+      })
+    }
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -47,6 +57,18 @@ Page({
             hasUserInfo: true
           })
         }
+      })
+    }
+  },
+  onShow:function(){ 
+    let user = app.globalData.userList;
+    if (user) {
+      this.setData({
+        userType: user.userType
+      })
+    } else {
+      this.setData({
+        userType: ''
       })
     }
   },

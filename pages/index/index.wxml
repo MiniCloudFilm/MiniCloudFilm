@@ -47,7 +47,7 @@
 
           </navigator>
         </view>
-        <view class="weui-flex__item" wx:if="{{isDoctor}}">
+        <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
           <view class="navT">
               <image src="/image/icon4.png"></image>
           </view>
@@ -55,15 +55,14 @@
             <text>开发中</text>
           </view>
         </view>  
-        <view class="weui-flex__item" wx:if="{{!isDoctor}}">
+        <view class="weui-flex__item" wx:if="{{userType==2}}">
           <navigator url="../conAssistance/conAssistance">
             <view class="navT">
               <image src="/image/icon5.png"></image>
             </view>
             <view>
               <text>会诊协助</text>
-            </view>
-
+            </view> 
           </navigator>
         </view>
 

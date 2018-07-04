@@ -20,14 +20,26 @@ Page({
       }
     )
   },
+  login:function(){
+    wx.navigateTo(
+      {
+        url: '../login/login'
+      }
+    )
+  },
   onLoad: function (options) {
-    var s = app.globalData.userList
-    console.log(s);
+    console.log(wx.getStorageSync('userList')); 
     if( wx.getStorageSync('userList')) {
       var userList = wx.getStorageSync('userList');
       this.setData({
-        userName: userList.name
+        userName: userList.name,
+        userType: userList.userType
       }) 
+    } else {
+      this.setData({
+        userName: '',
+        userType: ''
+      })
     }
   },
 
@@ -35,18 +47,23 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+   
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app.globalData.userList);
-    if (app.globalData.userList) {
-      var userList = app.globalData.userList;
+    if (wx.getStorageSync('userList')) {
+      var userList = wx.getStorageSync('userList');
       this.setData({
-        userName: userList.name
+        userName: userList.name,
+        userType: userList.userType
+      })
+    } else {
+      this.setData({
+        userName: '', 
+        userType: ''
       })
     }
   },

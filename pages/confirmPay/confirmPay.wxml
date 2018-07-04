@@ -1,22 +1,22 @@
 <view class="container">
-   <view class="mes-box" wx:if="{{payType==1}}">
+   <view class="mes-box" wx:if="{{payList.type==1}}">
     <view class="user-mes">
-       <text>{{doctorP.doctorName}}</text>-
+       <text>{{payList.doctorName}}</text>-
       <text>报告解读</text> 
     </view>
     <view class="user-cont"> 
-      <text>{{doctorP.belong}}</text> 
+      <text>{{payList.belong}}</text> 
     </view>
     <view class="much">
-      <text>￥{{doctorP.price}}/次</text>
+      <text>￥{{payList.price}}/次</text>
     </view>
   </view> 
-  <view class="mes-box" wx:if="{{payType==0}}"> 
+  <view class="mes-box" wx:if="{{payList.type==2}}"> 
     <view class="user-mes">
-       <text>{{videoP.title}}</text> 
+       <text>{{payList.title}}</text> 
     </view>
     <view class="much">
-      <text>￥{{videoP.price}}</text>
+      <text>￥{{payList.price}}</text>
     </view>
   </view>
   <view class="weui-cells weui-cells_after-title choose-pay"> 
@@ -34,7 +34,7 @@
         </radio>
       </view>
     </view>
-    <view class="weui-cell">
+    <!-- <view class="weui-cell">
       <view class="weui-cell__hd">
         <image src="/image/pay-account.png" style="margin-right: 10px;vertical-align: middle;width:30px; height: 30px;"></image>
       </view>
@@ -46,11 +46,11 @@
         <radio class="radio" value="1" checked="{{!checked}}">
         </radio>
       </view>
-    </view> 
+    </view>  -->
     </radio-group>
   </view> 
   <view class="go-pay" > 
-    <view class="checkbox-box" wx:if="{{payType==1}}"> 
+    <view class="checkbox-box" wx:if="{{payList.type==1}}"> 
     <checkbox-group bindchange="radioAllow">
       <label class="checkbox-label">
       <checkbox value="2" checked="{{allow}}"/>允许医生再次分享报告进行会诊

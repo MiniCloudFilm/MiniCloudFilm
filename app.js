@@ -9,38 +9,39 @@ App({
     let that=this;
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
+    wx.setStorageSync('logs', logs) 
+    this.globalData.userList = wx.getStorageSync('userList');
+    this.globalData.token = wx.getStorageSync('token');
     // 登录
-    wx.login({
-      success: res => {
-        code = res.code
-        console.log(code);
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId  
-        wx.request({
-          url: `https://api.weixin.qq.com/sns/jscode2session`,
-          data: {
-            appid: 'wxa4cd3f1e2af9b0dd',
-            //小程序的 app secret
-            secret: '258161f4a510c793ebd0356962bb177b',
-            grant_type: 'authorization_code',
-            js_code: res.code
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function (resO) {
-            openid = resO.data.openid //返回openid  
-            that.globalData.openid = resO.data.openid ; 
-            console.log(openid);
-          }
-        })
-      }
-    })  
+    // wx.login({
+    //   success: res => {
+    //     code = res.code
+    //     console.log(code);
+    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId  
+    //     wx.request({
+    //       url: `https://api.weixin.qq.com/sns/jscode2session`,
+    //       data: {
+    //         appid: 'wxa4cd3f1e2af9b0dd',
+    //         //小程序的 app secret
+    //         secret: '258161f4a510c793ebd0356962bb177b',
+    //         grant_type: 'authorization_code',
+    //         js_code: res.code
+    //       },
+    //       header: {
+    //         'content-type': 'application/json'
+    //       },
+    //       success: function (resO) {
+    //         openid = resO.data.openid //返回openid  
+    //         that.globalData.openid = resO.data.openid ; 
+    //         console.log(openid);
+    //       }
+    //     })
+    //   }
+    // })  
     // 获取用户信息
     wx.getSetting({
       success: res => {
-        console.log(res);
+        // console.log(res);
         if (res.authSetting['scope.userInfo']) {
           console.log('进入');
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框

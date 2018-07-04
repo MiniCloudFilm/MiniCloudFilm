@@ -5,12 +5,12 @@
   <view class="main">
     <view class="navbar"> 
       <view class="weui-flex">
-          <view class="weui-flex__item item {{currentTab==0?'active':''}}" data-idx="{{0}}" bindtap="navbarTap"> 患者登录</view>
-          <view class="weui-flex__item item {{currentTab==1?'active':''}}" data-idx="{{1}}" bindtap="navbarTap">医生登录 </view>
+          <view class="weui-flex__item item {{currentTab==1?'active':''}}" data-idx="{{1}}" bindtap="navbarTap"> 患者登录</view>
+          <view class="weui-flex__item item {{currentTab==2?'active':''}}" data-idx="{{2}}" bindtap="navbarTap">医生登录 </view>
       </view>
     </view>
     <view class="from-box">
-      <view hidden="{{currentTab !== 0}}" id="one">
+      <view id="one">
         <form bindsubmit="formSubmit">
           <view class="section">
             <input class="input" maxlength="11" type="number" placeholder="请输入手机号"   name="userName" value="{{userName}}"confirm-type="next" placeholder-class="placeholder" maxlength='11' bindblur='mobileCheck'/>
@@ -26,7 +26,7 @@
       </view>
 
       <!--月度维保-->
-      <view hidden="{{currentTab !== 1}}" id="one">
+      <!-- <view hidden="{{currentTab !== 1}}" id="one">
         <form bindsubmit="formSubmit" bindreset="formReset">
           <view class="section">
             <input class="input" maxlength="11" type="number" placeholder="请输入手机号" confirm-type="next" placeholder-class="placeholder" />
@@ -38,7 +38,7 @@
             <button formType="submit" data-role="doctor" bindtap="login">登录</button>
           </view>
         </form>
-      </view>
+      </view> -->
       <view class="agree-box">
         <text>登录即表示同意</text>
         <text class="agree">《服务协议》</text>

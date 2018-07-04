@@ -39,7 +39,7 @@ Page({
       })
     } else{
       wx.navigateTo({
-        url: `../confirmPay/confirmPay?title=${e.currentTarget.dataset.title}&price=${e.currentTarget.dataset.price}&type=0`
+        url: `../confirmPay/confirmPay?title=${e.currentTarget.dataset.title}&price=${e.currentTarget.dataset.price}&type=2`
       })
     }
   }

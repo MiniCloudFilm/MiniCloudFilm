@@ -26,7 +26,7 @@ form, form>view{
 input { 
   margin: 50rpx 52rpx 25px 56rpx; 
   height: 80rpx; 
-  color: rgba(204, 204, 204, 1);
+  color: #616569;
   font-family: Microsoft Yahei;
   border-bottom: 1px solid rgba(187, 187, 187, 1);
   padding-left:20rpx;

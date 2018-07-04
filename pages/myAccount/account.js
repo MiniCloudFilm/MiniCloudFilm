@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    balance:0
     },
   // 提现
   pickupCash: function () {
@@ -17,7 +17,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let user=wx.getStorageSync('userList')
+    let token = wx.getStorageSync('token')
+    console.log(user);
+    console.log(token);
+    wx.request({
+      url: 'http://192.168.131.63:8080/doctor/api/v1/myBalance', //仅为示例，并非真实的接口地址
+      data: {
+        'userId': user.userId,
+        'token': token, 
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res=> {
+        console.log(res.data)
+        this.setData({
+          balance: res.data.data
+        })
+      }
+    })
   },
 
   /**

@@ -60,14 +60,39 @@
 					"query": ""
 				},
 				{
-					"id": -1, 
+					"id": -1,
 					"name": "注册",
-					"pathName": "pages/patientReg/patientReg", 
-          "query": ""
-        },{
-          "id": -1,       
+					"pathName": "pages/patientReg/patientReg",
+					"query": ""
+				},
+				{
+					"id": -1,
 					"name": "对话框",
-					"pathName": "pages/ConInterface/ConInterface", 
+					"pathName": "pages/ConInterface/ConInterface",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的账户",
+					"pathName": "pages/myAccount/account",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会诊协助",
+					"pathName": "pages/conAssistance/conAssistance",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "专家列表",
+					"pathName": "pages/expertList/expert",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "支付",
+					"pathName": "pages/confirmPay/confirmPay",
 					"query": ""
 				}
 			]

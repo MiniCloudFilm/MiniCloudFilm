@@ -47,50 +47,59 @@ Page({
       }
     })
   }, 
-  formSubmit:function(e){
-    console.log(e.detail.value);
-    let that=this;
-    wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/user/checkCode', //仅为示例，并非真实的接口地址
-      data: {
-        'mobile': e.detail.value.mobile,
-        "code": e.detail.value.code
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data) 
-        // that.setData({
-        //   checkCode:res.data.data
-        // }) 
-        if (res.data.data == true) {
-          console.log('进入'); 
-          if (that.data.firstP != null && that.data.firstP == that.data.secondP) {
-            wx.request({
-              url: 'http://192.168.131.63:8080/api/v1/user/logon', //仅为示例，并非真实的接口地址
-              data: {
-                'name': e.detail.value.name,
-                'idcard': e.detail.value.idCard,
-                'mobile': that.data.mobile,
-                'password': that.data.firstP,
-                'userType': e.detail.value.userType,
-                'openId': app.globalData.openid,
-              },
-              method: 'POST',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded' // 默认值
-              },
-              success: function (resA) {
-                console.log(resA.data)
+  formSubmit: function (e) {
+    wx.login({
+      success: res => {   
+         console.log(e.detail.value);
+        let that = this;
+        wx.request({
+          url: 'http://192.168.131.63:8080/api/v1/user/checkCode', //仅为示例，并非真实的接口地址
+          data: {
+            'mobile': e.detail.value.mobile,
+            "code": e.detail.value.code
+          },
+          method: 'GET',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' // 默认值
+          },
+          success: function (resA) {
+            console.log(resA.data)
+            // that.setData({
+            //   checkCode:res.data.data
+            // }) 
+            if (resA.data.data == true) {
+              console.log('进入');
+              if (that.data.firstP != null && that.data.firstP == that.data.secondP) {
+                wx.request({
+                  url: 'http://192.168.131.63:8080/api/v1/user/logon', //仅为示例，并非真实的接口地址
+                  data: {
+                    'name': e.detail.value.name,
+                    'idcard': e.detail.value.idCard,
+                    'mobile': that.data.mobile,
+                    'password': that.data.firstP,
+                    'userType': e.detail.value.userType,
+                    'code': res.code,
+                  },
+                  method: 'POST',
+                  header: {
+                    'content-type': 'application/x-www-form-urlencoded' // 默认值
+                  },
+                  success: function (resB) {
+                    console.log(resB.data) 
+                    if(resB.data.code=='200'){
+                      wx.redirectTo({
+                        url: `../login/login?mobile=${that.data.mobile}`
+                      })
+                    }
+                  }
+                })
               }
-            })
+            }
           }
-        }
+        })
       }
     })
-   
+    
   
   },
   bindPickerChange:function(e){

@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentTab: 0, 
+    currentTab:1, 
     userPwd: ""
   },
   //用户手机号
@@ -44,12 +44,37 @@ Page({
       })
       return false;
     }
+    wx.login({
+      success: res => {
+        var code = res.code
+        console.log(code);
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId  
+        // wx.request({
+        //   url: `https://api.weixin.qq.com/sns/jscode2session`,
+        //   data: {
+        //     appid: 'wxa4cd3f1e2af9b0dd',
+        //     //小程序的 app secret
+        //     secret: '258161f4a510c793ebd0356962bb177b',
+        //     grant_type: 'authorization_code',
+        //     js_code: res.code
+        //   },
+        //   header: {
+        //     'content-type': 'application/json'
+        //   },
+        //   success: function (resO) {
+        //     openid = resO.data.openid //返回openid  
+        //     that.globalData.openid = resO.data.openid ; 
+        //     console.log(openid);
+        //   }
+        // })
+      }
+    })
     wx.request({
       url: 'http://192.168.131.63:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
       data: {
         'userName': e.detail.value.userName,
         'password': e.detail.value.password,
-        'userType': 1
+        'userType': this.data.currentTab
       },
       method: 'POST',
       header: {
@@ -58,10 +83,10 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data.code == '200') {
-          app.globalData.userList = res.data.data.user;
-          app.globalData.token = res.data.data.token; 
           wx.setStorageSync('userList', res.data.data.user)
           wx.setStorageSync('token', res.data.data.token)
+          app.globalData.userList = wx.getStorageSync('userList');
+          app.globalData.token = wx.getStorageSync('token');
           wx.switchTab({
             url: `../user/user`
           })

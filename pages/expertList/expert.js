@@ -11,13 +11,13 @@ Page({
     customItem: '全部',
     hospital: [],
     department: [],
+    departmentIndex:[0,0,0],
     index:0,
-    doctorList: [
-      { "doctorImg": "/image/icon-doctor.png", "doctorName": "兰建清", "department": "妇科", "position": "主任医师", "belong": "深圳第一医院", "level": "三甲医院", "skill": "妇科疾病诊断治疗", "price": "8.88" },
-      { "doctorImg": "/image/icon-doctor.png", "doctorName": "罗腾可", "department": "放射科", "position": "主任医师", "belong": "北京大学深圳医院", "level": "三甲医院", "skill": "超声诊断", "price": "6.88" },
-      { "doctorImg": "/image/icon-doctor.png", "doctorName": "田程林", "department": "男科", "position": "主任医师", "belong": "深圳第二医院", "level": "三甲医院", "skill": "男性疾病诊断", "price": "5.88" },
-    ]
-
+    // doctorList: [
+    //   { "doctorImg": "/image/icon-doctor.png", "doctorName": "兰建清", "department": "妇科", "position": "主任医师", "belong": "深圳第一医院", "level": "三甲医院", "skill": "妇科疾病诊断治疗", "price": "8.88" },
+    //   { "doctorImg": "/image/icon-doctor.png", "doctorName": "罗腾可", "department": "放射科", "position": "主任医师", "belong": "北京大学深圳医院", "level": "三甲医院", "skill": "超声诊断", "price": "6.88" },
+    //   { "doctorImg": "/image/icon-doctor.png", "doctorName": "田程林", "department": "男科", "position": "主任医师", "belong": "深圳第二医院", "level": "三甲医院", "skill": "男性疾病诊断", "price": "5.88" },
+    // ] 
   },
   //选择区域
   bindRegionChange: function (e) {
@@ -25,7 +25,7 @@ Page({
     this.setData({
       region: e.detail.value
     })
-    this.getHospital();
+    // this.getHospital();
   },
   turn: function (e) {
     console.log(this.data.doctorMes.order);
@@ -93,6 +93,29 @@ Page({
       }
     })
   },
+  //获取专家列表
+  getExpert:function(areaId,deptId){
+    wx.request({
+      url: 'http://192.168.131.63:8080/doctor/api/v1/findDoctorList',  
+      data: {
+        'token': '',
+        'areaId': areaId,
+        'deptId': deptId
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res=> {
+        console.log(res.data.data) 
+        if (res.data.code == "200") {
+          this.setData({
+            expertList: res.data.data
+          }) 
+        }
+      }
+    })
+  },
   bindDepartmentChange:function(e){
     this.setData({
       index:e.detail.value
@@ -102,6 +125,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getExpert(440000,'all');
     var that = this;
     qqmapsdk = new QQMapWX({
       key: 'NOYBZ-WXICJ-XMGFO-FF2UV-ULBW7-UEBFX'//此处使用你自己申请的key  
@@ -122,13 +146,13 @@ Page({
               region: [resA.result.address_component.province, resA.result.address_component.city, resA.result.address_component.district]
             })
             // that.getHospital();
-            console.log(resA);
+            // console.log(resA);
           },
           fail: function (resA) {
             console.log(resA);
           },
           complete: function (resA) {
-            console.log(resA);
+            // console.log(resA);
           }
         });
       }
