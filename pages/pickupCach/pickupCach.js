@@ -1,6 +1,8 @@
 var util = require('../../utils/bank.js');
+var userList = wx.getStorageSync('userList');
+var myId = JSON.stringify(userList.userId);
+var userName = userList.name;
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -9,19 +11,13 @@ Page({
     name: '',
     phoneNumber: '',
     bankName: '',
-    bankNumber: ''
-  },
-  //手机号
-  getUserIdCardPhoneNumber: function (e) {
-    this.setData({
-      phoneNumber: e.detail.value
-    })
-  },
-  //
-  getUserIdCardName: function (e) {
-    this.setData({
-      name: e.detail.value
-    })
+    bankNumber: '',
+    cardList:[
+      "农业银行-6228480078036553978",
+      "招商银行-6225768753214921",
+      "交通银行-6222530793288817",
+      "工商银行-6212261410000802843"
+    ]
   },
   //银行卡号
   getUserIdCardNumber: function (e) {
@@ -40,71 +36,102 @@ Page({
       })
     }
   },
-  //银行支行名称
-  getUserIdCardBankType: function (e) {
-    this.setData({
-      bankName: e.detail.value
-    })
-  },
-
   //提交转账信息
   submitInfos: function () {
-    var compare = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
     var that = this;
-    if (that.data.name.length == 0) {
+    if (!that.data.bankNumber) {
       wx.showToast({
-        title: '收款人不能为空',
+        title: '收款账号不能为空',
         icon: 'none',
         image: '',
         duration: 1000
       })
-    }
-    else if (that.data.phoneNumber.length == 0) {
-      wx.showToast({
-        title: '手机号不能为空',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
-      return false;
-    } 
-    else if (!compare.test(this.data.phoneNumber)) {
-      wx.showToast({
-        title: '请输入正确的手机号！',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
-      return false;
-    }
-    else if (!that.data.bankNumber) {
-      wx.showToast({
-        title: '银行卡号不能为空',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
-    }
-    else if (!that.data.bankName) {
-      wx.showToast({
-        title: '支行名称不能为空',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
-
-    }
-    else if (!that.data.cardType) {
+    } else if (!that.data.cardType) {
       wx.showToast({
         title: '不支持该类型的银行卡，请更换',
         icon: 'none',
         image: '',
         duration: 1000
       })
+    }else {
+      wx.request({
+        url: 'http://192.168.131.63:8080/doctor/api/v1/getCash', //仅为示例，并非真实的接口地址
+        data: {
+          'userId': myId,
+          'reflectCharge': this.data.reflectCharge,
+          "bankCardId": this.data.bankNumber,
+          'bankName': this.data.bankName,
+          'token': ''
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          console.log(res.data)
+          if (res.data.code=="200"){
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              image: '',
+              duration: 1500,
+              success:function(){
+                setTimeout(function () {
+                  //要延时执行的代码
+                  wx.navigateBack({
+                    url: "../myAccount/account"
+                  })
+                }, 2000) //延迟时间
+               
+              }
+            })
+          }else{
+            wx.showToast({
+              title:'提现失败，请稍后再试！',
+              icon: 'none',
+              image: '',
+              duration: 1500
+            })
+          }
+        }
+      })
+    };
 
-    }
-    else {
-      //TODO post data to sever
+  },
+  //查询银行卡
+  searchCard:function(e){
+    wx.request({
+      url: 'http://192.168.131.63:8080/doctor/api/v1/queryBankCard', //仅为示例，并非真实的接口地址
+      data: {
+        'userId': myId,
+        'token' :''
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        // this.setData({
+        //   cardList:res.data
+        // })
+        console.log(res.data)
+      }
+    })
+  },
+  //选择账号
+  bindPickerChange:function(e){
+    var that = this;
+    this.setData({
+      bankNumber:that.data.cardList[e.detail.value].split("-")[1]
+    });
+    var temp = util.bankCardAttribution(that.data.cardList[e.detail.value].split("-")[1])
+    console.log(temp)
+    if (temp == Error) {
+      temp.bankName = '';
+      temp.cardTypeName = '';
+    }else {
+      this.setData({
+        cardType: temp.bankName + temp.cardTypeName,
+      })
     }
   },
 
@@ -112,55 +139,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    this.setData({
+      reflectCharge:options.balance,
+      name: userName
+    })
   }
 })

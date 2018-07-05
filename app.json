@@ -23,7 +23,8 @@
     "pages/filmshow/fimshow",
     "pages/reportshow/reportshow",
     "pages/payDetail/payDetail",
-    "pages/pickupCach/pickupCach"
+    "pages/pickupCach/pickupCach",
+    "pages/assistList/assister"
   ],
   "window": {
     "backgroundTextStyle": "light",

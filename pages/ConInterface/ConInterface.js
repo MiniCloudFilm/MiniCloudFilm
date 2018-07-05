@@ -1,10 +1,8 @@
 var util = require("../../utils/util.js");
-var app = getApp();
 var socketOpen = false;
 var frameBuffer_Data, session, SocketTask;
 var userList = wx.getStorageSync('userList');
 var myId = JSON.stringify(userList.userId);
-console.log(myId)
 var url = 'ws://192.168.131.212:8080/openSocket/' + myId+'/1';
 var upload_url = '请填写您的图片上传接口地址'
 Page({
