@@ -5,16 +5,19 @@
 }
 .weui-select{
   border-right: none;
-  padding-right: 40px;
+  padding-right: 80rpx;
 }
 .weui-select:before{
-    height: 10px;
-    width: 10px; 
+    height: 20rpx;
+    width: 20rpx; 
     border-width: 1px 1px 0 0;
 }
 .weui-cell{
-  padding-right: 0;
-  background: #fff;
+  padding:0 20rpx; 
+  padding-right:0;
+  padding-top:10rpx;
+  background: #fff; 
+  font-size: 28rpx;
 }
 .weui-cells__title{ 
   background: #f7f7f7;
@@ -22,7 +25,7 @@
   padding-top:20rpx;
   padding-bottom:20rpx;
   color:#2e3135;
-  font-size:30rpx;
+  font-size: 28rpx;
 }
 .weui-cells:after { 
     border-bottom:none;
@@ -31,10 +34,10 @@
   border-color:#edeff0;
 }
 .placeholder {
-  font-size: 30rpx;
+  font-size: 28rpx;
   color: #969ba1; 
 }
 button.vsub{
   background: #1C7EFF;
   color:#fff;
-}
+} 

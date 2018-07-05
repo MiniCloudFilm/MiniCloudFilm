@@ -24,7 +24,8 @@
     "pages/reportshow/reportshow",
     "pages/payDetail/payDetail",
     "pages/pickupCach/pickupCach",
-    "pages/assistList/assister"
+    "pages/assistList/assister",
+    "pages/myVideo/myVideo"
   ],
   "window": {
     "backgroundTextStyle": "light",

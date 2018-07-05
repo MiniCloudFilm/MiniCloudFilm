@@ -1,0 +1,35 @@
+/* pages/myVideo/myVideo.wxss */
+/* pages/videoMag/videoMag.wxss */
+.upload{
+  text-align: left;
+}
+.upload image{
+  vertical-align: sub;
+  margin-right:10rpx;
+}
+.upload navigator{
+  border:1px solid #1c7eff;
+  padding:6rpx 10rpx;
+  border-radius: 8rpx;
+  font-size:24rpx;
+  color:#1c7eff;
+  width:140rpx;
+  margin-top:40rpx;
+  margin-left:40rpx;
+  margin-bottom:20rpx;
+}
+.img-box image{
+  border-radius: 20rpx;
+}
+.weui-cell__bd{
+  height:80px;
+  position: relative;
+}
+.type{ 
+  margin-top:30rpx;
+  color:#ff8f45;
+  font-size:30rpx;
+} 
+.weui-cell:before{
+  border:none;
+}

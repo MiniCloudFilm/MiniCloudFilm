@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -99,30 +99,24 @@
 					"id": -1,
 					"name": "协助医生列表",
 					"pathName": "pages/assistList/assister",
+          "query":""
+        },
+          {
+          "id": -1,
+					"name": "咨询列表",
+					"pathName": "pages/counList/counList",
 					"query": ""
 				},
 				{
 					"id": -1,
-					"name": "提现",
-					"pathName": "pages/pickupCach/pickupCach",
+					"name": "医学影像视频",
+					"pathName": "pages/film/film",
 					"query": ""
 				},
 				{
 					"id": -1,
-					"name": "提现",
-					"pathName": "pages/pickupCach/pickupCach",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "提现",
-					"pathName": "pages/pickupCach/pickupCach",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "提现",
-					"pathName": "pages/pickupCach/pickupCach",
+					"name": "医生认证",
+					"pathName": "pages/doctorCert/doctorCert",
 					"query": ""
 				}
 			]

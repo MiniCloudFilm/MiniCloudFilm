@@ -12,7 +12,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    // let user=wx.getStorageSync("userList")
+    // let token = wx.getStorageSync("token")
+    // console.log(user.userId);
+    // console.log(token);
+    // wx.request({
+    //   url: 'http://192.168.131.63:8080/dialog/api/v1/dialogList',
+    //   data: { 
+    //     'userId': user.userId,
+    //     'userType': user.userType
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res.data.data)
+    //     if (res.data.code == "200") {
+    //       this.setData({
+    //         expertList: res.data.data
+    //       })
+    //     }
+    //   }
+    // })
   },
 
   /**
@@ -21,12 +43,44 @@ Page({
   onReady: function () {
   
   },
-
+  trunConInterface:function(e){
+    console.log(e);
+    console.log(e.currentTarget.dataset.dialogid);
+    console.log(e.currentTarget.dataset.reportid);
+    wx.navigateTo({
+      url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let user = wx.getStorageSync("userList")
+    let token = wx.getStorageSync("token")
+    this.setData({
+      userType:user.userType
+    })
+    console.log(user.userId);
+    console.log(token);
+    wx.request({
+      url: 'http://192.168.131.63:8080/dialog/api/v1/dialogList',
+      data: {
+        'userId': user.userId,
+        'userType': user.userType
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == "200") {
+          this.setData({
+            counList: res.data.data
+          })
+        }
+      }
+    })
   },
 
   /**

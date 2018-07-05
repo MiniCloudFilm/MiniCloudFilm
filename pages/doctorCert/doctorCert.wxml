@@ -38,24 +38,41 @@
         </view>
       </view>
     </view>
-    <view class="weui-cells__title">资质证书</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-uploader__bd">
-          <view class="weui-uploader__files" id="uploaderFiles">
-            <block wx:for="{{files}}" wx:key="*this">
-              <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+    <view class="weui-cells__title">头像上传</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{files}}" wx:key="*this">
+                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                </view>
+              </block>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
               </view>
-            </block>
-            <view class="weui-uploader__input-box">
-              <view class="weui-uploader__input" bindtap="chooseImage"></view>
-            </view>   
+            </view>
           </view>
         </view>
       </view>
-    </view>
-  </view> 
+      <view class="weui-cells__title">资质证书</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{files}}" wx:key="*this">
+                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                </view>
+              </block>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view> 
+  </view>
   <view class="weui-btn-area">
     <button class="weui-btn vsub" bindtap="turn">确认</button>
   </view>
