@@ -12,7 +12,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let user=wx.getStorageSync("userList")
+    let token = wx.getStorageSync("token")
+    wx.request({
+      url: 'http://192.168.131.63:8080/dialog/api/v1/dialogList',
+      data: {
+        'token': token,
+        'userId': user.userId,
+        'userType': user.userType
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res.data.data)
+        if (res.data.code == "200") {
+          this.setData({
+            expertList: res.data.data
+          })
+        }
+      }
+    })
   },
 
   /**

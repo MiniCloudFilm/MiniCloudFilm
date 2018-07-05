@@ -17,9 +17,9 @@
       </picker>
     </view> -->
     <view class="weui-flex__item">
-      <picker   mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange"  value="{{departmentIndex}}"   range="{{department}}"  range-key="{{'departmentName'}}">
+      <picker   mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange"  value="{{departmentIndex}}"   range="{{department}}"  range-key="{{'deptName'}}">
         <view class="picker">
-        <text> {{department[index].departmentName}}</text>
+        <text> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</text>
         <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
@@ -52,7 +52,7 @@
           </view>
           <view class="weui-flex__item"></view>
           <view>
-            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' >购买</view> 
+            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' data-doctorid="{{item.doctorId}}" >购买</view> 
           </view>
         </view>
       </view>
