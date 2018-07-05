@@ -9,14 +9,14 @@ Page({
     reportList: [],
     doctorMes: {}
   },
-  turn: function () {
+  turn: function (e) {
     if (this.data.doctorMes.order == 'before') {
       wx.navigateTo({
         url: `../expertList/expert`
       })
-    } else {
+    } else { 
       wx.navigateTo({
-        url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&type=1`
+        url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&reportId=${e.currentTarget.dataset.reportid}&type=1`
       })
     }
 
@@ -49,6 +49,7 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: function (res) {
+          console.log(res);
           if (res.data.code == '200') {
             that.setData({
               reportList: res.data.data

@@ -1,10 +1,10 @@
 <view class="container">
-  <view class="docter-box">
-  <navigator url="../ConInterface/ConInterface">
+  <!-- <view class="docter-box">
+    <navigator url="../ConInterface/ConInterface">
     <view class="weui-cell doctor-b">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
         <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
-        <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
+        <view wx:if="{{userType=='2'}}" style="height:36px;"></view>
       </view>
       <view class="weui-cell__bd">
         <view class="doctorMes">
@@ -19,7 +19,7 @@
           </view>
           <view>
             <text>咨询的报告:</text>
-            <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
+            <text>2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
           </view>
         </view>
        
@@ -28,7 +28,7 @@
     </navigator>
   </view>
   <view class="docter-box">
-  <navigator url="../ConInterface/ConInterface">
+    <navigator url="../ConInterface/ConInterface">
     <view class="weui-cell doctor-b">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
         <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -47,7 +47,7 @@
           </view>
           <view>
             <text>咨询的报告:</text>
-            <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
+            <text>2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
           </view>
         </view>
         <view wx:if="{{!isDoctor}}" class="weui-flex choice">
@@ -81,7 +81,7 @@
           </view>
           <view>
             <text>咨询的报告:</text>
-            <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
+            <text>2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
           </view>
         </view>
         <view class="weui-flex choice">
@@ -94,30 +94,30 @@
         </view>
       </view>
     </view>
-  </view>
-  <view class="docter-box">
-    <view class="weui-cell doctor-b">
+  </view> -->
+  <view class="docter-box" wx:for="{{counList}}" wx:key="index">
+    <view class="weui-cell doctor-b" bindtap='trunConInterface' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-        <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
-        <view style="height:36px;"></view>
+        <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" style="width: 122rpx; height: 122rpx; display: block" />
+        <view style="height:36px;" wx:if="{{userType=='2'}}"></view>
       </view>
       <view class="weui-cell__bd">
         <view class="doctorMes">
           <view class="weui-flex">
             <view class="weui-flex__item">
-              <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
-              <text style="color:#1c7eff;margin-right:20rpx;">咨询中</text>
+              <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.receiverName}}</text>
+              <text style="color:#1c7eff;margin-right:20rpx;">{{item.status==0?'未接受':(item.status==1?"咨询中":(item.status==2?'已结束':'已拒绝'))}}</text>
             </view>
             <view>
-              <text>10:10</text>
+              <text>{{item.dialogTime}}</text>
             </view>
           </view>
           <view>
-            <text>咨询的报告:</text>
-            <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
+            <text>咨询的部位:</text>
+            <text>{{item.bodyPart}}</text>
           </view>
         </view>
-        <view class="weui-flex choice">
+        <view class="weui-flex choice" wx:if="{{userTpye=='2'}}">
           <view class="accept">
             <button>接受</button>
           </view>

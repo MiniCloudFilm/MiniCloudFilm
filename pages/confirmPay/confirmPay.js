@@ -40,6 +40,7 @@ Page({
             data: {
               "sponsor": user.userId,
               "receiver": pay.doctorId,
+              "reportId": pay.reportId,
               "isAssist": '1'
             },
             method: 'POST',

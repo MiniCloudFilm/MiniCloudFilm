@@ -13,7 +13,89 @@ Page({
     isFree:true,
     isPay:true
   },
+  //查看收费视频
+  getChargeVideo:function(){
+    wx.request({
+      url: 'http://192.168.131.63:8080/common/api/v1/chargeVideo',
+      data: {
+        "page": 1,
+        "token": this.data.token
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == "200") {
+        }
+      }
+    })
+  },
+  //查看免费视频
+  getFreeVideo:function(){
+    wx.request({
+      url: 'http://192.168.131.63:8080/common/api/v1/freeVideo', 
+      data:{
+        "page":1,
+        "token":this.data.token
+      }, 
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == "200") { 
+        }
+      }
+    })
+  },
+  //获取观看记录
+  getQueryVideoLog:function(){
+    wx.request({
+      url: 'http://192.168.131.63:8080/common/api/v1/queryVideoLog',
+      data: {
+        "userId":this.data.user.userId,
+        "page": 1,
+        "token": this.data.token
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == "200") {
+        }
+      }
+    })
+  },
+  //观看记录保存
+  getSaveVideoLog:function(){
+    wx.request({
+      url: 'http://192.168.131.63:8080/common/api/v1/saveVideoLog',
+      data: {
+        "videoId": "9d15c1c0e4ae4c31b8a148de1423b210",
+        "videoViewer": this.data.user.userId,
+        "token": this.data.token
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == "200") {
+        }
+      }
+    })
+  },
   onLoad: function () {
+    this.setData({
+      token:wx.getStorageSync('token'),
+      user:wx.getStorageSync('userList')
+    })
+    this.getFreeVideo();
+    this.getChargeVideo();
+    this.getQueryVideoLog();
+    this.getSaveVideoLog();
     var that = this;
     wx.getSystemInfo({
       success: function (res) { 

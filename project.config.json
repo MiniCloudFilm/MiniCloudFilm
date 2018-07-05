@@ -106,6 +106,18 @@
 					"name": "咨询列表",
 					"pathName": "pages/counList/counList",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "医学影像视频",
+					"pathName": "pages/film/film",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "医生认证",
+					"pathName": "pages/doctorCert/doctorCert",
+					"query": ""
 				}
 			]
 		}
