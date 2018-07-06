@@ -31,13 +31,12 @@ page {
   font-size: 28rpx;
   color: #2e3135;
   flex: 1;
-  text-align: right;
-  padding-right: 24rpx;
+  padding-left: 80rpx;
 }
 .withdraw-note {
   font-size: 28rpx;
   margin-left: 30rpx;
-  margin-top: 20rpx;
+  margin-top: 50rpx;
 }
 .bank-reminder {
   font-size: 28rpx;
@@ -56,4 +55,13 @@ page {
   background-color: #1C7EFF; 
   width: 95%;
   color: white;
+}
+.cardRecord{
+  margin-right: 40rpx;
+  margin-top: 4rpx;
+  border-radius: 50%;
+}
+.cardRecord image{
+   width: 40rpx;
+   height: 40rpx;
 }

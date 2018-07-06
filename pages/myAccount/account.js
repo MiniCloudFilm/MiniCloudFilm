@@ -5,12 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    balance:0
+    balance:"125.00"
     },
   // 提现
   pickupCash: function () {
     wx.navigateTo({
-      url: '../pickupCach/pickupCach'
+      url: '../pickupCach/pickupCach?balance=' + this.data.balance
     })
   },
   /**
@@ -32,10 +32,12 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res=> {
-        console.log(res.data)
-        this.setData({
-          balance: res.data.data
-        })
+        if(res.data.code=="200"){
+          console.log(res.data)
+          this.setData({
+            balance: res.data.data
+          })
+        };
       }
     })
   },

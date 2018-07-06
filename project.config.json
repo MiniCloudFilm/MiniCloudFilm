@@ -85,12 +85,6 @@
 				},
 				{
 					"id": -1,
-					"name": "专家列表",
-					"pathName": "pages/expertList/expert",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "支付",
 					"pathName": "pages/confirmPay/confirmPay",
 					"query": ""
@@ -103,6 +97,12 @@
 				},
 				{
 					"id": -1,
+					"name": "协助医生列表",
+					"pathName": "pages/assistList/assister",
+          "query":""
+        },
+          {
+          "id": -1,
 					"name": "咨询列表",
 					"pathName": "pages/counList/counList",
 					"query": ""
