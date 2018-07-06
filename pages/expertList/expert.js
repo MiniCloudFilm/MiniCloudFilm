@@ -55,7 +55,7 @@ Page({
     console.log(this.data.doctorMes.order);
     if (this.data.doctorMes.order == 'before') {
       wx.navigateTo({
-        url: `../chRepCon/chRepCon?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&&doctorId=${e.currentTarget.dataset.doctorid}order=after`
+        url: `../chRepCon/chRepCon?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&order=after`
       })
     } else {
       wx.navigateTo({
@@ -171,6 +171,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     this.getDepartment();
     this.getExpert(440000, 'all');
     var that = this;

@@ -16,6 +16,7 @@ Page({
   },
   openConfirm: function () {
     let pay = this.data.payList;
+    console.log(pay)
     let user = wx.getStorageSync("userList")
     console.log(user);
     wx.request({
@@ -51,7 +52,7 @@ Page({
               console.log(resB);
               if (resB.data.code=="200"){
                 wx.redirectTo({
-                  url: `../ConInterface/ConInterface?dialogId=${resB.data.data}&userId=${user.userId}`,
+                  url: `../ConInterface/ConInterface?dialogId=${resB.data.data}&reportId=${pay.reportId}`,
                 })
              } 
             }

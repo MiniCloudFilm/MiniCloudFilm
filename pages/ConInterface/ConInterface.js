@@ -1,12 +1,12 @@
 var util = require("../../utils/util.js");
-var socketOpen = false;
-var frameBuffer_Data, session, SocketTask;
 var userList = wx.getStorageSync('userList');
 var myId = JSON.stringify(userList.userId);
-var url = 'ws://192.168.131.212:8080/openSocket/' + myId+'/1';
+var myName = userList.name;
 var upload_url = '请填写您的图片上传接口地址'
 Page({
   data: {
+    SocketTask:'',
+    socketOpen:false,
     user_input_text: '',//用户输入文字
     inputValue: '',
     returnValue: '',
@@ -51,9 +51,34 @@ Page({
     // 再通过setData更改Page()里面的data，动态更新页面的数据
     this.setData({
       time: time,
+      dialogId: options.dialogId,
+      reportId: options.reportId,
+      url : 'ws://192.168.131.212:8080/openSocket/' + myId + '/' + options.dialogId
     });
+    this.getReport(options.reportId);
     this.bottom();
-    console.log(this.data.scrollTop)
+  },
+  // 根据studyUid获取报告
+  getReport: function (reportId){
+    wx.request({
+      url: 'http://192.168.131.3:8080/api/v1/report/findReportById',
+      data: {
+        'token': wx.getStorageSync('token'),
+        'reportId':reportId
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res.data.data)
+        if (res.data.code == "200") {
+          this.setData({
+            reportDetail: res.data.data
+          })
+        }
+      }
+    })
   },
   // onShow: function (e) {
   //   if (!socketOpen) {
@@ -62,25 +87,30 @@ Page({
   // },
   // 页面加载完成
   onShow: function () {
+    console.log(this.data.socketOpen)
     var that = this;
-    if (!socketOpen) {
+    if (!this.data.socketOpen) {
       this.webSocket()
     }
-    SocketTask.onOpen(res => {
-      socketOpen = true;
+    this.data.SocketTask.onOpen(res => {
+      this.setData({
+        socketOpen:true
+      })
       console.log('监听 WebSocket 连接打开事件。', res)
     })
-    SocketTask.onClose(onClose => {
+    this.data.SocketTask.onClose(onClose => {
       console.log('监听 WebSocket 连接关闭事件。', onClose)
-      socketOpen = false;
-      this.webSocket()
+      this.setData({
+        socketOpen: false
+      });
     })
-    SocketTask.onError(onError => {
+    this.data.SocketTask.onError(onError => {
       console.log('监听 WebSocket 错误。错误信息', onError)
-      socketOpen = false
+      this.setData({
+        socketOpen: false
+      });
     })
-    SocketTask.onMessage(onMessage => {
-      console.log(onMessage)
+    this.data.SocketTask.onMessage(onMessage => {
       console.log('监听WebSocket接受到服务器的消息事件。服务器返回的消息', JSON.parse(onMessage.data))
       var onMessage_data = JSON.parse(onMessage.data);
       console.log(onMessage_data)
@@ -108,23 +138,25 @@ Page({
   },
   webSocket: function () {
     // 创建Socket
-    SocketTask = wx.connectSocket({
-      url: url,
-      data: 'data',
-      header: {
-        'content-type': 'application/json'
-      },
-      method: 'post',
-      success: function (res) {
-        console.log('WebSocket连接创建', res)
-      },
-      fail: function (err) {
-        wx.showToast({
-          title: '网络异常！',
-        })
-        console.log(err)
-      },
-    })
+    this.setData({
+      SocketTask: wx.connectSocket({
+        url: this.data.url,
+        data: 'data',
+        header: {
+          'content-type': 'application/json'
+        },
+        method: 'post',
+        success: function (res) {
+          console.log('WebSocket连接创建', res)
+        },
+        fail: function (err) {
+          wx.showToast({
+            title: '网络异常！',
+          })
+          console.log(err)
+        },
+      })
+    }) 
   },
 
   // 提交文字
@@ -134,24 +166,23 @@ Page({
         title: '发送内容不能为空',
         icon: 'none',
         image: '',
-        duration: 1000
+        duration: 1500
       });
       return false;
     }
     let that = this;
-    console.log(socketOpen)
-    if (socketOpen) {
+    if (this.data.socketOpen) {
       // 如果打开了socket就发送数据给服务器
       var data = {
         isMy: true,
         content: this.data.inputValue,
         time: util.formatTime(new Date()),
-        theOtherId:'169',
         myId: myId,
-        dialogId:"1"   
+        name:myName,
+        dialogId: this.data.dialogId
       };
       this.data.allContentList.push(data);
-      sendSocketMessage(data);
+      this.sendSocketMessage(data);
       this.setData({
         allContentList: this.data.allContentList,
         inputValue: ''
@@ -166,8 +197,8 @@ Page({
     })
   },
 
-  onHide: function () {
-    SocketTask.close(function (close) {
+  onUnload: function () {
+    this.data.SocketTask.close(function (close) {
       console.log('关闭 WebSocket 连接。', close)
     })
   },
@@ -211,15 +242,15 @@ Page({
       scrollTop: 1000000
     })
   },
+  //通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
+  sendSocketMessage:function (msg) {
+    var that = this;
+    console.log('通过 WebSocket 连接发送数据', JSON.stringify(msg))
+    that.data.SocketTask.send({
+      data: JSON.stringify(msg)
+    }, function (res) {
+      console.log('已发送', res)
+    })
+  }
 })
 
-//通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
-function sendSocketMessage(msg) {
-  var that = this;
-  console.log('通过 WebSocket 连接发送数据', JSON.stringify(msg))
-  SocketTask.send({
-    data: JSON.stringify(msg)
-  }, function (res) {
-    console.log('已发送', res)
-  })
-}
