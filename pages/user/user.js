@@ -1,5 +1,4 @@
-// pages/user/user.js
-
+// pages/user/user.js   
 var app = getApp();
 Page({
 
@@ -20,7 +19,12 @@ Page({
       }
     )
   },
-  login:function(){
+  login: function (e) {  
+    if (app.globalData.userInfo==null){ 
+      console.log("进入");
+      app.globalData.userInfo = e.detail.userInfo;
+      wx.setStorageSync("userInfo", e.detail.userInfo); 
+    }
     wx.navigateTo(
       {
         url: '../login/login'
@@ -28,6 +32,15 @@ Page({
     )
   },
   onLoad: function (options) {
+    if (app.globalData.userInfo == null) {
+      console.log("进入");
+      app.globalData.userInfo = e.detail.userInfo;
+      wx.setStorageSync("userInfo", e.detail.userInfo);
+    }
+    var userInfo=wx.getStorageSync('userInfo')
+    this.setData({ 
+      avatarUrl: userInfo.avatarUrl
+    })
     console.log(wx.getStorageSync('userList')); 
     if( wx.getStorageSync('userList')) {
       var userList = wx.getStorageSync('userList');
@@ -53,7 +66,16 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function () {  
+    var userInfo = wx.getStorageSync('userInfo')
+    if (app.globalData.userInfo==null){ 
+      console.log("进入");
+      app.globalData.userInfo = e.detail.userInfo;
+      wx.setStorageSync("userInfo", e.detail.userInfo);
+    }
+    this.setData({
+      avatarUrl: userInfo.avatarUrl
+    })
     if (wx.getStorageSync('userList')) {
       var userList = wx.getStorageSync('userList');
       this.setData({

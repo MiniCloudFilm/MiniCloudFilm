@@ -6,13 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    reportList: [],
-    doctorMes: {}
+    reportList: [] 
   },
   turn: function (e) {
     if (this.data.doctorMes.order == 'before') {
       wx.navigateTo({
-        url: `../expertList/expert`
+        url: `../expertList/expert?reportId=${e.currentTarget.dataset.reportid}`
       })
     } else { 
       wx.navigateTo({
@@ -26,7 +25,7 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    console.log(options.order);
+    console.log(options);
     if (options.order == 'before') {
       this.setData({
         doctorMes: options

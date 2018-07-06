@@ -52,7 +52,8 @@
           </view>
           <view class="weui-flex__item"></view>
           <view>
-            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' data-doctorid="{{item.doctorId}}" >购买</view> 
+            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' data-doctorid="{{item.userId}}" >
+              {{doctorMes.order=='before'?'选择报告':'购买'}} </view> 
           </view>
         </view>
       </view>

@@ -1,79 +1,81 @@
-<view class="page-body">
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell">
-      <view class="weui-cell__bd weui-cell__hd_in-select-after">
-        <view class="weui-label">医院</view>
-      </view>
-      <view class="weui-cell__ft">
-        <picker bindchange="bindHospitalChange" value="{{hospitalIndex}}" range="{{hospital}}">
-          <view class="weui-select">{{hospital[hospitalIndex]}}</view>
-        </picker>
-      </view>
-    </view>
-    <view class="weui-cell">
-      <view class="weui-cell__bd weui-cell__hd_in-select-after">
-        <view class="weui-label">科室</view>
-      </view>
-      <view class="weui-cell__ft">
-        <picker bindchange="bindDepartmentChange" value="{{departmentIndex}}" range="{{department}}" custom-item="{{customItem}}">
-          <view class="weui-select">{{department[departmentIndex]}}</view>
-        </picker>
-      </view>
-    </view>
-    <view class="weui-cell">
-      <view class="weui-cell__bd weui-cell__hd_in-select-after">
-        <view class="weui-label">职称</view>
-      </view>
-      <view class="weui-cell__ft">
-        <picker bindchange="bindTitleChange" value="{{titleIndex}}" range="{{title}}" custom-item="{{customItem}}">
-          <view class="weui-select">{{title[titleIndex]}}</view>
-        </picker>
-      </view>
-    </view>
-    <view class="weui-cells__title">擅长</view>
+<view class="page-body"> 
+  <form bindsubmit="formSubmit" >
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <textarea class="weui-textarea" placeholder="请输入" placeholder-class='placeholder' style="height: 4.3em" />
+        <view class="weui-cell__bd weui-cell__hd_in-select-after">
+          <view class="weui-label">医院</view>
+        </view>
+        <view class="weui-cell__ft">
+          <picker bindchange="bindHospitalChange" value="{{hospitalIndex}}" range="{{hospital}}">
+            <view class="weui-select">{{hospital[hospitalIndex]}}</view>
+          </picker>
         </view>
       </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd weui-cell__hd_in-select-after">
+          <view class="weui-label">科室</view>
+        </view>
+        <view class="weui-cell__ft">
+          <picker bindchange="bindDepartmentChange" value="{{departmentIndex}}" range="{{department}}" custom-item="{{customItem}}">
+            <view class="weui-select">{{department[departmentIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd weui-cell__hd_in-select-after">
+          <view class="weui-label">职称</view>
+        </view>
+        <view class="weui-cell__ft">
+          <picker bindchange="bindTitleChange" value="{{titleIndex}}" range="{{title}}" custom-item="{{customItem}}">
+            <view class="weui-select">{{title[titleIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cells__title">擅长</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="请输入" placeholder-class='placeholder' style="height: 4.3em" />
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells__title">头像上传</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{head}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseHead"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cells__title">资质证书</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{image}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view> 
     </view>
-    <view class="weui-cells__title">头像上传</view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-uploader__bd">
-            <view class="weui-uploader__files" id="uploaderFiles">
-              <block wx:for="{{files}}" wx:key="*this">
-                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                </view>
-              </block>
-              <view class="weui-uploader__input-box">
-                <view class="weui-uploader__input" bindtap="chooseImage"></view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="weui-cells__title">资质证书</view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-uploader__bd">
-            <view class="weui-uploader__files" id="uploaderFiles">
-              <block wx:for="{{files}}" wx:key="*this">
-                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                </view>
-              </block>
-              <view class="weui-uploader__input-box">
-                <view class="weui-uploader__input" bindtap="chooseImage"></view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view> 
-  </view>
-  <view class="weui-btn-area">
-    <button class="weui-btn vsub" bindtap="turn">确认</button>
-  </view>
-</view>
+    <view class="weui-btn-area">
+      <button class="weui-btn vsub" formType="submit" >确认</button>
+    </view>
+  </form>
+</view> 

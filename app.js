@@ -12,6 +12,7 @@ App({
     wx.setStorageSync('logs', logs) 
     this.globalData.userList = wx.getStorageSync('userList');
     this.globalData.token = wx.getStorageSync('token');
+    console.log(this.globalData);
     // 登录
     // wx.login({
     //   success: res => {
@@ -66,7 +67,6 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    openid: '' 
+    userInfo: null
   }
 })
