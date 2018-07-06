@@ -1,35 +1,82 @@
-<view class="container"> 
-  <view class="docter-box" wx:for="{{counList}}" wx:key="index">
-    <view class="weui-cell doctor-b" bindtap='trunConInterface' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}">
-      <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-        <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" style="width: 122rpx; height: 122rpx; display: block" />
-        <view style="height:36px;" wx:if="{{userType=='2'}}"></view>
-      </view>
-      <view class="weui-cell__bd">
-        <view class="doctorMes">
-          <view class="weui-flex">
-            <view class="weui-flex__item">
-              <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.receiverName}}</text>
-              <text style="color:#1c7eff;margin-right:20rpx;">{{item.status==0?'未接受':(item.status==1?"咨询中":(item.status==2?'已结束':'已拒绝'))}}</text>
+<view class="container">  
+  <view class="nav" wx:if="{{userType==2}}">
+    <view class="weui-navbar" >
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title">{{item}}</view>
+        </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view> 
+  </view> 
+  <view class="weui-tab__content counlist" hidden="{{activeIndex != 0}}"> 
+    <view class="docter-box" wx:for="{{counList}}" wx:key="index" wx:if="{{userType==1?true:item.status!='0'}}">
+      <view class="weui-cell doctor-b" bindtap='trunConInterface' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}">
+        <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
+          <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" style="width: 122rpx; height: 122rpx; display: block" />
+          <!-- <view style="height:36px;" wx:if="{{userType=='2'}}"></view> -->
+        </view>
+         <view class="weui-cell__bd">
+          <view class="doctorMes">
+            <view class="weui-flex">
+              <view class="weui-flex__item">
+                <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.receiverName}}</text>
+                <text  class="hint {{item.status==0?'green':(item.status==1?'blue':(item.status==2?'orange':'red'))}}">{{item.status==0?'未接受':(item.status==1?"咨询中":(item.status==2?'已结束':'已拒绝'))}}</text>
+              </view>
+              <view>
+                <text>{{item.dialogTime}}</text>
+              </view>
             </view>
             <view>
-              <text>{{item.dialogTime}}</text>
+              <text>咨询的部位:</text>
+              <text>{{item.bodyPart}}</text>
             </view>
           </view>
-          <view>
-            <text>咨询的部位:</text>
-            <text>{{item.bodyPart}}</text>
-          </view>
+          <!-- <view class="weui-flex choice" wx:if="{{userType==2}}">
+            <view class="accept">
+              <button data-consult="{{item.dialogConsultId}}" bindtap='accept'>接受</button>
+            </view>
+            <view class="refuse">
+              <button bindtap='refuse'>拒绝</button>
+            </view>
+          </view> -->
+        </view> 
+      </view>
+    </view> 
+  </view>
+  <view class="weui-tab__content counlist" hidden="{{activeIndex != 1}}" wx:if="{{userType==2}}"> 
+    <view class="docter-box" wx:for="{{counList}}" wx:key="index" wx:if="{{item.status=='0'}}">
+      <view class="weui-cell doctor-b">
+        <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
+          <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" style="width: 122rpx; height: 122rpx; display: block" />
+          <view style="height:36px;" wx:if="{{userType=='2'}}"></view>
         </view>
-        <view class="weui-flex choice" wx:if="{{userTpye=='2'}}">
-          <view class="accept">
-            <button>接受</button>
+        <view class="weui-cell__bd">
+          <view class="doctorMes">
+            <view class="weui-flex">
+              <view class="weui-flex__item">
+                <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.receiverName}}</text>
+                <text wx:if="{{userType==1}}" style="color:#1c7eff;margin-right:20rpx;">{{item.status==0?'未接受':(item.status==1?"咨询中":(item.status==2?'已结束':'已拒绝'))}}</text>
+              </view>
+              <view>
+                <text>{{item.dialogTime}}</text>
+              </view>
+            </view>
+            <view>
+              <text>咨询的部位:</text>
+              <text>{{item.bodyPart}}</text>
+            </view>
           </view>
-          <view class="refuse">
-            <button>拒绝</button>
+          <view class="weui-flex choice" wx:if="{{userType==2}}">
+            <view class="accept">
+              <button data-consult="{{item.dialogConsultId}}" bindtap='accept'>接受</button> 
+            </view>
+            <view class="refuse">
+              <button data-consult="{{item.dialogConsultId}}" bindtap='refuse'>拒绝</button>
+            </view>
           </view>
         </view>
       </view>
-    </view>
-  </view>
+    </view> 
+  </view> 
 </view>

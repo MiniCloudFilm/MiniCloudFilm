@@ -23,7 +23,7 @@
               <image src="/image/icon-zixun.png"> </image>
             </view>
             <view>
-               咨询
+              {{doctorMes.order=='before'?'选择专家':'购买'}} 
             </view>
           </view>
         </view>

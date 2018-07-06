@@ -43,24 +43,28 @@ Page({
       '}'
   }, 
   
-  subVideo: function () {
+  subVideo: function (e) {
+    let user=wx.getStorageSync("userList");
+    let token=wx.getStorageSync("token")
     var that = this;
     wx.uploadFile({
       url: `http://192.168.131.63:8080/doctor/api/v1/uploadVideo`,
       filePath: that.data.src,
       name: 'file',
       formData: {
-        'userId': "123456",
-        "videoTitle": that.data.title,
-        "videoCharge": that.data.charge,
-        "token": ""
+        'userId': user.userId,
+        "videoTitle": e.detail.value.title,
+        "videoCharge": e.detail.value.charge,
+        "token": token
       },
       success: function (res) {
         console.log(res); 
         //do something
-        wx.redirectTo({
-          url: '../videoMag/videoMag',
-        })
+        if (res.data.code == "200") {
+          wx.redirectTo({
+            url: '../videoMag/videoMag',
+          }) 
+        }
       }
     })
     

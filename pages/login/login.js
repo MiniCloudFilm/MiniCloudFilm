@@ -1,5 +1,6 @@
 // pages/login/login.js
-var app = getApp();
+let app = getApp();
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -7,7 +8,8 @@ Page({
    */
   data: {
     currentTab:1, 
-    userPwd: ""
+    userPwd: "",
+    turn:true
   },
   //用户手机号
   mobileCheck: function (e) { 
@@ -29,9 +31,10 @@ Page({
       currentTab: e.currentTarget.dataset.idx
     })
   },
+ 
   formSubmit: function (e) {
-    console.log((e.detail.value.userName));
-    console.log((e.detail.value.userName));
+    console.log(e);
+    console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
       wx.setTopBarText({
         text: '请输入手机号!'
@@ -49,7 +52,7 @@ Page({
     wx.login({
       success: res => {
         var code = res.code
-        console.log(code);
+        console.log(code);  
         // 发送 res.code 到后台换取 openId, sessionKey, unionId  
         // wx.request({
         //   url: `https://api.weixin.qq.com/sns/jscode2session`,
@@ -88,50 +91,13 @@ Page({
           wx.setStorageSync('userList', res.data.data.user)
           wx.setStorageSync('token', res.data.data.token)
           app.globalData.userList = wx.getStorageSync('userList');
-          app.globalData.token = wx.getStorageSync('token');
+          app.globalData.token = wx.getStorageSync('token'); 
           wx.switchTab({
             url: `../user/user`
-          })
+          }) 
         }
       }
     })
-  },
-  login: function () {
-    // if (this.data.userName.length == 0) {
-    //   wx.setTopBarText({
-    //     text: '请输入手机号!'
-    //   }) 
-    //   return false;
-    // }
-    // if (this.data.userPwd.length == 0) {
-    //   wx.showToast({
-    //     title: '请输入密码',
-    //     icon: 'success',
-    //     duration: 1500
-    //   })
-    //   return false;
-    // }
-    // wx.request({
-    //   url: 'http://192.168.131.227:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
-    //   data: {
-    //     'userName': this.data.userName,
-    //     'password': this.data.userPwd
-    //   },
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
-    //   },
-    //   success: function (res) {
-    //     console.log(res.data)
-    //     app.globalData.userList = res.data.data.user;
-    //     app.globalData.token = res.data.data.token; 
-    //     if (res.data.code == '200') {
-    //       wx.switchTab({
-    //         url: `../user/user`
-    //       })
-    //     }
-    //   }
-    // })
   }, 
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -143,7 +109,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) {  
+    console.log(util);
     this.setData({
       userName: wx.getStorageSync('user')
     })

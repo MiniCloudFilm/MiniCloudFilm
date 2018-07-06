@@ -22,11 +22,11 @@ Page({
   //获取地市
   getArea:function(){
     wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/dict/getArea',
+      url: 'http://192.168.131.3:8080/api/v1/dict/getArea',
       data: {
         'token': '',
-        'parentId': areaId,
-        'deptId': level
+        'parentId': '',
+        'level': 1
       },
       method: 'GET',
       header: {
@@ -35,9 +35,7 @@ Page({
       success: res => {
         console.log(res.data.data)
         if (res.data.code == "200") {
-          this.setData({
-            expertList: res.data.data
-          })
+          
         }
       }
     })
@@ -59,7 +57,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&type=1`
+        url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportid}&type=1`
       })
 
     }
@@ -92,7 +90,7 @@ Page({
       }
     })
   },
-  //获取列
+  //获取科室列
   bindMultiPickerColumnChange: function (e) {
     // console.log(e.detail.column, e.detail.value);
     var data = {
@@ -141,6 +139,7 @@ Page({
       }
     })
   },
+  //选定科室
   bindDepartmentChange: function (e) {
     console.log(e); 
     let index=e.detail.value;
@@ -170,41 +169,43 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log(options)
+  onLoad: function (options) { 
+    this.getArea();
+    console.log(options); 
     this.getDepartment();
     this.getExpert(440000, 'all');
     var that = this;
-    qqmapsdk = new QQMapWX({
-      key: 'NOYBZ-WXICJ-XMGFO-FF2UV-ULBW7-UEBFX'//此处使用你自己申请的key  
-    });
     this.setData({
       doctorMes: options
     })
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function (resA) {
-            that.setData({
-              region: [resA.result.address_component.province, resA.result.address_component.city, resA.result.address_component.district]
-            })
-            // that.getHospital();
-            // console.log(resA);
-          },
-          fail: function (resA) {
-            console.log(resA);
-          },
-          complete: function (resA) {
-            // console.log(resA);
-          }
-        });
-      }
-    })
+
+    // qqmapsdk = new QQMapWX({
+    //   key: 'NOYBZ-WXICJ-XMGFO-FF2UV-ULBW7-UEBFX'//此处使用你自己申请的key  
+    // });
+    // wx.getLocation({
+    //   type: 'wgs84',
+    //   success: function (res) {
+    //     qqmapsdk.reverseGeocoder({
+    //       location: {
+    //         latitude: res.latitude,
+    //         longitude: res.longitude
+    //       },
+    //       success: function (resA) {
+    //         that.setData({
+    //           region: [resA.result.address_component.province, resA.result.address_component.city, resA.result.address_component.district]
+    //         })
+    //         // that.getHospital();
+    //         // console.log(resA);
+    //       },
+    //       fail: function (resA) {
+    //         console.log(resA);
+    //       },
+    //       complete: function (resA) {
+    //         // console.log(resA);
+    //       }
+    //     });
+    //   }
+    // })
   },
 
   /**

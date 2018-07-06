@@ -28,6 +28,7 @@
 .login image{
   width:150rpx;
   height:150rpx;
+  border-radius: 50%;
 }
 .outLogin{
   font-size:24rpx;
@@ -35,6 +36,14 @@
   text-align: right;
   padding-top:10rpx;
   padding-right:20rpx;
+}
+ 
+button.outLogin{
+  background: #fff;
+  padding-top:0;
+}
+.login button:after{
+  border:none;
 }
 .myName{
   margin-top:20rpx;
@@ -66,4 +75,9 @@
 } 
 .weui-cell__ft_in-access:after {
   border-color:#edeff0;
+}
+.myImg{
+  width:150rpx;
+  height:150rpx;
+  margin: 0 auto;
 }
