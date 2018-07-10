@@ -46,6 +46,7 @@ Page({
   subVideo: function (e) {
     let user=wx.getStorageSync("userList");
     let token=wx.getStorageSync("token")
+    console.log(e.detail.value.title, e.detail.value.charge);
     var that = this;
     wx.uploadFile({
       url: `http://192.168.131.63:8080/doctor/api/v1/uploadVideo`,
@@ -55,7 +56,11 @@ Page({
         'userId': user.userId,
         "videoTitle": e.detail.value.title,
         "videoCharge": e.detail.value.charge,
+        "isCharge": e.detail.value.charge!="0"?'Y':'N',
         "token": token
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
         console.log(res); 

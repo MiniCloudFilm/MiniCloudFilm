@@ -15,6 +15,7 @@ Page({
     this.data.allow = !this.data.allow;
   },
   openConfirm: function () {
+    console.log(this.data.allow);
     let pay = this.data.payList;
     let user = wx.getStorageSync("userList")
     console.log(user);
@@ -35,27 +36,6 @@ Page({
         console.log(res.data)
         let wxPay = res.data;
         if (wxPay.code == '200') {
-          wx.request({
-            url: 'http://192.168.131.63:8080/consult/api/v1/start', //仅为示例，并非真实的接口地址
-            data: {
-              "sponsor": user.userId,
-              "receiver": pay.doctorId,
-              "reportId": pay.reportId,
-              "isAssist": '1'
-            },
-            method: 'POST',
-            header: {
-              'content-type': 'application/json' // 默认值
-            },
-            success: resB => {
-              console.log(resB);
-              if (resB.data.code=="200"){
-                wx.redirectTo({
-                  url: `../ConInterface/ConInterface?dialogId=${resB.data.data}&userId=${user.userId}`,
-                })
-             } 
-            }
-          })
           // wx.requestPayment({
           //   'timeStamp': wxPay.data.timeStamp,
           //   'nonceStr': wxPay.data.nonceStr,
@@ -64,7 +44,48 @@ Page({
           //   'paySign': wxPay.data.paySign,
           //   'success': resA => {
           //     console.log(resA);
-              
+          wx.request({
+            url: 'http://192.168.131.63:8080/api/v1/pay/saveOrder',
+            data: {
+              "totalFee": pay.price,
+              "mobile": user.mobile,
+              "orderType": "1", //1:咨询,2:视频
+              "orderTime": wxPay.data.timeStamp,
+              "userId": user.userId,
+              "payForDoctor": pay.doctorId
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success: resB => {
+              console.log(resB);
+              if (resB.data.code == "200") {
+                wx.request({
+                  url: 'http://192.168.131.63:8080/consult/api/v1/start',
+                  data: {
+                    "sponsor": user.userId,
+                    "receiver": pay.doctorId,
+                    "reportId": pay.reportId,
+                    "isAssist": this.data.allow ? 'Y' : 'N'
+                  },
+                  method: 'POST',
+                  header: {
+                    'content-type': 'application/json' // 默认值
+                  },
+                  success: resC => {
+                    console.log(resC);
+                    if (resC.data.code == "200") {
+                      wx.redirectTo({
+                        url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&userId=${user.userId}`,
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+
           //   //         if (this.data.payType == "0") {
           //   //           wx.showModal({
           //   //             title: '支付完成',
@@ -111,72 +132,72 @@ Page({
           //   }
           // })
 
-  }
-}
+        }
+      }
     })
 
 
 
   },
-/**
- * 生命周期函数--监听页面加载
- */
-onLoad: function (options) {
-  console.log(options);
-  let user = wx.getStorageSync("userList")
-  console.log(user);
-  this.setData({
-    payList: options
-  });
-  console.log(this.data.payList)
-},
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(options);
+    let user = wx.getStorageSync("userList")
+    console.log(user);
+    this.setData({
+      payList: options
+    });
+    console.log(this.data.payList)
+  },
 
-/**
- * 生命周期函数--监听页面初次渲染完成
- */
-onReady: function () {
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
 
-},
+  },
 
-/**
- * 生命周期函数--监听页面显示
- */
-onShow: function () {
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
 
-},
+  },
 
-/**
- * 生命周期函数--监听页面隐藏
- */
-onHide: function () {
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
 
-},
+  },
 
-/**
- * 生命周期函数--监听页面卸载
- */
-onUnload: function () {
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
 
-},
+  },
 
-/**
- * 页面相关事件处理函数--监听用户下拉动作
- */
-onPullDownRefresh: function () {
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
 
-},
+  },
 
-/**
- * 页面上拉触底事件的处理函数
- */
-onReachBottom: function () {
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
 
-},
+  },
 
-/**
- * 用户点击右上角分享
- */
-onShareAppMessage: function () {
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
 
-}
+  }
 })

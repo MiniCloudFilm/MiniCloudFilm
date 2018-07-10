@@ -1,7 +1,7 @@
 // pages/expertList/expert.js
 
-var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
-var qqmapsdk;
+// var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
+// var qqmapsdk;
 Page({
 
   /**
@@ -13,44 +13,13 @@ Page({
     departmentIndex: [0, 0],
     depart: [[], []],
     index: 0,
-    // doctorList: [
-    //   { "doctorImg": "/image/icon-doctor.png", "doctorName": "兰建清", "department": "妇科", "position": "主任医师", "belong": "深圳第一医院", "level": "三甲医院", "skill": "妇科疾病诊断治疗", "price": "8.88" },
-    //   { "doctorImg": "/image/icon-doctor.png", "doctorName": "罗腾可", "department": "放射科", "position": "主任医师", "belong": "北京大学深圳医院", "level": "三甲医院", "skill": "超声诊断", "price": "6.88" },
-    //   { "doctorImg": "/image/icon-doctor.png", "doctorName": "田程林", "department": "男科", "position": "主任医师", "belong": "深圳第二医院", "level": "三甲医院", "skill": "男性疾病诊断", "price": "5.88" },
-    // ] 
+    areaIndex: [0, 0, 0], 
+    value: 0,  
   },
-  //获取地市
-  getArea:function(){
-    wx.request({
-      url: 'http://192.168.131.3:8080/api/v1/dict/getArea',
-      data: {
-        'token': '',
-        'parentId': '',
-        'level': 1
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        console.log(res.data.data)
-        if (res.data.code == "200") {
-          
-        }
-      }
-    })
-  },
-  //选择区域
-  bindRegionChange: function (e) {
-    let that = this;
-    this.setData({
-      region: e.detail.value
-    })
-    console.log(e.detail.value);
-    // this.getHospital();
-  },
+
+
   turn: function (e) {
-    console.log(this.data.doctorMes.order);
+    // console.log(this.data.doctorMes.order);
     if (this.data.doctorMes.order == 'before') {
       wx.navigateTo({
         url: `../chRepCon/chRepCon?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&order=after`
@@ -72,7 +41,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           that.setData({
             departList: res.data.data
@@ -82,7 +51,7 @@ Page({
             depart[0].push(res.data.data[i])
           }
           depart[1] = res.data.data[0].children;
-          console.log(depart);
+          // console.log(depart);
           that.setData({
             department: depart
           })
@@ -96,7 +65,7 @@ Page({
     var data = {
       department: this.data.department,
       departmentIndex: this.data.departmentIndex
-    }; 
+    };
     data.departmentIndex[e.detail.column] = e.detail.value;
     if (e.detail.column == 0) {
       for (let i = 0; i < this.data.departList.length; i++) {
@@ -105,16 +74,10 @@ Page({
           list[1] = this.data.departList[i].children;
           this.setData({
             department: list
-          })
-          // console.log(this.data.department);
-          // console.log(this.data.department[1]);
-          // console.log(this.data.departList[i]);
-          // console.log(this.data.departList[i].children);
-          // console.log(this.data.department);
+          }) 
         }
       }
-    }
-
+    } 
   },
   //获取专家列表
   getExpert: function (areaId, deptId) {
@@ -141,13 +104,13 @@ Page({
   },
   //选定科室
   bindDepartmentChange: function (e) {
-    console.log(e); 
-    let index=e.detail.value;
-    let parent=index[0];
-    let value=index[1];
+    console.log(e);
+    let index = e.detail.value;
+    let parent = index[0];
+    let value = index[1];
     let list = this.data.departList;
-    for(let i=0;i<list.length;i++){
-      if (parent==i){
+    for (let i = 0; i < list.length; i++) {
+      if (parent == i) {
         if (value == 0) {
           this.setData({
             deptId: list[i].deptId
@@ -155,57 +118,117 @@ Page({
           this.getExpert(440000, this.data.deptId)
           // console.log(list[i]);
           // console.log(list[i].deptId); 
-        }else{ 
+        } else {
           // console.log(list[i].children[value])
           // console.log(list[i].children[value].deptId);
           this.setData({
             deptId: list[i].children[value].deptId
-          }) 
+          })
           this.getExpert(440000, this.data.deptId)
         }
       }
     }
   },
+  //选择区域
+  bindAreaColumnChange: function (e) { 
+    if (e.detail.column == 1) {
+      this.setData({
+        value: e.detail.value
+      })
+    } 
+    var data = {
+      areaList: this.data.areaList,
+      areaIndex: this.data.areaIndex
+    };
+    data.areaIndex[e.detail.column] = e.detail.value;
+    console.log(this.data.areaIndex); 
+    for (let i = 0; i < this.data.areaList[e.detail.column].length; i++) {
+      if (e.detail.value == i) {
+        let list = this.data.areaList;
+        let parentId = list[e.detail.column][i].areaId;
+        let level = list[e.detail.column][i].areaLevel + 1;
+        if(level<4){ 
+          this.getArea(parentId, level);
+          this.setData({
+            sure: true
+          })
+        }
+      }
+      this.setData({
+        areaIndex: data.areaIndex
+      })
+    }
+    // if (this.data.areaIndex[2]>0){ 
+    //   console.log(this.data.areaList[2][this.data.areaIndex[2]].areaName);
+    // }
+    console.log(this.data.areaList)
+  },
+  bindAreaChange: function () { },
+  //获取地市
+  getArea: function (parentId, level) {
+    wx.request({
+      url: 'http://192.168.131.102:8080/api/v1/dict/getArea',
+      data: {
+        'token': '',
+        'parentId': parentId,
+        'level': level
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res);
+        console.log(res.data.data)
+        if (res.data.code == "200") {
+          let list = res.data.data;
+          let first = { "areaId": 'all', "areaName": '全部', "areaLevel": level, "parentId": parentId }
+          list.unshift(first)
+          let DList = this.data.areaList;
+          if (level == 1) {
+            DList[0] = list;
+            this.setData({
+              areaList: DList
+            })
+          } else if (level == 2) { 
+            DList[2] = [];
+            DList[2].push(first);
+            this.setData({
+              arealist: DList
+            })
+            DList[1] = list;
+            this.setData({
+              areaList: DList
+            })
+            // if (this.data.sure) {  
+            //   this.getArea(this.data.areaList[1][this.data.value].areaId, this.data.areaList[1][this.data.value].areaLevel + 1)
+            // }
+          }
+          else if (level == 3) {
+            DList[2] = [];
+            DList[2] = list;
+            this.setData({
+              areaList: DList
+            })
+          } 
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getArea();
-    console.log(options);
+    this.setData({
+      areaList:[[],[],[]]
+    })
+    this.getArea('0', 1); 
     this.getDepartment();
     this.getExpert(440000, 'all');
     var that = this;
     this.setData({
       doctorMes: options
-    })
-
-    // qqmapsdk = new QQMapWX({
-    //   key: 'NOYBZ-WXICJ-XMGFO-FF2UV-ULBW7-UEBFX'//此处使用你自己申请的key  
-    // });
-    // wx.getLocation({
-    //   type: 'wgs84',
-    //   success: function (res) {
-    //     qqmapsdk.reverseGeocoder({
-    //       location: {
-    //         latitude: res.latitude,
-    //         longitude: res.longitude
-    //       },
-    //       success: function (resA) {
-    //         that.setData({
-    //           region: [resA.result.address_component.province, resA.result.address_component.city, resA.result.address_component.district]
-    //         })
-    //         // that.getHospital();
-    //         // console.log(resA);
-    //       },
-    //       fail: function (resA) {
-    //         console.log(resA);
-    //       },
-    //       complete: function (resA) {
-    //         // console.log(resA);
-    //       }
-    //     });
-    //   }
-    // })
+    }) 
   },
 
   /**

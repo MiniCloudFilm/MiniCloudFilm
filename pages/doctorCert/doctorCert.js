@@ -10,10 +10,14 @@ Page({
     customItem:"请选择", 
     department: ["请选择", "放射科", "妇科", "男科"],
     departmentIndex: 0,
-    title: ["请选择", '主任','副主任','医师'],
+    doctorLevel: ["请选择", "主任医师","副主任医师","主治医师","医师"],
     titleIndex: 0,
-    image: [],
-    head:[]
+    image: [], 
+    areaIndex: [0, 0, 0], 
+    head:[],
+    countHeadImg:0,
+    user:wx.getStorageSync('userList'),
+    token: wx.getStorageSync('token'),
   },
   bindHospitalChange: function (e) {
     console.log('picker country 发生选择改变，携带值为', e.detail.value);
@@ -36,35 +40,88 @@ Page({
       titleIndex: e.detail.value
     })
   },
-  chooseImage: function (e) {
-    var that = this;
-    wx.chooseImage({
+  chooseImage: function (e) { 
+    wx.chooseImage({ 
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
+      success:res=> {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         console.log(res);
-        that.setData({
-          image: that.data.image.concat(res.tempFilePaths)
+        this.setData({
+          image: this.data.image.concat(res.tempFilePaths)
         });
-        console.log(that.data.image);
+        console.log(this.data.image);
       }
     })
   },
-  chooseHead:function(e){ 
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        console.log(res);
-        that.setData({
-          head: that.data.head.concat(res.tempFilePaths)
-        });
-        console.log(that.data.head);
+  chooseHead:function(e){  
+    if (this.data.head.length < 1) {
+      wx.chooseImage({
+        count: 1,
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: res=> {
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+          console.log(res);
+          this.setData({
+            head: this.data.head.concat(res.tempFilePaths) 
+          });
+          console.log(this.data.head);
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '只能上传一张头像!', 
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  },
+  //上传头像
+  upAvatar: function () {
+    let user = this.data.user;
+    console.log('头像');
+    console.log(this.data.head);
+    wx.uploadFile({
+      url: 'http://192.168.131.102:8080/doctor/api/v1/uploadAvatar', //仅为示例，非真实的接口地址
+      filePath: this.data.head[0],
+      name: 'avatarFile',
+      formData: {
+        'token': this.data.token
+      },
+      success: res=> {
+        console.log(res); 
+      }, 
+      fail: res => {
+        console.log(res); 
       }
     })
+  }, 
+  //上传证书方法
+  upCertificaterMethod: function (num) { 
+    console.log(this.data.image);
+    console.log('方法');
+    let user =this.data.user;
+    wx.uploadFile({
+      url: 'http://192.168.131.102:8080/doctor/api/v1/uploadCertificate', //仅为示例，非真实的接口地址
+      filePath: this.data.image[num],
+      name: 'certificateFile',
+      formData: {
+        'token': this.data.token
+      },
+      success: res=> {
+        console.log(res); 
+      },
+      fail: res => {
+        console.log(res);
+      }
+    })
+  }, 
+  //上传多张证书
+  upCertificater:function(){
+    for(let i=0;i<this.data.image.length;i++){
+      this.upCertificaterMethod(i);
+    }
   },
   previewImage: function (e) {
     wx.previewImage({
@@ -73,47 +130,153 @@ Page({
     })
   },
   formSubmit:function(e){ 
-    let user=wx.getStorageSync('userList');
-    console.log(user);
-    wx.uploadFile({
-      url: 'http://192.168.131.3:8080/doctor/api/v1/uploadAvatar', //仅为示例，非真实的接口地址
-      filePath: this.data.head[0],
-      name: 'avatarFile', 
-      formData: {
-        'userId': user.userId
+    console.log(this.data.token);
+    let user=this.data.user;
+    console.log(user);  
+    this.upAvatar();
+    this.upCertificater();
+    wx.request({
+      url: 'http://192.168.131.102:8080/doctor/api/v1/doctorCertified',
+      data: {
+        'token': this.data.token,
+        'deptId': '20',
+        'age': '20',
+        'charge': '18',
+        'hospitalId': "45576818X",
+        'doctorLevel': '1',
+        'synopsis': '建清是个逗比',
+        'qualification': '112233445566' 
       },
-      success: function (res) {
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
         console.log(res);
-        var data = res.data
-        //do something
+      }
+    })  
+  },
+  //获取地市
+  getArea: function (parentId, level) {
+    wx.request({
+      url: 'http://192.168.131.102:8080/api/v1/dict/getArea',
+      data: {
+        'token': '',
+        'parentId': parentId,
+        'level': level
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res);
+        console.log(res.data.data)
+        if (res.data.code == "200") {
+          let list = res.data.data;
+          let first = { "areaId": 'all', "areaName": '全部', "areaLevel": level, "parentId": parentId }
+          list.unshift(first)
+          let DList = this.data.areaList;
+          if (level == 1) {
+            DList[0] = list;
+            this.setData({
+              areaList: DList
+            })
+          } else if (level == 2) {
+            DList[2] = [];
+            DList[2].push(first);
+            this.setData({
+              arealist: DList
+            })
+            DList[1] = list;
+            this.setData({
+              areaList: DList
+            })
+            // if (this.data.sure) {
+            //   this.getArea(this.data.areaList[1][this.data.value].areaId, this.data.areaList[1][this.data.value].areaLevel + 1)
+            // }
+          }
+          else if (level == 3) {
+            DList[2] = [];
+            DList[2] = list;
+            this.setData({
+              areaList: DList
+            })
+          }
+        }
       }
     })
-    // wx.request({
-    //   url: 'https://192.168.131.3:8443/doctor/api/v1/uploadAvatar', //仅为示例，并非真实的接口地址
-    //   data: {
-    //     'avatarFile': this.data.image[0],
-    //     'certificateFile': this.data.head[0],
-    //     'doctorId': user.userId
-    //   },
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
-    //   },
-    //   success: res => {
-    //     console.log(res);
-    //     if (res.data.code == '200') { 
-    //     }
-    //   }
-    // })
-    // wx.navigateBack({
-    //   delta: 1
-    // })
+  },
+  //选择区域
+  bindAreaColumnChange: function (e) {
+    if (e.detail.column == 1) {
+      this.setData({
+        value: e.detail.value
+      })
+    }
+    var data = {
+      areaList: this.data.areaList,
+      areaIndex: this.data.areaIndex
+    };
+    data.areaIndex[e.detail.column] = e.detail.value;
+    console.log(this.data.areaIndex); 
+    for (let i = 0; i < this.data.areaList[e.detail.column].length; i++) {
+      if (e.detail.value == i) {
+        let list = this.data.areaList;
+        let parentId =list[e.detail.column][i].areaId;
+        let level = list[e.detail.column][i].areaLevel + 1;
+        this.getArea(parentId, level);
+        this.setData({
+          sure: true
+        })
+      }
+    }
+  },
+  bindAreaChange: function () { }, 
+  //获取医院
+  getHospital:function(){
+    wx.request({
+      url: 'http://192.168.131.102:8080/api/v1/dict/getHospital',
+      data: {
+        'token': '',
+        'areaId': '440000'
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res);
+      }
+    })
+  },
+  //获取科室
+  getDept:function(){
+    wx.request({
+      url: 'http://192.168.131.102:8080/api/v1/dict/getDept',
+      data: {
+        'token': ''
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res);
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+
+    this.setData({
+      areaList:[[],[],[]]
+    })
+    this.getDept();
+    this.getArea('0',1); 
+    this.getHospital();
   },
 
   /**
