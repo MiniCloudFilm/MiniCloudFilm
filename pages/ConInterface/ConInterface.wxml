@@ -11,7 +11,7 @@
             <view>
               <text>{{reportDetail.studyTime}}  {{reportDetail.hospitalName}}</text>
             </view>
-            <navigator class="pay-con" url="../assistList/assister?dialogId={{dialogId}}&reportId={{reportId}}">
+            <navigator wx:if="{{myType==2&&ifAssist=='null'}}" class="pay-con" url="../assistList/assister?dialogId={{dialogId}}&reportId={{reportId}}">
               <view>
                 <image src="/image/icon-zixun.png"> </image>
               </view>
@@ -31,13 +31,13 @@
         </view>
       </view>
       <view class="end">
-        <button>
+        <button type='default' bindtap='endDialog'>
           <image src="/image/icon-end.png"></image>
-          结束咨询</button>
+        结束咨询</button>
       </view>
       <view class="weui-flex title-box">
         <view class="weui-flex__item start"></view>
-        <view class="title">您正在与XX医生沟通</view>
+        <view class="title">您正在与{{dialoger}}{{myType==1?"医生":""}}沟通</view>
         <view class="weui-flex__item end"></view>
       </view>
     </view>

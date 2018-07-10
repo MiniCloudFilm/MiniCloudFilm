@@ -13,7 +13,7 @@ Page({
       wx.navigateTo({
         url: `../expertList/expert?reportId=${e.currentTarget.dataset.reportid}`
       })
-    } else { 
+    } else {
       wx.navigateTo({
         url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&reportId=${e.currentTarget.dataset.reportid}&type=1`
       })

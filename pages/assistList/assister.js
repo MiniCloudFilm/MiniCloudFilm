@@ -160,7 +160,8 @@ Page({
       key: 'NOYBZ-WXICJ-XMGFO-FF2UV-ULBW7-UEBFX'//此处使用你自己申请的key  
     });
     this.setData({
-      dialogId: options.dialogId
+      dialogId: options.dialogId,
+      reportId: options.reportId
     })
     wx.getLocation({
       type: 'wgs84',
@@ -195,10 +196,38 @@ Page({
         image: '',
         duration: 1500
       });
-    }else{
-      wx.redirectTo({
-        url: `../ConInterface/ConInterface?assisterId=${this.data.assisterId}`,
+    } else if (this.data.assisterId == undefined) {
+      wx.showToast({
+        title: '请选择要协助的医生',
+        icon: 'none',
+        image: '',
+        duration: 1500
       });
+    }else{
+      wx.request({
+        url: 'http://192.168.131.212:8080/dialogUser/api/v1/add',
+        data: {
+          'token': wx.getStorageSync('token'),
+          'userId': this.data.assisterId,
+          "dialogId": this.data.dialogId,
+          "userType":3
+        },
+        method: 'post',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: res => {
+          console.log("成功?")
+          console.log(res);
+          // wx.redirectTo({
+          //   url: `../ConInterface/ConInterface?reportId=${this.data.reportId}&dialogId=${this.data.dialogId}`,
+          // });
+          wx.navigateBack({
+            delta:1
+          })
+        }
+      })
+      
     }
   },
   radioChange: function (e) {

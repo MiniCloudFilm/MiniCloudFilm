@@ -49,10 +49,10 @@ Page({
               'content-type': 'application/json' // 默认值
             },
             success: resB => {
-              console.log(resB);
+              console.log(resB.data.data);
               if (resB.data.code=="200"){
                 wx.redirectTo({
-                  url: `../ConInterface/ConInterface?dialogId=${resB.data.data}&reportId=${pay.reportId}`,
+                  url: `../ConInterface/ConInterface?dialogId=${resB.data.data.dialogId}&reportId=${pay.reportId}&dialoger=${pay.doctorName}&concultId=${resB.data.data.concultId}`,
                 })
              } 
             }

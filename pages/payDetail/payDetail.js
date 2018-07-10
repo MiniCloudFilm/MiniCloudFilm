@@ -12,9 +12,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getDetail(options.orderId)
   },
-
+  getDetail: function (orderId){
+    wx.request({
+      url: 'http://192.168.131.63:8080/common/api/v1/queryPayInfo',
+      data: {
+        'orderId': "20180706171604",
+        'token':wx.getStorageSync("token")
+      },
+      method: 'get',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

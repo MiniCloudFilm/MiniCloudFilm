@@ -11,11 +11,12 @@ Page({
   }, 
   getData: function (pg) {
     wx.showNavigationBarLoading();
-    let token=wx.getStorageSync('token')
+    let token=wx.getStorageSync('token');
+    let myId = wx.getStorageSync('userList').userId;
     console.log(token)
     pg = pg ? pg : 0; 
     let that = this; 
-    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myPayList?userId=1&page=${pg}&token=${token}`; 
+    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myPayList?userId=${myId}&page=${pg}&token=${token}`; 
     wx.request({
       url: apiUrl, //仅为示例，并非真实的接口地址
       header: {
@@ -37,9 +38,10 @@ Page({
       }
     })
   },
-  openDetail:function(){
+  openDetail:function(e){
+    let orderId = e.currentTarget.dataset.orderId;
     wx.navigateTo({
-      url: '../payDetail/payDetail',
+      url: `../payDetail/payDetail?orderId=${orderId}`,
     })
   },
   /**

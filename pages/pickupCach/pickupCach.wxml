@@ -84,9 +84,9 @@
   <view class='item-xing'>*</view>
   <view class='item-title'>收款账号</view>
   <input class='item-content' type='number' placeholder='请输入收款账号' bindinput='getUserIdCardNumber' value='{{bankNumber}}'></input>
-  <view class='cardRecord' bindtap='searchCard'>
+  <view wx:if="{{ifHasRecord}}" class='cardRecord'>
       <picker bindchange="bindPickerChange" value="{{index}}" range="{{cardList}}">
-           <image src='../../image/icon-home2.png'></image>
+           <image src='../../image/my-card.png'></image>
       </picker>
   </view>
 </view>
