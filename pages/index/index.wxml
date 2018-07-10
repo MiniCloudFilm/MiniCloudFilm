@@ -14,7 +14,7 @@
     </view>
     <view class="nav">
       <view class="weui-flex">
-        <view class="weui-flex__item">
+        <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
                <navigator url="../expertList/expert?order=before" hover-class="navigator-hover">     
              <!-- <navigator url="../confirmPay/confirmPay" hover-class="navigator-hover">    -->
            <!-- <navigator url="../chRepCon/chRepCon" hover-class="navigator-hover">  -->
@@ -26,7 +26,7 @@
             </view>
           </navigator>
         </view>
-        <view class="weui-flex__item">
+        <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
           <navigator url="../chRepCon/chRepCon?order=before">
             <view class="navT">
               <image src="/image/icon2.png"></image>
@@ -47,24 +47,26 @@
 
           </navigator>
         </view>
-        <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
-          <view class="navT">
-              <image src="/image/icon4.png"></image>
-          </view>
-          <view>
-            <text>开发中</text>
-          </view>
-        </view>  
+         
         <view class="weui-flex__item" wx:if="{{userType==2}}">
           <navigator url="../conAssistance/conAssistance">
             <view class="navT">
               <image src="/image/icon5.png"></image>
             </view>
             <view>
-              <text>会诊协助</text>
+              <text>会诊记录</text>
             </view> 
           </navigator>
         </view>
+
+        <view class="weui-flex__item" >
+          <view class="navT">
+              <image src="/image/icon4.png"></image>
+          </view>
+          <view>
+            <text>开发中</text>
+          </view>
+        </view> 
 
       </view> 
     </view><view class="weui-flex">

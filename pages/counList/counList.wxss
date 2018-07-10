@@ -23,6 +23,13 @@
 }
 .doctorImg{
   height:100%;
+  position: relative;
+  margin-right: 10px;
+}
+.doctorImg image{
+  width: 122rpx;
+  height: 122rpx;
+  display: block;
 }
 .doctorMes{
   padding-bottom:10rpx;

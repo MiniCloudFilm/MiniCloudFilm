@@ -18,15 +18,16 @@ Page({
   },
 
 
-  turn: function (e) {
-    // console.log(this.data.doctorMes.order);
+  turn: function (e) { 
+    console.log(this.data.doctorMes.order);
+    console.log(this.data.doctorMes); 
     if (this.data.doctorMes.order == 'before') {
       wx.navigateTo({
         url: `../chRepCon/chRepCon?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&order=after`
       })
     } else {
       wx.navigateTo({
-        url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportid}&type=1`
+        url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportId}&type=1`
       })
 
     }
@@ -217,12 +218,10 @@ Page({
   },
   /**
    * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.setData({
-      areaList:[[],[],[]]
-    })
-    this.getArea('0', 1); 
+   */ 
+  onLoad: function (options) { 
+    this.getArea();
+    console.log(options);  
     this.getDepartment();
     this.getExpert(440000, 'all');
     var that = this;

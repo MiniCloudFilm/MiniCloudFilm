@@ -11,17 +11,25 @@
   </view> 
   <view class="weui-tab__content counlist" hidden="{{activeIndex != 0}}"> 
     <view class="docter-box" wx:for="{{counList}}" wx:key="index" wx:if="{{userType==1?true:item.status!='0'}}">
-      <view class="weui-cell doctor-b" bindtap='trunConInterface' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}">
-        <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-          <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" style="width: 122rpx; height: 122rpx; display: block" />
+      <view class="weui-cell doctor-b" bindtap='trunConInterface' 
+      data-receiver = '{{item.receiverName}}' 
+      data-status='{{item.status}}' 
+      data-dialogid='{{item.dialogId}}' 
+      data-reportid="{{item.dialogReportId}}" 
+      data-assister="{{item.assister}}"
+      data-consultid = "{{item.dialogConsultId}}"
+      >
+        <view class="weui-cell__hd doctorImg">
+          <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}"/>
           <!-- <view style="height:36px;" wx:if="{{userType=='2'}}"></view> -->
         </view>
          <view class="weui-cell__bd">
           <view class="doctorMes">
             <view class="weui-flex">
               <view class="weui-flex__item">
-                <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.receiverName}}</text>
-                <text  class="hint {{item.status==0?'green':(item.status==1?'blue':(item.status==2?'orange':'red'))}}">{{item.status==0?'未接受':(item.status==1?"咨询中":(item.status==2?'已结束':'已拒绝'))}}</text>
+                <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.assister?item.receiver:item.receiverName}}</text>
+                <text wx:if ="{{!item.assister}}"  class="hint {{item.status==0?'green':(item.status==1?'blue':(item.status==2?'orange':'red'))}}">{{item.status==0?'未接受':(item.status==1?"咨询中":(item.status==2?'已结束':'已拒绝'))}}</text>
+                <text wx:if ="{{item.assister}}" class='hint green'>医生协助</text>
               </view>
               <view>
                 <text>{{item.dialogTime}}</text>
@@ -47,8 +55,8 @@
   <view class="weui-tab__content counlist" hidden="{{activeIndex != 1}}" wx:if="{{userType==2}}"> 
     <view class="docter-box" wx:for="{{counList}}" wx:key="index" wx:if="{{item.status=='0'}}">
       <view class="weui-cell doctor-b">
-        <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-          <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" style="width: 122rpx; height: 122rpx; display: block" />
+        <view class="weui-cell__hd doctorImg">
+          <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
           <view style="height:36px;" wx:if="{{userType=='2'}}"></view>
         </view>
         <view class="weui-cell__bd">
@@ -69,7 +77,7 @@
           </view>
           <view class="weui-flex choice" wx:if="{{userType==2}}">
             <view class="accept">
-              <button data-consult="{{item.dialogConsultId}}" bindtap='accept'>接受</button>
+              <button data-consult="{{item.dialogConsultId}}" bindtap='accept'>接受</button> 
             </view>
             <view class="refuse">
               <button data-consult="{{item.dialogConsultId}}" bindtap='refuse'>拒绝</button>

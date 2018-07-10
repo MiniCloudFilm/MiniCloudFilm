@@ -17,6 +17,7 @@ Page({
   openConfirm: function () {
     console.log(this.data.allow);
     let pay = this.data.payList;
+    console.log(pay)
     let user = wx.getStorageSync("userList")
     console.log(user);
     wx.request({
@@ -74,70 +75,67 @@ Page({
                     'content-type': 'application/json' // 默认值
                   },
                   success: resC => {
-                    console.log(resC);
-                    if (resC.data.code == "200") {
+                    console.log(resB.data.data);
+                    if (resB.data.code == "200") {
                       wx.redirectTo({
-                        url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&userId=${user.userId}`,
+                        url: `../ConInterface/ConInterface?dialogId=${resB.data.data.dialogId}&reportId=${pay.reportId}&dialoger=${pay.doctorName}&concultId=${resB.data.data.concultId}`
                       })
                     }
                   }
                 })
+
+                //   //         if (this.data.payType == "0") {
+                //   //           wx.showModal({
+                //   //             title: '支付完成',
+                //   //             content: '是否马上观看视频？',
+                //   //             confirmText: "看视频",
+                //   //             confirmColor: "#1c7eff",
+                //   //             cancelText: "返回列表",
+                //   //             cancelColor: "##1c7eff",
+                //   //             success: function (res) {
+                //   //               if (res.confirm) {
+                //   //                 wx.redirectTo({
+                //   //                   url: '../video/video'
+                //   //                 })
+                //   //               } else {
+                //   //                 wx.redirectTo({
+                //   //                   url: '../film/film'
+                //   //                 })
+                //   //               }
+                //   //             }
+                //   //           });
+                //   //         } else {
+                //   //           wx.showModal({
+                //   //             title: '支付完成',
+                //   //             content: '解读咨询已发起,请等待医生接受。',
+                //   //             confirmText: "回主页",
+                //   //             confirmColor: "#1c7eff",
+                //   //             cancelText: "咨询列表",
+                //   //             cancelColor: "#616569",
+                //   //             success: function (res) {
+                //   //               if (res.confirm) {
+                //   //                 wx.switchTab({
+                //   //                   url: '../index/index'
+                //   //                 })
+                //   //               } else {
+                //   //                 wx.switchTab({
+                //   //                   url: '../counList/counList'
+                //   //                 })
+                //   //               }
+                //   //             }
+                //   // });
+                //   // }
+                // },
+                //   'fail': resA => {
+                //   }
+                // })
+
               }
             }
           })
-
-          //   //         if (this.data.payType == "0") {
-          //   //           wx.showModal({
-          //   //             title: '支付完成',
-          //   //             content: '是否马上观看视频？',
-          //   //             confirmText: "看视频",
-          //   //             confirmColor: "#1c7eff",
-          //   //             cancelText: "返回列表",
-          //   //             cancelColor: "##1c7eff",
-          //   //             success: function (res) {
-          //   //               if (res.confirm) {
-          //   //                 wx.redirectTo({
-          //   //                   url: '../video/video'
-          //   //                 })
-          //   //               } else {
-          //   //                 wx.redirectTo({
-          //   //                   url: '../film/film'
-          //   //                 })
-          //   //               }
-          //   //             }
-          //   //           });
-          //   //         } else {
-          //   //           wx.showModal({
-          //   //             title: '支付完成',
-          //   //             content: '解读咨询已发起,请等待医生接受。',
-          //   //             confirmText: "回主页",
-          //   //             confirmColor: "#1c7eff",
-          //   //             cancelText: "咨询列表",
-          //   //             cancelColor: "#616569",
-          //   //             success: function (res) {
-          //   //               if (res.confirm) {
-          //   //                 wx.switchTab({
-          //   //                   url: '../index/index'
-          //   //                 })
-          //   //               } else {
-          //   //                 wx.switchTab({
-          //   //                   url: '../counList/counList'
-          //   //                 })
-          //   //               }
-          //   //             }
-          //   // });
-          //   // }
-          // },
-          //   'fail': resA => {
-          //   }
-          // })
-
         }
       }
     })
-
-
-
   },
   /**
    * 生命周期函数--监听页面加载

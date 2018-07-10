@@ -18,7 +18,7 @@
             <text>检查部位：</text>
             <text>{{item.bodyPart}}</text>
           </view>
-          <view class="pay-con" data-reportid="{{item.reportId}}" bindtap="turn">
+          <view class="pay-con" data-reportid="{{item.reportId}}"  bindtap="turn">
             <view>
               <image src="/image/icon-zixun.png"> </image>
             </view>

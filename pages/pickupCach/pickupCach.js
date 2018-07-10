@@ -7,10 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ifHasRecord:true,//账号记录
     cardType: '',
-    name: '',
+    name:'',
     phoneNumber: '',
-    bankName: '',
     bankNumber: '',
     cardList:[
       "农业银行-6228480078036553978",
@@ -60,7 +60,7 @@ Page({
           'userId': myId,
           'reflectCharge': this.data.reflectCharge,
           "bankCardId": this.data.bankNumber,
-          'bankName': this.data.bankName,
+          'bankName': this.data.cardType,
           'token': ''
         },
         method: 'POST',
@@ -70,6 +70,13 @@ Page({
         success: function (res) {
           console.log(res.data)
           if (res.data.code=="200"){
+            var flag = true;//判断卡号是否重复
+            that.data.cardList.forEach(function(val,i){
+              if (val.indexOf(that.data.bankNumber)!=-1){
+                flag=false;
+              }
+            })
+            if (flag) that.saveCard();
             wx.showToast({
               title: res.data.msg,
               icon: 'none',
@@ -98,8 +105,29 @@ Page({
     };
 
   },
+  //新增银行卡
+  saveCard:function(){
+    wx.request({
+      url: 'http://192.168.131.63:8080/doctor/api/v1/saveBankCard', //仅为示例，并非真实的接口地址
+      data: {
+        'userId': myId,
+        'cardBankName': this.data.cardType,
+        'cardUserName': userName,
+        'cardNumber': this.data.bankNumber,
+        'token':wx.getStorageSync("token")
+      },
+      method:"post",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log("保存成功")
+      }
+    })
+  },
   //查询银行卡
   searchCard:function(e){
+    var that = this;
     wx.request({
       url: 'http://192.168.131.63:8080/doctor/api/v1/queryBankCard', //仅为示例，并非真实的接口地址
       data: {
@@ -110,10 +138,23 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
-        // this.setData({
-        //   cardList:res.data
-        // })
-        console.log(res.data)
+        if(res.data.code==200){
+          if(res.data.data.length==0){
+            that.setData({
+              ifHasRecord:false
+            })
+          }else{
+            var cardMes=[];
+            res.data.data.forEach(function(val,i){
+              cardMes.push(val.cardBankName + "-" + val.cardNumber)
+            });
+            that.setData({
+              cardList: cardMes,
+              cardType: cardMes[0].split("-")[0],
+              bankNumber: cardMes[0].split("-")[1]
+            });
+          }
+        } 
       }
     })
   },
@@ -121,18 +162,9 @@ Page({
   bindPickerChange:function(e){
     var that = this;
     this.setData({
+      cardType: that.data.cardList[e.detail.value].split("-")[0],
       bankNumber:that.data.cardList[e.detail.value].split("-")[1]
     });
-    var temp = util.bankCardAttribution(that.data.cardList[e.detail.value].split("-")[1])
-    console.log(temp)
-    if (temp == Error) {
-      temp.bankName = '';
-      temp.cardTypeName = '';
-    }else {
-      this.setData({
-        cardType: temp.bankName + temp.cardTypeName,
-      })
-    }
   },
 
   /**
@@ -142,6 +174,7 @@ Page({
     this.setData({
       reflectCharge:options.balance,
       name: userName
-    })
+    });
+    this.searchCard();//查询卡号记录
   }
 })

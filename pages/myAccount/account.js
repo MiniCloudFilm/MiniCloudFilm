@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    balance:"125.00"
+    balance:"0.00"
     },
   // 提现
   pickupCash: function () {

@@ -132,7 +132,7 @@ Page({
       })   
     } else if(e.currentTarget.dataset.status == "1"){
       wx.navigateTo({
-        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}`,
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.receiver}&ifAssist=${e.currentTarget.dataset.assister}&consultId=${e.currentTarget.dataset.consultid}`,
       })
     } else if (e.currentTarget.dataset.status == "2"){
       wx.showToast({
