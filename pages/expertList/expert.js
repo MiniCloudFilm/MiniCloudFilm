@@ -39,7 +39,7 @@ Page({
   //获取专家列表
   getExpert: function(areaId, deptId) {
     wx.request({
-      url: 'http://192.168.131.63:8080/doctor/api/v1/findDoctorList',
+      url: 'http://192.168.131.102:8080/doctor/api/v1/findDoctorList',
       data: {
         'token': '',
         'areaId': areaId,
@@ -260,7 +260,7 @@ Page({
     this.getArea('0', 1);
     // console.log(options);
     this.getDepartment();
-    this.getExpert(440000, 'all');
+    this.getExpert('all', 'all');
     var that = this;
     this.setData({
       doctorMes: options,

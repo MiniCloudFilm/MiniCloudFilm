@@ -1,77 +1,104 @@
 /* pages/counList/counList.wxss */
-.weui-navbar__slider{
-  width:33.333%;
-  height:2px;
-  background:#1c7eff;
+
+.weui-navbar__slider {
+  width: 33.333%;
+  height: 2px;
+  background: #1c7eff;
 }
-.nav{
-  width:100%;
-  height:102rpx;
+
+.nav {
+  width: 100%;
+  height: 102rpx;
 }
-.counlist{ 
-  width:100%;
+
+.counlist {
+  width: 100%;
 }
-.weui-navbar__item.weui-bar__item_on{
-  color:#1c7eff;
+
+.weui-navbar__item.weui-bar__item_on {
+  color: #1c7eff;
 }
-.docter-box{
-  width:100%;
-  border-bottom:1px solid #e3e3e3;
-} 
-.doctor-b{
-  padding-right:0;
+
+.docter-box {
+  width: 100%;
+  border-bottom: 1px solid #e3e3e3;
 }
-.doctorImg{
-  height:100%;
+
+.doctor-b {
+  padding-right: 0;
+}
+
+.doctorImg {
+  height: 100%;
   position: relative;
   margin-right: 10px;
 }
-.doctorImg image{
+
+.doctorImg image {
   width: 122rpx;
   height: 122rpx;
   display: block;
 }
-.doctorMes{
-  padding-bottom:10rpx;
-  font-family:Arial;
-  font-size:24rpx;
-  color:#969ba1;
-  padding-right:30rpx;
+
+.doctorMes {
+  padding-bottom: 10rpx;
+  font-family: Arial;
+  font-size: 24rpx;
+  color: #969ba1;
+  padding-right: 30rpx;
 }
-.choice{ 
-  font-size:28rpx; 
-  padding-top:16rpx;
+
+.choice {
+  font-size: 28rpx;
+  padding-top: 16rpx;
   border-top: 1px solid #ddd;
-}  
-button{
-  line-height:50rpx;
-  padding:0 30rpx; 
-  font-size:24rpx;
 }
-.accept button{
+
+button {
+  line-height: 50rpx;
+  padding: 0 30rpx;
+  font-size: 24rpx;
+}
+
+.accept button {
   background: #1c7eff;
-  color:#fff;
+  color: #fff;
 }
-.refuse button{ 
-  color:#969ba1;
-  margin-left:50rpx;
+
+.refuse button {
+  color: #969ba1;
+  margin-left: 50rpx;
 }
-.hint{
-  color:#fff;
-  margin-right:20rpx;
-  padding:4rpx 8rpx;
+
+.hint {
+  color: #fff;
+  margin-right: 20rpx;
+  padding: 4rpx 8rpx;
   border-radius: 6rpx;
 }
-.green{
-  background:#009688;
-} 
-.blue{
-  background:#3083D5;
+
+.green {
+  background: #009688;
 }
-.orange{
-  background:#F0BD72;
+
+.blue {
+  background: #3083d5;
 }
-.red{
-  background:red;
+
+.orange {
+  background: #f0bd72;
 }
- 
+
+.red {
+  background: red;
+}
+
+.tip {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  top: 16rpx;
+  right: 55rpx;
+}
