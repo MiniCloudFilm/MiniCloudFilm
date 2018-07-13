@@ -22,9 +22,7 @@ Page({
     image: [],
     areaIndex: [0, 0, 0],
     head: [],
-    countHeadImg: 0,
-    user: wx.getStorageSync('userList'),
-    token: wx.getStorageSync('token')
+    countHeadImg: 0
   },
   bindHospitalChange: function(e) {
     console.log('picker country 发生选择改变，携带值为', e.detail.value);
@@ -190,24 +188,40 @@ Page({
     }else{
       this.upAvatar();
       this.upCertificater();
+      let dataList = {
+        'token': this.data.token,
+        'deptId': this.data.deptId,
+        'age': data.age,
+        'charge': data.charge,
+        'hospitalId': this.data.hospital[data.hospitalId].hospitalId,
+        'doctorLevel': data.doctorLevel+1,
+        'synopsis': data.introduction,
+        'qualification': data.doctorNum
+      }
+      console.log(data);
       wx.request({
         url: 'http://192.168.131.102:8080/doctor/api/v1/doctorCertified',
-        data: {
-          'token': this.data.token,
-          'deptId': this.data.deptId,
-          'age': data.age,
-          'charge': data.charge,
-          'hospitalId': this.data.hospital[data.hospitalId],
-          'doctorLevel': data.doctorLevel,
-          'synopsis': data.introduction,
-          'qualification': data.doctorNum
-        },
+        data: dataList,
         method: 'POST',
         header: {
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: res => {
           console.log(res);
+          if (res.data.code == "200") {
+            wx.showModal({
+              title: '提示',
+              content: '认证信息提交成功！', 
+              showCancel:false,
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+                    delta: 1
+                  })  
+                }  
+              }
+            })
+          } 
         }
       })
     } 
@@ -361,7 +375,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res);
+        console.log(res);
         // console.log(res.data.data)
         if (res.data.code == "200") {
           let list = res.data.data;
@@ -427,14 +441,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-
+  onLoad: function(options) { 
     this.setData({
       areaList: [
         [],
         [],
         []
-      ]
+      ],  
     })
     this.getDepartment();
     this.getArea('0', 1);
@@ -450,8 +463,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: function() { 
+    this.setData({ 
+      user: wx.getStorageSync('userList'),
+      token: wx.getStorageSync('token')
+    })
   },
 
   /**

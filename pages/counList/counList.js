@@ -17,15 +17,15 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: index
     });
-    if (index==0){
-      this.getCounList();
-      return false;
-    }else if(index==1){
-      this.receiveAssist();
-      return false;
-    }else if(index==2){
-      this.pendingAction();
-    }
+    // if (index==0){
+    //   this.getCounList();
+    //   return false;
+    // }else if(index==1){
+    //   this.receiveAssist();
+    //   return false;
+    // }else if(index==2){
+    //   this.pendingAction();
+    // }
   },
   //接受
   accept:function(e){
@@ -152,10 +152,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let user = wx.getStorageSync("userList");
-    this.setData({
-      userType: user.userType
-    });
+
   },
 
   /**
@@ -196,11 +193,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () { 
+    let user = wx.getStorageSync("userList");
+    this.setData({
+      userType: user.userType
+    });
     if(this.data.userType==1){
       this.getCounListOfPatient();
       return false;
     } else if (this.data.userType == 2){
       this.getCounList();
+      this.pendingAction();
+      this.receiveAssist();
     }
   },
 

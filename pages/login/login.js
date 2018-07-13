@@ -91,8 +91,10 @@ Page({
           wx.setStorageSync('userList', res.data.data.user);
           wx.setStorageSync('token', res.data.data.token);
           console.log(wx.getStorageSync('userList'))
+          console.log(app.globalData.token );
           app.globalData.userList = wx.getStorageSync('userList');
           app.globalData.token = wx.getStorageSync('token');
+          console.log(app.globalData.token);
           wx.switchTab({
             url: `../user/user`
           }) 
