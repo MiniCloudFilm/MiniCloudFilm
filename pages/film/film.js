@@ -27,7 +27,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             videoList: res.data.data.datas
@@ -49,13 +49,11 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             videoList: res.data.data.datas
-          })
-          console.log(this.data.videoList);
-          console.log(this.data.check);
+          }) 
         }
       }
     })
@@ -74,7 +72,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             videoList: res.data.data.datas
@@ -84,11 +82,11 @@ Page({
     })
   },
   //观看记录保存
-  getSaveVideoLog: function(videoId,data) {
+  getSaveVideoLog: function(data) {
     wx.request({
       url: 'http://192.168.131.63:8080/common/api/v1/saveVideoLog',
       data: {
-        "videoId": videoId,
+        "videoId": data.id,
         "videoViewer": this.data.user.userId,
         "token": this.data.token
       },
@@ -97,8 +95,9 @@ Page({
         'content-type': 'application/json' // 默认值
       }, 
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") { 
+          console.log(data);
           let arr = data.videoUrl.split('?');
           wx.navigateTo({
             url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`,
@@ -120,17 +119,28 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             isBuy: res.data.data
           })
           if (!this.data.isBuy) { 
-            wx.navigateTo({
-              url: `../confirmPay/confirmPay?videoId=${data.id}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
+            wx.showModal({
+              title: '提示',
+              content: `确定购买${data.title}，该视频！`,
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: `../confirmPay/confirmPay?videoId=${data.id}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
+                  })
+                } else if (res.cancel) {
+                  // console.log('用户点击取消')
+                }
+              }
             })
+           
           }else{ 
-            this.getSaveVideoLog(data.id);
+            this.getSaveVideoLog(data);
           }
         }
       }
@@ -158,7 +168,7 @@ Page({
       activeIndex: e.currentTarget.id,
       check: e.currentTarget.dataset.index
     });
-    console.log(this.data.check);
+    // console.log(this.data.check);
     if (e.currentTarget.dataset.index == '0') {
       this.getFreeVideo();
     } else if (e.currentTarget.dataset.index == '1') {
@@ -167,19 +177,12 @@ Page({
       this.getQueryVideoLog();
     }
   },
-  videoType: function(e) {
-    console.log(e.currentTarget);
-    let data = e.currentTarget.dataset;
-    console.log(data.videoUrl);
+  videoType: function(e) { 
+    let dataList = e.currentTarget.dataset; 
     if (e.currentTarget.dataset.isCharge == "Y") {
-      this.checkIsBuy(data, this.data.user.userId);
+      this.checkIsBuy(dataList, this.data.user.userId); 
     } else {
-      this.getSaveVideoLog(e.currentTarget.dataset.id,data);
+      this.getSaveVideoLog(dataList);
     }
-    // if (e.currentTarget.dataset.isCharge == "Y") {
-    //   wx.navigateTo({
-    //     url: `../confirmPay/confirmPay?videoId=${data.id}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
-    //   })
-    // }
   }
 });

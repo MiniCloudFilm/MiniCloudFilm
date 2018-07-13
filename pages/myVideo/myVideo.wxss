@@ -1,35 +1,49 @@
-/* pages/myVideo/myVideo.wxss */
-/* pages/videoMag/videoMag.wxss */
-.upload{
-  text-align: left;
+/* pages/film/film.wxss */
+page,
+.page,
+.page__bd{
+    height: 100%;
 }
-.upload image{
-  vertical-align: sub;
-  margin-right:10rpx;
+.page__bd{
+    padding-bottom: 0;
 }
-.upload navigator{
-  border:1px solid #1c7eff;
-  padding:6rpx 10rpx;
-  border-radius: 8rpx;
-  font-size:24rpx;
-  color:#1c7eff;
-  width:140rpx;
-  margin-top:40rpx;
-  margin-left:40rpx;
-  margin-bottom:20rpx;
+.weui-tab__content{ 
+    text-align: center;
 }
-.img-box image{
-  border-radius: 20rpx;
+.weui-navbar{
+  border-bottom:none;
 }
+.weui-navbar__slider{ 
+  width:80rpx;
+  height:4rpx;
+  background-color: #1c7eff;
+  bottom:10rpx;
+} 
+.weui-navbar__title{
+  color: #2e3135; 
+}
+.weui-navbar view.active .weui-navbar__title{
+  color: #1c7eff; 
+} 
+.img-box{
+  width:200rpx;
+  height:100rpx;
+}  
 .weui-cell__bd{
-  height:80px;
+  height:100rpx;
   position: relative;
 }
-.type{ 
-  margin-top:30rpx;
+.type{
+  position: absolute;
+  bottom: 10rpx;
   color:#ff8f45;
   font-size:30rpx;
 } 
-.weui-cell:before{
-  border:none;
+scroll-view{
+  height:90vh;
+}
+button[type=bule] {
+color:#FFFFFF;
+background-color:#1c7eff;
+
 }

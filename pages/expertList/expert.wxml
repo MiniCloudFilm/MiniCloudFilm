@@ -20,7 +20,7 @@
   <view class="docter-box" wx:for="{{expertList}}" wx:key="index">
     <view class="weui-cell">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-         <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" /> 
+         <image src="{{url+item.doctorId}}" style="width: 122rpx; height: 122rpx; display: block" /> 
         <!-- <image src="http://192.168.131.102:8080/doctor/api/v1/lookImage?fileName=168_1531211065777.jpg" style="width: 122rpx; height: 122rpx; display: block" /> -->
        
       </view>

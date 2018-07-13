@@ -19,7 +19,8 @@ Page({
     areaIndex: [0, 0, 0],
     value: 0,
     areaId:'all',
-    deptId:'all'
+    deptId:'all',
+    url:"http://192.168.131.102:8080/doctor/api/v1/lookImage/"
   },
   turn: function(e) {
     // console.log(this.data.doctorMes);
@@ -49,7 +50,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res.data.data)
+        console.log(res.data.data)
         if (res.data.code == "200") {
           this.setData({
             expertList: res.data.data

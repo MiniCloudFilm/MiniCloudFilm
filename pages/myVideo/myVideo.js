@@ -5,9 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: { 
-    videoList: [
-      // { "imgSrc": "/image/timg1.jpg", "title": "华中科技大学  张三丰教授  医学影像学ct教学视频", "isFree": true, "isPay": true, "price": 0 },
-      // { "imgSrc": "/image/timg1.jpg", "title": "华中科技大学  张三丰教授  医学影像学ct教学视频", "isFree": false, "isPay": false, "price": 5.88 }
+    videoList: [ 
     ],
     page: 1,
     load: true
@@ -33,7 +31,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         var tmpArr = that.data.videoList;
         // 这一步实现了上拉加载更多
         if (res.data.data.datas.length < 15) {
@@ -47,6 +45,39 @@ Page({
         wx.hideNavigationBarLoading();
       }
     })
+  },
+  //观看记录保存
+  getSaveVideoLog: function (data) {
+    this.setData({
+      user:wx.getStorageSync("userList")
+    })
+    wx.request({
+      url: 'http://192.168.131.63:8080/common/api/v1/saveVideoLog',
+      data: {
+        "videoId": data.id,
+        "videoViewer": this.data.user.userId,
+        "token": this.data.token
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        // console.log(res.data)
+        if (res.data.code == "200") {
+          // console.log(data);
+          let arr = data.videoUrl.split('?');
+          wx.navigateTo({
+            url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`,
+          })
+        }
+      }
+    })
+  },
+  //视频观看
+  videoType: function (e) {
+    let dataList = e.currentTarget.dataset; 
+      this.getSaveVideoLog(dataList); 
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

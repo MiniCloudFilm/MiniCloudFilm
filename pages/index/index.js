@@ -22,7 +22,7 @@ Page({
     })
   },
   onLoad: function () {
-    console.log(app.globalData.userList);
+    // console.log(app.globalData.userList);
     let user = app.globalData.userList;
     if (user){
       this.setData({
@@ -82,7 +82,7 @@ Page({
   },
   // 专家咨询
   turnToExpert:function(e){
-    console.log(app.globalData.userList)
+    // console.log(app.globalData.userList)
     let formId = e.detail.formId;
     wx.navigateTo({
       url: '../expertList/expert?order=before'
@@ -96,7 +96,7 @@ Page({
         "formId": formId
       },
       success: function (res) {
-        console.log(res)
+        // console.log(res)
       }
     });
   }

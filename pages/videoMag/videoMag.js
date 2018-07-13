@@ -37,9 +37,9 @@ Page({
         itemList: ['视频下架'],
         itemColor: '#1c7eff',
         success: res => {
-          console.log(res);
+          // console.log(res);
           if (!res.cancel) {
-            console.log(res.tapIndex)
+            // console.log(res.tapIndex)
             this.upVideo(data, -1);
             this.setData({
               videoList: []
@@ -53,9 +53,9 @@ Page({
         itemList: ['视频上架', '删除'],
         itemColor: '#1c7eff',
         success: res => {
-          console.log(res);
+          // console.log(res);
           if (!res.cancel) {
-            console.log(res.tapIndex)
+            // console.log(res.tapIndex)
             if (res.tapIndex == 0) {
               this.upVideo(data, 1);
               this.setData({
@@ -94,9 +94,8 @@ Page({
         itemList: ['删除','修改'],
         itemColor: '#1c7eff',
         success: res => {
-          console.log(res);
-          if (!res.cancel) {
-            console.log(res.tapIndex)
+          // console.log(res);
+          if (!res.cancel) { 
             if (res.tapIndex == 0) {
               this.upVideo(data);
             } else if (res.tapIndex == 1) {
@@ -110,9 +109,8 @@ Page({
         itemList: ['删除', '修改'],
         itemColor: '#1c7eff',
         success: res => {
-          console.log(res);
-          if (!res.cancel) {
-            console.log(res.tapIndex)
+          // console.log(res);
+          if (!res.cancel) { 
             if (res.tapIndex == 0) {
               this.upVideo(data);
             } else if (res.tapIndex == 1) {
@@ -160,7 +158,7 @@ Page({
         "token": this.data.token
       },
       success: function (res) {
-        console.log(res);
+        // console.log(res);
         //do something
         if (res.data.code == "200") { 
           // wx.redirectTo({

@@ -1,21 +1,21 @@
-<view class="upload">
-  <navigator url="../upload/upload">
-    <image style="width:30rpx;height:30rpx;" src="/image/icon-upload.png"></image>
-    <text>上传视频</text>
-  </navigator>
-</view>
-<view class="weui-cell" wx:for="{{videoList}}" bindtap='videoType' id="{{item.isFree}}" wx:key="{{index}}">
-  <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-    <view class="img-box">
-      <video url="{{item.videoUrl}}" style="width: 100px; height: 80px; display: block" >
-      </video>
+<scroll-view scroll-y >
+  <view hidden="{{activeIndex != check}}">
+    <view class="weui-cell" wx:for="{{videoList}}" bindtap="videoType" id="{{item.id}}" data-is-charge="{{item.videoIsCharge}}" wx:key="{{index}}" data-id="{{item.id}}" data-charge="{{item.videoCharge}}" data-user-id="{{item.userId}}" data-title="{{item.videoTitle}}"
+      data-video-url="{{item.videoUrl}}">
+      <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <view class="img-box">
+          <!-- <video src="{{'http://192.168.131.63:8080'+item.videoUrl}}" controls="{{hidden}}" style="width: 100%; height: 100%;"></video>  -->
+          <image src="{{'http://192.168.131.63:8080'+item.videoCoverPath}}" style="width: 200rpx; height: 100rpx; display: block" />
+        </view>
+      </view>
+      <view class="weui-cell__bd">
+        <view style="font-size:26rpx; color:#2e3135;">{{item.videoTitle}}</view>
+        <view class="type">
+          <view>
+            <text>{{item.videoIsCharge=='N'?"免费":"￥"+item.videoCharge}}</text>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
-  <view class="weui-cell__bd">
-    <view style="font-size:26rpx; color:#2e3135;">{{item.videoTitle}}</view>
-    <view class="weui-flex type">
-      <view class="weui-flex__item">{{item.videoIsCharge==1?"￥"+item.videoCharge:"免费"}}</view>
-      <navigator  url="../upload/upload?url={{item.videoUrl}}&title={{item.videoTitle}}&charge={{item.videoCharge}}&id={{item.id}}"><text style="color:#1c7eff;font-size:24rpx;">管理</text><image style="width:8rpx;height:30rpx;vertical-align:middle; margin-left:10rpx;"  src="/image/icon-set.png"></image></navigator> 
-    </view>
-  </view>
-</view>
+</scroll-view>

@@ -87,7 +87,17 @@ Page({
                       } 
                     }
                   })
-                } 
+                }
+                if(payType == "2"){
+                  wx.showToast({
+                    title: '视频购买成功！',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                  wx.navigateBack({
+                    delta:1
+                  })
+                }
                 //   //         if (this.data.payType == "0") {
                 //   //           wx.showModal({
                 //   //             title: '支付完成',
