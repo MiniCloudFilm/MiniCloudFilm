@@ -16,7 +16,7 @@
        <text>{{payList.title}}</text> 
     </view>
     <view class="much">
-      <text>￥{{payList.price}}</text>
+      <text>￥{{payList.charge}}</text>
     </view>
   </view>
   <view class="weui-cells weui-cells_after-title choose-pay"> 

@@ -25,12 +25,13 @@ page,
 }
 .weui-navbar view.active .weui-navbar__title{
   color: #1c7eff; 
-}
-.img-box image{
-  border-radius: 20rpx;
-}
+} 
+.img-box{
+  width:200rpx;
+  height:100rpx;
+}  
 .weui-cell__bd{
-  height:80px;
+  height:100rpx;
   position: relative;
 }
 .type{
@@ -38,4 +39,12 @@ page,
   bottom: 10rpx;
   color:#ff8f45;
   font-size:30rpx;
+} 
+scroll-view{
+  height:90vh;
+}
+button[type=bule] {
+color:#FFFFFF;
+background-color:#1c7eff;
+
 }

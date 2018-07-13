@@ -14,20 +14,17 @@ Page({
   radioAllow: function (e) {
     this.data.allow = !this.data.allow;
   },
-  openConfirm: function () {
-    console.log(this.data.allow);
-    let pay = this.data.payList;
-    console.log(pay)
+  //支付
+  goPay: function (charge, body, payType, reportId, doctorId) {
     let user = wx.getStorageSync("userList")
-    console.log(user);
     wx.request({
       url: 'http://192.168.131.63:8080/api/v1/pay/prePay', //仅为示例，并非真实的接口地址
       data: {
-        "totalFee": pay.price,
-        "body": pay.doctorName,
+        "totalFee": charge,
+        "body": body,
         "openId": user.userOpenId,
         "mobile": user.mobile,
-        "payType": "1"
+        "payType": payType
       },
       method: 'POST',
       header: {
@@ -45,16 +42,22 @@ Page({
           //   'paySign': wxPay.data.paySign,
           //   'success': resA => {
           //     console.log(resA);
+          let data = {
+            "totalFee": charge,
+            "mobile": user.mobile,
+            "orderType": payType, //1:咨询,2:视频
+            "orderTime": wxPay.data.timeStamp,
+            "userId": user.userId,
+          }
+          if(payType=="1"){
+            data.payForDoctor=doctorId;
+          }else if(payType=="2"){
+            data.payForVideo = doctorId; 
+          }
+          console.log(data);
           wx.request({
             url: 'http://192.168.131.63:8080/api/v1/pay/saveOrder',
-            data: {
-              "totalFee": pay.price,
-              "mobile": user.mobile,
-              "orderType": "1", //1:咨询,2:视频
-              "orderTime": wxPay.data.timeStamp,
-              "userId": user.userId,
-              "payForDoctor": pay.doctorId
-            },
+            data:data,
             method: 'POST',
             header: {
               'content-type': 'application/json' // 默认值
@@ -62,28 +65,29 @@ Page({
             success: resB => {
               console.log(resB);
               if (resB.data.code == "200") {
-                wx.request({
-                  url: 'http://192.168.131.63:8080/consult/api/v1/start',
-                  data: {
-                    "sponsor": user.userId,
-                    "receiver": pay.doctorId,
-                    "reportId": pay.reportId,
-                    "isAssist": this.data.allow ? 'Y' : 'N'
-                  },
-                  method: 'POST',
-                  header: {
-                    'content-type': 'application/json' // 默认值
-                  },
-                  success: resC => {
-                    console.log(resB.data.data);
-                    if (resB.data.code == "200") {
-                      wx.redirectTo({
-                        url: `../ConInterface/ConInterface?dialogId=${resB.data.data.dialogId}&reportId=${pay.reportId}&dialoger=${pay.doctorName}&concultId=${resB.data.data.concultId}`
-                      })
+                if(payType=="1"){
+                  wx.request({
+                    url: 'http://192.168.131.63:8080/consult/api/v1/start',
+                    data: {
+                      "sponsor": user.userId,
+                      "receiver": doctorId,
+                      "reportId": reportId,
+                      "isAssist": this.data.allow ? 'Y' : 'N'
+                    },
+                    method: 'POST',
+                    header: {
+                      'content-type': 'application/json' // 默认值
+                    },
+                    success: resC => {
+                      console.log(resC.data.data);
+                      if (resC.data.code == "200") {
+                        wx.redirectTo({
+                          url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&reportId=${reportId}&dialoger=${body}&consultId=${resC.data.data.concultId}`
+                        })
+                      }
                     }
-                  }
-                })
-
+                  })
+                } 
                 //   //         if (this.data.payType == "0") {
                 //   //           wx.showModal({
                 //   //             title: '支付完成',
@@ -128,14 +132,26 @@ Page({
                 // },
                 //   'fail': resA => {
                 //   }
-                // })
-
+                // }) 
               }
             }
           })
         }
       }
     })
+  },
+  openConfirm: function () {
+    console.log(this.data.allow);
+    let pay = this.data.payList;
+    console.log(pay) 
+    if(pay.type=="1"){
+      console.log("1");
+      this.goPay(pay.price, pay.doctorName, pay.type, pay.reportId, pay.doctorId)
+    }
+    else if (pay.type == "2"){ 
+      console.log("2");
+      this.goPay(pay.charge, pay.title, pay.type, "", pay.videoId);
+    }
   },
   /**
    * 生命周期函数--监听页面加载

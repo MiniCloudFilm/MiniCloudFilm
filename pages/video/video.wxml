@@ -1,7 +1,6 @@
-<view class="container">
-  <view class="title">医学视频</view>
-  <view class="video">
-    <video src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"
-      enable-danmu danmu-btn controls></video>
+<view class="container"> 
+  <view class="video" >
+     <video style="width:750rpx" src="{{'http://192.168.131.63:8080'+videoList.frontUrl+'?filePath='+videoList.filePath+'&userId='+videoList.userId}}"
+      id="{{videoList.videoId}}" autoplay show-fullscreen-btn="{{false}}" show-center-play-btn="{{false}}" ></video>  
   </view>
 </view>

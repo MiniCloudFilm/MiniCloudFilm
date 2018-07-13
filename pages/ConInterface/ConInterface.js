@@ -12,31 +12,7 @@ Page({
     myPicture: "/image/icon-me1.png",
     youPicture: "/image/icon-me1.png",
     //格式示例数据，可为空
-    allContentList: [
-      //   {
-      //   "time": "2018-6-7 8:30",
-      //   "content": "cdp生命生命周期函数--监听页面加载生命周期函数--监听页面加载",
-      //   "is_img": false,
-      //   "isMy": true,
-      //   "theOtherId":"169",
-      //   "name":"刘冬梅"
-      // },
-      //   {
-      //     "time": "2018-6-7 8:30",
-      //     "content": "cdp生命生命周期函数--监听页面加载生命周期函数--监听页面加载",
-      //     "is_img": false,
-      //     "isMy": false,
-      //     "theOtherId": "164",
-      //     "name": "陈德平"
-      //   },
-      //   {
-      //     "time": "2018-6-7 8:30",
-      //     "content": "cdp生命生命周期函数--监听页面加载生命周期函数--监听页面加载",
-      //     "is_img": false,
-      //     "isMy": false,
-      //     "theOtherId": "164",
-      //     "name": "陈德平"
-      //   }
+    allContentList: [ 
     ],
     num: 0,
     scrollTop: 0

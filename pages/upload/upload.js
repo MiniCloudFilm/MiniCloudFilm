@@ -55,7 +55,7 @@ Page({
       formData: {
         'userId': user.userId,
         "videoTitle": e.detail.value.title,
-        "videoCharge": e.detail.value.charge,
+        "videoCharge": e.detail.value.charge == 0 ? '' : e.detail.value.charge,
         "isCharge": e.detail.value.charge!="0"?'Y':'N',
         "token": token
       },
@@ -64,8 +64,9 @@ Page({
       },
       success: function (res) {
         console.log(res); 
+        let data=JSON.parse(res.data); 
         //do something
-        if (res.data.code == "200") {
+        if (data.code == "200") {
           wx.redirectTo({
             url: '../videoMag/videoMag',
           }) 
