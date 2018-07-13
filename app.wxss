@@ -10,3 +10,20 @@
   /* padding: 200rpx 0; */
   box-sizing: border-box;
 }
+ .btn{
+  border-radius: 0;
+  padding: 0;
+  border:none;
+  text-align:center;
+  margin:0;
+  line-height:1.5;
+  background-color: white;
+} 
+button.btn::after{
+  border:none;
+}
+.form{
+  flex: 1;
+}
+
+

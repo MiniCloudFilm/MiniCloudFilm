@@ -64,7 +64,7 @@ Page({
             },
             success: resB => {
               console.log(resB);
-              if (resB.data.code == "200") {
+              if (resB.data.code == "200") { 
                 if(payType=="1"){
                   wx.request({
                     url: 'http://192.168.131.63:8080/consult/api/v1/start',
@@ -84,7 +84,7 @@ Page({
                         wx.redirectTo({
                           url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&reportId=${reportId}&dialoger=${body}&consultId=${resC.data.data.concultId}`
                         })
-                      }
+                      } 
                     }
                   })
                 } 

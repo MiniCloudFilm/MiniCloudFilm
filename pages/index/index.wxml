@@ -14,18 +14,20 @@
     </view>
     <view class="nav">
       <view class="weui-flex">
-        <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
-               <navigator url="../expertList/expert?order=before" hover-class="navigator-hover">     
-             <!-- <navigator url="../confirmPay/confirmPay" hover-class="navigator-hover">    -->
-           <!-- <navigator url="../chRepCon/chRepCon" hover-class="navigator-hover">  -->
+      <form bindsubmit="turnToExpert" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
+      <button formType="submit" class='btn'>
+        <view class="weui-flex__item">
+          <!-- <navigator url="../expertList/expert?order=before" hover-class="navigator-hover">      -->
             <view class="navT">
               <image src="/image/icon1.png"></image>
             </view>
             <view>
               <text>专家咨询</text>
             </view>
-          </navigator>
+          <!-- </navigator> -->
         </view>
+        </button>
+       </form> 
         <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
           <navigator url="../chRepCon/chRepCon?order=before">
             <view class="navT">

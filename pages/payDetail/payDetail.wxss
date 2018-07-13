@@ -1,1 +1,4 @@
 /* pages/payDetail/payDetail.wxss */
+.weui-form-preview__item {
+  line-height:66rpx;
+}

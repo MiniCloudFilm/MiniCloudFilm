@@ -11,7 +11,7 @@
             <view>
               <text>{{reportDetail.studyTime}}  {{reportDetail.hospitalName}}</text>
             </view>
-            <navigator wx:if="{{myType==2&&ifAssist=='null'}}" class="pay-con" url="../assistList/assister?dialogId={{dialogId}}&reportId={{reportId}}">
+            <navigator wx:if="{{myType==2&&ifAssist=='undefined'}}" class="pay-con" url="../assistList/assister?dialogId={{dialogId}}&reportId={{reportId}}">
               <view>
                 <image src="/image/icon-zixun.png"> </image>
               </view>
@@ -84,7 +84,7 @@
     </view>
     
     <view class="sendmessage">
-      <input type="emoji" confirm-type="done" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
+      <input type="emoji" confirm-type="done" bindconfirm="submitTo" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
       <button type='default' catchtap="submitTo">发送</button>
       <input style='display:none' type=""  confirm-type="done" placeholder="" />
       <!-- <image bindtap="upimg1" class='jia_img' src='/image/icon-upload.png'></image> -->

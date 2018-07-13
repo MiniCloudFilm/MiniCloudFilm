@@ -1,4 +1,5 @@
 // pages/counList/counList.js
+var app = getApp();
 Page({
 
   /**
@@ -6,15 +7,25 @@ Page({
    */
   data: {
     isDoctor: true,
-    tabs: ["咨询列表", "待处理"],
-    activeIndex: 0
+    tabs: ["患者咨询", "医生协助","待处理"],
+    activeIndex: 0,
+    token:''
   },
   tabClick: function (e) {
-    console.log(e.currentTarget.offsetLeft);
+    let index = e.currentTarget.id;
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: index
     });
+    if (index==0){
+      this.getCounList();
+      return false;
+    }else if(index==1){
+      this.receiveAssist();
+      return false;
+    }else if(index==2){
+      this.pendingAction();
+    }
   },
   //接受
   accept:function(e){
@@ -31,7 +42,7 @@ Page({
       success: res=> {
         console.log(res);
         if (res.data.code == '200') { 
-          this.getCounList();
+          this.pendingAction();
         }
       }
     })
@@ -50,26 +61,38 @@ Page({
       success: res=> {
         console.log(res);
         if (res.data.code == '200') {
-          this.getCounList();
+          this.pendingAction();
         }
       }
     })
   },
-  //获取咨询列表
-  getCounList:function(){
-    let user = wx.getStorageSync("userList")
-    let token = wx.getStorageSync("token")
-    this.setData({
-      userType: user.userType
-    })
-    console.log(user.userType);
-    console.log(user.userId);
-    console.log(token);
+  //获取咨询列表---患者端
+  getCounListOfPatient: function () {
     wx.request({
-      url: 'http://192.168.131.63:8080/dialog/api/v1/dialogList',
+      url: 'http://192.168.131.102:8080/dialog/api/v1/dialogList', //仅为示例，并非真实的接口地址
       data: {
-        'userId': user.userId,
-        'userType': user.userType
+        "token": app.globalData.token
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res.data);
+        if (res.data.code == '200') {
+          this.setData({
+            counList: res.data.data
+          })
+        }
+      }
+    })
+  },
+  //获取咨询列表---医生端
+  getCounList:function(){
+    wx.request({
+      url: 'http://192.168.131.102:8080/consult/api/v1/myConsultList',
+      data: {
+        "token": app.globalData.token
       },
       method: 'GET',
       header: {
@@ -85,33 +108,54 @@ Page({
       }
     })
   },
+  receiveAssist:function(){//我接收的协助
+    wx.request({
+      url: 'http://192.168.131.102:8080/consult/api/v1/myAssistConsultList',
+      data: {
+        "token": app.globalData.token
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == "200") {
+          this.setData({
+            receiveAssistList: res.data.data
+          })
+        }
+      }
+    })
+  },
+  pendingAction:function(){//待处理
+    wx.request({
+      url: 'http://192.168.131.102:8080/consult/api/v1/pandingConsultList',
+      data: {
+        "token": app.globalData.token
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == "200") {
+          this.setData({
+            pendingActionList: res.data.data
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let user=wx.getStorageSync("userList")
-    // let token = wx.getStorageSync("token")
-    // console.log(user.userId);
-    // console.log(token);
-    // wx.request({
-    //   url: 'http://192.168.131.63:8080/dialog/api/v1/dialogList',
-    //   data: { 
-    //     'userId': user.userId,
-    //     'userType': user.userType
-    //   },
-    //   method: 'GET',
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
-    //   },
-    //   success: res => {
-    //     console.log(res.data.data)
-    //     if (res.data.code == "200") {
-    //       this.setData({
-    //         expertList: res.data.data
-    //       })
-    //     }
-    //   }
-    // })
+    let user = wx.getStorageSync("userList");
+    this.setData({
+      userType: user.userType
+    });
   },
 
   /**
@@ -132,7 +176,7 @@ Page({
       })   
     } else if(e.currentTarget.dataset.status == "1"){
       wx.navigateTo({
-        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.receiver}&ifAssist=${e.currentTarget.dataset.assister}&consultId=${e.currentTarget.dataset.consultid}`,
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifAssist=${e.currentTarget.dataset.assisterid}&consultId=${e.currentTarget.dataset.consultid}`,
       })
     } else if (e.currentTarget.dataset.status == "2"){
       wx.showToast({
@@ -151,8 +195,13 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    this.getCounList();
+  onShow: function () { 
+    if(this.data.userType==1){
+      this.getCounListOfPatient();
+      return false;
+    } else if (this.data.userType == 2){
+      this.getCounList();
+    }
   },
 
   /**

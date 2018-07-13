@@ -1,6 +1,6 @@
 /* pages/counList/counList.wxss */
 .weui-navbar__slider{
-  width:50%;
+  width:33.333%;
   height:2px;
   background:#1c7eff;
 }

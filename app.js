@@ -63,6 +63,9 @@ App({
   },
   globalData: {
     userInfo: null,
-    openid: '' 
+    openid: '',
+    gloabalFomIds:[]
+  },
+  onShow: function () {
   }
 })

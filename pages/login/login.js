@@ -88,8 +88,9 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data.code == '200') {
-          wx.setStorageSync('userList', res.data.data.user)
-          wx.setStorageSync('token', res.data.data.token)
+          wx.setStorageSync('userList', res.data.data.user);
+          wx.setStorageSync('token', res.data.data.token);
+          console.log(wx.getStorageSync('userList'))
           app.globalData.userList = wx.getStorageSync('userList');
           app.globalData.token = wx.getStorageSync('token');
           wx.switchTab({

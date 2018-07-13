@@ -11,8 +11,8 @@
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class="docter-box">
-            <navigator url="../ConInterface/ConInterface">
+          <view class="docter-box" wx:for = "{{myALLConsultList}}" wx:key="index">
+            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
                   <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -22,102 +22,25 @@
                   <view class="doctorMes">
                     <view class="weui-flex">
                       <view class="weui-flex__item">
-                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
-                        <text style="color:#1c7eff;margin-right:20rpx;">已退回</text>
+                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
+                        <text style="color:#1c7eff;margin-right:20rpx;">{{item.status==2?"已结束":(item.status==3?"已拒绝":"")}}</text>
                       </view>
                       <view>
-                        <text>10:10</text>
+                        <text>{{item.dialogTime}}</text>
                       </view>
                     </view>
                     <view>
-                      <text>咨询的报告:</text>
-                      <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
-                    </view>
-                  </view>
-                  <view wx:if="{{!isDoctor}}" class="weui-flex choice">
-                    <view class="accept">
-                      <button>接收</button>
-                    </view>
-                    <view class="refuse">
-                      <button>退回</button>
+                      <text>咨询的部位：{{item.bodyPart}}</text>
                     </view>
                   </view>
                 </view>
               </view>
             </navigator>
-          </view>
-           <view class="docter-box">
-            <navigator url="../ConInterface/ConInterface">
-              <view class="weui-cell doctor-b">
-                <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                  <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
-                  <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
-                </view>
-                <view class="weui-cell__bd">
-                  <view class="doctorMes">
-                    <view class="weui-flex">
-                      <view class="weui-flex__item">
-                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
-                        <text style="color:#1c7eff;margin-right:20rpx;">已接收</text>
-                      </view>
-                      <view>
-                        <text>10:10</text>
-                      </view>
-                    </view>
-                    <view>
-                      <text>咨询的报告:</text>
-                      <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
-                    </view>
-                  </view>
-                  <view wx:if="{{!isDoctor}}" class="weui-flex choice">
-                    <view class="accept">
-                      <button>接收</button>
-                    </view>
-                    <view class="refuse">
-                      <button>退回</button>
-                    </view>
-                  </view>
-                </view>
-              </view>
-            </navigator>
-          </view>
-          <view class="docter-box">
-            <view class="weui-cell doctor-b">
-              <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
-                <view style="height:36px;"></view>
-              </view>
-              <view class="weui-cell__bd">
-                <view class="doctorMes">
-                  <view class="weui-flex">
-                    <view class="weui-flex__item">
-                      <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
-                      <text wx:if="{{!isDoctor&&isAccept}}" style="color:#1c7eff;margin-right:20rpx;">咨询中</text>
-                    </view>
-                    <view>
-                      <text>10:10</text>
-                    </view>
-                  </view>
-                  <view>
-                    <text>咨询的报告:</text>
-                    <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
-                  </view>
-                </view>
-                <view class="weui-flex choice">
-                  <view class="accept">
-                    <button>接收</button>
-                  </view>
-                  <view class="refuse">
-                    <button>退回</button>
-                  </view>
-                </view>
-              </view>
-            </view>
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class="docter-box">
-            <navigator url="../ConInterface/ConInterface">
+          <view class="docter-box" wx:for = "{{sendAssistList}}" wx:key="index">
+            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
                   <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -127,32 +50,28 @@
                   <view class="doctorMes">
                     <view class="weui-flex">
                       <view class="weui-flex__item">
-                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
-                        <text style="color:#1c7eff;margin-right:20rpx;">已退回</text>
+                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
+                        <text style="color:#1c7eff;margin-right:20rpx;">已结束/发起</text>
                       </view>
                       <view>
-                        <text>10:10</text>
+                        <text>{{item.dialogTime}}</text>
                       </view>
                     </view>
                     <view>
-                      <text>咨询的报告:</text>
-                      <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
+                      <text>协助医生：{{item.assisterName}}</text>
                     </view>
-                  </view>
-                  <view wx:if="{{!isDoctor}}" class="weui-flex choice">
-                    <view class="accept">
-                      <button>接收</button>
-                    </view>
-                    <view class="refuse">
-                      <button>退回</button>
+                    <view>
+                      <text>咨询部位：{{item.bodyPart}}</text>
                     </view>
                   </view>
                 </view>
               </view>
             </navigator>
           </view>
-          <view class="docter-box">
-            <navigator url="../ConInterface/ConInterface">
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+          <view class="docter-box" wx:for = "{{receiveAssistList}}" wx:key="index">
+            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
                   <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -162,24 +81,18 @@
                   <view class="doctorMes">
                     <view class="weui-flex">
                       <view class="weui-flex__item">
-                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">张三丰</text>
-                        <text style="color:#1c7eff;margin-right:20rpx;">已接收</text>
+                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
+                        <text style="color:#1c7eff;margin-right:20rpx;">已结束/接收</text>
                       </view>
                       <view>
-                        <text>10:10</text>
+                        <text>{{item.dialogTime}}</text>
                       </view>
                     </view>
+                     <view>
+                      <text>发起医生：{{item.receiverName}}</text>
+                    </view>
                     <view>
-                      <text>咨询的报告:</text>
-                      <text>咨询的报告：2017-05-25 10:10 北京大学深圳医院  胸部侧位</text>
-                    </view>
-                  </view>
-                  <view wx:if="{{!isDoctor}}" class="weui-flex choice">
-                    <view class="accept">
-                      <button>接收</button>
-                    </view>
-                    <view class="refuse">
-                      <button>退回</button>
+                      <text>咨询部位：{{item.bodyPart}}</text>
                     </view>
                   </view>
                 </view>

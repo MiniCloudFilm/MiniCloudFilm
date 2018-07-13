@@ -1,9 +1,17 @@
 <view class="container"> 
-  <view  wx:for='{{transactionList}}' wx:key="index" class="item" data-order-id="{{item.id}}" bindtap='openDetail'>
+  <view  wx:for='{{transactionList}}' wx:key="index" class="item" 
+  data-order-fee="{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}" 
+  data-order-id="{{item.id}}"
+  data-order-mobile="{{item.orderMobile}}"
+  data-order-time="{{item.orderTime}}"
+  data-order-type="{{item.orderType}}"
+  bindtap='openDetail'>
     <view class="left">
       <view class="type">{{item.orderType==1?'医生咨询':'视频购买'}}</view>
       <view class="time">{{item.orderTime}}</view>
     </view>
-    <text>{{item.orderFee}}</text>
+    <!-- <text wx:if="{{myId==item.userId}}">-{{item.orderFee}}</text> -->
+    <!-- <text wx:if="{{myId==item.orderPayForDoctor}}">+{{item.orderFee}}</text> -->
+    <text>{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}</text>
   </view>  
 </view>

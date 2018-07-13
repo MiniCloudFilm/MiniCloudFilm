@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
 
 Page({
   data: {
@@ -21,7 +21,7 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () { 
+  onLoad: function () {
     console.log(app.globalData.userList);
     let user = app.globalData.userList;
     if (user){
@@ -79,5 +79,25 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  // 专家咨询
+  turnToExpert:function(e){
+    console.log(app.globalData.userList)
+    let formId = e.detail.formId;
+    wx.navigateTo({
+      url: '../expertList/expert?order=before'
+    });
+    wx.request({//通过网络请求发送openId和formIds到服务器
+      url: 'http://192.168.131.212:8080/wxapi/wechatForm',
+      method: 'post',
+      data: {
+        "userId": app.globalData.userList.userId,
+        "openId": app.globalData.userList.userOpenId,
+        "formId": formId
+      },
+      success: function (res) {
+        console.log(res)
+      }
+    });
   }
 })
