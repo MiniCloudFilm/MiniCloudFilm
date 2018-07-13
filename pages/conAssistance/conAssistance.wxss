@@ -11,7 +11,7 @@ page,
     text-align: left;
 }
 .weui-navbar__slider{
-  width:50%;
+   width:33.333%; 
   height:2px;
   background:#1c7eff;
 }
@@ -54,5 +54,9 @@ button{
 .refuse button{ 
   color:#969ba1;
   margin-left:50rpx;
+}
+
+.weui-flex{
+  line-height: 48rpx;
 }
  

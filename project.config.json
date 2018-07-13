@@ -118,6 +118,48 @@
 					"name": "医生认证",
 					"pathName": "pages/doctorCert/doctorCert",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会诊记录",
+					"pathName": "pages/conAssistance/conAssistance",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询列表",
+					"pathName": "pages/counList/counList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询记录",
+					"pathName": "pages/conAssistance/conAssistance",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询记录",
+					"pathName": "pages/conAssistance/conAssistance",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询记录",
+					"pathName": "pages/counList/counList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询记录",
+					"pathName": "pages/conAssistance/conAssistance",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询记录",
+					"pathName": "pages/conAssistance/conAssistance",
+					"query": ""
 				}
 			]
 		}

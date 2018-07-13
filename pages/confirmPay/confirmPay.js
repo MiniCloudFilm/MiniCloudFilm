@@ -75,10 +75,10 @@ Page({
                     'content-type': 'application/json' // 默认值
                   },
                   success: resC => {
-                    console.log(resB.data.data);
+                    console.log(resC.data.data);
                     if (resB.data.code == "200") {
                       wx.redirectTo({
-                        url: `../ConInterface/ConInterface?dialogId=${resB.data.data.dialogId}&reportId=${pay.reportId}&dialoger=${pay.doctorName}&concultId=${resB.data.data.concultId}`
+                        url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&reportId=${pay.reportId}&dialoger=${pay.doctorName}&concultId=${resC.data.data.concultId}`
                       })
                     }
                   }

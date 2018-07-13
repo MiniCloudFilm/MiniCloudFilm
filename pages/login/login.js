@@ -75,7 +75,7 @@ Page({
       }
     })
     wx.request({
-      url: 'http://192.168.131.102:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
       data: {
         'userName': e.detail.value.userName,
         'password': e.detail.value.password,
@@ -88,8 +88,9 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data.code == '200') {
-          wx.setStorageSync('userList', res.data.data.user)
-          wx.setStorageSync('token', res.data.data.token)
+          wx.setStorageSync('userList', res.data.data.user);
+          wx.setStorageSync('token', res.data.data.token);
+          console.log(wx.getStorageSync('userList'))
           app.globalData.userList = wx.getStorageSync('userList');
           app.globalData.token = wx.getStorageSync('token');
           wx.switchTab({

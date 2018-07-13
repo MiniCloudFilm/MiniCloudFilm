@@ -44,7 +44,7 @@ Page({
   // 页面加载
   onLoad: function (options) {
     var userList = app.globalData.userList;
-    console.log(userList)
+    console.log(options)
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var time = util.formatTime(new Date());
     this.setData({

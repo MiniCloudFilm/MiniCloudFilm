@@ -12,11 +12,11 @@ Page({
   getData: function (pg) {
     wx.showNavigationBarLoading();
     let token=wx.getStorageSync('token');
-    let myId = wx.getStorageSync('userList').userId;
+    
     console.log(token)
     pg = pg ? pg : 0; 
     let that = this; 
-    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myPayList?userId=${myId}&page=${pg}&token=${token}`; 
+    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myPayList?userId=${this.data.myId}&page=${pg}&token=${token}`; 
     wx.request({
       url: apiUrl, //仅为示例，并非真实的接口地址
       header: {
@@ -40,14 +40,21 @@ Page({
   },
   openDetail:function(e){
     let orderId = e.currentTarget.dataset.orderId;
+    let orderFee = e.currentTarget.dataset.orderFee;
+    let orderMobile = e.currentTarget.dataset.orderMobile;
+    let orderTime = e.currentTarget.dataset.orderTime;
+    let orderType = e.currentTarget.dataset.orderType;
     wx.navigateTo({
-      url: `../payDetail/payDetail?orderId=${orderId}`,
+      url: `../payDetail/payDetail?orderId=${orderId}&orderFee=${orderFee}&orderMobile=${orderMobile}&orderTime=${orderTime}&orderType=${orderType}`,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) { 
+    this.setData({
+      myId: wx.getStorageSync('userList').userId
+    });
     this.getData(0);
   },
 
