@@ -1,8 +1,7 @@
 // pages/login/login.js
 let app = getApp();
 var util = require('../../utils/util.js')
-Page({
-
+Page({ 
   /**
    * 页面的初始数据
    */
@@ -33,8 +32,8 @@ Page({
   },
  
   formSubmit: function (e) {
-    console.log(e);
-    console.log((e.detail.value.userName)); 
+    // console.log(e);
+    // console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
       wx.setTopBarText({
         text: '请输入手机号!'
@@ -52,7 +51,7 @@ Page({
     wx.login({
       success: res => {
         var code = res.code
-        console.log(code);  
+        // console.log(code);  
         // 发送 res.code 到后台换取 openId, sessionKey, unionId  
         // wx.request({
         //   url: `https://api.weixin.qq.com/sns/jscode2session`,
@@ -74,8 +73,9 @@ Page({
         // })
       }
     })
+    //登录
     wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/user/login', //仅为示例，并非真实的接口地址
+      url:app.globalData.api.login.login, 
       data: {
         'userName': e.detail.value.userName,
         'password': e.detail.value.password,
@@ -86,15 +86,15 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == '200') {
           wx.setStorageSync('userList', res.data.data.user);
           wx.setStorageSync('token', res.data.data.token);
-          console.log(wx.getStorageSync('userList'))
-          console.log(app.globalData.token );
+          // console.log(wx.getStorageSync('userList'))
+          // console.log(app.globalData.token );
           app.globalData.userList = wx.getStorageSync('userList');
           app.globalData.token = wx.getStorageSync('token');
-          console.log(app.globalData.token);
+          // console.log(app.globalData.token);
           wx.switchTab({
             url: `../user/user`
           }) 

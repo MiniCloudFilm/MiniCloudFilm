@@ -1,5 +1,5 @@
 // pages/patientReg/patientReg.js
-var app = getApp();
+let app = getApp();
 var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
 Page({
 
@@ -20,19 +20,19 @@ Page({
     mobile: '',
   },
   mobileNum: function(e) {
-    console.log(e.detail.value);
+    // console.log(e.detail.value);
     this.setData({
       mobile: e.detail.value
     })
   },
   firstPwd: function(e) {
-    console.log(e.detail.value);
+    // console.log(e.detail.value);
     this.setData({
       firstP: e.detail.value
     })
   },
   secondPwd: function(e) {
-    console.log(e.detail.value);
+    // console.log(e.detail.value);
     this.setData({
       secondP: e.detail.value
     })
@@ -47,7 +47,7 @@ Page({
       })
     } else {
       wx.request({
-        url: 'http://192.168.131.63:8080/api/v1/user/sendCode',
+        url: app.globalData.api.login.sendCode,
         data: {
           'mobile': this.data.mobile
         },
@@ -62,7 +62,7 @@ Page({
     } 
   },
   formSubmit: function(e) {
-    console.log(e.detail.value);
+    // console.log(e.detail.value);
     var idCardReg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
     if (e.detail.value.name == '') {
       wx.showToast({
@@ -118,7 +118,7 @@ Page({
         success: res => {
           let that = this;
           wx.request({
-            url: 'http://192.168.131.63:8080/api/v1/user/checkCode', //仅为示例，并非真实的接口地址
+            url: app.globalData.api.login.checkCode,  
             data: {
               'mobile': e.detail.value.mobile,
               "code": e.detail.value.code
@@ -135,7 +135,7 @@ Page({
               if (resA.data.data == true) {
                 console.log('进入注册逻辑'); 
                 wx.request({
-                  url: 'http://192.168.131.63:8080/api/v1/user/logon', //仅为示例，并非真实的接口地址
+                  url: app.globalData.api.login.logon,
                   data: {
                     'name': e.detail.value.name,
                     'idcard': e.detail.value.idCard,

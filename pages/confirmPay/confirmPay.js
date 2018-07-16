@@ -1,4 +1,5 @@
 // pages/confirmPay/confirmPay.js
+let app = getApp();
 Page({
 
   /**
@@ -8,23 +9,23 @@ Page({
     checked: 'true',
     allow: true
   },
-  radioChange: function (e) {
+  radioChange: function(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
   },
-  radioAllow: function (e) {
+  radioAllow: function(e) {
     this.data.allow = !this.data.allow;
   },
-  //支付
-  goPay: function (charge, body, payType, reportId, doctorId) {
+  //支付 
+  goPay: function(payList) {
     let user = wx.getStorageSync("userList")
     wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/pay/prePay', //仅为示例，并非真实的接口地址
+      url: app.globalData.api.pay.prepay, //仅为示例，并非真实的接口地址
       data: {
-        "totalFee": charge,
-        "body": body,
+        "totalFee": payList.charge ? payList.charge : payList.price,
+        "body": payList.doctorName ? payList.doctorName : payList.title,
         "openId": user.userOpenId,
         "mobile": user.mobile,
-        "payType": payType
+        "payType": payList.type
       },
       method: 'POST',
       header: {
@@ -34,194 +35,184 @@ Page({
         console.log(res.data)
         let wxPay = res.data;
         if (wxPay.code == '200') {
-          // wx.requestPayment({
-          //   'timeStamp': wxPay.data.timeStamp,
-          //   'nonceStr': wxPay.data.nonceStr,
-          //   'package': wxPay.data.package,
-          //   'signType': wxPay.data.signType,
-          //   'paySign': wxPay.data.paySign,
-          //   'success': resA => {
-          //     console.log(resA);
-          let data = {
-            "totalFee": charge,
-            "mobile": user.mobile,
-            "orderType": payType, //1:咨询,2:视频
-            "orderTime": wxPay.data.timeStamp,
-            "userId": user.userId,
-          }
-          if(payType=="1"){
-            data.payForDoctor=doctorId;
-          }else if(payType=="2"){
-            data.payForVideo = doctorId; 
-          }
-          console.log(data);
-          wx.request({
-            url: 'http://192.168.131.63:8080/api/v1/pay/saveOrder',
-            data:data,
-            method: 'POST',
-            header: {
-              'content-type': 'application/json' // 默认值
+          wx.requestPayment({
+            'timeStamp': wxPay.data.timeStamp,
+            'nonceStr': wxPay.data.nonceStr,
+            'package': wxPay.data.package,
+            'signType': wxPay.data.signType,
+            'paySign': wxPay.data.paySign,
+            'success': res => {
+              console.log(res);
+              //确认订单
+              this.saveOrder(user, payList, wxPay);
             },
-            success: resB => {
-              console.log(resB);
-              if (resB.data.code == "200") { 
-                if(payType=="1"){
-                  wx.request({
-                    url: 'http://192.168.131.63:8080/consult/api/v1/start',
-                    data: {
-                      "sponsor": user.userId,
-                      "receiver": doctorId,
-                      "reportId": reportId,
-                      "isAssist": this.data.allow ? 'Y' : 'N'
-                    },
-                    method: 'POST',
-                    header: {
-                      'content-type': 'application/json' // 默认值
-                    },
-                    success: resC => {
-                      console.log(resC.data.data);
-                      if (resC.data.code == "200") {
-                        wx.redirectTo({
-                          url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&reportId=${reportId}&dialoger=${body}&consultId=${resC.data.data.concultId}`
-                        })
-                      } 
-                    }
-                  })
-                }
-                if(payType == "2"){
-                  wx.showToast({
-                    title: '视频购买成功！',
-                    icon: 'none',
-                    duration: 2000
-                  })
-                  wx.navigateBack({
-                    delta:1
-                  })
-                }
-                //   //         if (this.data.payType == "0") {
-                //   //           wx.showModal({
-                //   //             title: '支付完成',
-                //   //             content: '是否马上观看视频？',
-                //   //             confirmText: "看视频",
-                //   //             confirmColor: "#1c7eff",
-                //   //             cancelText: "返回列表",
-                //   //             cancelColor: "##1c7eff",
-                //   //             success: function (res) {
-                //   //               if (res.confirm) {
-                //   //                 wx.redirectTo({
-                //   //                   url: '../video/video'
-                //   //                 })
-                //   //               } else {
-                //   //                 wx.redirectTo({
-                //   //                   url: '../film/film'
-                //   //                 })
-                //   //               }
-                //   //             }
-                //   //           });
-                //   //         } else {
-                //   //           wx.showModal({
-                //   //             title: '支付完成',
-                //   //             content: '解读咨询已发起,请等待医生接受。',
-                //   //             confirmText: "回主页",
-                //   //             confirmColor: "#1c7eff",
-                //   //             cancelText: "咨询列表",
-                //   //             cancelColor: "#616569",
-                //   //             success: function (res) {
-                //   //               if (res.confirm) {
-                //   //                 wx.switchTab({
-                //   //                   url: '../index/index'
-                //   //                 })
-                //   //               } else {
-                //   //                 wx.switchTab({
-                //   //                   url: '../counList/counList'
-                //   //                 })
-                //   //               }
-                //   //             }
-                //   // });
-                //   // }
-                // },
-                //   'fail': resA => {
-                //   }
-                // }) 
-              }
+            'fail': res => {
+              console.log(res);
             }
           })
         }
       }
     })
   },
-  openConfirm: function () {
-    console.log(this.data.allow);
-    let pay = this.data.payList;
-    console.log(pay) 
-    if(pay.type=="1"){
-      console.log("1");
-      this.goPay(pay.price, pay.doctorName, pay.type, pay.reportId, pay.doctorId)
+  //确认订单
+  saveOrder: function(user, payList, wxPay) {
+    let data = {
+      "totalFee": payList.charge,
+      "mobile": user.mobile,
+      "orderType": payList.type, //1:咨询,2:视频
+      "orderTime": wxPay.data.timeStamp,
+      "userId": user.userId,
     }
-    else if (pay.type == "2"){ 
-      console.log("2");
-      this.goPay(pay.charge, pay.title, pay.type, "", pay.videoId);
+    if (payList.type == "1") {
+      data.payForDoctor = payList.doctorId;
+    } else if (payList.type == "2") {
+      data.payForVideo = payList.doctorId;
+    }
+    // console.log(data);
+    //确认订单
+    wx.request({
+      url: app.globalData.api.pay.saveOrder,
+      data: data,
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        // console.log(res);
+        if (res.data.code == "200") {
+          if (payList.type == "1") {
+            //发起会诊
+            this.start(user, payList)
+          }
+          if (payList.type == "2") {
+            wx.showToast({
+              title: '视频购买成功！',
+              icon: 'none',
+              duration: 2000
+            })
+            wx.navigateBack({
+              delta: 1
+            })
+          }
+        }
+      }
+    })
+  },
+  //发起会诊
+  start: function(user, payList) {
+    // console.log(app.globalData.api.consult.start);
+    wx.request({
+      url: app.globalData.api.consult.start,
+      data: {
+        "sponsor": user.userId,
+        "receiver": payList.doctorId,
+        "reportId": payList.reportId,
+        "isAssist": this.data.allow ? 'Y' : 'N'
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        // console.log(res);
+        if (res.data.code == "200") {
+          //向医生推送消息
+          this.sendMsg(user, res.data.data, payList);
+        }
+      }
+    })
+  },
+  //推送消息给医生
+  sendMsg: function(user, data, payList) { 
+    wx.request({
+      url: app.globalData.api.websocket.sendmsg,
+      data: {
+        "userId": user.userId,
+        "name": user.name
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        // console.log(res);
+        if (res.statusCode == "200") {
+          wx.redirectTo({
+            url: `../ConInterface/ConInterface?dialogId=${data.dialogId}&reportId=${payList.reportId}&dialoger=${payList.body}&consultId=${data.concultId}`
+          })
+        }
+      }
+    })
+  },
+  openConfirm: function() {
+    // console.log(this.data.allow);
+    let payList = this.data.payList;
+    console.log(payList)
+    if (payList.type == "1") {
+      this.goPay(payList)
+    } else if (payList.type == "2") {
+      this.goPay(payList);
     }
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options);
     let user = wx.getStorageSync("userList")
     console.log(user);
     this.setData({
       payList: options
     });
-    console.log(this.data.payList)
+    // console.log(this.data.payList)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

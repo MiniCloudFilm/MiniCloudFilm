@@ -1,17 +1,17 @@
 //app.js
-let code = '';
-let openid = ""
-let APPID = 'wxa4cd3f1e2af9b0dd'
-let sessionKey=''
+let code = ''; 
+let APPID = 'wxa4cd3f1e2af9b0dd' 
+const api = require('utils/apiConfig.js') 
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    let that=this;
+    // 展示本地存储能力 
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs) 
-    this.globalData.userList = wx.getStorageSync('userList');
-    this.globalData.token = wx.getStorageSync('token');
+    this.globalData.api = api; 
+    this.globalData.userList = wx.getStorageSync('userList'); 
+    this.globalData.token = wx.getStorageSync('token');  
+    // console.log(this.globalData.api);
     // 登录
     // wx.login({
     //   success: res => {
@@ -30,10 +30,10 @@ App({
     //       header: {
     //         'content-type': 'application/json'
     //       },
-    //       success: function (resO) {
-    //         openid = resO.data.openid //返回openid  
-    //         that.globalData.openid = resO.data.openid ; 
-    //         console.log(openid);
+    //       success: function resO=>{
+    //         resO.data.openid //返回openid  
+    //         this.globalData.openid = resO.data.openid ; 
+    //         console.log(resO.data.openid);
     //       }
     //     })
     //   }
@@ -62,9 +62,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    openid: '',
-    gloabalFomIds:[]
+    userInfo: null
   },
   onShow: function () {
   }

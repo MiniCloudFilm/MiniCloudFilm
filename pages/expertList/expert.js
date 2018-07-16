@@ -2,6 +2,7 @@
 
 // var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 // var qqmapsdk;
+let app=getApp();
 Page({
 
   /**
@@ -20,7 +21,7 @@ Page({
     value: 0,
     areaId:'all',
     deptId:'all',
-    url:"http://192.168.131.63:8080/doctor/api/v1/lookImage/"
+    url: app.globalData.api.expert.image
   },
   turn: function(e) {
     // console.log(this.data.doctorMes);
@@ -50,7 +51,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data.data)
+        // console.log(res.data.data)
         if (res.data.code == "200") {
           this.setData({
             expertList: res.data.data
@@ -261,7 +262,7 @@ Page({
     // console.log(options);
     this.getDepartment();
     this.getExpert('all', 'all');
-    var that = this;
+    var that = this; 
     this.setData({
       doctorMes: options,
       areaList: [

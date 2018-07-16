@@ -25,7 +25,7 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    console.log(options);
+    // console.log(options);
     if (options.order == 'before') {
       this.setData({
         doctorMes: options
@@ -34,7 +34,7 @@ Page({
       this.setData({
         doctorMes: options
       })
-      console.log(this.data.doctorMes);
+      // console.log(this.data.doctorMes);
     }
     if (app.globalData.userList) {
       wx.request({
@@ -48,12 +48,12 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: function (res) {
-          console.log(res);
+          // console.log(res);
           if (res.data.code == '200') {
             that.setData({
               reportList: res.data.data
             })
-            console.log(res.data)
+            // console.log(res.data)
           }
         }
       })
