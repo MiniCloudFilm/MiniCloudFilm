@@ -57,11 +57,12 @@ Page({
   //确认订单
   saveOrder: function(user, payList, wxPay) {
     let data = {
-      "totalFee": payList.charge,
+      "totalFee": payList.charge ? payList.charge:payList.price,
       "mobile": user.mobile,
       "orderType": payList.type, //1:咨询,2:视频
       "orderTime": wxPay.data.timeStamp,
       "userId": user.userId,
+      "outTradeNo": wxPay.data.outTradeNo
     }
     if (payList.type == "1") {
       data.payForDoctor = payList.doctorId;
@@ -78,11 +79,11 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res);
+        console.log(res);
         if (res.data.code == "200") {
           if (payList.type == "1") {
             //发起会诊
-            this.start(user, payList)
+            this.start(user, payList,res.data.data)
           }
           if (payList.type == "2") {
             wx.showToast({
@@ -99,7 +100,7 @@ Page({
     })
   },
   //发起会诊
-  start: function(user, payList) {
+  start: function(user, payList,orderId) {
     // console.log(app.globalData.api.consult.start);
     wx.request({
       url: app.globalData.api.consult.start,
@@ -107,14 +108,15 @@ Page({
         "sponsor": user.userId,
         "receiver": payList.doctorId,
         "reportId": payList.reportId,
-        "isAssist": this.data.allow ? 'Y' : 'N'
+        "isAssist": this.data.allow ? 'Y' : 'N',
+        'orderId': orderId
       },
       method: 'POST',
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res);
+        console.log(res);
         if (res.data.code == "200") {
           //向医生推送消息
           this.sendMsg(user, res.data.data, payList);
@@ -135,7 +137,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res);
+        console.log(res);
         if (res.statusCode == "200") {
           wx.redirectTo({
             url: `../ConInterface/ConInterface?dialogId=${data.dialogId}&reportId=${payList.reportId}&dialoger=${payList.body}&consultId=${data.concultId}&fromWhere=noRecord`

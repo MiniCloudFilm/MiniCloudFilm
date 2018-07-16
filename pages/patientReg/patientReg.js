@@ -128,7 +128,7 @@ Page({
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
             success: resA => {
-              console.log(resA.data)
+              // console.log(resA.data)
               // that.setData({
               //   checkCode:res.data.data
               // }) 
@@ -149,7 +149,7 @@ Page({
                     'content-type': 'application/x-www-form-urlencoded' // 默认值
                   }, 
                   success: resB => {
-                    console.log(resB.data);
+                    // console.log(resB.data);
                     if (resB.data.code == "200") {
                       wx.showToast({
                         title: '恭喜你，注册成功',
@@ -157,7 +157,7 @@ Page({
                         image: '',
                         duration: 1000,
                         success: resC => {
-                          console.log(resC);
+                          // console.log(resC);
                           wx.navigateTo({
                             url: '../login/login'
                           });

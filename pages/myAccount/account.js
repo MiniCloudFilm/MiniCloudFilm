@@ -22,8 +22,8 @@ Page({
     let token = wx.getStorageSync('token')
     console.log(user);
     console.log(token);
-    wx.request({
-      url: app.globalData.api.myAccount.postFormId,
+    wx.request({ 
+      url: app.globalData.api.myAccount.postFormId, 
       data: {
         'userId': user.userId,
         'token': token, 

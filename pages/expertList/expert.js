@@ -40,7 +40,7 @@ Page({
   //获取专家列表
   getExpert: function(areaId, deptId) {
     wx.request({
-      url: 'http://192.168.131.63:8080/doctor/api/v1/findDoctorList',
+      url: app.globalData.api.expert.expertList,
       data: {
         'token': '',
         'areaId': areaId,
@@ -61,11 +61,9 @@ Page({
     })
   },
   //获取科室
-  getDepartment: function() {
-    let that = this;
-    let apiUrl = `http://192.168.131.63:8080/api/v1/dict/getDept`;
+  getDepartment: function() { 
     wx.request({
-      url: apiUrl, //仅为示例，并非真实的接口地址
+      url: app.globalData.api.picker.dept, //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -81,7 +79,7 @@ Page({
         arr.unshift(arr0);
         // console.log(arr);
         if (res.data.code == "200") {
-          that.setData({
+          this.setData({
             departList: arr
           })
           let depart = [
@@ -93,7 +91,7 @@ Page({
           }
           depart[1] = arr[0].children;
           // console.log(depart);
-          that.setData({
+          this.setData({
             department: depart
           })
         }
@@ -102,13 +100,13 @@ Page({
   },
   //获取科室列
   bindMultiPickerColumnChange: function(e) {
-    console.log(e.detail.column, e.detail.value);
+    // console.log(e.detail.column, e.detail.value);
     var data = {
       department: this.data.department,
       departmentIndex: this.data.departmentIndex
     };
     data.departmentIndex[e.detail.column] = e.detail.value;
-    console.log(data.departmentIndex);
+    // console.log(data.departmentIndex);
     if (e.detail.column == 0) {
       for (let i = 0; i < this.data.departList.length; i++) {
         if (e.detail.value == i) {
@@ -205,7 +203,7 @@ Page({
   //获取地市
   getArea: function(parentId, level) {
     wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/dict/getArea',
+      url: app.globalData.api.picker.area,
       data: {
         'token': '',
         'parentId': parentId,
@@ -261,8 +259,7 @@ Page({
     this.getArea('0', 1);
     // console.log(options);
     this.getDepartment();
-    this.getExpert('all', 'all');
-    var that = this; 
+    this.getExpert('all', 'all'); 
     this.setData({
       doctorMes: options,
       areaList: [

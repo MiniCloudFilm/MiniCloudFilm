@@ -27,6 +27,25 @@ Page({
     //   this.pendingAction();
     // }
   },
+  //退款
+  refund: function (orderId){
+    wx.request({
+      url: app.globalData.api.pay.refund, 
+      data: {
+        'orderId': orderId
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res);
+        if (res.data.code == '200') {
+          this.pendingAction();
+        }
+      }
+    })
+  },
   //接受
   accept:function(e){
     console.log(e.currentTarget.dataset.consult);
@@ -60,8 +79,8 @@ Page({
       },
       success: res=> {
         console.log(res);
-        if (res.data.code == '200') {
-          this.pendingAction();
+        if (res.data.code == '200') { 
+          this.refund(e.currentTarget.dataset.orderId);
         }
       }
     })

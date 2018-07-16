@@ -17,8 +17,8 @@ Page({
   //查看收费视频
   getChargeVideo: function() {
     this.data.videoList = [];
-    wx.request({
-      url: app.globalData.api.film.getChargeVideo,
+    wx.request({ 
+      url: app.globalData.api.film.getChargeVideo, 
       data: {
         "page": 1,
         "token": this.data.token
@@ -39,8 +39,8 @@ Page({
   //查看免费视频
   getFreeVideo: function() {
     this.data.videoList = [];
-    wx.request({
-      url: app.globalData.api.film.getFreeVideo,
+    wx.request({ 
+      url: app.globalData.api.film.getFreeVideo, 
       data: {
         "page": 1,
         "token": this.data.token
@@ -61,8 +61,8 @@ Page({
   //获取观看记录
   getQueryVideoLog: function() {
     this.data.videoList = [];
-    wx.request({
-      url: app.globalData.api.film.getQueryVideoLog,
+    wx.request({ 
+      url: app.globalData.api.film.getQueryVideoLog, 
       data: {
         "userId": this.data.user.userId,
         "page": 1,
@@ -83,8 +83,8 @@ Page({
   },
   //观看记录保存
   getSaveVideoLog: function(data) {
-    wx.request({
-      url: app.globalData.api.film.getSaveVideoLog,
+    wx.request({ 
+      url: app.globalData.api.film.getSaveVideoLog, 
       data: {
         "videoId": data.id,
         "videoViewer": this.data.user.userId,
@@ -97,7 +97,7 @@ Page({
       success: res => {
         // console.log(res.data)
         if (res.data.code == "200") { 
-          console.log(data);
+          // console.log(data);
           let arr = data.videoUrl.split('?');
           wx.navigateTo({
             url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`,
@@ -108,8 +108,8 @@ Page({
   },
   //判断是否购买
   checkIsBuy: function(data, userId) {
-    wx.request({
-      url: app.globalData.api.film.checkIsBuy,
+    wx.request({ 
+      url: app.globalData.api.film.checkIsBuy, 
       data: {
         "videoId": data.id,
         "userId": userId

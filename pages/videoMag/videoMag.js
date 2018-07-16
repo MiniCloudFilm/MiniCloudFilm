@@ -125,7 +125,7 @@ Page({
   //视频上架
   upVideo: function (data,type) {
     wx.request({
-      url: `http://192.168.131.63:8080/doctor/api/v1/upVideo`,
+      url: app.globalData.api.video.upDown,
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -149,7 +149,7 @@ Page({
   //视频删除
   deleteVideo: function (data) {
     wx.request({
-      url: `http://192.168.131.63:8080/doctor/api/v1/deleteVideo`,
+      url: app.globalData.api.video.deleteVideo,
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -169,43 +169,14 @@ Page({
     })
   },
   //视频修改
-  updateVideo: function (data) { },
-  //获取视频
-  getVideo: function () {
-    let user = wx.getStorageSync("userList");
-    let token = wx.getStorageSync("token")
-    var that = this;
-    wx.request({
-      url: `http://192.168.131.63:8080/doctor/api/v1/upVideo`,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      Data: {
-        'userId': user.userId,
-        "videoTitle": e.detail.value.title,
-        "videoCharge": e.detail.value.charge,
-        "token": token
-      },
-      success: function (res) {
-        console.log(res);
-        //do something
-        if (res.data.code == "200") {
-          wx.redirectTo({
-            url: '../videoMag/videoMag',
-          })
-        }
-      }
-    })
-  },
+  updateVideo: function (data) { }, 
   //视频
   getData: function (status, pg) {
     wx.showNavigationBarLoading();
     let user = wx.getStorageSync('userList')
-    pg = pg ? pg : 0;
-    let that = this;
-    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myUploadVideo`;
+    pg = pg ? pg : 0; 
     wx.request({
-      url: apiUrl,
+      url: app.globalData.api.video.uploadList,
       data: {
         "userId": user.userId,
         "page": pg,
@@ -216,18 +187,18 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
+      success:  res => {
         console.log(res.data.data.datas)
-        var tmpArr = that.data.videoList;
+        var tmpArr = this.data.videoList;
         // 这一步实现了上拉加载更多
         if (res.data.data.datas.length < 15) {
-          that.data.load = false;
+          this.data.load = false;
         }
         tmpArr.push.apply(tmpArr, res.data.data.datas);
-        that.setData({
-          videoList: that.data.videoList
+        this.setData({
+          videoList: this.data.videoList
         })
-        that.data.page++;
+        this.data.page++;
         wx.hideNavigationBarLoading();
       }
     })
@@ -285,14 +256,13 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    var that = this;
+  onReachBottom: function () { 
     // 显示加载图标  
-    if (that.data.load) {
+    if (this.data.load) {
       wx.showLoading({
         title: '玩命加载中',
       })
-      that.getData(that.data.page);
+      this.getData(this.data.page);
       // 隐藏加载框  
       wx.hideLoading();
     }

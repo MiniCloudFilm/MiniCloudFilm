@@ -16,8 +16,8 @@ Page({
   onLoad: function (options) {
     let that=this;
     if (app.globalData.userList) {
-      wx.request({
-        url: app.globalData.api.reportshow.getReportPicture,
+      wx.request({ 
+        url: app.globalData.api.reportshow.getReportPicture, 
         data: {
           'token': app.globalData.token,
           'studyUid': options.studyUid

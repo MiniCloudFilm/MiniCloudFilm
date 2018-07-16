@@ -13,8 +13,7 @@ Page({
     id: ''
     
   },
-  chooseVideo() {
-    let that=this;
+  chooseVideo() { 
     this.setData({
       info: ''
     })
@@ -46,11 +45,10 @@ Page({
   subVideo: function (e) {
     let user=wx.getStorageSync("userList");
     let token=wx.getStorageSync("token")
-    console.log(e.detail.value.title, e.detail.value.charge);
-    var that = this;
+    // console.log(e.detail.value.title, e.detail.value.charge); 
     wx.uploadFile({
-      url: `http://192.168.131.63:8080/doctor/api/v1/uploadVideo`,
-      filePath: that.data.src,
+      url: app.globalData.api.video.upload,
+      filePath: this.data.src,
       name: 'file',
       formData: {
         'userId': user.userId,
@@ -77,8 +75,8 @@ Page({
     this.setData({
       showTopTips: true
     });
-    setTimeout(function () {
-      that.setData({
+    setTimeout(()=> {
+      this.setData({
         showTopTips: false
       });
     }, 3000);

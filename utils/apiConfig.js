@@ -1,6 +1,5 @@
 const server = require('serverConfig.js')
-const basePath = server.url; 
-var app = getApp();
+const basePath = server.url;  
 module.exports={
   // 会话页面
   ConInterface:{
@@ -85,7 +84,8 @@ module.exports={
   },
   report:{
     //报告列表
-    reportList: basePath +'/api/v1/report/findReportList'
+    reportList: basePath +'/api/v1/report/findReportList',
+    reportPicture: basePath +'/api/v1/report/getReportPicture'
   },
   pay:{
     //预支付
@@ -97,33 +97,13 @@ module.exports={
     //交易详情
     PayInfo: basePath +'/common/api/v1/queryPayInfo',
     //提现
-    getCash: basePath +'/doctor/api/v1/getCash'
+    getCash: basePath +'/doctor/api/v1/getCash',
+    //退款
+    refund: basePath + '/api/v1/pay/refund'
   },
   websocket:{
     //推送消息给医生
     sendmsg: basePath +'/wxapi/sendmsg'
-  },
-  video:{
-    //收费视频
-    charge: basePath +'/common/api/v1/chargeVide',
-    //免费
-    free: basePath +'/common/api/v1/freeVideo',
-    //记录保存
-    save: basePath +'/common/api/v1/saveVideoLog',
-    //获取观看记录
-    query: basePath +'/common/api/v1/queryVideoLog',
-    //购买的视频
-    myVideo: basePath +'/doctor/api/v1/myVideoDoctor',
-    //上传
-    upload: basePath +'/doctor/api/v1/uploadVideo',
-    //上架与下架 
-    upDown: basePath +'/doctor/api/v1/upVideo',
-    //删除
-    deleteVideo: basePath +'/doctor/api/v1/deleteVideo',
-    //视频列表
-    uploadList: basePath +'/doctor/api/v1/myUploadVideo',
-    //是否已购买
-    checkIsBuy: basePath +'/doctor/api/v1/checkIsBuy',
   },
   pickupCach:{
     // 提交转账信息
@@ -136,32 +116,5 @@ module.exports={
   },
   transactionList:{
     myPayList: basePath + '/doctor/api/v1/myPayList',
-  },
-  consult:{
-    //发起会诊
-    start: basePath +'/consult/api/v1/start',
-    //接收
-    receive: basePath +'/consult/api/v1/receive',
-    //拒绝  
-    refuse: basePath +'/consult/api/v1/refuse',
-    //结束
-    end: basePath +'/consult/api/v1/end'
-  },
-  dialog:{
-    //咨询列表
-    dialogList: basePath +'/dialog/api/v1/dialogList', 
-  },
-  picker:{
-    //获取地址
-    area: basePath +'/api/v1/dict/getArea',
-    //获取医院
-    hospital: basePath +'/api/v1/dict /getHospital',
-    //获取科室
-    dept: basePath +'/api/v1/dict/getDept'
-  },
-  cert:{
-    //头像上传
-    avatar: basePath +'/doctor/api/v1/uploadAvatar',
-    doctorInfo: basePath +'/doctor/api/v1/doctorCertified'
-  }  
+  } 
 } 

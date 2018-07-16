@@ -21,7 +21,7 @@ Page({
   },
   login: function (e) {  
     if (app.globalData.userInfo==null){ 
-      console.log("进入");
+      // console.log("进入");
       app.globalData.userInfo = e.detail.userInfo;
       wx.setStorageSync("userInfo", e.detail.userInfo); 
     }
@@ -33,7 +33,7 @@ Page({
   },
   onLoad: function (options) {
     if (app.globalData.userInfo == null) {
-      console.log("进入");
+      // console.log("进入");
       app.globalData.userInfo = e.detail.userInfo;
       wx.setStorageSync("userInfo", e.detail.userInfo);
     }
@@ -41,7 +41,7 @@ Page({
     this.setData({ 
       avatarUrl: userInfo.avatarUrl
     })
-    console.log(wx.getStorageSync('userList')); 
+    // console.log(wx.getStorageSync('userList')); 
     if( wx.getStorageSync('userList')) {
       var userList = wx.getStorageSync('userList');
       this.setData({
@@ -69,7 +69,7 @@ Page({
   onShow: function () {  
     var userInfo = wx.getStorageSync('userInfo')
     if (app.globalData.userInfo==null){ 
-      console.log("进入");
+      // console.log("进入");
       app.globalData.userInfo = e.detail.userInfo;
       wx.setStorageSync("userInfo", e.detail.userInfo);
     }

@@ -227,10 +227,9 @@ Page({
     } 
   },
   //获取科室
-  getDepartment: function() {
-    let that = this;
+  getDepartment: function() { 
     wx.request({
-      url: app.globalData.api.doctorCert.getDepartment,
+      url: app.globalData.api.doctorCert.getDepartment, 
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -246,7 +245,7 @@ Page({
         arr.unshift(arr0);
         // console.log(arr);
         if (res.data.code == "200") {
-          that.setData({
+          this.setData({
             departList: arr
           })
           let depart = [
@@ -258,7 +257,7 @@ Page({
           }
           depart[1] = arr[0].children;
           // console.log(depart);
-          that.setData({
+          this.setData({
             department: depart
           })
         }
@@ -362,8 +361,8 @@ Page({
   },
   //获取地市
   getArea: function(parentId, level) {
-    wx.request({
-      url: app.globalData.api.doctorCert.getArea,
+    wx.request({ 
+      url: app.globalData.api.doctorCert.getArea, 
       data: {
         'token': '',
         'parentId': parentId,
@@ -374,7 +373,7 @@ Page({
         'content-type':'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res);
+        // console.log(res);
         // console.log(res.data.data)
         if (res.data.code == "200") {
           let list = res.data.data;
@@ -414,8 +413,8 @@ Page({
   },
   //获取医院
   getHospital: function(areaId) {
-    wx.request({
-      url: app.globalData.api.doctorCert.getHospital,
+    wx.request({ 
+      url: app.globalData.api.doctorCert.getHospital, 
       data: {
         'token': '',
         'areaId': areaId
@@ -425,11 +424,11 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         if (res.data.code == "200") {
           let arr = this.data.hospital;
           arr=arr.concat(res.data.data);
-          console.log(arr);
+          // console.log(arr);
           this.setData({
             hospital: arr
           })

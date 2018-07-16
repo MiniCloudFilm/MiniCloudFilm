@@ -22,26 +22,29 @@ Page({
     wx.showNavigationBarLoading();
     let user = wx.getStorageSync('userList')
     let token = wx.getStorageSync('token')
-    pg = pg ? pg : 0;
-    let that = this;
-    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myVideoDoctor?userId=${user.userId}&page=${pg}&token=${token}`;
+    pg = pg ? pg : 0; 
     wx.request({
-      url: apiUrl, //仅为示例，并非真实的接口地址
+      url: app.globalData.api.video.myVideo, 
+      data:{
+        "userId":user.userId ,
+         "page":pg ,
+         "token":token
+      },
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
+      success: res => {
         // console.log(res.data)
-        var tmpArr = that.data.videoList;
+        var tmpArr = this.data.videoList;
         // 这一步实现了上拉加载更多
         if (res.data.data.datas.length < 15) {
-          that.data.load = false;
+          this.data.load = false;
         }
         tmpArr.push.apply(tmpArr, res.data.data.datas);
-        that.setData({
-          videoList: that.data.videoList
+        this.setData({
+          videoList: this.data.videoList
         })
-        that.data.page++;
+        this.data.page++;
         wx.hideNavigationBarLoading();
       }
     })
@@ -52,7 +55,7 @@ Page({
       user:wx.getStorageSync("userList")
     })
     wx.request({
-      url: 'http://192.168.131.63:8080/common/api/v1/saveVideoLog',
+      url: app.globalData.api.video.save,
       data: {
         "videoId": data.id,
         "videoViewer": this.data.user.userId,
