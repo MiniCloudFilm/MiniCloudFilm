@@ -80,7 +80,8 @@ Page({
     })
   },
   // 专家咨询
-  turnToExpert:function(e){
+  turnToExpert: function (e) {
+    "../chRepCon/chRepCon?order=before"
     // console.log(app.globalData.userList)
     let formId = e.detail.formId;
     wx.navigateTo({
@@ -98,5 +99,84 @@ Page({
         // console.log(res)
       }
     });
-  }
+  },
+  // 报告解读
+  turnToChRepCon: function (e) {
+    // console.log(app.globalData.userList)
+    let formId = e.detail.formId;
+    wx.navigateTo({
+      url: "../chRepCon/chRepCon?order=before"
+    });
+    wx.request({//通过网络请求发送openId和formIds到服务器
+      url: app.globalData.api.index.postFormId,
+      method: 'post',
+      data: {
+        "userId": app.globalData.userList.userId,
+        "openId": app.globalData.userList.userOpenId,
+        "formId": formId
+      },
+      success: function (res) {
+        // console.log(res)
+      }
+    });
+  },
+  // 医学视频
+  turnToVideo: function (e) {
+    // console.log(app.globalData.userList)
+    let formId = e.detail.formId;
+    wx.navigateTo({
+      url: "../film/film"
+    });
+    wx.request({//通过网络请求发送openId和formIds到服务器
+      url: app.globalData.api.index.postFormId,
+      method: 'post',
+      data: {
+        "userId": app.globalData.userList.userId,
+        "openId": app.globalData.userList.userOpenId,
+        "formId": formId
+      },
+      success: function (res) {
+        // console.log(res)
+      }
+    });
+  },
+  // 会诊记录
+  turnToConAssistance: function(e) {
+    // console.log(app.globalData.userList)
+    let formId = e.detail.formId;
+    wx.navigateTo({
+      url: "../conAssistance/conAssistance"
+    });
+    wx.request({//通过网络请求发送openId和formIds到服务器
+      url: app.globalData.api.index.postFormId,
+      method: 'post',
+      data: {
+        "userId": app.globalData.userList.userId,
+        "openId": app.globalData.userList.userOpenId,
+        "formId": formId
+      },
+      success: function (res) {
+        // console.log(res)
+      }
+    });
+  }, 
+   // 会诊记录
+  developing: function(e) {
+    // console.log(app.globalData.userList)
+    let formId = e.detail.formId;
+    wx.request({//通过网络请求发送openId和formIds到服务器
+      url: app.globalData.api.index.postFormId,
+      method: 'post',
+      data: {
+        "userId": app.globalData.userList.userId,
+        "openId": app.globalData.userList.userOpenId,
+        "formId": formId
+      },
+      success: function (res) {
+        // console.log(res)
+      }
+    });
+  }, 
+
+
 })

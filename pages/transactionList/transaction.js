@@ -1,4 +1,5 @@
 // pages/transactionList/transaction.js
+var app = getApp();
 Page({
 
   /**

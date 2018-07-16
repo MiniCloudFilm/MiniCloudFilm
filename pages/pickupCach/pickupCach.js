@@ -1,7 +1,6 @@
 var util = require('../../utils/bank.js');
 var userList = wx.getStorageSync('userList');
 var myId = JSON.stringify(userList.userId);
-var userName = userList.name;
 Page({
   /**
    * 页面的初始数据
@@ -171,6 +170,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var userName = userList.name;
     this.setData({
       reflectCharge:options.balance,
       name: userName

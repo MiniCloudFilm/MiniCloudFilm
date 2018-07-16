@@ -4,25 +4,25 @@
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">付款金额</view>
-                    <view class="weui-form-preview__value_in-hd">5.88</view>
+                    <view class="weui-form-preview__value_in-hd">{{orderMes.orderFee}}</view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">类型</view>
-                    <view class="weui-form-preview__value">支出</view>
+                    <view class="weui-form-preview__value">{{orderMes.orderFee>0?'收入':'支出'}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">时间</view>
-                    <view class="weui-form-preview__value">2018-06-22 12:00:00</view>
+                    <view class="weui-form-preview__value">{{orderMes.orderTime}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">交易单号</view>
-                    <view class="weui-form-preview__value">10002102020202021202</view>
+                    <view class="weui-form-preview__value">{{orderMes.orderId}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">备注</view>
-                    <view class="weui-form-preview__value">付费咨询收费</view>
+                    <view class="weui-form-preview__value">{{orderMes.orderType==1?'付费咨询':'视频购买'}}</view>
                 </view>
             </view>
             
