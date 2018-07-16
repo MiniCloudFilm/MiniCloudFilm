@@ -87,7 +87,7 @@ module.exports={
     reportList: basePath +'/api/v1/report/findReportList',
     reportPicture: basePath +'/api/v1/report/getReportPicture'
   },
-  pay:{
+  com:{
     //预支付
     prepay: basePath +'/api/v1/pay/prePay',
     //确认订单

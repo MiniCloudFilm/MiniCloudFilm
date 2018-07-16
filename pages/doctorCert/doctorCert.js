@@ -1,4 +1,5 @@
 // pages/doctorCert/doctorCert.js
+var app = getApp();
 Page({
 
   /**

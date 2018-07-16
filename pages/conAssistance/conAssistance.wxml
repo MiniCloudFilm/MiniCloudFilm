@@ -11,7 +11,7 @@
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='noData' wx:if="{{sendAssistList.length==0}}">
+          <view class='noData' wx:if="{{myALLConsultList.length==0}}">
             <image mode="widthFix" src='../../image/no-data.png'></image>
           </view>
           <view class="docter-box" wx:for="{{myALLConsultList}}" wx:key="index">

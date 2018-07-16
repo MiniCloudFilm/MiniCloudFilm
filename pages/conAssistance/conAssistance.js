@@ -1,5 +1,6 @@
 // pages/counList/counList.js
 var sliderWidth = 96; 
+var app = getApp();
 Page({
 
   /**
