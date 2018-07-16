@@ -30,18 +30,22 @@
           </view>
         </view>
       </view>
-      <view class="end">
+      <view wx:if="{{fromWhere!='record'}}" class="end">
         <button type='default' bindtap='endDialog'>
           <image src="/image/icon-end.png"></image>
         结束咨询</button>
       </view>
       <view class="weui-flex title-box">
         <view class="weui-flex__item start"></view>
-        <view class="title">您正在与{{dialoger}}{{myType==1?"医生":""}}沟通</view>
+        <view class="title" wx:if="{{fromWhere!='record'}}">您正在与{{dialoger}}{{myType==1?"医生":""}}沟通</view>
+        <view class="title" wx:if="{{fromWhere=='record'}}">您与{{dialoger}}{{myType==1?"医生":""}}的聊天记录</view>
         <view class="weui-flex__item end"></view>
       </view>
     </view>
     <view class='scrollContainer'>
+    <view class='noData' wx:if="{{allContentList.length==0}}">
+      <image mode="widthFix" src='../../image/no-data.png'></image>
+    </view>
     <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="historycon">
       <view class="history" wx:for="{{allContentList}}" wx:key=''>
         <view class="time-box">
@@ -83,7 +87,7 @@
     </scroll-view>
     </view>
     
-    <view class="sendmessage">
+    <view class="sendmessage" wx:if="{{fromWhere!='record'}}">
       <input type="emoji" confirm-type="done" bindconfirm="submitTo" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
       <button type='default' catchtap="submitTo">发送</button>
       <input style='display:none' type=""  confirm-type="done" placeholder="" />

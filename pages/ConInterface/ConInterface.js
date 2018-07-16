@@ -32,7 +32,8 @@ Page({
       dialogId: options.dialogId,
       reportId: options.reportId,
       ifAssist: options.ifAssist,
-      consultId: options.consultId
+      consultId: options.consultId,
+      fromWhere: options.fromWhere
     });
     this.getReport(options.reportId);
     this.bottom();
@@ -40,7 +41,7 @@ Page({
   // 根据studyUid获取报告
   getReport: function (reportId) {
     wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/report/findReportById',
+      url: 'http://192.168.131.212:8080/api/v1/report/findReportById',
       data: {
         'token': app.globalData.token,
         'reportId': reportId
@@ -50,7 +51,6 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res)
         if (res.data.code == "200") {
           this.setData({
             reportDetail: res.data.data
@@ -61,46 +61,51 @@ Page({
   },
   // 页面加载完成
   onShow: function () {
-    console.log(this.data.socketOpen)
+    console.log(this.data.socketOpen);
+    console.log(this.data.fromWhere);
     var that = this;
-    if (!this.data.socketOpen) {
-      this.webSocket()
-    };
-    this.data.SocketTask.onOpen(res => {
-      this.setData({
-        socketOpen: true
-      })
-      console.log('监听 WebSocket 连接打开事件。', res)
-    });
-    this.data.SocketTask.onClose(onClose => {
-      console.log('监听 WebSocket 连接关闭事件。', onClose)
-      this.setData({
-        socketOpen: false
+    if(this.data.fromWhere=='noRecord'){
+      if (!this.data.socketOpen) {
+        this.webSocket()
+      };
+      this.data.SocketTask.onOpen(res => {
+        this.setData({
+          socketOpen: true
+        })
+        console.log('监听 WebSocket 连接打开事件。', res)
       });
-    });
-    this.data.SocketTask.onError(onError => {
-      console.log('监听 WebSocket 错误。错误信息', onError)
-      this.setData({
-        socketOpen: false
+      this.data.SocketTask.onClose(onClose => {
+        console.log('监听 WebSocket 连接关闭事件。', onClose)
+        this.setData({
+          socketOpen: false
+        });
       });
-    });
-    this.data.SocketTask.onMessage(onMessage => {
-      console.log('监听WebSocket接受到服务器的消息事件。服务器返回的消息', JSON.parse(onMessage.data))
-      var onMessage_data = JSON.parse(onMessage.data);
-      for (var i in onMessage_data) {
-        that.data.allContentList.push(onMessage_data[i]);
-      }
-      // that.data.allContentList.push.apply(that.data.allContentList,onMessage_data);
-      that.setData({
-        allContentList: that.data.allContentList
-      })
-      that.bottom();
-      // }
-    });
+      this.data.SocketTask.onError(onError => {
+        console.log('监听 WebSocket 错误。错误信息', onError)
+        this.setData({
+          socketOpen: false
+        });
+      });
+      this.data.SocketTask.onMessage(onMessage => {
+        console.log('监听WebSocket接受到服务器的消息事件。服务器返回的消息', JSON.parse(onMessage.data))
+        var onMessage_data = JSON.parse(onMessage.data);
+        for (var i in onMessage_data) {
+          that.data.allContentList.push(onMessage_data[i]);
+        }
+        // that.data.allContentList.push.apply(that.data.allContentList,onMessage_data);
+        that.setData({
+          allContentList: that.data.allContentList
+        })
+        that.bottom();
+        // }
+      });
+    }else{
+      that.getDialogRecord();
+    }
 
   },
+  // 创建Socket
   webSocket: function () {
-    // 创建Socket
     this.setData({
       SocketTask: wx.connectSocket({
         url: 'ws://192.168.131.212:8080/openSocket/' + this.data.myId + '/' + this.data.dialogId,
@@ -159,25 +164,29 @@ Page({
       inputValue: e.detail.value
     })
   },
-
-  onUnload: function () {//退出页面
-    this.data.SocketTask.close(function (close) {
-      console.log('关闭 WebSocket 连接。', close)
-    })
+  //退出页面
+  onUnload: function () {
+    if (this.data.SocketTask){
+      this.data.SocketTask.close(function (close) {
+        console.log('关闭 WebSocket 连接。', close)
+      })
+    }
   },
   onHide: function () {
     this.setData({
       allContentList: []
     });
-    this.data.SocketTask.close(function (close) {
-      console.log('关闭 WebSocket 连接。', close)
-    })
+    if (this.data.SocketTask) {
+      this.data.SocketTask.close(function (close) {
+        console.log('关闭 WebSocket 连接。', close)
+      });
+    }
   },
-
-  endDialog: function () {//结束会话
+  //结束会话
+  endDialog: function () {
     console.log(this.data.concultId)
     wx.request({
-      url: 'http://192.168.131.63:8080/consult/api/v1/end',
+      url: 'http://192.168.131.212:8080/consult/api/v1/end',
       data: {
         'consultId': this.data.consultId
       },
@@ -255,6 +264,25 @@ Page({
     }, function (res) {
       console.log('已发送', res)
     })
+  },
+  // 获取会话记录
+  getDialogRecord:function(){
+    wx.request({
+      url: 'http://192.168.131.212:8080/wxapi/chatRecord/' + this.data.myId + '/' + this.data.dialogId,
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        if (res.data.code == "200") {
+          this.setData({
+            allContentList: res.data.data
+          });
+          this.bottom();//置底
+        }
+      }
+    });
+   
   }
 })
 

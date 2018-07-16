@@ -63,8 +63,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    openid: '',
-    gloabalFomIds:[]
+    openid: ''
   },
   onShow: function () {
   }

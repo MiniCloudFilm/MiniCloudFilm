@@ -1,1 +1,4 @@
-<image src="{{imgSrc}}"></image>
+<image wx:if="{{!noDataImg}}" src="{{imgSrc}}"></image>
+<view class='noData' wx:if="{{noDataImg}}">
+  <image mode="widthFix" src='../../image/no-data.png'></image>
+</view>

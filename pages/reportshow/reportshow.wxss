@@ -1,5 +1,5 @@
 /* pages/reportshow/reportshow.wxss */
 image{
-  height:100vh;  
+   height:100vh;   
   width:100vw;
 }

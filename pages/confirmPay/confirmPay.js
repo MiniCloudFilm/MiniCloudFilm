@@ -82,7 +82,7 @@ Page({
                       console.log(resC.data.data);
                       if (resC.data.code == "200") {
                         wx.redirectTo({
-                          url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&reportId=${reportId}&dialoger=${body}&consultId=${resC.data.data.concultId}`
+                          url: `../ConInterface/ConInterface?dialogId=${resC.data.data.dialogId}&reportId=${reportId}&dialoger=${body}&consultId=${resC.data.data.concultId}&fromWhere=noRecord`
                         })
                       } 
                     }

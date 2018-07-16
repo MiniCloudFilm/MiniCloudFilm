@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgSrc:''
+    imgSrc:'',
+    noDataImg:false
   },
 
   /**
@@ -32,6 +33,10 @@ Page({
               imgSrc:`data:image/png;base64,`+res.data.data.jpgStr
             })
             console.log(res.data)
+          }else{
+            that.setData({
+              noDataImg: true
+            })
           }
         }
       })
