@@ -40,7 +40,7 @@
             </view>
           </button>
         </form>
-        <form bindsubmit="turnToVideo" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
+        <form bindsubmit="turnToVideo" report-submit="true" class='form'>
           <button formType="submit" class='btn'>
             <view class="weui-flex__item">
               <view class="navT">

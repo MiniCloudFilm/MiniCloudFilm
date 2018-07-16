@@ -32,6 +32,10 @@ Page({
   },
  
   formSubmit: function (e) {
+    // lanjq
+    wx.showLoading({
+      title: '登录中...',
+    })
     // console.log(e);
     // console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
@@ -86,6 +90,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
+        wx.hideLoading();
         // console.log(res.data)
         if (res.data.code == '200') {
           wx.setStorageSync('userList', res.data.data.user);
@@ -97,8 +102,22 @@ Page({
           // console.log(app.globalData.token);
           wx.switchTab({
             url: `../user/user`
-          }) 
+          });
+         }else{
+          wx.showToast({
+            title: res.data.mag,
+            icon: 'success',
+            duration: 3000
+          })
         }
+      },
+      fail:function(){
+        wx.hideLoading();
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'success',
+          duration: 1500
+        })
       }
     })
   }, 

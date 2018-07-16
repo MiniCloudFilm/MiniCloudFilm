@@ -136,7 +136,6 @@ Page({
       });
       return false;
     }
-    let that = this;
     if (this.data.socketOpen) {
       // 如果打开了socket就发送数据给服务器
       var data = {
@@ -153,7 +152,7 @@ Page({
         allContentList: this.data.allContentList,
         inputValue: ''
       })
-      that.bottom()
+      this.bottom();
     }
   },
   bindKeyInput: function (e) {

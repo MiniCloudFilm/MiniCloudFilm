@@ -1,4 +1,4 @@
-const server = require('serverConfig.js')
+  const server = require('serverConfig.js')
 const basePath = server.url;
 module.exports = {
   // 会话页面

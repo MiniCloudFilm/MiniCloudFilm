@@ -16,7 +16,7 @@
             <input class="input" maxlength="11" type="number" placeholder="请输入手机号"   name="userName" value="{{userName}}"confirm-type="next" placeholder-class="placeholder" maxlength='11' bindblur='mobileCheck'/>
           </view>
           <view class="section">
-            <input class="input" password type="password" placeholder="请输入密码" name="password"  placeholder-class="placeholder" />
+            <input class="input" type="password" placeholder="请输入密码" name="password"  placeholder-class="placeholder" />
           </view>
           <view>
           <!-- bindtap="login" -->
