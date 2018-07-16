@@ -10,7 +10,6 @@
 .reportInfo{
   padding:20rpx 30rpx;
   box-sizing:border-box;
-  height: 380rpx;
 }
 .con-box{ 
   border-radius: 10rpx;   

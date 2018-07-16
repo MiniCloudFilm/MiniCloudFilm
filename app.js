@@ -61,8 +61,8 @@ App({
       }
     })
   },
-  globalData: {
-    userInfo: null
+  globalData: { 
+    userInfo: null 
   },
   onShow: function () {
   }

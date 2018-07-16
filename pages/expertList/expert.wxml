@@ -17,6 +17,9 @@
       </picker>
     </view>
   </view>
+  <view class='noData' wx:if="{{expertList.length==0}}">
+    <image mode="widthFix" src='../../image/no-data.png'></image>
+  </view>
   <view class="docter-box" wx:for="{{expertList}}" wx:key="index">
     <view class="weui-cell">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">

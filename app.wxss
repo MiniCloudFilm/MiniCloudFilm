@@ -10,7 +10,8 @@
   /* padding: 200rpx 0; */
   box-sizing: border-box;
 }
- .btn{
+/* 按钮的改造 发送formId  start */
+.btn{
   border-radius: 0;
   padding: 0;
   border:none;
@@ -25,5 +26,14 @@ button.btn::after{
 .form{
   flex: 1;
 }
+/* 按钮的改造 发送formId  end */
 
-
+/* 暂无数据img显示start */
+.noData{
+  text-align: center;
+  margin-top: 100rpx;
+}
+.noData image{
+  width: 500rpx;
+}
+/* 暂无数据img显示end */

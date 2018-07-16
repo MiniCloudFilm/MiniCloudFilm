@@ -31,7 +31,7 @@ Page({
   accept:function(e){
     console.log(e.currentTarget.dataset.consult);
     wx.request({
-      url: 'http://192.168.131.63:8080/consult/api/v1/receive', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.212:8080/consult/api/v1/receive', //仅为示例，并非真实的接口地址
       data: {
         'consultId': e.currentTarget.dataset.consult, 
       },
@@ -50,7 +50,7 @@ Page({
   //拒绝
   refuse:function(e){
     wx.request({
-      url: 'http://192.168.131.63:8080/consult/api/v1/refuse', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.212:8080/consult/api/v1/refuse', //仅为示例，并非真实的接口地址
       data: {
         'consultId': e.currentTarget.dataset.consult,
       },
@@ -69,7 +69,7 @@ Page({
   //获取咨询列表---患者端
   getCounListOfPatient: function () {
     wx.request({
-      url: 'http://192.168.131.63:8080/dialog/api/v1/dialogList', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.212:8080/dialog/api/v1/dialogList', //仅为示例，并非真实的接口地址
       data: {
         "token": app.globalData.token
       },
@@ -90,7 +90,7 @@ Page({
   //获取咨询列表---医生端
   getCounList:function(){
     wx.request({
-      url: 'http://192.168.131.63:8080/consult/api/v1/myConsultList',
+      url: 'http://192.168.131.212:8080/consult/api/v1/myConsultList',
       data: {
         "token": app.globalData.token
       },
@@ -110,7 +110,7 @@ Page({
   },
   receiveAssist:function(){//我接收的协助
     wx.request({
-      url: 'http://192.168.131.63:8080/consult/api/v1/myAssistConsultList',
+      url: 'http://192.168.131.212:8080/consult/api/v1/myAssistConsultList',
       data: {
         "token": app.globalData.token
       },
@@ -130,7 +130,7 @@ Page({
   },
   pendingAction:function(){//待处理
     wx.request({
-      url: 'http://192.168.131.63:8080/consult/api/v1/pandingConsultList',
+      url: 'http://192.168.131.212:8080/consult/api/v1/pandingConsultList',
       data: {
         "token": app.globalData.token
       },
@@ -173,7 +173,7 @@ Page({
       })   
     } else if(e.currentTarget.dataset.status == "1"){
       wx.navigateTo({
-        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifAssist=${e.currentTarget.dataset.assisterid}&consultId=${e.currentTarget.dataset.consultid}`,
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifAssist=${e.currentTarget.dataset.assisterid}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=noRecord`,
       })
     } else if (e.currentTarget.dataset.status == "2"){
       wx.showToast({

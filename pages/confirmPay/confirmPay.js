@@ -45,9 +45,9 @@ Page({
               console.log(res);
               //确认订单
               this.saveOrder(user, payList, wxPay);
-            },
+            }, 
             'fail': res => {
-              console.log(res);
+              console.log(res); 
             }
           })
         }
@@ -138,7 +138,7 @@ Page({
         // console.log(res);
         if (res.statusCode == "200") {
           wx.redirectTo({
-            url: `../ConInterface/ConInterface?dialogId=${data.dialogId}&reportId=${payList.reportId}&dialoger=${payList.body}&consultId=${data.concultId}`
+            url: `../ConInterface/ConInterface?dialogId=${data.dialogId}&reportId=${payList.reportId}&dialoger=${payList.body}&consultId=${data.concultId}&fromWhere=noRecord`
           })
         }
       }

@@ -1,12 +1,15 @@
 <view class="container">
   <view class="page-body">
     <view class="con-list">
+      <view class='noData' wx:if="{{reportList.length==0}}">
+        <image mode="widthFix" src='../../image/no-data.png'></image>
+      </view>
       <view class="con-box" wx:for="{{reportList}}" wx:key="index">
         <view class="con-mes">
           <view>
             <text class="icon"></text>
             <text>检查时间：</text>
-            <text>{{item.studyTime}}</text> 
+            <text>{{item.studyTime}}</text>
           </view>
           <view>
             <text class="icon"></text>
@@ -18,12 +21,12 @@
             <text>检查部位：</text>
             <text>{{item.bodyPart}}</text>
           </view>
-          <view class="pay-con" data-reportid="{{item.reportId}}"  bindtap="turn">
+          <view class="pay-con" data-reportid="{{item.reportId}}" bindtap="turn">
             <view>
               <image src="/image/icon-zixun.png"> </image>
             </view>
             <view>
-              {{doctorMes.order=='before'?'选择专家':'购买'}} 
+              {{doctorMes.order=='before'?'选择专家':'购买'}}
             </view>
           </view>
         </view>
@@ -35,7 +38,7 @@
             <navigator url='../filmshow/fimshow?studyUid={{item.studyUid}}'>查看影像</navigator>
           </view>
         </view>
-      </view> 
+      </view>
     </view>
   </view>
 </view>
