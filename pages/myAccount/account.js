@@ -1,4 +1,5 @@
 // pages/myAccount/account.js
+var app = getApp();
 Page({
 
   /**
@@ -22,7 +23,7 @@ Page({
     console.log(user);
     console.log(token);
     wx.request({
-      url: 'http://192.168.131.63:8080/doctor/api/v1/myBalance', //仅为示例，并非真实的接口地址
+      url: app.globalData.api.myAccount.postFormId,
       data: {
         'userId': user.userId,
         'token': token, 

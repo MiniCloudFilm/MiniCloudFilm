@@ -41,7 +41,7 @@ Page({
   // 根据studyUid获取报告
   getReport: function (reportId) {
     wx.request({
-      url: 'http://192.168.131.212:8080/api/v1/report/findReportById',
+      url: app.globalData.api.ConInterface.getReport,
       data: {
         'token': app.globalData.token,
         'reportId': reportId
@@ -61,8 +61,6 @@ Page({
   },
   // 页面加载完成
   onShow: function () {
-    console.log(this.data.socketOpen);
-    console.log(this.data.fromWhere);
     var that = this;
     if(this.data.fromWhere=='noRecord'){
       if (!this.data.socketOpen) {
@@ -108,7 +106,7 @@ Page({
   webSocket: function () {
     this.setData({
       SocketTask: wx.connectSocket({
-        url: 'ws://192.168.131.212:8080/openSocket/' + this.data.myId + '/' + this.data.dialogId,
+        url: app.globalData.api.ConInterface.webSocket + this.data.myId + '/' + this.data.dialogId,
         data: 'data',
         header: {
           'content-type': 'application/json'
@@ -155,7 +153,6 @@ Page({
         allContentList: this.data.allContentList,
         inputValue: ''
       })
-      console.log(that.data.allContentList)
       that.bottom()
     }
   },
@@ -186,7 +183,7 @@ Page({
   endDialog: function () {
     console.log(this.data.concultId)
     wx.request({
-      url: 'http://192.168.131.212:8080/consult/api/v1/end',
+      url: app.globalData.api.ConInterface.endDialog,
       data: {
         'consultId': this.data.consultId
       },
@@ -268,7 +265,7 @@ Page({
   // 获取会话记录
   getDialogRecord:function(){
     wx.request({
-      url: 'http://192.168.131.212:8080/wxapi/chatRecord/' + this.data.myId + '/' + this.data.dialogId,
+      url: app.globalData.api.ConInterface.getDialogRecord + this.data.myId + '/' + this.data.dialogId,
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值

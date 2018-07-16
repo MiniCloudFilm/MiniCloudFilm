@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 const app = getApp();
-
 Page({
   data: {
     motto: 'Hello World',
@@ -88,7 +87,7 @@ Page({
       url: '../expertList/expert?order=before'
     });
     wx.request({//通过网络请求发送openId和formIds到服务器
-      url: 'http://192.168.131.212:8080/wxapi/wechatForm',
+      url: app.globalData.api.index.postFormId,
       method: 'post',
       data: {
         "userId": app.globalData.userList.userId,

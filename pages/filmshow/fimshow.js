@@ -1,11 +1,12 @@
 // pages/filmshow/fimshow.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    studyUid:''
+    filmUrl:''
   },
 
   /**
@@ -13,9 +14,10 @@ Page({
    */
   onLoad: function (options) {
     console.log(options);
-    this.setData({ 
-      studyUid: options.studyUid
-    })
+    this.setData({
+      filmUrl: app.globalData.api.filmshow.filmUrl + options.studyUid
+    });
+    console.log(this.data.filmUrl)
   },
 
   /**

@@ -16,7 +16,7 @@ Page({
     console.log(token)
     pg = pg ? pg : 0; 
     let that = this; 
-    var apiUrl = `http://192.168.131.63:8080/doctor/api/v1/myPayList?userId=${this.data.myId}&page=${pg}&token=${token}`; 
+    var apiUrl = `${app.globalData.api.transactionList.myPayList}?userId=${this.data.myId}&page=${pg}&token=${token}`;
     wx.request({
       url: apiUrl, //仅为示例，并非真实的接口地址
       header: {

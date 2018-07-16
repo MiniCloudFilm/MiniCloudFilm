@@ -31,7 +31,7 @@ Page({
   accept:function(e){
     console.log(e.currentTarget.dataset.consult);
     wx.request({
-      url: 'http://192.168.131.212:8080/consult/api/v1/receive', //仅为示例，并非真实的接口地址
+      url: app.globalData.api.counList.accept,
       data: {
         'consultId': e.currentTarget.dataset.consult, 
       },
@@ -50,7 +50,7 @@ Page({
   //拒绝
   refuse:function(e){
     wx.request({
-      url: 'http://192.168.131.212:8080/consult/api/v1/refuse', //仅为示例，并非真实的接口地址
+      url: app.globalData.api.counList.refuse,
       data: {
         'consultId': e.currentTarget.dataset.consult,
       },
@@ -69,7 +69,7 @@ Page({
   //获取咨询列表---患者端
   getCounListOfPatient: function () {
     wx.request({
-      url: 'http://192.168.131.212:8080/dialog/api/v1/dialogList', //仅为示例，并非真实的接口地址
+      url: app.globalData.api.counList.getCounListOfPatient,
       data: {
         "token": app.globalData.token
       },
@@ -90,7 +90,7 @@ Page({
   //获取咨询列表---医生端
   getCounList:function(){
     wx.request({
-      url: 'http://192.168.131.212:8080/consult/api/v1/myConsultList',
+      url: app.globalData.api.counList.getCounList,
       data: {
         "token": app.globalData.token
       },
@@ -110,7 +110,7 @@ Page({
   },
   receiveAssist:function(){//我接收的协助
     wx.request({
-      url: 'http://192.168.131.212:8080/consult/api/v1/myAssistConsultList',
+      url: app.globalData.api.counList.receiveAssist,
       data: {
         "token": app.globalData.token
       },
@@ -130,7 +130,7 @@ Page({
   },
   pendingAction:function(){//待处理
     wx.request({
-      url: 'http://192.168.131.212:8080/consult/api/v1/pandingConsultList',
+      url: app.globalData.api.counList.pendingAction,
       data: {
         "token": app.globalData.token
       },
