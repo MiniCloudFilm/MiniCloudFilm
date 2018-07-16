@@ -20,7 +20,8 @@ module.exports={
   },
   report:{
     //报告列表
-    reportList: basePath +'/api/v1/report/findReportList'
+    reportList: basePath +'/api/v1/report/findReportList',
+    reportPicture: basePath +'/api/v1/report/getReportPicture'
   },
   pay:{
     //预支付
@@ -32,7 +33,9 @@ module.exports={
     //交易详情
     PayInfo: basePath +'/common/api/v1/queryPayInfo',
     //提现
-    getCash: basePath +'/doctor/api/v1/getCash'
+    getCash: basePath +'/doctor/api/v1/getCash',
+    //退款
+    refund: basePath + '/api/v1/pay/refund'
   },
   websocket:{
     //推送消息给医生

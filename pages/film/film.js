@@ -18,7 +18,7 @@ Page({
   getChargeVideo: function() {
     this.data.videoList = [];
     wx.request({
-      url: 'http://192.168.131.63:8080/common/api/v1/chargeVideo',
+      url: app.globalData.api.video.charge,
       data: {
         "page": 1,
         "token": this.data.token
@@ -40,7 +40,7 @@ Page({
   getFreeVideo: function() {
     this.data.videoList = [];
     wx.request({
-      url: 'http://192.168.131.63:8080/common/api/v1/freeVideo',
+      url: app.globalData.api.video.free,
       data: {
         "page": 1,
         "token": this.data.token
@@ -62,7 +62,7 @@ Page({
   getQueryVideoLog: function() {
     this.data.videoList = [];
     wx.request({
-      url: 'http://192.168.131.63:8080/common/api/v1/queryVideoLog',
+      url: app.globalData.api.video.query,
       data: {
         "userId": this.data.user.userId,
         "page": 1,
@@ -84,7 +84,7 @@ Page({
   //观看记录保存
   getSaveVideoLog: function(data) {
     wx.request({
-      url: 'http://192.168.131.63:8080/common/api/v1/saveVideoLog',
+      url: app.globalData.api.video.save,
       data: {
         "videoId": data.id,
         "videoViewer": this.data.user.userId,
@@ -97,7 +97,7 @@ Page({
       success: res => {
         // console.log(res.data)
         if (res.data.code == "200") { 
-          console.log(data);
+          // console.log(data);
           let arr = data.videoUrl.split('?');
           wx.navigateTo({
             url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`,
@@ -109,7 +109,7 @@ Page({
   //判断是否购买
   checkIsBuy: function(data, userId) {
     wx.request({
-      url: 'http://192.168.131.63:8080/video/api/v1/checkIsBuy',
+      url: app.globalData.api.video.checkIsBuy,
       data: {
         "videoId": data.id,
         "userId": userId

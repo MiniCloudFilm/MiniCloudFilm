@@ -90,7 +90,7 @@ Page({
     console.log('头像');
     console.log(this.data.head);
     wx.uploadFile({
-      url: 'http://192.168.131.63:8080/doctor/api/v1/uploadAvatar', //仅为示例，非真实的接口地址
+      url: app.globalData.api.cert.avatar, //仅为示例，非真实的接口地址
       filePath: this.data.head[0],
       name: 'avatarFile',
       formData: {
@@ -110,7 +110,7 @@ Page({
     // console.log('方法');
     let user = this.data.user;
     wx.uploadFile({
-      url: 'http://192.168.131.63:8080/doctor/api/v1/uploadCertificate', //仅为示例，非真实的接口地址
+      url: app.globalData.api.cert.avatar, //仅为示例，非真实的接口地址
       filePath: this.data.image[num],
       name: 'certificateFile',
       formData: {
@@ -200,7 +200,7 @@ Page({
       }
       console.log(data);
       wx.request({
-        url: 'http://192.168.131.63:8080/doctor/api/v1/doctorCertified',
+        url: app.globalData.api.cert.doctorInfo,
         data: dataList,
         method: 'POST',
         header: {
@@ -228,10 +228,9 @@ Page({
   },
   //获取科室
   getDepartment: function() {
-    let that = this;
-    let apiUrl = `http://192.168.131.63:8080/api/v1/dict/getDept`;
+    let that = this; 
     wx.request({
-      url: apiUrl, //仅为示例，并非真实的接口地址
+      url: app.globalData.api.picker.dept, //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -364,7 +363,7 @@ Page({
   //获取地市
   getArea: function(parentId, level) {
     wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/dict/getArea',
+      url: app.globalData.api.picker.area,
       data: {
         'token': '',
         'parentId': parentId,
@@ -375,7 +374,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res);
+        // console.log(res);
         // console.log(res.data.data)
         if (res.data.code == "200") {
           let list = res.data.data;
@@ -416,7 +415,7 @@ Page({
   //获取医院
   getHospital: function(areaId) {
     wx.request({
-      url: 'http://192.168.131.63:8080/api/v1/dict/getHospital',
+      url: app.globalData.api.picker.hospital,
       data: {
         'token': '',
         'areaId': areaId
@@ -426,11 +425,11 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         if (res.data.code == "200") {
           let arr = this.data.hospital;
           arr=arr.concat(res.data.data);
-          console.log(arr);
+          // console.log(arr);
           this.setData({
             hospital: arr
           })
