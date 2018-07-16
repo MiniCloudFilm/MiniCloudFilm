@@ -1,5 +1,5 @@
-// pages/transactionList/transaction.js
-let app = getApp();
+// pages/transactionList/transaction.js 
+let app = getApp(); 
 Page({
 
   /**

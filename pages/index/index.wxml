@@ -14,69 +14,78 @@
     </view>
     <view class="nav">
       <view class="weui-flex">
-      <form bindsubmit="turnToExpert" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
-      <button formType="submit" class='btn'>
-        <view class="weui-flex__item">
-          <!-- <navigator url="../expertList/expert?order=before" hover-class="navigator-hover">      -->
-            <view class="navT">
-              <image src="/image/icon1.png"></image>
+        <form bindsubmit="turnToExpert" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
+          <button formType="submit" class='btn'>
+            <view class="weui-flex__item">
+              <!-- <navigator url="../expertList/expert?order=before" hover-class="navigator-hover">      -->
+              <view class="navT">
+                <image src="/image/icon1.png"></image>
+              </view>
+              <view>
+                <text>专家咨询</text>
+              </view>
+              <!-- </navigator> -->
             </view>
-            <view>
-              <text>专家咨询</text>
+          </button>
+        </form>
+        <form bindsubmit="turnToChRepCon" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
+          <button formType="submit" class='btn'>
+            <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
+              <view class="navT">
+                <image src="/image/icon2.png"></image>
+              </view>
+              <view>
+                <text>报告解读</text>
+              </view>
             </view>
-          <!-- </navigator> -->
-        </view>
-        </button>
-       </form> 
-        <view class="weui-flex__item" wx:if="{{userType==1||!userType}}">
-          <navigator url="../chRepCon/chRepCon?order=before">
-            <view class="navT">
-              <image src="/image/icon2.png"></image>
+          </button>
+        </form>
+        <form bindsubmit="turnToVideo" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
+          <button formType="submit" class='btn'>
+            <view class="weui-flex__item">
+              <view class="navT">
+                <image src="/image/icon3.png"></image>
+              </view>
+              <view>
+                <text>医学视频</text>
+              </view>
             </view>
-            <view>
-              <text>报告解读</text>
+          </button>
+        </form>
+        <form bindsubmit="turnToConAssistance" report-submit="true" class='form' wx:if="{{userType==2}}">
+          <button formType="submit" class='btn'>
+            <view class="weui-flex__item">
+              <view class="navT">
+                <image src="/image/icon5.png"></image>
+              </view>
+              <view>
+                <text>会诊记录</text>
+              </view>
             </view>
-          </navigator>
-        </view>
-        <view class="weui-flex__item">
-          <navigator url="../film/film">
-            <view class="navT">
-              <image src="/image/icon3.png"></image>
+          </button>
+        </form>
+        <form bindsubmit="developing" report-submit="true" class='form'>
+          <button formType="submit" class='btn'>
+            <view class="weui-flex__item">
+              <view class="navT">
+                <image src="/image/icon4.png"></image>
+              </view>
+              <view>
+                <text>开发中</text>
+              </view>
             </view>
-            <view>
-              <text>医学视频</text>
-            </view>
+          </button>
+        </form>
 
-          </navigator>
-        </view>
-         
-        <view class="weui-flex__item" wx:if="{{userType==2}}">
-          <navigator url="../conAssistance/conAssistance">
-            <view class="navT">
-              <image src="/image/icon5.png"></image>
-            </view>
-            <view>
-              <text>会诊记录</text>
-            </view> 
-          </navigator>
-        </view>
 
-        <view class="weui-flex__item" >
-          <view class="navT">
-              <image src="/image/icon4.png"></image>
-          </view>
-          <view>
-            <text>开发中</text>
-          </view>
-        </view> 
-
-      </view> 
-    </view><view class="weui-flex">
+      </view>
+    </view>
+    <view class="weui-flex">
       <view class="weui-flex__item"> </view>
-  </view>
-  <view class="">
-    <view>
-      <!-- <navigator url="../consultation/consultation">
+    </view>
+    <view class="">
+      <view>
+        <!-- <navigator url="../consultation/consultation">
         <view class="navT">
           <text class="iconfont icon-qrcode consultation"></text>
         </view>
@@ -84,8 +93,8 @@
           <text>远程会诊</text>
         </view>
       </navigator> -->
+      </view>
     </view>
-  </view>
   </view>
 
 

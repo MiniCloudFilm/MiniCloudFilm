@@ -10,8 +10,6 @@
       <view class="type">{{item.orderType==1?'医生咨询':'视频购买'}}</view>
       <view class="time">{{item.orderTime}}</view>
     </view>
-    <!-- <text wx:if="{{myId==item.userId}}">-{{item.orderFee}}</text> -->
-    <!-- <text wx:if="{{myId==item.orderPayForDoctor}}">+{{item.orderFee}}</text> -->
     <text>{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}</text>
   </view>  
 </view>
