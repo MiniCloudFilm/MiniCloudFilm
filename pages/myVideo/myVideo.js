@@ -24,7 +24,7 @@ Page({
     let token = wx.getStorageSync('token')
     pg = pg ? pg : 0; 
     wx.request({
-      url: app.globalData.api.video.myVideo, 
+      url: app.globalData.api.myVideo.myVideoDoctor, 
       data:{
         "userId":user.userId ,
          "page":pg ,
@@ -55,7 +55,7 @@ Page({
       user:wx.getStorageSync("userList")
     })
     wx.request({
-      url: app.globalData.api.video.save,
+      url: app.globalData.api.film.getSaveVideoLog,
       data: {
         "videoId": data.id,
         "videoViewer": this.data.user.userId,

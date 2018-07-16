@@ -19,7 +19,7 @@ Page({
   goPay: function(payList) {
     let user = wx.getStorageSync("userList")
     wx.request({
-      url: app.globalData.api.pay.prepay, //仅为示例，并非真实的接口地址
+      url: app.globalData.api.confirmPay.prepay, 
       data: {
         "totalFee": payList.charge ? payList.charge : payList.price,
         "body": payList.doctorName ? payList.doctorName : payList.title,
@@ -72,7 +72,7 @@ Page({
     // console.log(data);
     //确认订单
     wx.request({
-      url: app.globalData.api.pay.saveOrder,
+      url: app.globalData.api.confirmPay.saveOrder,
       data: data,
       method: 'POST',
       header: {
@@ -103,7 +103,7 @@ Page({
   start: function(user, payList,orderId) {
     // console.log(app.globalData.api.consult.start);
     wx.request({
-      url: app.globalData.api.consult.start,
+      url: app.globalData.api.confirmPay.start,
       data: {
         "sponsor": user.userId,
         "receiver": payList.doctorId,
@@ -127,7 +127,7 @@ Page({
   //推送消息给医生
   sendMsg: function(user, data, payList) { 
     wx.request({
-      url: app.globalData.api.websocket.sendmsg,
+      url: app.globalData.api.confirmPay.sendmsg,
       data: {
         "userId": user.userId,
         "name": user.name

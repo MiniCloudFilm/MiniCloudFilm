@@ -30,7 +30,7 @@ Page({
   //退款
   refund: function (orderId){
     wx.request({
-      url: app.globalData.api.pay.refund, 
+      url: app.globalData.api.counList.refund, 
       data: {
         'orderId': orderId
       },
