@@ -76,7 +76,8 @@ module.exports = {
     getFreeVideo: basePath + '/common/api/v1/freeVideo',
     getQueryVideoLog: basePath + '/common/api/v1/queryVideoLog',
     getSaveVideoLog: basePath + '/common/api/v1/saveVideoLog',
-    checkIsBuy: basePath + '/video/api/v1/checkIsBuy'
+    checkIsBuy: basePath + '/video/api/v1/checkIsBuy',
+    image:basePath
   },
   //影像
   filmshow: {

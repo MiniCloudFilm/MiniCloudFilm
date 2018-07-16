@@ -55,7 +55,8 @@ Page({
         if (res.data.code == "200") {
           this.setData({
             expertList: res.data.data
-          })
+          }) 
+          wx.hideLoading()
         }
       }
     })
@@ -256,6 +257,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showLoading({
+      title: '加载中..',
+    })
     this.getArea('0', 1);
     // console.log(options);
     this.getDepartment();
@@ -267,7 +271,7 @@ Page({
         [],
         []
       ]
-    })
+    }) 
   },
 
   /**

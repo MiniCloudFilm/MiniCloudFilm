@@ -102,6 +102,7 @@ Page({
           this.setData({
             counList: res.data.data
           })
+          wx.hideLoading()
         }
       }
     })
@@ -123,6 +124,7 @@ Page({
           this.setData({
             counList: res.data.data
           })
+          wx.hideLoading()
         }
       }
     })
@@ -181,9 +183,9 @@ Page({
   
   },
   trunConInterface:function(e){
-    console.log(e);
-    console.log(e.currentTarget.dataset.dialogid);
-    console.log(e.currentTarget.dataset.reportid);
+    // console.log(e);
+    // console.log(e.currentTarget.dataset.dialogid);
+    // console.log(e.currentTarget.dataset.reportid);
     if (e.currentTarget.dataset.status == "0") { 
       wx.showToast({
         title: '请等待专家确认！',
@@ -211,7 +213,10 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { 
+  onShow: function () {
+    wx.showLoading({
+      title: '加载中..',
+    }) 
     let user = wx.getStorageSync("userList");
     this.setData({
       userType: user.userType

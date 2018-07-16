@@ -16,7 +16,7 @@ Page({
     this.data.allow = !this.data.allow;
   },
   //支付 
-  goPay: function(payList) {
+  goPay: function (payList) { 
     let user = wx.getStorageSync("userList")
     wx.request({
       url: app.globalData.api.confirmPay.prepay, 
@@ -160,9 +160,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options);
+    console.log(options);  
     let user = wx.getStorageSync("userList")
-    console.log(user);
+    // console.log(user);
     this.setData({
       payList: options
     });

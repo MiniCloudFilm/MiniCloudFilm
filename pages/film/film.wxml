@@ -8,14 +8,15 @@
           </view>
         </block>
         <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-      </view>
+      </view> 
       <scroll-view scroll-y style="padding-top:100rpx;">
         <view hidden="{{activeIndex != check}}">
-          <view class="weui-cell" wx:for="{{videoList}}"  bindtap="videoType" id="{{item.id}}" data-is-charge="{{item.videoIsCharge}}" wx:key="{{index}}" data-id="{{item.id}}" data-charge="{{item.videoCharge}}" data-user-id="{{item.userId}}" data-title="{{item.videoTitle}}" data-video-url="{{item.videoUrl}}">
+          <view class="weui-cell" wx:for="{{videoList}}" bindtap="videoType" id="{{item.id}}" data-is-charge="{{item.videoIsCharge}}" wx:key="{{index}}" data-id="{{item.id}}" data-charge="{{item.videoCharge}}" data-user-id="{{item.userId}}" data-title="{{item.videoTitle}}"
+            data-video-url="{{item.videoUrl}}">
             <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
               <view class="img-box">
                 <!-- <video src="{{'http://192.168.131.63:8080'+item.videoUrl}}" controls="{{hidden}}" style="width: 100%; height: 100%;"></video>  -->
-                <image src="{{'http://192.168.131.63:8080'+item.videoCoverPath}}" style="width: 200rpx; height: 100rpx; display: block" /> 
+                <image src="{{url+item.videoCoverPath}}" style="width: 200rpx; height: 100rpx; display: block" />
               </view>
             </view>
             <view class="weui-cell__bd">
@@ -23,12 +24,15 @@
               <view class="type">
                 <view>
                   <text>{{item.videoIsCharge=='N'?"免费":"￥"+item.videoCharge}}</text>
-                </view> 
+                </view>
               </view>
             </view>
           </view>
         </view>
       </scroll-view>
+      <view class='noData' wx:if="{{videoList.length==0}}">
+        <image mode="widthFix" src='../../image/no-data.png'></image>
+      </view>
     </view>
   </view>
 </view>

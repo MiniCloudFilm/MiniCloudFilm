@@ -1,10 +1,10 @@
 <view class="page">
     <view class="page__bd">
-        <view class="weui-form-preview">
-            <view class="weui-form-preview__hd">
+        <view class="weui-form-preview" >
+            <view class="weui-form-preview__hd" wx:for="{{orderMes}}" wx:key="{{index}}">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">付款金额</view>
-                    <view class="weui-form-preview__value_in-hd">5.88</view>
+                    <view class="weui-form-preview__value_in-hd">{{item.orderFee}}</view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
@@ -14,11 +14,11 @@
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">时间</view>
-                    <view class="weui-form-preview__value">2018-06-22 12:00:00</view>
+                    <view class="weui-form-preview__value">{{item.orderTime}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">交易单号</view>
-                    <view class="weui-form-preview__value">10002102020202021202</view>
+                    <view class="weui-form-preview__value">{{item.orderId}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">备注</view>

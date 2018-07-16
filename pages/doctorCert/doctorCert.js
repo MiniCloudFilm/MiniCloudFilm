@@ -26,22 +26,19 @@ Page({
     countHeadImg: 0
   },
   bindHospitalChange: function(e) {
-    console.log('picker country 发生选择改变，携带值为', e.detail.value);
-
+    // console.log('picker country 发生选择改变，携带值为', e.detail.value); 
     this.setData({
       hospitalIndex: e.detail.value
     })
   },
   bindDepartmentChange: function(e) {
-    console.log('picker account 发生选择改变，携带值为', e.detail.value);
-
+    // console.log('picker account 发生选择改变，携带值为', e.detail.value); 
     this.setData({
       departmentIndex: e.detail.value
     })
   },
   bindTitleChange: function(e) {
-    console.log('picker country 发生选择改变，携带值为', e.detail.value);
-
+    // console.log('picker country 发生选择改变，携带值为', e.detail.value); 
     this.setData({
       titleIndex: e.detail.value
     })
@@ -230,7 +227,7 @@ Page({
   //获取科室
   getDepartment: function() { 
     wx.request({
-      url: app.globalData.api.piker.getDepartment, 
+      url: app.globalData.api.picker.getDepartment, 
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -363,7 +360,7 @@ Page({
   //获取地市
   getArea: function(parentId, level) {
     wx.request({ 
-      url: app.globalData.api.piker.getArea, 
+      url: app.globalData.api.picker.getArea, 
       data: {
         'token': '',
         'parentId': parentId,
@@ -440,7 +437,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) { 
+  onLoad: function (options) { 
     this.setData({
       areaList: [
         [],
