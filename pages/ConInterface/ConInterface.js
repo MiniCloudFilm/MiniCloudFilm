@@ -40,7 +40,7 @@ Page({
   // 根据studyUid获取报告
   getReport: function (reportId) {
     wx.request({
-      url: 'http://192.168.131.102:8080/api/v1/report/findReportById',
+      url: 'http://192.168.131.63:8080/api/v1/report/findReportById',
       data: {
         'token': app.globalData.token,
         'reportId': reportId

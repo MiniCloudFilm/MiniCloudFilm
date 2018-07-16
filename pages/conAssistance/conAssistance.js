@@ -48,7 +48,7 @@ Page({
   },
   myALLConsult:function(){//所有患者的咨询---医生端
     wx.request({
-      url: 'http://192.168.131.102:8080/consult/api/v1/myConsultRecord', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/consult/api/v1/myConsultRecord', //仅为示例，并非真实的接口地址
       data: {
         'token': this.data.token
       },
@@ -68,7 +68,7 @@ Page({
   },
   sendAssist:function(){//我向别人发起协助的会诊
     wx.request({
-      url: 'http://192.168.131.102:8080/consult/api/v1/sponsorAssistRecord', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/consult/api/v1/sponsorAssistRecord', //仅为示例，并非真实的接口地址
       data: {
         'token': this.data.token
       },
@@ -88,7 +88,7 @@ Page({
   },
   receiveAssist:function(){//别人向我发起的协助会诊
     wx.request({
-      url: 'http://192.168.131.102:8080/consult/api/v1/myAssistConsultRecord', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/consult/api/v1/myAssistConsultRecord', //仅为示例，并非真实的接口地址
       data: {
         'token': this.data.token
       },

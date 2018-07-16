@@ -69,7 +69,7 @@ Page({
   //获取咨询列表---患者端
   getCounListOfPatient: function () {
     wx.request({
-      url: 'http://192.168.131.102:8080/dialog/api/v1/dialogList', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/dialog/api/v1/dialogList', //仅为示例，并非真实的接口地址
       data: {
         "token": app.globalData.token
       },
@@ -90,7 +90,7 @@ Page({
   //获取咨询列表---医生端
   getCounList:function(){
     wx.request({
-      url: 'http://192.168.131.102:8080/consult/api/v1/myConsultList',
+      url: 'http://192.168.131.63:8080/consult/api/v1/myConsultList',
       data: {
         "token": app.globalData.token
       },
@@ -110,7 +110,7 @@ Page({
   },
   receiveAssist:function(){//我接收的协助
     wx.request({
-      url: 'http://192.168.131.102:8080/consult/api/v1/myAssistConsultList',
+      url: 'http://192.168.131.63:8080/consult/api/v1/myAssistConsultList',
       data: {
         "token": app.globalData.token
       },
@@ -130,7 +130,7 @@ Page({
   },
   pendingAction:function(){//待处理
     wx.request({
-      url: 'http://192.168.131.102:8080/consult/api/v1/pandingConsultList',
+      url: 'http://192.168.131.63:8080/consult/api/v1/pandingConsultList',
       data: {
         "token": app.globalData.token
       },

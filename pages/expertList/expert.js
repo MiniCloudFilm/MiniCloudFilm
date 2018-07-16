@@ -20,7 +20,7 @@ Page({
     value: 0,
     areaId:'all',
     deptId:'all',
-    url:"http://192.168.131.102:8080/doctor/api/v1/lookImage/"
+    url:"http://192.168.131.63:8080/doctor/api/v1/lookImage/"
   },
   turn: function(e) {
     // console.log(this.data.doctorMes);
@@ -39,7 +39,7 @@ Page({
   //获取专家列表
   getExpert: function(areaId, deptId) {
     wx.request({
-      url: 'http://192.168.131.102:8080/doctor/api/v1/findDoctorList',
+      url: 'http://192.168.131.63:8080/doctor/api/v1/findDoctorList',
       data: {
         'token': '',
         'areaId': areaId,
@@ -204,7 +204,7 @@ Page({
   //获取地市
   getArea: function(parentId, level) {
     wx.request({
-      url: 'http://192.168.131.102:8080/api/v1/dict/getArea',
+      url: 'http://192.168.131.63:8080/api/v1/dict/getArea',
       data: {
         'token': '',
         'parentId': parentId,

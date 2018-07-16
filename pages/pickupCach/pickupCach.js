@@ -55,7 +55,7 @@ Page({
       })
     }else {
       wx.request({
-        url: 'http://192.168.131.102:8080/doctor/api/v1/getCash', //仅为示例，并非真实的接口地址
+        url: 'http://192.168.131.63:8080/doctor/api/v1/getCash', //仅为示例，并非真实的接口地址
         data: {
           'userId': myId,
           'reflectCharge': this.data.reflectCharge,
@@ -108,7 +108,7 @@ Page({
   //新增银行卡
   saveCard:function(){
     wx.request({
-      url: 'http://192.168.131.102:8080/doctor/api/v1/saveBankCard', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/doctor/api/v1/saveBankCard', //仅为示例，并非真实的接口地址
       data: {
         'userId': myId,
         'cardBankName': this.data.cardType,
@@ -129,7 +129,7 @@ Page({
   searchCard:function(e){
     var that = this;
     wx.request({
-      url: 'http://192.168.131.102:8080/doctor/api/v1/queryBankCard', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.131.63:8080/doctor/api/v1/queryBankCard', //仅为示例，并非真实的接口地址
       data: {
         'userId': myId,
         'token' :''
