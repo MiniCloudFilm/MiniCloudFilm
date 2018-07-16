@@ -229,7 +229,7 @@ Page({
   //获取科室
   getDepartment: function() { 
     wx.request({
-      url: app.globalData.api.doctorCert.getDepartment, 
+      url: app.globalData.api.piker.getDepartment, 
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -362,7 +362,7 @@ Page({
   //获取地市
   getArea: function(parentId, level) {
     wx.request({ 
-      url: app.globalData.api.doctorCert.getArea, 
+      url: app.globalData.api.piker.getArea, 
       data: {
         'token': '',
         'parentId': parentId,

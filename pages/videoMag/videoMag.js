@@ -125,7 +125,7 @@ Page({
   //视频上架
   upVideo: function (data,type) {
     wx.request({
-      url: app.globalData.api.video.upDown,
+      url: app.globalData.api.videoMag.upVideo,
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -149,7 +149,7 @@ Page({
   //视频删除
   deleteVideo: function (data) {
     wx.request({
-      url: app.globalData.api.video.deleteVideo,
+      url: app.globalData.api.videoMag.deleteVideo,
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -176,7 +176,7 @@ Page({
     let user = wx.getStorageSync('userList')
     pg = pg ? pg : 0; 
     wx.request({
-      url: app.globalData.api.video.uploadList,
+      url: app.globalData.api.videoMag.myUploadVideo,
       data: {
         "userId": user.userId,
         "page": pg,

@@ -47,7 +47,7 @@ Page({
     let token=wx.getStorageSync("token")
     // console.log(e.detail.value.title, e.detail.value.charge); 
     wx.uploadFile({
-      url: app.globalData.api.video.upload,
+      url: app.globalData.api.upload.upload,
       filePath: this.data.src,
       name: 'file',
       formData: {

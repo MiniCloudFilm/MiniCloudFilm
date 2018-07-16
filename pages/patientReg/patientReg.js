@@ -47,7 +47,7 @@ Page({
       })
     } else {
       wx.request({
-        url: app.globalData.api.login.sendCode,
+        url: app.globalData.api.patientReg.sendCode,
         data: {
           'mobile': this.data.mobile
         },
@@ -118,7 +118,7 @@ Page({
         success: res => {
           let that = this;
           wx.request({
-            url: app.globalData.api.login.checkCode,  
+            url: app.globalData.api.patientReg.checkCode,  
             data: {
               'mobile': e.detail.value.mobile,
               "code": e.detail.value.code
@@ -135,7 +135,7 @@ Page({
               if (resA.data.data == true) {
                 console.log('进入注册逻辑'); 
                 wx.request({
-                  url: app.globalData.api.login.logon,
+                  url: app.globalData.api.patientReg.logon,
                   data: {
                     'name': e.detail.value.name,
                     'idcard': e.detail.value.idCard,

@@ -21,7 +21,7 @@ Page({
     value: 0,
     areaId:'all',
     deptId:'all',
-    url: app.globalData.api.expert.image
+    url: app.globalData.api.expertList.image
   },
   turn: function(e) {
     // console.log(this.data.doctorMes);
@@ -40,7 +40,7 @@ Page({
   //获取专家列表
   getExpert: function(areaId, deptId) {
     wx.request({
-      url: app.globalData.api.expert.expertList,
+      url: app.globalData.api.expertList.expertList,
       data: {
         'token': '',
         'areaId': areaId,
@@ -63,7 +63,7 @@ Page({
   //获取科室
   getDepartment: function() { 
     wx.request({
-      url: app.globalData.api.picker.dept, //仅为示例，并非真实的接口地址
+      url: app.globalData.api.picker.getDepartment, //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -203,7 +203,7 @@ Page({
   //获取地市
   getArea: function(parentId, level) {
     wx.request({
-      url: app.globalData.api.picker.area,
+      url: app.globalData.api.picker.getArea,
       data: {
         'token': '',
         'parentId': parentId,
