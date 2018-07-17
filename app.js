@@ -2,15 +2,17 @@
 let code = ''; 
 let APPID = 'wxa4cd3f1e2af9b0dd' 
 const api = require('utils/apiConfig.js') 
+const util=require('utils/util')
 App({
   onLaunch: function () {
     // 展示本地存储能力 
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs) 
-    this.globalData.api = api; 
+    this.globalData.api = api;
+    this.globalData.util = util; 
     this.globalData.userList = wx.getStorageSync('userList'); 
-    this.globalData.token = wx.getStorageSync('token');  
+    this.globalData.token = wx.getStorageSync('token');   
     // console.log(this.globalData.api);
     // 登录
     // wx.login({

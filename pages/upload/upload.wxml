@@ -3,7 +3,7 @@
   <view class="weui-panel__hd"></view>
   <view class="weui-panel__bd">
     <image wx:if="{{!src}}" src="/image/timg1.jpg" style='width:300px;height:225px;'></image>
-    <video wx:if="{{src}}" controls src="{{url}}" poster="/image/timg1.jpg" show-center-play-btn muted></video>
+    <video wx:if="{{src}}" controls src="{{src}}" poster="/image/timg1.jpg" show-center-play-btn></video>
     <button class="choose" bindtap="chooseVideo">选择视频</button>
   </view>
   <view class="weui-panel__ft"></view>
@@ -28,12 +28,11 @@
         <input class="weui-input" type="number" placeholder="免费请输入0 单位： 元" placeholder-class="placeholder" name="charge" />
       </view>
     </view>
-  </view>
-
-  <checkbox-group bindchange="bindAgreeChange" style="margin-top:20rpx;">
+  </view> 
+  <checkbox-group bindchange="bindAgreeChange" style="margin-top:20rpx;" name="isAgree">
     <label class="weui-agree" for="weuiAgree">
       <view class="weui-agree__text">
-        <checkbox class="weui-agree__checkbox" color="#74a6ff" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+        <checkbox class="weui-agree__checkbox"  color="#74a6ff" id="weuiAgree" value="agree" checked="{{isAgree}}" />
         <view class="weui-agree__checkbox-icon">
           <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
         </view>

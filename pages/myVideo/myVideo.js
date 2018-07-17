@@ -1,4 +1,5 @@
 // pages/myVideo/myVideo.js
+let app=getApp();
 Page({
 
   /**
@@ -8,13 +9,18 @@ Page({
     videoList: [ 
     ],
     page: 1,
-    load: true
+    load: true,
+    url: app.globalData.api.url
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
+
     this.getData(0);
   },
   //获取视频
@@ -46,18 +52,23 @@ Page({
         })
         this.data.page++;
         wx.hideNavigationBarLoading();
+        wx.hideLoading()
+      },
+      fail:res=>{ 
+        wx.hideLoading()
       }
     })
   },
   //观看记录保存
   getSaveVideoLog: function (data) {
     this.setData({
-      user:wx.getStorageSync("userList")
+      user:wx.getStorageSync("userList"),
+      token:wx.getStorageSync("token")
     })
     wx.request({
       url: app.globalData.api.film.getSaveVideoLog,
       data: {
-        "videoId": data.id,
+        "videoId": data.videoId,
         "videoViewer": this.data.user.userId,
         "token": this.data.token
       },
@@ -71,7 +82,7 @@ Page({
           // console.log(data);
           let arr = data.videoUrl.split('?');
           wx.navigateTo({
-            url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`,
+            url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
           })
         }
       }
@@ -80,6 +91,7 @@ Page({
   //视频观看
   videoType: function (e) {
     let dataList = e.currentTarget.dataset; 
+    // console.log(dataList);
       this.getSaveVideoLog(dataList); 
   },
   /**

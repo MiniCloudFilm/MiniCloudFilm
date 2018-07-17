@@ -39,7 +39,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res);
+        // console.log(res);
         if (res.data.code == '200') {
           this.pendingAction();
         }
@@ -48,7 +48,7 @@ Page({
   },
   //接受
   accept:function(e){
-    console.log(e.currentTarget.dataset.consult);
+    // console.log(e.currentTarget.dataset.consult);
     wx.request({
       url: app.globalData.api.counList.accept,
       data: {
@@ -59,7 +59,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res=> {
-        console.log(res);
+        // console.log(res);
         if (res.data.code == '200') { 
           this.pendingAction();
         }
@@ -78,7 +78,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res=> {
-        console.log(res);
+        // console.log(res);
         if (res.data.code == '200') { 
           this.refund(e.currentTarget.dataset.orderId);
         }
@@ -97,7 +97,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.code == '200') {
           this.setData({
             counList: res.data.data
@@ -119,7 +119,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             counList: res.data.data
@@ -140,7 +140,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             receiveAssistList: res.data.data
@@ -160,7 +160,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             pendingActionList: res.data.data
@@ -173,7 +173,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log((this.data.counList && this.data.counList.length == 0));
   },
 
   /**

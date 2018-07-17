@@ -1,5 +1,6 @@
 // pages/doctorCert/doctorCert.js
-var app = getApp();
+let app = getApp();
+let util = app.globalData.util;
 Page({
 
   /**
@@ -50,7 +51,7 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: res => {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        console.log(res);
+        // console.log(res);
         this.setData({
           image: this.data.image.concat(res.tempFilePaths)
         });
@@ -75,18 +76,14 @@ Page({
         }
       })
     } else {
-      wx.showToast({
-        title: '只能上传一张头像!',
-        icon: 'none',
-        duration: 2000
-      })
+      util.showToast('只能上传一张头像！')
     }
   },
   //上传头像
   upAvatar: function() {
     let user = this.data.user;
-    console.log('头像');
-    console.log(this.data.head);
+    // console.log('头像');
+    // console.log(this.data.head);
     wx.uploadFile({
       url: app.globalData.api.doctorCert.upAvatar,
       filePath: this.data.head[0],
@@ -136,54 +133,32 @@ Page({
   },
   formSubmit: function(e) {
     console.log(e.detail.value);
+    console.log(
+      this.data.head,this.data.image);
     let user = this.data.user; 
     let data=e.detail.value 
     console.log(this.data.deptId);
-    if (data.hospitalId==0){
-      wx.showToast({
-        title: '请选择医院！',
-        icon: 'none',
-        duration: 2000
+    if (!data.hospitalId) {
+      util.showToast('请根据地区选择医院！') 
+    } else if (!this.data.deptId) {
+      util.showToast('请选择科室！')
+    } else if (!data.age) {
+      util.showToast('请填写年龄！')
+    } else if (!data.charge) {
+      util.showToast('请填写价格！')  
+    }  
+    else if (!data.doctorNum) {
+      util.showToast('请填写医师资格证！')  
+    } else if (!data.introduction) {
+      util.showToast('请填写简介！')  
+    } else if (this.data.head==0) {
+      util.showToast('请上传头像！')
+    } else if (this.data.image==0) {
+      util.showToast('请上传证书！')
+    } else{
+      wx.showLoading({
+        title: '医生认证信息提交中...',
       })
-    } else if (data.charge =="") {
-      wx.showToast({
-        title: '请填写价格！',
-        icon: 'none',
-        duration: 2000
-      })
-    } else if (data.age =="") {
-      wx.showToast({
-        title: '请填写年龄！',
-        icon: 'none',
-        duration: 2000
-      })
-    } 
-    // else if (data.doctorLevel == 0) {
-    //   wx.showToast({
-    //     title: '请选择职称！',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    // }
-     else if (data.doctorNum == "") {
-      wx.showToast({
-        title: '请填写医师资格证！',
-        icon: 'none',
-        duration: 2000
-      })
-    } else if (data.introduction == "") {
-      wx.showToast({
-        title: '请填写简介！',
-        icon: 'none',
-        duration: 2000
-      })
-    } else if (this.data.deptId == undefined) {
-      wx.showToast({
-        title: '请选择科室！',
-        icon: 'none',
-        duration: 2000
-      })
-    }else{
       this.upAvatar();
       this.upCertificater();
       let dataList = {
@@ -192,7 +167,7 @@ Page({
         'age': data.age,
         'charge': data.charge,
         'hospitalId': this.data.hospital[data.hospitalId].hospitalId,
-        'doctorLevel': data.doctorLevel+1,
+        'doctorLevel': parseInt(data.doctorLevel)+1,
         'synopsis': data.introduction,
         'qualification': data.doctorNum
       }
@@ -207,6 +182,7 @@ Page({
         success: res => {
           console.log(res);
           if (res.data.code == "200") {
+            wx.hideLoading()
             wx.showModal({
               title: '提示',
               content: '认证信息提交成功！', 

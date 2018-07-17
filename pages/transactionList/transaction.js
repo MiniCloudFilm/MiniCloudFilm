@@ -26,7 +26,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res=>{
-        console.log(res.data)
+        // console.log(res.data)
         var tmpArr = this.data.transactionList;
         // 这一步实现了上拉加载更多
         if (res.data.data.datas.length<15){

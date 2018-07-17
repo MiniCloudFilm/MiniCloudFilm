@@ -7,7 +7,7 @@
         </view>
         <view class="weui-cell__ft">
           <picker mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaList}}" range-key="{{'areaName'}}">
-            <view class="weui-select">{{areaList[2][areaIndex[2]].areaName?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName?areaList[1][areaIndex[1]].areaName:areaList[0][areaIndex[0]].areaName)}}</view>
+            <view class="weui-select">{{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:areaList[0][areaIndex[0]].areaName)}}</view>
           </picker>
         </view>
       </view>

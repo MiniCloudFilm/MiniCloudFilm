@@ -59,3 +59,7 @@ page,
 scroll-view{
   height:90vh;
 }
+.noData{
+  margin-top:0;
+  padding-top:200rpx;
+}

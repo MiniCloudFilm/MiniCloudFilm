@@ -13,7 +13,7 @@ Page({
     user: wx.getStorageSync('userList'),
     isBuy: false,
     hidden:false,
-    url: app.globalData.api.film.image
+    url: app.globalData.api.url
   },
   //查看收费视频
   getChargeVideo: function() {
@@ -28,7 +28,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res.data)
+        console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             videoList: res.data.data.datas
@@ -50,7 +50,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res.data)
+        console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             videoList: res.data.data.datas
@@ -73,7 +73,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res.data)
+        console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             videoList: res.data.data.datas
@@ -83,11 +83,12 @@ Page({
     })
   },
   //观看记录保存
-  getSaveVideoLog: function(data) {
+  getSaveVideoLog: function(data) { 
+    console.log(data);
     wx.request({ 
       url: app.globalData.api.film.getSaveVideoLog, 
       data: {
-        "videoId": data.id,
+        "videoId": data.videoId,
         "videoViewer": this.data.user.userId,
         "token": this.data.token
       },
@@ -96,12 +97,13 @@ Page({
         'content-type': 'application/json' // 默认值
       }, 
       success: res => {
-        // console.log(res.data)
+        console.log(res.data)
         if (res.data.code == "200") { 
+          this.getQueryVideoLog();
           // console.log(data);
           let arr = data.videoUrl.split('?');
           wx.navigateTo({
-            url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`,
+            url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
           })
         }
       }
@@ -109,10 +111,11 @@ Page({
   },
   //判断是否购买
   checkIsBuy: function(data, userId) {
+    console.log(data);
     wx.request({ 
       url: app.globalData.api.film.checkIsBuy, 
       data: {
-        "videoId": data.id,
+        "videoId": data.videoId,
         "userId": userId
       },
       method: 'GET',
@@ -120,7 +123,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res.data)
+        console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
             isBuy: res.data.data
@@ -132,7 +135,7 @@ Page({
               success: function (res) {
                 if (res.confirm) {
                   wx.navigateTo({
-                    url: `../confirmPay/confirmPay?videoId=${data.id}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
+                    url: `../confirmPay/confirmPay?videoId=${data.videoId}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
                   })
                 } else if (res.cancel) {
                   // console.log('用户点击取消')

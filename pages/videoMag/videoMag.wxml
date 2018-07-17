@@ -1,45 +1,50 @@
 <view class="page">
   <view class="page__bd">
-      <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex==index?'active':''}} {{activeIndex == index ? 'weui-bar__item_on' : ''}} " data-index="{{index}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);" scroll-y></view>
-      </view>
+    <view class="weui-navbar">
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex==index?'active':''}} {{activeIndex == index ? 'weui-bar__item_on' : ''}} " data-index="{{index}}" bindtap="tabClick">
+          <view class="weui-navbar__title">{{item}}</view>
+        </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);" scroll-y></view>
+    </view>
     <view class="weui-tab">
-      <scroll-view scroll-y style="padding-top:100rpx;">
+      <scroll-view scroll-y style="padding-top:100rpx;" wx:if="{{videoList.length!=0}}">
         <view hidden="{{activeIndex != item.videoStatus}}" wx:for="{{videoList}}" wx:key="{{index}}">
-          <view class="weui-cell"  bindtap='videoType' id="{{item.isFree}}" >
-            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-              <view class="img-box">
-                <!-- <video src="http://yun.it7090.com/video/XHLaunchAd/video01.mp4" style="width: 100%; height: 100%; display: block" controls objectFit="fill"> -->
-                <!-- <video src="{{'http://192.168.131.63:8080'+item.videoUrl}}" style="width: 100%; height: 100%; display: block" controls objectFit="fill"> -->
-                 <image src="{{'http://192.168.131.63:8080'+item.videoCoverPath}}" style="width: 200rpx; height: 100rpx; display: block" /> 
-                <!-- </video> -->
+          <view class="weui-cell" > 
+            <view class="weui-cell__bd"> 
+                <view class="weui-cell" data-id="{{item.id}}" data-title="{{item.videoTitle}}" data-video-url="{{item.videoUrl}}" bindtap='videoType'>
+                <view class="img-box"> 
+                <image src="{{url+item.videoCoverPath}}" style="width: 200rpx; height: 100rpx; display: block" /> 
               </view>
-            </view>
-            <view class="weui-cell__bd">
-              <view style="font-size:26rpx; color:#2e3135;">{{item.videoTitle}}</view>
-              <view class="weui-flex type">
-                <view class="weui-flex__item">{{item.videoIsCharge=='Y'?"￥"+item.videoCharge:"免费"}}</view>
-                <view bindtap="open" data-id="{{item.id}}" data-status="{{item.videoStatus}}" data-title="{{item.videoTitle}}" data-charge="{{item.videoCharge}}">
-                  <text style="color:#1c7eff;font-size:24rpx;">管理</text>
-                  <image style="width:8rpx;height:30rpx;vertical-align:middle; margin-left:10rpx;" src="/image/icon-set.png"></image>
+
+              <view class="weui-cell__bd" style="padding-left:20rpx;"> 
+                <view style="font-size:26rpx; color:#2e3135;">{{item.videoTitle}}</view>
+                <view class="weui-flex type">
+                  <view class="weui-flex__item">{{item.videoIsCharge=='Y'?"￥"+item.videoCharge:"免费"}}                 </view>
                 </view>
               </view>
             </view>
+            </view>
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+             <view bindtap="open" data-id="{{item.id}}" data-status="{{item.videoStatus}}" data-title="{{item.videoTitle}}" data-charge="{{item.videoCharge}}">
+                  <text style="color:#1c7eff;font-size:24rpx;">管理</text>
+                  <image style="width:8rpx;height:30rpx;vertical-align:middle; margin-left:10rpx;" src="/image/icon-set.png"></image>
+                </view> 
+            </view>
           </view>
-        </view> 
+        </view>
       </scroll-view>
+      <view class='noData' wx:if="{{videoList.length==0}}">
+        <image mode="widthFix" src='../../image/no-data.png'></image>
+      </view>
     </view>
   </view>
- <view class="upload">
-  <navigator url="../upload/upload">
-    <image style="width:81rpx;height:81rpx;margin-top:20rpx;margin-left:10rpx;" src="/image/icon-upload.png"></image> 
-  </navigator>
-</view>
+  <view class="upload">
+    <navigator url="../upload/upload">
+      <image style="width:81rpx;height:81rpx;margin-top:20rpx;margin-left:10rpx;" src="/image/icon-upload.png"></image>
+    </navigator>
+  </view>
 </view>
 <!--
 <view class="weui-cell" wx:for="{{videoList}}" bindtap='videoType' id="{{item.isFree}}" wx:key="{{index}}">

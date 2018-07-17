@@ -45,6 +45,9 @@ scroll-view{
 }
 button[type=bule] {
 color:#FFFFFF;
-background-color:#1c7eff;
-
+background-color:#1c7eff; 
+}
+.noData{
+  margin-top:0;
+  padding-top:200rpx;
 }

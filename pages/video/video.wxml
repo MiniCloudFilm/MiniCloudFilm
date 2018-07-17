@@ -1,6 +1,6 @@
 <view class="container"> 
   <view class="video" >
-     <video style="width:750rpx" src="{{'http://192.168.131.63:8080'+videoList.frontUrl+'?filePath='+videoList.filePath+'&userId='+videoList.userId}}"
+     <video style="width:750rpx" src="{{url+videoList.frontUrl+'?videoId='+videoList.videoId}}"
       id="{{videoList.videoId}}" autoplay show-center-play-btn="{{false}}" ></video>  
   </view>
 </view>

@@ -19,19 +19,27 @@ const formatNumber = n => {
 var showBusy = text => wx.showToast({
   title: text,
   icon: 'loading',
-  duration: 10000
+  duration: 2000
+})
+ 
+// 显示提示
+var showToast = text => wx.showToast({
+  title: text,
+  icon: 'none',
+  duration: 2000
 })
 
 // 显示成功提示
 var showSuccess = text => wx.showToast({
   title: text,
-  icon: 'success'
+  icon: 'success',
+  duration: 2000
 })
 
 // 显示失败提示
 var showModel = (title, content) => {
-  wx.hideToast();
-
+  wx.hideLoading();
+  wx.hideToast(); 
   wx.showModal({
     title,
     content: JSON.stringify(content),
@@ -39,4 +47,4 @@ var showModel = (title, content) => {
   })
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showModel } 
+module.exports = { formatTime, showBusy, showSuccess, showModel, showToast } 

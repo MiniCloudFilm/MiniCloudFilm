@@ -64,10 +64,11 @@ Page({
       "userId": user.userId,
       "outTradeNo": wxPay.data.outTradeNo
     }
+    console.log(payList);
     if (payList.type == "1") {
       data.payForDoctor = payList.doctorId;
     } else if (payList.type == "2") {
-      data.payForVideo = payList.doctorId;
+      data.payForVideo = payList.videoId;
     }
     // console.log(data);
     //确认订单
@@ -129,7 +130,7 @@ Page({
     wx.request({
       url: app.globalData.api.confirmPay.sendmsg,
       data: {
-        "userId": user.userId,
+        "userId": payList.doctorId,
         "name": user.name
       },
       method: 'POST',

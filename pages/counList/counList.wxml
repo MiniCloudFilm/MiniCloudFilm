@@ -2,7 +2,7 @@
   <!-- 患者端 -->
   <view wx:if="{{userType==1}}" style="width:100%">
     <view class="weui-tab__content counlist">
-      <view class='noData' wx:if="{{counList.length==0}}">
+      <view class='noData' wx:if="{{counList&&counList.length==0}}">
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <view class="docter-box" wx:for="{{counList}}" wx:key="index">

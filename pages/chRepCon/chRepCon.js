@@ -55,6 +55,9 @@ Page({
             wx.hideLoading()
             // console.log(res.data)
           }
+        },
+        fail:res=>{ 
+          wx.hideLoading()
         }
       })
     }

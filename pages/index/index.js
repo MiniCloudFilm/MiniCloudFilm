@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-const app = getApp();
+const app = getApp(); 
 Page({
   data: {
     motto: 'Hello World',
@@ -20,8 +20,8 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
-    // console.log(app.globalData.userList);
+  onLoad: function () { 
+    console.log(app.globalData.userList);
     let user = app.globalData.userList;
     if (user){
       this.setData({

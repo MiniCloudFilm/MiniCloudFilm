@@ -20,8 +20,8 @@ Page({
   onLoad: function (options) {
     let user=wx.getStorageSync('userList')
     let token = wx.getStorageSync('token')
-    console.log(user);
-    console.log(token);
+    // console.log(user);
+    // console.log(token);
     wx.request({ 
       url: app.globalData.api.myAccount.postFormId, 
       data: {
@@ -34,7 +34,7 @@ Page({
       },
       success: res=> {
         if(res.data.code=="200"){
-          console.log(res.data)
+          // console.log(res.data)
           this.setData({
             balance: res.data.data
           })

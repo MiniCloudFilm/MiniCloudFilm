@@ -1,11 +1,12 @@
 // pages/user/user.js   
-var app = getApp();
+let app = getApp(); 
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: { 
+  data: {
+    url: app.globalData.api.expertList.image
   },
 
   /**
