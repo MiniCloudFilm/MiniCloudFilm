@@ -12,7 +12,8 @@ Page({
     isPay: true,
     user: wx.getStorageSync('userList'),
     isBuy: false,
-    hidden:false
+    hidden:false,
+    url: app.globalData.api.film.image
   },
   //查看收费视频
   getChargeVideo: function() {
@@ -147,20 +148,23 @@ Page({
     })
   },
   onLoad: function() {
+    wx.showLoading({
+      title: '加载中..',
+    })
     this.setData({
       token: wx.getStorageSync('token'),
       user: wx.getStorageSync('userList')
     })
-    this.getFreeVideo();
-    var that = this;
+    this.getFreeVideo(); 
     wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length) / 2 - 20,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+      success: res=> {
+        this.setData({
+          sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
+          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
         });
       }
     });
+    wx.hideLoading()
   },
   tabClick: function(e) {
     this.setData({

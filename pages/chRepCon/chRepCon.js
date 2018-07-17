@@ -5,8 +5,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    reportList: [] 
+  data: { 
   },
   turn: function (e) {
     if (this.data.doctorMes.order == 'before') {
@@ -15,7 +14,8 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&reportId=${e.currentTarget.dataset.reportid}&type=1`
+        url: `../confirmPay/confirmPay`
+          // ? price = ${this.data.doctorMes.price } & doctorName=${this.data.doctorMes.doctorName } & belong=${this.data.doctorMes.belong } & doctorId=${this.data.doctorMes.doctorId } & reportId=${e.currentTarget.dataset.reportid } & type=1
       })
     }
 
@@ -23,9 +23,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    let that = this;
-    // console.log(options);
+  onLoad: function (options) { 
+    wx.showLoading('加载中..')
     if (options.order == 'before') {
       this.setData({
         doctorMes: options
@@ -47,12 +46,13 @@ Page({
         header: {
           'content-type': 'application/json' // 默认值
         },
-        success: function (res) {
+        success: res => {
           // console.log(res);
           if (res.data.code == '200') {
-            that.setData({
+            this.setData({
               reportList: res.data.data
             })
+            wx.hideLoading()
             // console.log(res.data)
           }
         }

@@ -108,6 +108,7 @@ Page({
           this.setData({
             counList: res.data.data
           })
+          wx.hideLoading()
         }
       }
     })
@@ -129,6 +130,7 @@ Page({
           this.setData({
             counList: res.data.data
           })
+          wx.hideLoading()
         }
       }
     })
@@ -215,7 +217,10 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { 
+  onShow: function () {
+    wx.showLoading({
+      title: '加载中..',
+    }) 
     let user = wx.getStorageSync("userList");
     this.setData({
       userType: user.userType
