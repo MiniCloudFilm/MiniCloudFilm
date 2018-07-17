@@ -20,7 +20,7 @@ Page({
     mobile: '',
     getCodeButtonText:'获取验证码',
     getCodeButtonStatu:false,
-    countdown: 10,
+    countdown: 60,
   },
   mobileNum: function(e) {
     // console.log(e.detail.value);
@@ -49,27 +49,25 @@ Page({
         duration: 1000
       })
     } else {
-      this.setTime();
-      console.log("anniu9999")
-      // wx.request({
-      //   url: app.globalData.api.patientReg.sendCode,
-      //   data: {
-      //     'mobile': this.data.mobile
-      //   },
-      //   method: 'POST',
-      //   header: {
-      //     'content-type': 'application/x-www-form-urlencoded' // 默认值
-      //   },
-      //   success: res=>{
-      //     wx.showToast({
-      //       title: '获取验证码成功！',
-      //       icon: 'none',
-      //       image: '',
-      //       duration: 1500
-      //     });
-      //     this.setTime();
-      //   }
-      // })
+      wx.request({
+        url: app.globalData.api.patientReg.sendCode,
+        data: {
+          'mobile': this.data.mobile
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: res=>{
+          wx.showToast({
+            title: '获取验证码成功！',
+            icon: 'none',
+            image: '',
+            duration: 1500
+          });
+          this.setTime();
+        }
+      })
     }
   },
   formSubmit: function(e) {
@@ -168,10 +166,11 @@ Page({
                         image: '',
                         duration: 1000,
                         success: resC => {
-                          // console.log(resC);
-                          wx.navigateTo({
-                            url: '../login/login'
-                          });
+                          setTimeout(function(){
+                            wx.navigateTo({
+                              url: '../login/login'
+                            });
+                          },2000)
                         }
                       });
                     } else {
@@ -211,7 +210,7 @@ Page({
         clearInterval(interval);
         this.setData({
           getCodeButtonText: '获取验证码',
-          countdown:10,
+          countdown:60,
           getCodeButtonStatu: false
         })
       }

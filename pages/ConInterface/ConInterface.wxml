@@ -30,7 +30,7 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{fromWhere!='record'}}" class="end">
+      <view wx:if="{{fromWhere!='record'||endbutton!='false'}}" class="end">
         <button type='default' bindtap='endDialog'>
           <image src="/image/icon-end.png"></image>
           结束咨询</button>

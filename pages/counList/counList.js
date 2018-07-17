@@ -7,30 +7,21 @@ Page({
    */
   data: {
     isDoctor: true,
-    tabs: ["患者咨询", "医生协助","待处理"],
+    tabs: ["患者咨询", "医生协助", "待处理"],
     activeIndex: 0,
-    token:''
+    token: ''
   },
-  tabClick: function (e) {
+  tabClick: function(e) {
     let index = e.currentTarget.id;
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: index
     });
-    // if (index==0){
-    //   this.getCounList();
-    //   return false;
-    // }else if(index==1){
-    //   this.receiveAssist();
-    //   return false;
-    // }else if(index==2){
-    //   this.pendingAction();
-    // }
   },
   //退款
-  refund: function (orderId){
+  refund: function(orderId) {
     wx.request({
-      url: app.globalData.api.counList.refund, 
+      url: app.globalData.api.counList.refund,
       data: {
         'orderId': orderId
       },
@@ -39,26 +30,24 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res);
-        if (res.data.code == '200') {
-          this.pendingAction();
-        }
+        console.log(res);
+        this.pendingAction();
       }
     })
   },
   //接受
-  accept:function(e){
+  accept: function(e) {
     // console.log(e.currentTarget.dataset.consult);
     wx.request({
       url: app.globalData.api.counList.accept,
       data: {
-        'consultId': e.currentTarget.dataset.consult, 
+        'consultId': e.currentTarget.dataset.consult,
       },
       method: 'GET',
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: res=> {
+      success: res => {
         // console.log(res);
         if (res.data.code == '200') {
           let dialoger = e.currentTarget.dataset.dialoger;
@@ -73,7 +62,7 @@ Page({
     })
   },
   //拒绝
-  refuse:function(e){
+  refuse: function(e) {
     wx.request({
       url: app.globalData.api.counList.refuse,
       data: {
@@ -83,16 +72,16 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: res=> {
+      success: res => {
         // console.log(res);
-        if (res.data.code == '200') { 
+        if (res.data.code == '200') {
           this.refund(e.currentTarget.dataset.orderId);
         }
       }
     })
   },
   //获取咨询列表---患者端
-  getCounListOfPatient: function () {
+  getCounListOfPatient: function() {
     wx.request({
       url: app.globalData.api.counList.getCounListOfPatient,
       data: {
@@ -114,7 +103,7 @@ Page({
     })
   },
   //获取咨询列表---医生端
-  getCounList:function(){
+  getCounList: function() {
     wx.request({
       url: app.globalData.api.counList.getCounList,
       data: {
@@ -135,7 +124,7 @@ Page({
       }
     })
   },
-  receiveAssist:function(){//我接收的协助
+  receiveAssist: function() { //我接收的协助
     wx.request({
       url: app.globalData.api.counList.receiveAssist,
       data: {
@@ -155,7 +144,7 @@ Page({
       }
     })
   },
-  pendingAction:function(){//待处理
+  pendingAction: function() { //待处理
     wx.request({
       url: app.globalData.api.counList.pendingAction,
       data: {
@@ -178,34 +167,32 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log((this.data.counList && this.data.counList.length == 0));
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
-  trunConInterface:function(e){
-    if (e.currentTarget.dataset.status == "0") { 
+  trunConInterface: function(e) {
+    if (e.currentTarget.dataset.status == "0") {
       wx.showToast({
         title: '请等待专家确认！',
         icon: 'none',
         duration: 2000
-      })   
-    } else if(e.currentTarget.dataset.status == "1"){
-      var limitsOfEnd = e.currentTarget.dataset.endbutton ? 'record':'noRecord'
-      wx.navigateTo({
-        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=${e.currentTarget.dataset.assisterid ? false : true}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=${limitsOfEnd}`,
       })
-    } else if (e.currentTarget.dataset.status == "2"){
-      wx.showToast({
-        title: '咨询结束！',
-        icon: 'none',
-        duration: 2000
-      }) 
+    } else if (e.currentTarget.dataset.status == "1") {
+      var limitsOfEnd = e.currentTarget.dataset.endbutton ? 'false' : 'true'
+      wx.navigateTo({
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=${e.currentTarget.dataset.assisterid ? false : true}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=noRecord&endbutton=${limitsOfEnd}`,
+      })
+    } else if (e.currentTarget.dataset.status == "2") {
+      wx.navigateTo({
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=false&consultId=&fromWhere=record&endbutton=false`,
+      })
     } else if (e.currentTarget.dataset.status == "3") {
       wx.showToast({
         title: '咨询已被拒绝！',
@@ -217,18 +204,18 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     wx.showLoading({
       title: '加载中..',
-    }) 
+    })
     let user = wx.getStorageSync("userList");
     this.setData({
       userType: user.userType
     });
-    if(this.data.userType==1){
+    if (this.data.userType == 1) {
       this.getCounListOfPatient();
       return false;
-    } else if (this.data.userType == 2){
+    } else if (this.data.userType == 2) {
       this.getCounList();
       this.pendingAction();
       this.receiveAssist();
@@ -238,35 +225,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })
