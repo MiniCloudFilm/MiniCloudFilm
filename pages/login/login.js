@@ -91,7 +91,6 @@ Page({
       },
       success: function (res) {
         wx.hideLoading();
-        // console.log(res.data)
         if (res.data.code == '200') {
           wx.setStorageSync('userList', res.data.data.user);
           wx.setStorageSync('token', res.data.data.token);
@@ -105,8 +104,8 @@ Page({
           });
          }else{
           wx.showToast({
-            title: res.data.mag,
-            icon: 'success',
+            title: res.data.msg,
+            icon: 'none',
             duration: 3000
           })
         }

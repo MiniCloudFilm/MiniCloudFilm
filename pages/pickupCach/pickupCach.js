@@ -1,6 +1,7 @@
 var util = require('../../utils/bank.js');
 var userList = wx.getStorageSync('userList');
 var myId = JSON.stringify(userList.userId);
+var app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -153,6 +154,10 @@ Page({
               bankNumber: cardMes[0].split("-")[1]
             });
           }
+        }else{
+          that.setData({
+            ifHasRecord: false
+          })
         } 
       }
     })
@@ -171,6 +176,7 @@ Page({
    */
   onLoad: function (options) {
     var userName = userList.name;
+    console.log(userList)
     this.setData({
       reflectCharge:options.balance,
       name: userName

@@ -19,6 +19,7 @@ Page({
     index: 0,
     mobile: '',
     getCodeButtonText:'获取验证码',
+    getCodeButtonStatu:false,
     countdown: 10,
   },
   mobileNum: function(e) {
@@ -48,7 +49,8 @@ Page({
         duration: 1000
       })
     } else {
-          this.setTime();
+      this.setTime();
+      console.log("anniu9999")
       // wx.request({
       //   url: app.globalData.api.patientReg.sendCode,
       //   data: {
@@ -197,7 +199,8 @@ Page({
    //重新获取验证码
   setTime(type) {
     this.setData({
-      getCodeButtonText: `${this.data.countdown}s后重新获取`
+      getCodeButtonText: `${this.data.countdown}s后重新获取`,
+      getCodeButtonStatu:true
     })
     let interval = setInterval(()=>{
       this.data.countdown--;
@@ -208,7 +211,8 @@ Page({
         clearInterval(interval);
         this.setData({
           getCodeButtonText: '获取验证码',
-          countdown:10
+          countdown:10,
+          getCodeButtonStatu: false
         })
       }
     }, 1000)

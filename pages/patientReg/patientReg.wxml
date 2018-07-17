@@ -10,8 +10,8 @@
     <input type='number' name="mobile" placeholder='请输入手机号' placeholder-class="placeholder" bindinput="mobileNum" maxlength="11"></input> 
   </view>
   <view class="code-box">
-    <input type='number' name="code" placeholder='请输入验证码' placeholder-class="placeholder"></input>
-    <view class="code" bindtap='sendCode'>{{getCodeButtonText}}</view>
+    <input class='codeInput' type='number' name="code" placeholder='请输入验证码' placeholder-class="placeholder"></input>
+    <button plain='true' class="code" disabled='{{getCodeButtonStatu}}' catchtap='sendCode'>{{getCodeButtonText}}</button>
   </view>
   <view>
     <input type='password'name="pwd" placeholder='设置密码' placeholder-class="placeholder" bindblur="firstPwd"></input>
@@ -28,7 +28,7 @@
   </picker>
 </view>  
   <view>
-    <button formType="submit">注册</button>
+    <button class='submitButton' formType="submit">注册</button>
   </view>
   </form>
  </view>
