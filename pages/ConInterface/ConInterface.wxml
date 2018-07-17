@@ -1,7 +1,7 @@
 <view class="container">
   <view class="page-body">
     <view class='reportInfo'>
-    <!-- 报告 -->
+      <!-- 报告 -->
       <view class="con-list">
         <view class="con-box">
           <view class="con-mes">
@@ -11,7 +11,7 @@
             <view>
               <text>{{reportDetail.studyTime}}  {{reportDetail.hospitalName}}</text>
             </view>
-            <navigator wx:if="{{myType==2&&ifAssist=='undefined'}}" class="pay-con" url="../assistList/assister?dialogId={{dialogId}}&reportId={{reportId}}">
+            <navigator wx:if="{{myType==2&&ifNeedAssist=='true'}}" class="pay-con" url="../assistList/assister?dialogId={{dialogId}}&reportId={{reportId}}">
               <view>
                 <image src="/image/icon-zixun.png"> </image>
               </view>
@@ -33,7 +33,7 @@
       <view wx:if="{{fromWhere!='record'}}" class="end">
         <button type='default' bindtap='endDialog'>
           <image src="/image/icon-end.png"></image>
-        结束咨询</button>
+          结束咨询</button>
       </view>
       <view class="weui-flex title-box">
         <view class="weui-flex__item start"></view>
@@ -43,54 +43,55 @@
       </view>
     </view>
     <view class='scrollContainer'>
-    <view class='noData' wx:if="{{fromWhere=='record'&&allContentList.length==0}}">
-      <image mode="widthFix" src='../../image/no-data.png'></image>
-    </view>
-    <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="historycon">
-      <view class="history" wx:for="{{allContentList}}" wx:key=''>
-        <view class="time-box">
-          <text class='time'>{{item.time}}</text>
-        </view>
-        <block wx:if="{{item.isMy==true}}">
-          <view class='my_right'>
-            <view class="weui-flex">
-              <view class="new_txt txt_r">
-                <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
-                <view wx:if='{{!item.is_img}}' class='sanjiao my'></view>
-              </view>
-              <view class='new_img'>
-                {{item.name}}
-                <!-- <image wx:if='{{item.isMy}}' src='{{myPicture}}'></image> -->
-              </view>
-            </view>
-            <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
-            <image class='new_img' wx:if='{{item.isMy == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}'></image>
-          </view>
-        </block>
-        <block wx:else>
-          <view class='you_left'>
-            <view class="weui-flex">
-              <view class='new_img'>
-                {{item.name}}
-                <!-- <image wx:if='{{!item.isMy}}' src='{{youPicture}}'></image> -->
-              </view>
-              <view class="new_txt txt_l">
-                <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
-                <view wx:if='{{!item.is_img}}' class='sanjiao1 you'></view>
-              </view>
-            </view>
-            <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
-            <image class='new_img' wx:if='{{item.isMy == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}'></image>
-          </view>
-        </block>
+      <view class='noData' wx:if="{{fromWhere=='record'&&allContentList.length==0}}">
+        <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
-    </scroll-view>
+      <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="historycon">
+        <view class="history" wx:for="{{allContentList}}" wx:key=''>
+          <view class="time-box">
+            <text class='time'>{{item.time}}</text>
+          </view>
+          <block wx:if="{{item.isMy==true}}">
+            <view class='my_right'>
+              <view class="weui-flex">
+                <view class="new_txt txt_r">
+                  <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
+                  <view wx:if='{{!item.is_img}}' class='sanjiao my'></view>
+                </view>
+                <view class='new_img'>
+                  {{item.name}}
+                  <!-- <image wx:if='{{item.isMy}}' src='{{myPicture}}'></image> -->
+                </view>
+              </view>
+              <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
+              <image class='new_img' wx:if='{{item.isMy == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}'></image>
+            </view>
+          </block>
+          <block wx:else>
+            <view class='you_left'>
+              <view class="weui-flex">
+                <view class='new_img'>
+                  {{item.name}}
+                  <!-- <image wx:if='{{!item.isMy}}' src='{{youPicture}}'></image> -->
+                </view>
+                <view class="new_txt txt_l">
+                  <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
+                  <view wx:if='{{!item.is_img}}' class='sanjiao1 you'></view>
+                </view>
+              </view>
+              <!-- <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>   -->
+              <image class='new_img' wx:if='{{item.isMy == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}'></image>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
     </view>
-    
+
     <view class="sendmessage" wx:if="{{fromWhere!='record'}}">
       <input type="emoji" confirm-type="done" bindconfirm="submitTo" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
-      <button type='default' catchtap="submitTo">发送</button>
-      <input style='display:none' type=""  confirm-type="done" placeholder="" />
+      <form bindsubmit="submitTo" report-submit="true" class='form'>
+        <button type='default' formType="submit">发送</button>
+      </form>
       <!-- <image bindtap="upimg1" class='jia_img' src='/image/icon-upload.png'></image> -->
     </view>
   </view>

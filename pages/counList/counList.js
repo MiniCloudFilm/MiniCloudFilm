@@ -60,8 +60,14 @@ Page({
       },
       success: res=> {
         // console.log(res);
-        if (res.data.code == '200') { 
-          this.pendingAction();
+        if (res.data.code == '200') {
+          let dialoger = e.currentTarget.dataset.dialoger;
+          let dialogId = e.currentTarget.dataset.dialogId;
+          let reportId = e.currentTarget.dataset.reportId;
+          let consultId = e.currentTarget.dataset.consult;
+          wx.navigateTo({
+            url: `../ConInterface/ConInterface?dialogId=${dialogId}&reportId=${reportId}&dialoger=${dialoger}&ifNeedAssist=true&consultId=${consultId}&fromWhere=noRecord`
+          })
         }
       }
     })
@@ -183,9 +189,6 @@ Page({
   
   },
   trunConInterface:function(e){
-    // console.log(e);
-    // console.log(e.currentTarget.dataset.dialogid);
-    // console.log(e.currentTarget.dataset.reportid);
     if (e.currentTarget.dataset.status == "0") { 
       wx.showToast({
         title: '请等待专家确认！',
@@ -193,8 +196,9 @@ Page({
         duration: 2000
       })   
     } else if(e.currentTarget.dataset.status == "1"){
+      var limitsOfEnd = e.currentTarget.dataset.endbutton ? 'record':'noRecord'
       wx.navigateTo({
-        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifAssist=${e.currentTarget.dataset.assisterid}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=noRecord`,
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=${e.currentTarget.dataset.assisterid ? false : true}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=${limitsOfEnd}`,
       })
     } else if (e.currentTarget.dataset.status == "2"){
       wx.showToast({

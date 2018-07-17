@@ -87,18 +87,9 @@ Page({
     wx.navigateTo({
       url: '../expertList/expert?order=before'
     });
-    wx.request({//通过网络请求发送openId和formIds到服务器
-      url: app.globalData.api.index.postFormId,
-      method: 'post',
-      data: {
-        "userId": app.globalData.userList.userId,
-        "openId": app.globalData.userList.userOpenId,
-        "formId": formId
-      },
-      success: function (res) {
-        // console.log(res)
-      }
-    });
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId);
+    };
   },
   // 报告解读
   turnToChRepCon: function (e) {
@@ -107,18 +98,9 @@ Page({
     wx.navigateTo({
       url: "../chRepCon/chRepCon?order=before"
     });
-    wx.request({//通过网络请求发送openId和formIds到服务器
-      url: app.globalData.api.index.postFormId,
-      method: 'post',
-      data: {
-        "userId": app.globalData.userList.userId,
-        "openId": app.globalData.userList.userOpenId,
-        "formId": formId
-      },
-      success: function (res) {
-        // console.log(res)
-      }
-    });
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId);
+    };
   },
   // 医学视频
   turnToVideo: function (e) {
@@ -127,18 +109,9 @@ Page({
     wx.navigateTo({
       url: "../film/film"
     });
-    wx.request({//通过网络请求发送openId和formIds到服务器
-      url: app.globalData.api.index.postFormId,
-      method: 'post',
-      data: {
-        "userId": app.globalData.userList.userId,
-        "openId": app.globalData.userList.userOpenId,
-        "formId": formId
-      },
-      success: function (res) {
-        // console.log(res)
-      }
-    });
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId);
+    };
   },
   // 会诊记录
   turnToConAssistance: function(e) {
@@ -147,23 +120,19 @@ Page({
     wx.navigateTo({
       url: "../conAssistance/conAssistance"
     });
-    wx.request({//通过网络请求发送openId和formIds到服务器
-      url: app.globalData.api.index.postFormId,
-      method: 'post',
-      data: {
-        "userId": app.globalData.userList.userId,
-        "openId": app.globalData.userList.userOpenId,
-        "formId": formId
-      },
-      success: function (res) {
-        // console.log(res)
-      }
-    });
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId);
+    };
   }, 
    // 会诊记录
   developing: function(e) {
     // console.log(app.globalData.userList)
     let formId = e.detail.formId;
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId);
+    };
+  },
+  saveFormId: function (formId){
     wx.request({//通过网络请求发送openId和formIds到服务器
       url: app.globalData.api.index.postFormId,
       method: 'post',
@@ -176,7 +145,7 @@ Page({
         // console.log(res)
       }
     });
-  }, 
+  }
 
 
 })

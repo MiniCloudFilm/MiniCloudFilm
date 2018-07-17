@@ -1,31 +1,60 @@
 <view class="container">
   <view class="weui-flex drop-box">
     <view class="weui-flex__item">
-      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+      <picker mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaList}}" range-key="{{'areaName'}}">
         <view class="picker">
-          <text> {{region[2]=='全部'?(region[1]=='全部'?region[0]:region[1]):region[2]}}</text>
+          <text> {{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:areaList[0][areaIndex[0]].areaName)}}</text>
           <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
     </view>
-    <!-- <view class="weui-flex__item">
-      <picker   mode="selector" bindchange="bindHospitalChange"  value="{{hospital}}"   range="{{hospital}}"  range-key="{{'name'}}">
-        <view class="picker"> 
-        <text> 医院</text>
-        <image src="/image/arrow-down.png"></image>
-        </view>
-      </picker>
-    </view> -->
     <view class="weui-flex__item">
-      <picker   mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange"  value="{{departmentIndex}}"   range="{{department}}"  range-key="{{'deptName'}}">
+      <picker mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange" value="{{departmentIndex}}" range="{{department}}" range-key="{{'deptName'}}">
         <view class="picker">
-        <text> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</text>
-        <image src="/image/arrow-down.png"></image>
+          <text> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</text>
+          <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
     </view>
   </view>
-  <radio-group class="radio-group" bindchange="radioChange">
+  <view class='noData' wx:if="{{expertList.length==0}}">
+    <image mode="widthFix" src='../../image/no-data.png'></image>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <radio-group bindchange="radioChange">
+      <label class="weui-cell weui-check__label" wx:for="{{expertList}}" wx:key="index">
+        <radio class="weui-check" value="{{item.userId}}" checked='{{item.userId==assisterId}}' />
+        <view class="docter-box">
+          <view class="weui-cell">
+            <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 20rpx;">
+              <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+            </view>
+            <view class="weui-cell__bd">
+              <view class="doctorMes">
+                <view style="font-family:Arial;">
+                  <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx;">{{item.name}}</text>
+                  <text style="color:#616569;margin-right:20rpx;">{{item.deptName}}</text>
+                  <text style="color:#616569;">{{item.position}}</text>
+                </view>
+                <view style='line-height:52rpx'>
+                  <text style="color:#616569;">{{item.hospitalName}}</text>
+                  <text style="background:#558cd3;color:#fff;border-radius:8rpx;margin-left:20rpx;padding:8rpx 16rpx;">{{item.hospitalLevel}}</text>
+                </view>
+                <view style="color:  #969ba1;">
+                  <text>擅长:</text>
+                  <text>{{item.synopsis}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.userId==assisterId}}">
+          <icon class="weui-icon-radio" type="success_no_circle" size="20"></icon>
+        </view>
+      </label>
+    </radio-group>
+  </view>
+  <!-- <radio-group class="radio-group" bindchange="radioChange">
     <radio class="radio" wx:for-items="{{expertList}}" wx:key="index" value="{{item.userId}}">
       <view class="docter-box">
         <view class="weui-cell">
@@ -52,7 +81,7 @@
         </view>
       </view>
     </radio>
-  </radio-group>
+  </radio-group> -->
   <view class='confirmAssist'>
     <button type='primary' bindtap='chooseAssist'>确认</button>
   </view>

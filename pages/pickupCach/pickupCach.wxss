@@ -62,6 +62,9 @@ page {
   border-radius: 50%;
 }
 .cardRecord image{
-   width: 40rpx;
-   height: 40rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
+ .bankName{
+  color: gray;
+}  

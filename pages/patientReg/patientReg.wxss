@@ -6,19 +6,27 @@ form, form>view{
   width: 100%;
 } 
 .code-box{
-  position:relative;
+  display: flex;
+  height: 82rpx;
+  margin:0 52rpx;
 }
-.code{
+button[plain].code{
   font-size:28rpx;
   color:#035EAD;
+  padding: 0;
+  border-radius: 0rpx;
   text-align: center;
-  position: absolute;
-  right:52rpx;
-  bottom:10rpx;
-  width:180rpx;
-  z-index: 100;
-  height:70rpx;
-  line-height:70rpx;
+  width:210rpx;
+  height:82rpx;
+  line-height:82rpx;
+  background-color: white;
+  border: 0 solid transparent;
+  border-bottom: 2rpx solid rgba(187, 187, 187, 1);
+}
+
+input.codeInput{
+  flex: 1;
+  margin:0rpx;
 }
 .code:active{
   background-color: #f7f7f7;
@@ -29,31 +37,31 @@ form, form>view{
 }
 
 input { 
-  margin: 50rpx 52rpx 25px 56rpx; 
+  margin: 50rpx 52rpx 50rpx 56rpx; 
   height: 80rpx; 
   color: #616569;
   font-family: Microsoft Yahei;
-  border-bottom: 1px solid rgba(187, 187, 187, 1);
+  border-bottom: 2rpx solid rgba(187, 187, 187, 1);
   padding-left:20rpx;
 }
 
-button {
+.submitButton {
   margin: 80rpx 52rpx 0rpx 56rpx;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 90px;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 180rpx;
   background-color: rgba(3, 94, 173, 0.09);
   color: #1C7EFF;
-  font-size: 14px;
+  font-size: 28rpx;
   text-align: center;
   font-family: Arial;
-  border: 1px solid #1C7EFF;
+  border: 2rpx solid #1C7EFF;
 }
  
 picker{
   width:100%;
   text-align: center;
-  font-size:14px;
+  font-size:28rpx;
   color:#616569;
 } 
 .picker image{

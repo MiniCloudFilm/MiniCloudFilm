@@ -6,4 +6,5 @@
   <view class="btn">
     <button class="weui-btn" type="default" bindtap="pickupCash">提现</button>
   </view>
+  
 </view>

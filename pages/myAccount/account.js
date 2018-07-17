@@ -10,9 +10,17 @@ Page({
     },
   // 提现
   pickupCash: function () {
-    wx.navigateTo({
-      url: '../pickupCach/pickupCach?balance=' + this.data.balance
-    })
+    // if(this.data.balance>=100){
+      wx.navigateTo({
+        url: '../pickupCach/pickupCach?balance=' + this.data.balance
+      });
+    // }else{
+    //   wx.showToast({
+    //     title: '金额大于100方可提现！',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    // } 
   },
   /**
    * 生命周期函数--监听页面加载

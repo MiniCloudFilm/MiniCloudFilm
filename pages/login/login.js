@@ -39,15 +39,19 @@ Page({
         text: '请输入手机号!'
       })
       return false;
-    }
+    };
     if (e.detail.value.password.length == 0) {
       wx.showToast({
         title: '请输入密码',
-        icon: 'success',
+        icon: 'none',
         duration: 1500
       })
       return false;
-    }
+    };
+    // lanjq
+    wx.showLoading({
+      title: '登录中...',
+    })
     wx.login({
       success: res => {
         var code = res.code
@@ -86,7 +90,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
-        // console.log(res.data)
+        wx.hideLoading();
         if (res.data.code == '200') {
           wx.setStorageSync('userList', res.data.data.user);
           wx.setStorageSync('token', res.data.data.token);
@@ -97,8 +101,22 @@ Page({
           // console.log(app.globalData.token);
           wx.switchTab({
             url: `../user/user`
-          }) 
+          });
+         }else{
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 3000
+          })
         }
+      },
+      fail:function(){
+        wx.hideLoading();
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 1500
+        })
       }
     })
   }, 

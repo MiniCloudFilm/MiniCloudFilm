@@ -18,6 +18,9 @@ Page({
     ],
     index: 0,
     mobile: '',
+    getCodeButtonText:'获取验证码',
+    getCodeButtonStatu:false,
+    countdown: 10,
   },
   mobileNum: function(e) {
     // console.log(e.detail.value);
@@ -46,20 +49,28 @@ Page({
         duration: 1000
       })
     } else {
-      wx.request({
-        url: app.globalData.api.patientReg.sendCode,
-        data: {
-          'mobile': this.data.mobile
-        },
-        method: 'POST',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: function(res) {
-          console.log(res.data)
-        }
-      })
-    } 
+      this.setTime();
+      console.log("anniu9999")
+      // wx.request({
+      //   url: app.globalData.api.patientReg.sendCode,
+      //   data: {
+      //     'mobile': this.data.mobile
+      //   },
+      //   method: 'POST',
+      //   header: {
+      //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+      //   },
+      //   success: res=>{
+      //     wx.showToast({
+      //       title: '获取验证码成功！',
+      //       icon: 'none',
+      //       image: '',
+      //       duration: 1500
+      //     });
+      //     this.setTime();
+      //   }
+      // })
+    }
   },
   formSubmit: function(e) {
     // console.log(e.detail.value);
@@ -118,7 +129,7 @@ Page({
         success: res => {
           let that = this;
           wx.request({
-            url: app.globalData.api.patientReg.checkCode,  
+            url: app.globalData.api.patientReg.checkCode,
             data: {
               'mobile': e.detail.value.mobile,
               "code": e.detail.value.code
@@ -133,7 +144,7 @@ Page({
               //   checkCode:res.data.data
               // }) 
               if (resA.data.data == true) {
-                console.log('进入注册逻辑'); 
+                console.log('进入注册逻辑');
                 wx.request({
                   url: app.globalData.api.patientReg.logon,
                   data: {
@@ -147,7 +158,7 @@ Page({
                   method: 'POST',
                   header: {
                     'content-type': 'application/x-www-form-urlencoded' // 默认值
-                  }, 
+                  },
                   success: resB => {
                     // console.log(resB.data);
                     if (resB.data.code == "200") {
@@ -162,21 +173,49 @@ Page({
                             url: '../login/login'
                           });
                         }
-                      }); 
+                      });
+                    } else {
+                      wx.showToast({
+                        title: resB.data.msg,
+                        icon: 'none',
+                        image: '',
+                        duration: 2000
+                      });
                     }
                   }
                 })
               }
-            } 
+            }
           })
         }
       })
-    } 
+    }
   },
   bindPickerChange: function(e) {
     this.setData({
       index: e.detail.value
     })
+  },
+   //重新获取验证码
+  setTime(type) {
+    this.setData({
+      getCodeButtonText: `${this.data.countdown}s后重新获取`,
+      getCodeButtonStatu:true
+    })
+    let interval = setInterval(()=>{
+      this.data.countdown--;
+      this.setData({
+        getCodeButtonText: `${this.data.countdown}s后重新获取`
+      })
+      if (this.data.countdown <= 0) {
+        clearInterval(interval);
+        this.setData({
+          getCodeButtonText: '获取验证码',
+          countdown:10,
+          getCodeButtonStatu: false
+        })
+      }
+    }, 1000)
   },
   /**
    * 生命周期函数--监听页面加载

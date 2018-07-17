@@ -5,20 +5,19 @@ Page({
   data: {
     SocketTask: '',
     socketOpen: false,
-    inputValue: '',//用户输入文字
+    inputValue: '', //用户输入文字
     returnValue: '',
     addImg: false,
-    time: '',//用户发送时间
+    time: '', //用户发送时间
     myPicture: "/image/icon-me1.png",
     youPicture: "/image/icon-me1.png",
     //格式示例数据，可为空
-    allContentList: [ 
-    ],
+    allContentList: [],
     num: 0,
     scrollTop: 0
   },
   // 页面加载
-  onLoad: function (options) {
+  onLoad: function(options) {
     var userList = app.globalData.userList;
     console.log(options)
     // 调用函数时，传入new Date()参数，返回值是日期和时间
@@ -31,7 +30,7 @@ Page({
       dialoger: options.dialoger,
       dialogId: options.dialogId,
       reportId: options.reportId,
-      ifAssist: options.ifAssist,
+      ifNeedAssist: options.ifNeedAssist,
       consultId: options.consultId,
       fromWhere: options.fromWhere
     });
@@ -39,7 +38,7 @@ Page({
     this.bottom();
   },
   // 根据studyUid获取报告
-  getReport: function (reportId) {
+  getReport: function(reportId) {
     wx.request({
       url: app.globalData.api.ConInterface.getReport,
       data: {
@@ -60,9 +59,9 @@ Page({
     })
   },
   // 页面加载完成
-  onShow: function () {
+  onShow: function() {
     var that = this;
-    if(this.data.fromWhere=='noRecord'){
+    if (this.data.fromWhere == 'noRecord') {
       if (!this.data.socketOpen) {
         this.webSocket()
       };
@@ -97,13 +96,13 @@ Page({
         that.bottom();
         // }
       });
-    }else{
+    } else {
       that.getDialogRecord();
     }
 
   },
   // 创建Socket
-  webSocket: function () {
+  webSocket: function() {
     this.setData({
       SocketTask: wx.connectSocket({
         url: app.globalData.api.ConInterface.webSocket + this.data.myId + '/' + this.data.dialogId,
@@ -112,10 +111,10 @@ Page({
           'content-type': 'application/json'
         },
         method: 'post',
-        success: function (res) {
+        success: function(res) {
           console.log('WebSocket连接创建', res)
         },
-        fail: function (err) {
+        fail: function(err) {
           wx.showToast({
             title: '网络异常！',
           })
@@ -126,7 +125,11 @@ Page({
   },
 
   // 提交文字
-  submitTo: function (e) {
+  submitTo: function(e) {
+    let formId = e.detail.formId;
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId)
+    };
     if (this.data.inputValue.length == 0) {
       wx.showToast({
         title: '发送内容不能为空',
@@ -136,7 +139,6 @@ Page({
       });
       return false;
     }
-    let that = this;
     if (this.data.socketOpen) {
       // 如果打开了socket就发送数据给服务器
       var data = {
@@ -153,34 +155,34 @@ Page({
         allContentList: this.data.allContentList,
         inputValue: ''
       })
-      that.bottom()
-    }
+      this.bottom();
+    };
   },
-  bindKeyInput: function (e) {
+  bindKeyInput: function(e) {
     this.setData({
       inputValue: e.detail.value
     })
   },
   //退出页面
-  onUnload: function () {
-    if (this.data.SocketTask){
-      this.data.SocketTask.close(function (close) {
+  onUnload: function() {
+    if (this.data.SocketTask) {
+      this.data.SocketTask.close(function(close) {
         console.log('关闭 WebSocket 连接。', close)
       })
     }
   },
-  onHide: function () {
+  onHide: function() {
     this.setData({
       allContentList: []
     });
     if (this.data.SocketTask) {
-      this.data.SocketTask.close(function (close) {
+      this.data.SocketTask.close(function(close) {
         console.log('关闭 WebSocket 连接。', close)
       });
     }
   },
   //结束会话
-  endDialog: function () {
+  endDialog: function() {
     console.log(this.data.concultId)
     wx.request({
       url: app.globalData.api.ConInterface.endDialog,
@@ -198,8 +200,8 @@ Page({
             icon: 'none',
             image: '',
             duration: 1500,
-            success: function () {
-              setTimeout(function () {
+            success: function() {
+              setTimeout(function() {
                 //要延时执行的代码
                 wx.navigateBack({
                   delta: 1
@@ -212,11 +214,11 @@ Page({
       }
     })
   },
-  upimg: function () {
+  upimg: function() {
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'],
-      success: function (res) {
+      success: function(res) {
         that.setData({
           img: res.tempFilePaths
         })
@@ -224,7 +226,7 @@ Page({
           url: upload_url,
           filePath: res.tempFilePaths,
           name: 'img',
-          success: function (res) {
+          success: function(res) {
             console.log(res)
             wx.showToast({
               title: '图片发送成功！',
@@ -232,7 +234,11 @@ Page({
             });
           }
         })
-        that.data.allContentList.push({ is_my: { img: res.tempFilePaths } });
+        that.data.allContentList.push({
+          is_my: {
+            img: res.tempFilePaths
+          }
+        });
         that.setData({
           allContentList: that.data.allContentList,
         })
@@ -240,30 +246,30 @@ Page({
       }
     })
   },
-  addImg: function () {
+  addImg: function() {
     this.setData({
       addImg: !this.data.addImg
     })
 
   },
   // 获取hei的id节点然后屏幕焦点调转到这个节点  
-  bottom: function () {
+  bottom: function() {
     this.setData({
       scrollTop: 1000000
     })
   },
   //通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
-  sendSocketMessage: function (msg) {
+  sendSocketMessage: function(msg) {
     var that = this;
     console.log('通过 WebSocket 连接发送数据', JSON.stringify(msg))
     that.data.SocketTask.send({
       data: JSON.stringify(msg)
-    }, function (res) {
+    }, function(res) {
       console.log('已发送', res)
     })
   },
   // 获取会话记录
-  getDialogRecord:function(){
+  getDialogRecord: function() {
     wx.request({
       url: app.globalData.api.ConInterface.getDialogRecord + this.data.myId + '/' + this.data.dialogId,
       method: 'GET',
@@ -275,11 +281,25 @@ Page({
           this.setData({
             allContentList: res.data.data
           });
-          this.bottom();//置底
+          this.bottom(); //置底
         }
       }
     });
-   
+
+  },
+  // 保存formId
+  saveFormId: function (formId) {
+    wx.request({//通过网络请求发送openId和formIds到服务器
+      url: app.globalData.api.index.postFormId,
+      method: 'post',
+      data: {
+        "userId": app.globalData.userList.userId,
+        "openId": app.globalData.userList.userOpenId,
+        "formId": formId
+      },
+      success: function (res) {
+        // console.log(res)
+      }
+    });
   }
 })
-

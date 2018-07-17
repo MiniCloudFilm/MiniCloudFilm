@@ -1,7 +1,7 @@
 const server = require('serverConfig.js')
-const basePath = server.url; 
+const basePath = server.url;
 module.exports = {
-    url:basePath,
+  url: basePath,
   // 会话页面
   ConInterface: {
     // 获取报告
@@ -18,6 +18,7 @@ module.exports = {
   assistList: {
     // 获取报告
     getReport: basePath + '/api/v1/report/findReportById',
+    chooseAssist: basePath + '/dialogUser/api/v1/add'
   },
   // 患者报告列表
   chRepCon: {
@@ -78,7 +79,7 @@ module.exports = {
     getQueryVideoLog: basePath + '/common/api/v1/queryVideoLog',
     getSaveVideoLog: basePath + '/common/api/v1/saveVideoLog',
     checkIsBuy: basePath + '/video/api/v1/checkIsBuy',
-    image:basePath
+    image: basePath
   },
   //影像
   filmshow: {
@@ -100,12 +101,12 @@ module.exports = {
     myVideoDoctor: basePath + '/doctor/api/v1/myVideoDoctor'
   },
   //注册
-  patientReg: { 
+  patientReg: {
     logon: basePath + '/api/v1/user/logon',
     //发送检验码
     sendCode: basePath + '/api/v1/user/sendCode',
     //检验验证码
-    checkCode: basePath + '/api/v1/user/checkCode' 
+    checkCode: basePath + '/api/v1/user/checkCode'
   },
   //报告列表
   report: {

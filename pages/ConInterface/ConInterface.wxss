@@ -206,7 +206,7 @@
 }  
   
 .sendmessage input {  
-  width: 78%;  
+  width: 80%;  
   height: 80rpx;  
   background-color: white;  
   line-height: 80rpx;  
@@ -219,7 +219,7 @@
   
 .sendmessage button {  
   border: 2rpx solid white;  
-  width: 18%;  
+  width: 100%;  
   height: 80rpx;  
   background: #fff;  
   color: #000;  
