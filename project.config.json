@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -159,6 +159,18 @@
 					"id": -1,
 					"name": "咨询记录",
 					"pathName": "pages/conAssistance/conAssistance",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "提现页面",
+					"pathName": "pages/myAccount/account",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "提现页面",
+					"pathName": "pages/pickupCach/pickupCach",
 					"query": ""
 				}
 			]

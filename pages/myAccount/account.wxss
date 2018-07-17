@@ -23,5 +23,8 @@
 }
 .btn{
   width: 90%;
-  margin-bottom: 60rpx;
+  margin:30rpx 0;
  }
+.tip{
+  font-size: 24rpx;
+}

@@ -70,7 +70,7 @@
   <view class='item-title'>提现金额</view>
   <input class='item-content' type='text' disabled='true' value='{{reflectCharge}} 元'></input>
 </view>
-<view class='enroll-item'>
+<view class='enroll-item' style="margin-top: 2rpx;">
   <view class='item-xing'>*</view>
   <view class='item-title'>收款户名</view>
   <input class='item-content' type='text' disabled='true' value='{{name}}'></input>
@@ -92,8 +92,8 @@
 </view>
 <view class='enroll-item' style="margin-top: 2rpx;">
   <view class='item-xing'>*</view>
-  <view class='item-title'>收款银行</view>
-  <input class='item-content' value='{{cardType}}' disabled='true'></input>
+  <view class='item-title bankName'>收款银行</view>
+  <input class='item-content bankName' value='{{cardType}}' disabled='true'></input>
 </view>
 <!-- <view class='bank-reminder'>可电话咨询银行开户行</view>
 <view class='enroll-item' style="margin-top: 2rpx;">

@@ -21,10 +21,12 @@ Page({
   },
   //银行卡号
   getUserIdCardNumber: function (e) {
+    var value = e.detail.value.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ")
     this.setData({
-      bankNumber: e.detail.value
-    })
-    var temp = util.bankCardAttribution(e.detail.value)
+      bankNumber: value
+    });
+    value = value.replace(/\s/ig, '');
+    var temp = util.bankCardAttribution(value);
     console.log(temp)
     if (temp == Error) {
       temp.bankName = '';
@@ -54,29 +56,29 @@ Page({
         duration: 1000
       })
     }else {
+      let bankNumber = this.data.bankNumber.replace(/\s/ig, '');
       wx.request({
         url: app.globalData.api.pickupCach.submitInfos,
         data: {
           'userId': myId,
           'reflectCharge': this.data.reflectCharge,
-          "bankCardId": this.data.bankNumber,
+          "bankCardId": bankNumber,
           'bankName': this.data.cardType,
-          'token': ''
+          'token': wx.getStorageSync("token")
         },
         method: 'POST',
         header: {
           'content-type': 'application/json' // 默认值
         },
         success: function (res) {
-          console.log(res.data)
           if (res.data.code=="200"){
             var flag = true;//判断卡号是否重复
             that.data.cardList.forEach(function(val,i){
-              if (val.indexOf(that.data.bankNumber)!=-1){
+              if (val.indexOf(bankNumber)!=-1){
                 flag=false;
               }
             })
-            if (flag) that.saveCard();
+            if (flag) that.saveCard(bankNumber);
             wx.showToast({
               title: res.data.msg,
               icon: 'none',
@@ -106,14 +108,14 @@ Page({
 
   },
   //新增银行卡
-  saveCard:function(){
+  saveCard: function (bankNumber){
     wx.request({
       url: app.globalData.api.pickupCach.saveCard,
       data: {
         'userId': myId,
         'cardBankName': this.data.cardType,
-        'cardUserName': userName,
-        'cardNumber': this.data.bankNumber,
+        'cardUserName': userList.name,
+        'cardNumber': bankNumber,
         'token':wx.getStorageSync("token")
       },
       method:"post",
@@ -131,8 +133,7 @@ Page({
     wx.request({
       url: app.globalData.api.pickupCach.searchCard,
       data: {
-        'userId': myId,
-        'token' :''
+        'userId': myId
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
@@ -148,10 +149,11 @@ Page({
             res.data.data.forEach(function(val,i){
               cardMes.push(val.cardBankName + "-" + val.cardNumber)
             });
+            var value = cardMes[0].split("-")[1].replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ");
             that.setData({
               cardList: cardMes,
               cardType: cardMes[0].split("-")[0],
-              bankNumber: cardMes[0].split("-")[1]
+              bankNumber: value
             });
           }
         }else{
@@ -165,9 +167,10 @@ Page({
   //选择账号
   bindPickerChange:function(e){
     var that = this;
+    var value = this.data.cardList[e.detail.value].split("-")[1].replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ");
     this.setData({
       cardType: that.data.cardList[e.detail.value].split("-")[0],
-      bankNumber:that.data.cardList[e.detail.value].split("-")[1]
+      bankNumber: value
     });
   },
 
@@ -175,11 +178,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var userName = userList.name;
     console.log(userList)
     this.setData({
       reflectCharge:options.balance,
-      name: userName
+      name: userList.name
     });
     this.searchCard();//查询卡号记录
   }
