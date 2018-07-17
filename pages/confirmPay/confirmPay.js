@@ -140,7 +140,7 @@ Page({
         console.log(res);
         if (res.statusCode == "200") {
           wx.redirectTo({
-            url: `../ConInterface/ConInterface?dialogId=${data.dialogId}&reportId=${payList.reportId}&dialoger=${payList.body}&consultId=${data.concultId}&fromWhere=noRecord`
+            url: `../ConInterface/ConInterface?dialogId=${data.dialogId}&reportId=${payList.reportId}&dialoger=${payList.doctorName}&consultId=${data.concultId}&ifNeedAssist=false&fromWhere=noRecord`
           })
         }
       }

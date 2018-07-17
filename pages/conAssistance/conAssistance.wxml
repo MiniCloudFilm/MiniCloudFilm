@@ -15,7 +15,7 @@
             <image mode="widthFix" src='../../image/no-data.png'></image>
           </view>
           <view class="docter-box" wx:for="{{myALLConsultList}}" wx:key="index">
-            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&fromWhere=record">
+            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=true&fromWhere=record">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
                   <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -46,7 +46,7 @@
             <image mode="widthFix" src='../../image/no-data.png'></image>
           </view>
           <view class="docter-box" wx:for="{{sendAssistList}}" wx:key="index">
-            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&ifAssist={{item.assisterId}}&dialoger={{item.aponsorName}}&fromWhere=record">
+            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=true&fromWhere=record">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
                   <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
@@ -80,7 +80,7 @@
             <image mode="widthFix" src='../../image/no-data.png'></image>
           </view>
           <view class="docter-box" wx:for="{{receiveAssistList}}" wx:key="index">
-            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&ifAssist={{item.assisterId}}&dialoger={{item.aponsorName}}&fromWhere=record">
+            <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=true&fromWhere=record">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
                   <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />

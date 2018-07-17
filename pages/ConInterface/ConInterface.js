@@ -31,7 +31,7 @@ Page({
       dialoger: options.dialoger,
       dialogId: options.dialogId,
       reportId: options.reportId,
-      ifAssist: options.ifAssist,
+      ifNeedAssist: options.ifNeedAssist,
       consultId: options.consultId,
       fromWhere: options.fromWhere
     });

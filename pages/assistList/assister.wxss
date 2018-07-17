@@ -2,7 +2,6 @@
 .drop-box{ 
   width:100%;
   padding:10px 0;
-  border-bottom:1px solid #e3e3e3;
 } 
 picker{
   width:100%;
@@ -16,7 +15,7 @@ picker{
   margin-left:20rpx;
 }
 .docter-box{
-  width:100%;
+  width:90%;
 } 
 /* .doctorImg{
   margin-top:-82rpx;

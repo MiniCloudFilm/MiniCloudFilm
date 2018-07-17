@@ -137,7 +137,12 @@
             </view>
             <view class="weui-flex choice">
               <view class="accept">
-                <button data-consult="{{item.dialogConsultId}}" bindtap='accept'>接受</button>
+                <button 
+                data-consult="{{item.dialogConsultId}}"
+                data-dialoger="{{item.aponsorName}}"
+                data-dialog-id="{{item.dialogId}}"
+                data-report-id="{{item.dialogReportId}}"
+                 bindtap='accept'>接受</button>
               </view>
               <view class="refuse">
                 <button data-consult="{{item.dialogConsultId}}"  data-order-id="{{item.dialogOrderId}}" bindtap='refuse'>拒绝</button>

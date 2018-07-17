@@ -1,18 +1,18 @@
 <view class="container">
   <view class="weui-flex drop-box">
-  <view class="weui-flex__item">
-      <picker   mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange"  value="{{areaIndex}}"   range="{{areaList}}"  range-key="{{'areaName'}}">
+    <view class="weui-flex__item">
+      <picker mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaList}}" range-key="{{'areaName'}}">
         <view class="picker">
-        <text> {{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:areaList[0][areaIndex[0]].areaName)}}</text>
-        <image src="/image/arrow-down.png"></image>
+          <text> {{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:areaList[0][areaIndex[0]].areaName)}}</text>
+          <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
-    </view> 
+    </view>
     <view class="weui-flex__item">
-      <picker   mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange"  value="{{departmentIndex}}"   range="{{department}}"  range-key="{{'deptName'}}">
+      <picker mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange" value="{{departmentIndex}}" range="{{department}}" range-key="{{'deptName'}}">
         <view class="picker">
-        <text> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</text>
-         <image src="/image/arrow-down.png"></image>  
+          <text> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</text>
+          <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
     </view>
@@ -23,9 +23,9 @@
   <view class="docter-box" wx:for="{{expertList}}" wx:key="index">
     <view class="weui-cell">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-         <image src="{{url+item.doctorId}}" style="width: 122rpx; height: 122rpx; display: block" /> 
+        <image src="{{url+item.doctorId}}" style="width: 122rpx; height: 122rpx; display: block" />
         <!-- <image src="http://192.168.131.102:8080/doctor/api/v1/lookImage?fileName=168_1531211065777.jpg" style="width: 122rpx; height: 122rpx; display: block" /> -->
-       
+
       </view>
       <view class="weui-cell__bd">
         <view class="doctorMes">
@@ -34,7 +34,7 @@
             <text style="color:#616569;margin-right:20rpx;">{{item.deptName}}</text>
             <text style="color:#616569;">{{item.position}}</text>
           </view>
-          <view >
+          <view>
             <text style="color:#616569;">{{item.hospitalName}}</text>
             <text style="background:#558cd3;color:#fff;border-radius:4px;margin-left:20rpx;padding:8rpx 16rpx;">{{item.hospitalLevel}}</text>
           </view>
@@ -48,12 +48,12 @@
             <text style="color: #FF9800;">￥{{item.charge}}/次</text>
           </view>
           <view class="weui-flex__item"></view>
-          <view> 
-            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' data-doctorid="{{item.userId}}" >
-              {{doctorMes.order=='before'?'选择报告':'购买'}} </view>  
+          <view>
+            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' data-doctorid="{{item.userId}}">
+              {{doctorMes.order=='before'?'选择报告':'购买'}} </view>
           </view>
         </view>
       </view>
     </view>
-  </view>  
+  </view>
 </view>

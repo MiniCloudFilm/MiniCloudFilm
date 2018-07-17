@@ -1,12 +1,13 @@
-  const server = require('serverConfig.js')
+const server = require('serverConfig.js')
 const basePath = server.url;
 module.exports = {
+  url: basePath,
   // 会话页面
   ConInterface: {
     // 获取报告
     getReport: basePath + '/api/v1/report/findReportById',
     // 开启websocket
-    webSocket: 'ws://192.168.131.212:8080/openSocket/',
+    webSocket: `wss://${server.domainName}:${server.port}/openSocket/`,
     // 结束会话
     endDialog: basePath + '/consult/api/v1/end',
     // 获取会话记录
@@ -17,6 +18,7 @@ module.exports = {
   assistList: {
     // 获取报告
     getReport: basePath + '/api/v1/report/findReportById',
+    chooseAssist: basePath +'/dialogUser/api/v1/add'
   },
   // 患者报告列表
   chRepCon: {
