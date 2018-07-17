@@ -145,7 +145,7 @@
                  bindtap='accept'>接受</button>
               </view>
               <view class="refuse">
-                <button data-consult="{{item.dialogConsultId}}"  data-order-id="{{item.dialogOrderId}}" bindtap='refuse'>拒绝</button>
+                <button data-consult="{{item.dialogConsultId}}"  data-order-id="{{item.dialogOrderId}}" bindtap='refund'>拒绝</button>
               </view>
             </view>
           </view>

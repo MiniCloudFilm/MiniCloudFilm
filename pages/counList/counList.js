@@ -19,11 +19,11 @@ Page({
     });
   },
   //退款
-  refund: function(orderId) {
+  refund: function(e) {
     wx.request({
       url: app.globalData.api.counList.refund,
       data: {
-        'orderId': orderId
+        'orderId': e.currentTarget.dataset.orderId
       },
       method: 'POST',
       header: {
@@ -31,7 +31,15 @@ Page({
       },
       success: res => {
         console.log(res);
-        this.pendingAction();
+        if (res.data == 'SUCCESS') {
+          this.refuse(e.currentTarget.dataset.consult);
+        }else{
+          wx.showToast({
+            title: '拒绝失败，请稍后再试',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       }
     })
   },
@@ -62,11 +70,11 @@ Page({
     })
   },
   //拒绝
-  refuse: function(e) {
+  refuse: function (consult) {
     wx.request({
       url: app.globalData.api.counList.refuse,
       data: {
-        'consultId': e.currentTarget.dataset.consult,
+        'consultId':consult,
       },
       method: 'GET',
       header: {
@@ -74,9 +82,9 @@ Page({
       },
       success: res => {
         // console.log(res);
-        if (res.data.code == '200') {
-          this.refund(e.currentTarget.dataset.orderId);
-        }
+        if (res.data.code=="200") {
+          this.pendingAction(); 
+        } 
       }
     })
   },

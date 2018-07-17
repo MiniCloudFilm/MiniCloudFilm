@@ -26,23 +26,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let user=wx.getStorageSync('userList')
+
+  },
+  getBalance:function(){
+    let user = wx.getStorageSync('userList')
     let token = wx.getStorageSync('token')
     // console.log(user);
     // console.log(token);
-    wx.request({ 
-      url: app.globalData.api.myAccount.postFormId, 
+    wx.request({
+      url: app.globalData.api.myAccount.postFormId,
       data: {
         'userId': user.userId,
-        'token': token, 
+        'token': token,
       },
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
-      success: res=> {
-        if(res.data.code=="200"){
-          // console.log(res.data)
+      success: res => {
+        if (res.data.code == "200") {
           this.setData({
             balance: res.data.data
           })
@@ -62,7 +64,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getBalance();
   },
 
   /**
