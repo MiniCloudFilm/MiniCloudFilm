@@ -1,5 +1,5 @@
 <view class="container">
-  <view class='noData' wx:if="{{myALLConsultList.length==0}}">
+  <view class='noData' wx:if="{{transactionList.length==0}}">
     <image mode="widthFix" src='../../image/no-data.png'></image>
   </view>
   <view  wx:for='{{transactionList}}' wx:key="index" class="item" 

@@ -60,8 +60,7 @@ Page({
       },
       success: res=> {
         console.log(res);
-        if (res.data.code == '200') { 
-          this.pendingAction();
+        if (res.data.code == '200') {
           let dialoger = e.currentTarget.dataset.dialoger;
           let dialogId = e.currentTarget.dataset.dialogId;
           let reportId = e.currentTarget.dataset.reportId;
@@ -195,8 +194,9 @@ Page({
         duration: 2000
       })   
     } else if(e.currentTarget.dataset.status == "1"){
+      var limitsOfEnd = e.currentTarget.dataset.endbutton ? 'record':'noRecord'
       wx.navigateTo({
-        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=${e.currentTarget.dataset.assisterid?false:true}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=noRecord`,
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=${e.currentTarget.dataset.assisterid ? false : true}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=${limitsOfEnd}`,
       })
     } else if (e.currentTarget.dataset.status == "2"){
       wx.showToast({

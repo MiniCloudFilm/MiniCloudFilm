@@ -32,10 +32,6 @@ Page({
   },
  
   formSubmit: function (e) {
-    // lanjq
-    wx.showLoading({
-      title: '登录中...',
-    })
     // console.log(e);
     // console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
@@ -43,15 +39,19 @@ Page({
         text: '请输入手机号!'
       })
       return false;
-    }
+    };
     if (e.detail.value.password.length == 0) {
       wx.showToast({
         title: '请输入密码',
-        icon: 'success',
+        icon: 'none',
         duration: 1500
       })
       return false;
-    }
+    };
+    // lanjq
+    wx.showLoading({
+      title: '登录中...',
+    })
     wx.login({
       success: res => {
         var code = res.code
@@ -114,7 +114,7 @@ Page({
         wx.hideLoading();
         wx.showToast({
           title: '服务器异常，请稍后再试！',
-          icon: 'success',
+          icon: 'none',
           duration: 1500
         })
       }

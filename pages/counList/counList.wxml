@@ -2,7 +2,7 @@
   <!-- 患者端 -->
   <view wx:if="{{userType==1}}" style="width:100%">
     <view class="weui-tab__content counlist">
-      <view class='noData' wx:if="{{counList.length==0}}">
+      <view class='noData' wx:if="{{counList&&counList.length==0}}">
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <view class="docter-box" wx:for="{{counList}}" wx:key="index">
@@ -49,7 +49,7 @@
       </view>
     </view>
     <view class="weui-tab__content counlist" hidden="{{activeIndex != 0}}">
-     <view class='noData' wx:if="{{counList.length==0}}">
+     <view class='noData' wx:if="{{counList&&counList.length==0}}">
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <view class="docter-box" wx:for="{{counList}}" wx:key="index">
@@ -82,11 +82,11 @@
       </view>
     </view>
     <view class="weui-tab__content counlist" hidden="{{activeIndex != 1}}">
-      <view class='noData' wx:if="{{receiveAssistList.length==0}}">
+      <view class='noData' wx:if="{{receiveAssistList&&receiveAssistList.length==0}}">
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <view class="docter-box" wx:for="{{receiveAssistList}}" wx:key="index">
-        <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.aponsorName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}">
+        <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.aponsorName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}" data-endbutton='true'>
           <view class="weui-cell__hd doctorImg">
             <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
           </view>
@@ -111,7 +111,7 @@
       </view>
     </view>
     <view class="weui-tab__content counlist" hidden="{{activeIndex != 2}}">
-      <view class='noData' wx:if="{{pendingActionList.length==0}}">
+      <view class='noData' wx:if="{{pendingActionList&&pendingActionList.length==0}}">
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <view class="docter-box" wx:for="{{pendingActionList}}" wx:key="index">

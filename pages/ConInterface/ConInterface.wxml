@@ -92,7 +92,6 @@
       <form bindsubmit="submitTo" report-submit="true" class='form'>
         <button type='default' formType="submit">发送</button>
       </form>
-      <!-- <button type='default' catchtap="submitTo">发送</button> -->
       <!-- <image bindtap="upimg1" class='jia_img' src='/image/icon-upload.png'></image> -->
     </view>
   </view>
