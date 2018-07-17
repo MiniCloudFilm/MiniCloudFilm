@@ -119,6 +119,7 @@ Page({
   },
   //视频上架
   upVideo: function(data, type) {
+    console.log(data);
     this.setData({
       videoList: []
     })
@@ -128,7 +129,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       data: {
-        'videoId': data.id,
+        'videoId': data.videoId,
         "token": this.data.token,
         'type': type
       },
@@ -136,8 +137,7 @@ Page({
       success: res => {
         console.log(res);
         //do something
-        if (res.data.code == "200") {
-
+        if (res.data.code == "200") { 
           this.getData(data.status, 1)
         }
       }
@@ -154,7 +154,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       data: {
-        'videoId': data.id,
+        'videoId': data.videoId,
         "token": this.data.token
       },
       method: 'GET',

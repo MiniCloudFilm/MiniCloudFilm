@@ -27,7 +27,7 @@
             </view>
             </view>
             <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-             <view bindtap="open" data-id="{{item.id}}" data-status="{{item.videoStatus}}" data-title="{{item.videoTitle}}" data-charge="{{item.videoCharge}}">
+             <view bindtap="open" data-video-id="{{item.videoId}}" data-status="{{item.videoStatus}}" data-title="{{item.videoTitle}}" data-charge="{{item.videoCharge}}">
                   <text style="color:#1c7eff;font-size:24rpx;">管理</text>
                   <image style="width:8rpx;height:30rpx;vertical-align:middle; margin-left:10rpx;" src="/image/icon-set.png"></image>
                 </view> 
