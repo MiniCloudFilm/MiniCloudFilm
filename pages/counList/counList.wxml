@@ -86,7 +86,7 @@
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <view class="docter-box" wx:for="{{receiveAssistList}}" wx:key="index">
-        <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.aponsorName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}" data-endbutton='true'>
+        <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.aponsorName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}" data-endbutton='1'>
           <view class="weui-cell__hd doctorImg">
             <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
           </view>
@@ -145,7 +145,7 @@
                  bindtap='accept'>接受</button>
               </view>
               <view class="refuse">
-                <button data-consult="{{item.dialogConsultId}}"  data-order-id="{{item.dialogOrderId}}" bindtap='refuse'>拒绝</button>
+                <button data-consult="{{item.dialogConsultId}}"  data-order-id="{{item.dialogOrderId}}" bindtap='refund'>拒绝</button>
               </view>
             </view>
           </view>

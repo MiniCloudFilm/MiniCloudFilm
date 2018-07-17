@@ -32,7 +32,8 @@ Page({
       reportId: options.reportId,
       ifNeedAssist: options.ifNeedAssist,
       consultId: options.consultId,
-      fromWhere: options.fromWhere
+      fromWhere: options.fromWhere,
+      endbutton: options.endbutton
     });
     this.getReport(options.reportId);
     this.bottom();
