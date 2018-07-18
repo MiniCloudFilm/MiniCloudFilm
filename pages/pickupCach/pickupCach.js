@@ -1,7 +1,7 @@
-var util = require('../../utils/bank.js');
-var userList = wx.getStorageSync('userList');
-var myId = JSON.stringify(userList.userId);
 var app = getApp();
+var util = require('../../utils/bank.js');
+var userList = app.globalData.userList;
+var myId = JSON.stringify(userList.userId);
 Page({
   /**
    * 页面的初始数据
@@ -173,7 +173,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(userList)
     this.setData({
       reflectCharge:options.balance,
       name: userList.name
