@@ -7,7 +7,7 @@
       </button>
       <view wx:if="{{userName}}" class="outLogin" bindtap='outLogin'>
         退出登录
-      </view>
+      </view> 
       <view class="myImg">
         <image src="{{avatarUrl?avatarUrl:'/image/my.png'}}"></image>
       </view>
