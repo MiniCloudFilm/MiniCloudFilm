@@ -20,7 +20,7 @@
           </view>
           <view>
           <!-- bindtap="login" -->
-            <button formType="submit"  data-role="patient">登录</button>
+            <button formType="submit" data-role="patient">登录</button>
           </view>
         </form>
       </view>

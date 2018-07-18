@@ -32,7 +32,7 @@ Page({
   },
  
   formSubmit: function (e) {
-    // console.log(e);
+    console.log(e);
     // console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
       wx.setTopBarText({
@@ -54,7 +54,7 @@ Page({
     })
     wx.login({
       success: res => {
-        var code = res.code
+        var code = res.code 
         // console.log(code);  
         // 发送 res.code 到后台换取 openId, sessionKey, unionId  
         // wx.request({
