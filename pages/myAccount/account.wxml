@@ -1,10 +1,10 @@
 <view class="container">
   <view class="ac-top">
     <text>总金额(元)</text>
+    <text bindtap='pickupCashRecord'>提现记录</text>
   </view>
   <view class="amount">{{balance}}</view>
   <view class="btn">
     <button class="weui-btn" type="default" bindtap="pickupCash">提现</button>
   </view>
-  
 </view>

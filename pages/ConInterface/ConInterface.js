@@ -253,7 +253,7 @@ Page({
     })
 
   },
-  // 获取hei的id节点然后屏幕焦点调转到这个节点  
+  // 获取historycon的id节点然后屏幕焦点调转到这个节点
   bottom: function() {
     this.setData({
       scrollTop: 1000000
@@ -261,9 +261,8 @@ Page({
   },
   //通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
   sendSocketMessage: function(msg) {
-    var that = this;
     console.log('通过 WebSocket 连接发送数据', JSON.stringify(msg))
-    that.data.SocketTask.send({
+    this.data.SocketTask.send({
       data: JSON.stringify(msg)
     }, function(res) {
       console.log('已发送', res)

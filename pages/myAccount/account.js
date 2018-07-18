@@ -10,17 +10,22 @@ Page({
     },
   // 提现
   pickupCash: function () {
-    // if(this.data.balance>=100){
+    if(this.data.balance>=1){
       wx.navigateTo({
         url: '../pickupCach/pickupCach?balance=' + this.data.balance
       });
-    // }else{
-    //   wx.showToast({
-    //     title: '金额大于100方可提现！',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    // } 
+    }else{
+      wx.showToast({
+        title: '金额大于1元方可提现！',
+        icon: 'none',
+        duration: 2000
+      })
+    } 
+  },
+  pickupCashRecord:function(){
+    wx.navigateTo({
+      url: '../pickupCachRecord/pickupCachRecord'
+    });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -29,10 +34,8 @@ Page({
 
   },
   getBalance:function(){
-    let user = wx.getStorageSync('userList')
-    let token = wx.getStorageSync('token')
-    // console.log(user);
-    // console.log(token);
+    let user = app.globalData.userList;
+    let token = app.globalData.token;
     wx.request({
       url: app.globalData.api.myAccount.postFormId,
       data: {

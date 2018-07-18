@@ -1,0 +1,13 @@
+<!-- <view class="container">
+  <view class='noData' wx:if="{{pickupCashRecord&&pickupCashRecord.length==0}}">
+    <image mode="widthFix" src='../../image/no-data.png'></image>
+  </view>
+  <view  wx:for='{{pickupCashRecord}}' wx:key="index" class="item">
+    <view class="left">
+      <view class="type">{{item.orderType==1?'医生咨询':'视频购买'}}</view>
+      <view class="time">{{item.orderTime}}</view>
+    </view>
+    <text>{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}</text>
+  </view>  
+</view> -->
+<text>开发中...</text>

@@ -19,7 +19,7 @@ page,
   color:#1c7eff;
 }
 .weui-navbar{
-  border: none;
+  background-color:white;
 }
 .docter-box{
   width:100%;

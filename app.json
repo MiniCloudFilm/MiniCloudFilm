@@ -22,7 +22,8 @@
     "pages/payDetail/payDetail",
     "pages/pickupCach/pickupCach",
     "pages/assistList/assister",
-    "pages/myVideo/myVideo"
+    "pages/myVideo/myVideo",
+    "pages/pickupCachRecord/pickupCachRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

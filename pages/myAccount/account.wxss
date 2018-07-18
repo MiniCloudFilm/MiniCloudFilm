@@ -2,7 +2,7 @@
 .ac-top{
   width: 90%;
   margin: auto;
-  padding-top:40rpx;
+  padding-top:30rpx;
   font-size: 28rpx;
   color: #2e3135; 
   height: 35rpx;
@@ -10,7 +10,18 @@
 }
 .ac-top text{
   display: block;
+  padding: 10rpx;
+  border-radius: 8rpx;
+}
+.ac-top text:first-child{
   float: left;
+}
+.ac-top text:last-child{
+  float: right;
+  color: #035EAD;
+}
+.ac-top text:last-child:active{
+ background-color: #F8F8F8;
 }
 .ac-top navigator{
   display: block;
