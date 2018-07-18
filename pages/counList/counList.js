@@ -31,7 +31,7 @@ Page({
       },
       success: res => {
         console.log(res);
-        if (res.data == 'SUCCESS') {
+        if (res.data.data == 'SUCCESS') {
           this.refuse(e.currentTarget.dataset.consult);
         }else{
           wx.showToast({
@@ -63,7 +63,7 @@ Page({
           let reportId = e.currentTarget.dataset.reportId;
           let consultId = e.currentTarget.dataset.consult;
           wx.navigateTo({
-            url: `../ConInterface/ConInterface?dialogId=${dialogId}&reportId=${reportId}&dialoger=${dialoger}&ifNeedAssist=true&consultId=${consultId}&fromWhere=noRecord`
+            url: `../ConInterface/ConInterface?dialogId=${dialogId}&reportId=${reportId}&dialoger=${dialoger}&ifNeedAssist=true&consultId=${consultId}&fromWhere=noRecord&endbutton=true`
           })
         }
       }
