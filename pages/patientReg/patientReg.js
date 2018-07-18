@@ -49,6 +49,7 @@ Page({
         duration: 1000
       })
     } else {
+      // this.setTime();
       wx.request({
         url: app.globalData.api.patientReg.sendCode,
         data: {
@@ -166,11 +167,10 @@ Page({
                         image: '',
                         duration: 1000,
                         success: resC => {
-                          setTimeout(function(){
-                            wx.navigateTo({
-                              url: '../login/login'
-                            });
-                          },2000)
+                          // console.log(resC);
+                          wx.navigateTo({
+                            url: '../login/login'
+                          });
                         }
                       });
                     } else {

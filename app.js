@@ -12,7 +12,7 @@ App({
     this.globalData.api = api;
     this.globalData.util = util; 
     this.globalData.userList = wx.getStorageSync('userList'); 
-    this.globalData.token = wx.getStorageSync('token');   
+    this.globalData.token = wx.getStorageSync('token');  
     // console.log(this.globalData.api);
     // 登录
     // wx.login({

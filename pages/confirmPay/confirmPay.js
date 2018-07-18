@@ -167,7 +167,7 @@ Page({
     this.setData({
       payList: options
     });
-    // console.log(this.data.payList)
+    console.log(this.data.payList)
   },
 
   /**

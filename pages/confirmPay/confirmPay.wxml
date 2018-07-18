@@ -1,5 +1,5 @@
 <view class="container">
-   <view class="mes-box" wx:if="{{payList.type==1}}">
+   <view class="mes-box" wx:if="{{payList.type=='1'}}">
     <view class="user-mes">
        <text>{{payList.doctorName}}</text>-
       <text>报告解读</text> 
@@ -11,7 +11,7 @@
       <text>￥{{payList.price}}/次</text>
     </view>
   </view> 
-  <view class="mes-box" wx:if="{{payList.type==2}}"> 
+  <view class="mes-box" wx:if="{{payList.type=='2'}}"> 
     <view class="user-mes">
        <text>{{payList.title}}</text> 
     </view>

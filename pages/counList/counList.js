@@ -1,5 +1,7 @@
 // pages/counList/counList.js
 var app = getApp();
+let filter = require('../../utils/filter.js')
+// filter.identityFilter(
 Page({
 
   /**
@@ -214,9 +216,19 @@ Page({
    */
   onShow: function() {
     wx.showLoading({
-      title: '加载中..',
-    })
-    let user = wx.getStorageSync("userList");
+      title: '加载中..', 
+    }) 
+    let user = wx.getStorageSync("userList"); 
+    console.log(user);
+    if (!user) {
+      wx.hideLoading()
+      wx.redirectTo({
+        url: '../login/login',
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+    } 
     this.setData({
       userType: user.userType
     });
