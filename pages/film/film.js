@@ -154,6 +154,7 @@ Page({
     wx.showLoading({
       title: '加载中..',
     })
+    app.checkLoginInfo(app.getCurrentUrl()); 
     this.setData({
       token: wx.getStorageSync('token'),
       user: wx.getStorageSync('userList')

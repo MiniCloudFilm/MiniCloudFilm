@@ -20,18 +20,7 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () { 
-    console.log(app.globalData.userList);
-    let user = app.globalData.userList;
-    if (user){
-      this.setData({
-        userType:user.userType
-      })
-    }else{ 
-      this.setData({
-        userType: ''
-      })
-    }
+  onLoad: function () {  
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -70,6 +59,7 @@ Page({
         userType: ''
       })
     }
+    console.log(this.data.userType);
   },
   getUserInfo: function(e) {
     console.log(e)

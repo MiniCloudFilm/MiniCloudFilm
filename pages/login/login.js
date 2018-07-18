@@ -89,7 +89,7 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
-      success: function (res) {
+      success: res => {
         wx.hideLoading();
         if (res.data.code == '200') {
           wx.setStorageSync('userList', res.data.data.user);
@@ -99,8 +99,8 @@ Page({
           app.globalData.userList = wx.getStorageSync('userList');
           app.globalData.token = wx.getStorageSync('token');
           // console.log(app.globalData.token);
-          wx.switchTab({
-            url: `../user/user`
+          wx.reLaunch({
+            url: this.data.backUrl
           });
          }else{
           wx.showToast({
@@ -130,11 +130,16 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {  
-    // console.log(util);
+  onLoad: function (options) { 
+
     this.setData({
-      userName: wx.getStorageSync('user')
+      backUrl:null
     })
+    this.setData({
+      userName: wx.getStorageSync('user'), 
+      backUrl:options.backUrl
+    })
+    console.log(this.data.backUrl);
   },
 
   /**
