@@ -5,22 +5,24 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {},
-  turn: function(e) {
+  data: { 
+  },
+  turn: function (e) {
     if (this.data.doctorMes.order == 'before') {
       wx.navigateTo({
         url: `../expertList/expert?reportId=${e.currentTarget.dataset.reportid}`
       })
     } else {
-      wx.navigateTo({ 
-        url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&reportId=${e.currentTarget.dataset.reportid }&type=1`  
+      wx.navigateTo({
+        url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&reportId=${e.currentTarget.dataset.reportid }&type=1` 
       })
-    } 
+    }
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) { 
     wx.showLoading('加载中..')
     if (options.order == 'before') {
       this.setData({
@@ -53,7 +55,7 @@ Page({
             // console.log(res.data)
           }
         },
-        fail: res => {
+        fail:res=>{ 
           wx.hideLoading()
         }
       })
@@ -63,49 +65,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })
