@@ -24,6 +24,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    app.checkLoginInfo(app.getCurrentUrl()); 
     console.log(that.data.activeIndex)
     wx.getSystemInfo({
       success: function (res) {

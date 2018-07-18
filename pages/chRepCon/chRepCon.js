@@ -20,8 +20,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    wx.showLoading('加载中..')
+  onLoad: function (options) {
+    wx.showLoading({
+      title: '报告加载中..',
+    })
     if (options.order == 'before') {
       this.setData({
         doctorMes: options
@@ -32,6 +34,7 @@ Page({
       })
       // console.log(this.data.doctorMes);
     }
+    app.checkLoginInfo(app.getCurrentUrl()); 
     if (app.globalData.userList) {
       wx.request({
         url: app.globalData.api.chRepCon.getReportList,
@@ -44,7 +47,7 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: res => {
-          // console.log(res);
+          console.log(res);
           if (res.data.code == '200') {
             this.setData({
               reportList: res.data.data

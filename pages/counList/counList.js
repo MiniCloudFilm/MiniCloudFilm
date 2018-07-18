@@ -177,7 +177,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     console.log((this.data.counList && this.data.counList.length == 0));
   },
 
@@ -214,24 +214,23 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     wx.showLoading({
       title: '加载中..', 
-    }) 
-    let user = wx.getStorageSync("userList"); 
-    console.log(user);
-    if (!user) {
-      wx.hideLoading()
-      wx.redirectTo({
-        url: '../login/login',
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
-      })
-    } 
-    this.setData({
-      userType: user.userType
-    });
+    })
+    //登录校验
+    app.checkLoginInfo(app.getCurrentUrl()); 
+    let user = app.globalData.userList;
+    console.log(user); 
+    if (user) {
+      this.setData({
+        userType: user.userType
+      }); 
+    }else{ 
+      this.setData({
+        userType: null
+      }); 
+    }
     if (this.data.userType == 1) {
       this.getCounListOfPatient();
       return false;

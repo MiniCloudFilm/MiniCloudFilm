@@ -14,9 +14,10 @@ Page({
    */
   outLogin:function(){
     wx.removeStorageSync('userList');
+    app.globalData.userList=null;
     wx.navigateTo(
       {
-        url:'../login/login'
+        url:'../login/login?backUrl=../user/user'
       }
     )
   },
@@ -28,7 +29,7 @@ Page({
     }
     wx.navigateTo(
       {
-        url: '../login/login'
+        url: '../login/login?backUrl=../user/user'
       }
     )
   },
@@ -67,7 +68,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {  
+  onShow: function () {
+    app.checkLoginInfo(app.getCurrentUrl()); 
     var userInfo = wx.getStorageSync('userInfo')
     if (app.globalData.userInfo==null){ 
       // console.log("进入");
@@ -89,6 +91,7 @@ Page({
         userType: ''
       })
     }
+    console.log(this.data.userName);
   },
 
   /**
