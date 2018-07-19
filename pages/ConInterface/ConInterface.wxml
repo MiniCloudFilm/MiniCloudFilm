@@ -45,7 +45,7 @@
       </view>
     </view>
     <view class='scrollContainer'>
-      <view class='noData' wx:if="{{fromWhere=='record'&&allContentList.length==0}}">
+      <view class='noData' wx:if="{{fromWhere=='record'&&allContentList&&allContentList.length==0}}">
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="historycon">
