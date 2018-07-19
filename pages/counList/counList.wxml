@@ -9,7 +9,8 @@
         <view class="docter-box" wx:for="{{counList}}" wx:key="index">
           <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.receiverName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}">
             <view class="weui-cell__hd doctorImg">
-              <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
+              <image src="{{url+item.receiverDoctorId}}"/>
+              <view wx:if="{{item.unreadCount!=0}}" class='unreadCountStyle'>{{item.unreadCount}}</view>
             </view>
             <view class="weui-cell__bd">
               <view class="doctorMes">
@@ -42,7 +43,7 @@
         <block wx:for="{{tabs}}" wx:key="*this">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
-            <view class="tip" wx:if="{{item=='待处理'&&pendingActionList.length>0}}"></view>
+              <view class="tip" wx:if="{{item=='待处理'&&pendingActionList.length>0}}">{{pendingActionList.length}}</view>
           </view>
         </block>
         <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
@@ -56,6 +57,7 @@
             <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.aponsorName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}">
               <view class="weui-cell__hd doctorImg">
                 <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
+              <view wx:if="{{item.unreadCount!=0}}" class='unreadCountStyle'>{{item.unreadCount}}</view>
               </view>
               <view class="weui-cell__bd">
                 <view class="doctorMes">
@@ -90,6 +92,7 @@
               data-endbutton='1'>
               <view class="weui-cell__hd doctorImg">
                 <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
+              <view wx:if="{{item.unreadCount!=0}}" class='unreadCountStyle'>{{item.unreadCount}}</view>
               </view>
               <view class="weui-cell__bd">
                 <view class="doctorMes">

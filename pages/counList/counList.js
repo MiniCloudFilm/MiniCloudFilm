@@ -11,7 +11,8 @@ Page({
     isDoctor: true,
     tabs: ["患者咨询", "医生协助", "待处理"],
     activeIndex: 0,
-    token: ''
+    token: '',
+    url: app.globalData.api.expertList.image
   },
   tabClick: function(e) {
     let index = e.currentTarget.id;
@@ -107,8 +108,16 @@ Page({
           this.setData({
             counList: res.data.data
           })
-          wx.hideLoading()
+          wx.hideLoading();
         }
+      },
+      fail:res=>{
+        wx.hideLoading();
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
@@ -128,9 +137,17 @@ Page({
         if (res.data.code == "200") {
           this.setData({
             counList: res.data.data
-          })
+          });
           wx.hideLoading()
         }
+      },
+      fail: res => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
