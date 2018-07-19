@@ -5,8 +5,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    url: app.globalData.api.expertList.image
+  data: { 
   },
 
   /**

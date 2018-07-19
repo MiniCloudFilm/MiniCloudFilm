@@ -58,11 +58,12 @@ button.outLogin{
   color:#2e3135;
 }
 .explain{
-  padding:0 32rpx;
-  margin-top:200rpx;
+  position:absolute;
+  bottom:0;
+  padding:0 32rpx; 
   font-size:22rpx;
   color:#aaadb2;
-  line-height: 40rpx;
+  line-height: 36rpx;
 }
 .weui-cells:before{ 
   border-top: 1rpx solid #edeff0;
@@ -76,7 +77,10 @@ button.outLogin{
 .weui-cell__ft_in-access:after {
   border-color:#edeff0;
 }
-.myImg{
+button.myImg{
+  background: #fff;
+  padding:0;
+  margin:0;
   width:150rpx;
   height:150rpx;
   margin: 0 auto;
