@@ -18,42 +18,20 @@
           <view class="section">
             <input class="input" type="password" placeholder="请输入密码" name="password"  placeholder-class="placeholder" />
           </view>
-          <view>
-          <!-- bindtap="login" -->
+          <view> 
             <button formType="submit" data-role="patient">登录</button>
           </view>
         </form>
-      </view>
-
-      <!--月度维保-->
-      <!-- <view hidden="{{currentTab !== 1}}" id="one">
-        <form bindsubmit="formSubmit" bindreset="formReset">
-          <view class="section">
-            <input class="input" maxlength="11" type="number" placeholder="请输入手机号" confirm-type="next" placeholder-class="placeholder" />
-          </view>
-          <view class="section">
-            <input class="input" password type="text" placeholder="请输入密码" placeholder-class="placeholder" />
-          </view>
-          <view>
-            <button formType="submit" data-role="doctor" bindtap="login">登录</button>
-          </view>
-        </form>
-      </view> -->
+      </view> 
       <view class="agree-box">
         <text>登录即表示同意</text>
         <text class="agree">《服务协议》</text>
       </view>
     </view>
   </view>
-  <view class="register-box"> 
-     <!-- <view class="weui-flex title-box">
-        <view class="weui-flex__item start"></view>
-        <view class="title">用户注册</view>
-        <view class="weui-flex__item end"></view>
-      </view> -->
+  <view class="register-box">  
     <view class="sel-register">
-    <navigator url="../patientReg/patientReg">用户注册</navigator>
-     <!-- <navigator url="../patientReg/patientReg">医生注册</navigator>  -->
+    <navigator open-type="redirect" url="../patientReg/patientReg">用户注册</navigator> 
     </view>
   </view>
 </view>

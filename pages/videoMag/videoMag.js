@@ -8,9 +8,7 @@ Page({
    */
   data: {
     tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"],
-    activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
+    activeIndex: 0,  
     videoList: [],
     page: 1,
     load: true,
@@ -19,7 +17,8 @@ Page({
   },
   //nav切换
   tabClick: function(e) { 
-    console.log(this.data.videoList);
+    // console.log(this.data.videoList);
+    // console.log(e.currentTarget);
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
@@ -177,10 +176,10 @@ Page({
   updateVideo: function(data) {},
   //视频
   getData: function(status, pg) {
-    wx.showNavigationBarLoading();
-    wx.showLoading({ 
-      title: '视频列表加载中。。。'
-    })
+    // wx.showNavigationBarLoading();
+    // wx.showLoading({ 
+    //   title: '视频列表加载中。。。'
+    // })
     let user = wx.getStorageSync('userList')
     pg = pg ? pg : 0;
     wx.request({
@@ -196,7 +195,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res)
+        // console.log(res)
         let tmpArr;
         if(pg>1){  
           tmpArr=this.data.videoList;
@@ -215,9 +214,13 @@ Page({
         this.data.page++;
         wx.hideNavigationBarLoading();
         wx.hideLoading()
+      },
+      fail: res => {
+        wx.hideLoading()
+        util.showToast('服务器连接失败！')
       }
     })
-  },
+  }, 
   //视频观看
   videoType:function(e){   
     let data = e.currentTarget.dataset; 
@@ -236,14 +239,14 @@ Page({
       title: '加载中..',
     })
     this.getData(0, 1);
-    wx.getSystemInfo({
-      success: res => {
-        this.setData({
-          sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
-          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
-        });
-      }
-    });
+    // wx.getSystemInfo({
+    //   success: res => {
+    //     this.setData({
+    //       sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
+    //       sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
+    //     });
+    //   }
+    // });
   },
 
   /**

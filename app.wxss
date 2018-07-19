@@ -35,5 +35,5 @@ button.btn::after{
 }
 .noData image{
   width: 500rpx;
-}
+} 
 /* 暂无数据img显示end */

@@ -41,7 +41,7 @@
     </view>
   </view>
   <view class="upload">
-    <navigator url="../upload/upload">
+    <navigator open-type="redirect" url="../upload/upload">
       <image style="width:81rpx;height:81rpx;margin-top:20rpx;margin-left:10rpx;" src="/image/icon-upload.png"></image>
     </navigator>
   </view>

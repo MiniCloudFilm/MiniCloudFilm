@@ -17,14 +17,12 @@
         <form bindsubmit="turnToExpert" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
           <button formType="submit" class='btn'>
             <view class="weui-flex__item">
-              <!-- <navigator url="../expertList/expert?order=before" hover-class="navigator-hover">      -->
               <view class="navT">
                 <image src="/image/icon1.png"></image>
               </view>
               <view>
                 <text>专家咨询</text>
               </view>
-              <!-- </navigator> -->
             </view>
           </button>
         </form>
@@ -76,26 +74,10 @@
             </view>
           </button>
         </form>
-
-
       </view>
     </view>
     <view class="weui-flex">
       <view class="weui-flex__item"> </view>
     </view>
-    <view class="">
-      <view>
-        <!-- <navigator url="../consultation/consultation">
-        <view class="navT">
-          <text class="iconfont icon-qrcode consultation"></text>
-        </view>
-        <view>
-          <text>远程会诊</text>
-        </view>
-      </navigator> -->
-      </view>
-    </view>
   </view>
-
-
 </view>
