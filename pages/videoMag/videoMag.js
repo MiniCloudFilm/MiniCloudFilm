@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"],
-    activeIndex: 0,  
+    tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"], 
+    activeIndex: 0,   
     videoList: [],
     page: 1,
     load: true,
