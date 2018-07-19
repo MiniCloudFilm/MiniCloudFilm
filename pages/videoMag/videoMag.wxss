@@ -41,14 +41,10 @@ page,
     padding-top: 60px;
     text-align: center;
 }
-.weui-navbar{
-  border-bottom:none;
-}
 .weui-navbar__slider{ 
-  width:80rpx;
+  width:20%;
   height:4rpx;
   background-color: #1c7eff;
-  bottom:10rpx;
 } 
 .weui-navbar__title{
   color: #2e3135; 

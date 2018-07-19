@@ -5,8 +5,6 @@ Page({
     tabs: ["免费视频", "收费视频", "我的记录"],
     videoList: [],
     activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
     check: 0,
     isFree: true,
     isPay: true,
@@ -160,14 +158,14 @@ Page({
       user: wx.getStorageSync('userList')
     })
     this.getFreeVideo(); 
-    wx.getSystemInfo({
-      success: res=> {
-        this.setData({
-          sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
-          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
-        });
-      }
-    });
+    // wx.getSystemInfo({
+    //   success: res=> {
+    //     this.setData({
+    //       sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
+    //       sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
+    //     });
+    //   }
+    // });
     wx.hideLoading()
   },
   tabClick: function(e) {

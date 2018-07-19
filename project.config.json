@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 28,
 			"list": [
 				{
 					"id": -1,
@@ -202,6 +202,11 @@
 					"name": "会诊记录",
 					"pathName": "pages/conAssistance/conAssistance",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "咨询列表",
+					"pathName": "pages/counList/counList"
 				}
 			]
 		}

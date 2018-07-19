@@ -87,12 +87,19 @@ Page({
       this.data.SocketTask.onMessage(onMessage => {
         console.log('监听WebSocket接受到服务器的消息事件。服务器返回的消息', JSON.parse(onMessage.data))
         var onMessage_data = JSON.parse(onMessage.data);
-        for (var i in onMessage_data) {
-          that.data.allContentList.push(onMessage_data[i]);
-        }
-        // that.data.allContentList.push.apply(that.data.allContentList,onMessage_data);
+        // for (var i in onMessage_data) {
+        //   that.data.allContentList.push(onMessage_data[i]);
+        // }
+        let dialogArr;
+        if (that.data.allContentList){
+          dialogArr = that.data.allContentList;
+        }else{
+          dialogArr = [];
+        };
+        dialogArr.push.apply(dialogArr,onMessage_data);
+        console.log(dialogArr)
         that.setData({
-          allContentList: that.data.allContentList
+          allContentList: dialogArr
         })
         that.bottom();
       });

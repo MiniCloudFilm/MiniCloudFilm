@@ -9,8 +9,6 @@ Page({
   data: {
     tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"],
     activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
     videoList: [],
     page: 1,
     load: true,
@@ -236,14 +234,14 @@ Page({
       title: '加载中..',
     })
     this.getData(0, 1);
-    wx.getSystemInfo({
-      success: res => {
-        this.setData({
-          sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
-          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
-        });
-      }
-    });
+    // wx.getSystemInfo({
+    //   success: res => {
+    //     this.setData({
+    //       sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
+    //       sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
+    //     });
+    //   }
+    // });
   },
 
   /**
