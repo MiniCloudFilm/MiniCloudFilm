@@ -13,10 +13,7 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     isAccept:false,
-    token:"",
-    myALLConsultList:[],
-    sendAssistList:[],
-    receiveAssistList:[]
+    token:""
   },
 
   /**
