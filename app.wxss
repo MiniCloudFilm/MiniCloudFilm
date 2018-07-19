@@ -36,4 +36,7 @@ button.btn::after{
 .noData image{
   width: 500rpx;
 }
+.weui-cell{
+  padding:10rpx 30rpx;
+}
 /* 暂无数据img显示end */
