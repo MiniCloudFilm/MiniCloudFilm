@@ -12,7 +12,7 @@
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='noData' wx:if="{{myALLConsultList.length==0}}">
+          <view class='noData' wx:if="{{myALLConsultList&&myALLConsultList.length==0}}">
             <image mode="widthFix" src='../../image/no-data.png'></image>
           </view>
           <view class="docter-box" wx:for="{{myALLConsultList}}" wx:key="index">
@@ -43,7 +43,7 @@
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class='noData' wx:if="{{sendAssistList.length==0}}">
+          <view class='noData' wx:if="{{sendAssistList&&sendAssistList.length==0}}">
             <image mode="widthFix" src='../../image/no-data.png'></image>
           </view>
           <view class="docter-box" wx:for="{{sendAssistList}}" wx:key="index">
@@ -77,7 +77,7 @@
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          <view class='noData' wx:if="{{receiveAssistList.length==0}}">
+          <view class='noData' wx:if="{{receiveAssistList&&receiveAssistList.length==0}}">
             <image mode="widthFix" src='../../image/no-data.png'></image>
           </view>
           <view class="docter-box" wx:for="{{receiveAssistList}}" wx:key="index">

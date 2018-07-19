@@ -17,7 +17,7 @@
       </picker>
     </view>
   </view>
-  <view class='noData' wx:if="{{expertList.length==0}}">
+  <view class='noData' wx:if="{{expertList&&expertList.length==0}}">
     <image mode="widthFix" src='../../image/no-data.png'></image>
   </view>
   <view class="docter-box" wx:for="{{expertList}}" wx:key="index">
