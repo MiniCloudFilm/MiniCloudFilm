@@ -32,8 +32,18 @@
 } 
 .con-mes>view{
   margin-bottom:20rpx;
+}
+.icon{
+  position: relative;
+}
+.icon:before{
+    content: "■"; 
+    color:#48ace9;
+    font-size:20rpx; 
+    position:absolute;
+    left:-30rpx;
+    top:0;
 }   
- 
 .pay-con{
   position:absolute;
   right:20rpx;

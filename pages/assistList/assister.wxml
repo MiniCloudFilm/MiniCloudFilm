@@ -27,20 +27,20 @@
         <view class="docter-box">
           <view class="weui-cell">
             <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 20rpx;">
-              <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+              <image src="{{url+item.doctorId}}" style="width:122rpx;height:122rpx;display:block;border-radius:50%" />
             </view>
             <view class="weui-cell__bd">
               <view class="doctorMes">
                 <view style="font-family:Arial;">
                   <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx;">{{item.name}}</text>
                   <text style="color:#616569;margin-right:20rpx;">{{item.deptName}}</text>
-                  <text style="color:#616569;">{{item.position}}</text>
+                  <text style="color:#616569;">{{item.doctorLevel}}</text>
                 </view>
                 <view style='line-height:52rpx'>
                   <text style="color:#616569;">{{item.hospitalName}}</text>
                   <text style="background:#558cd3;color:#fff;border-radius:8rpx;margin-left:20rpx;padding:8rpx 16rpx;">{{item.hospitalLevel}}</text>
                 </view>
-                <view style="color:  #969ba1;">
+                <view style="color:#969ba1;">
                   <text>擅长:</text>
                   <text>{{item.synopsis}}</text>
                 </view>
@@ -54,34 +54,6 @@
       </label>
     </radio-group>
   </view>
-  <!-- <radio-group class="radio-group" bindchange="radioChange">
-    <radio class="radio" wx:for-items="{{expertList}}" wx:key="index" value="{{item.userId}}">
-      <view class="docter-box">
-        <view class="weui-cell">
-          <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-            <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
-          </view>
-          <view class="weui-cell__bd">
-            <view class="doctorMes">
-              <view style="font-family:Arial;">
-                <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx;">{{item.name}}</text>
-                <text style="color:#616569;margin-right:20rpx;">{{item.deptName}}</text>
-                <text style="color:#616569;">{{item.position}}</text>
-              </view>
-              <view>
-                <text style="color:#616569;">{{item.hospitalName}}</text>
-                <text style="background:#558cd3;color:#fff;border-radius:4px;margin-left:20rpx;padding:8rpx 16rpx;">{{item.hospitalLevel}}</text>
-              </view>
-              <view style="color:  #969ba1;">
-                <text>擅长:</text>
-                <text>{{item.synopsis}}</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </radio>
-  </radio-group> -->
   <view class='confirmAssist'>
     <button type='primary' bindtap='chooseAssist'>确认</button>
   </view>

@@ -6,9 +6,11 @@
         <view class="con-box">
           <view class="con-mes">
             <view>
+              <text class='icon'></text>
               <text>咨询的报告：</text>
             </view>
             <view>
+              <text class='icon'></text>
               <text>{{reportDetail.studyTime}}  {{reportDetail.hospitalName}}</text>
             </view>
             <navigator wx:if="{{myType==2&&ifNeedAssist=='true'}}" class="pay-con" url="../assistList/assister?dialogId={{dialogId}}&reportId={{reportId}}">
@@ -47,7 +49,7 @@
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="historycon">
-        <view class="history" wx:for="{{allContentList}}" wx:key=''>
+        <view class="history" wx:for="{{allContentList}}" wx:key='{{index}}'>
           <view class="time-box">
             <text class='time'>{{item.time}}</text>
           </view>

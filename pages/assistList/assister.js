@@ -281,13 +281,15 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: res => {
-          // wx.redirectTo({
-          //   url: `../ConInterface/ConInterface?reportId=${this.data.reportId}&dialogId=${this.data.dialogId}`,
-          // });
           if(res.data.code=='200'){
+            let pages = getCurrentPages();//当前页
+            let prevPage = pages[pages.length - 2];//上一页
+            prevPage.setData({
+              ifNeedAssist: "false"//去掉协助按钮
+            });
             wx.navigateBack({
               delta: 1
-            })
+            });
           }else{
             wx.showToast({
               title: '请求失败，稍后再试',
@@ -297,7 +299,7 @@ Page({
           }
           
         }
-      })
+      });
 
     }
   },
