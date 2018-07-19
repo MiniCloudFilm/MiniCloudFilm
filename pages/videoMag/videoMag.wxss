@@ -40,7 +40,11 @@ page,
 .weui-tab__content{
     padding-top: 60px;
     text-align: center; 
+<<<<<<< HEAD
 } 
+=======
+}  
+>>>>>>> d7e34af5a07fbe675067cb93c84b464e43343a9b
 .weui-navbar__slider{ 
   width:20%;
   height:4rpx;
