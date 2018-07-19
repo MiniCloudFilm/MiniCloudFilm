@@ -95,7 +95,6 @@ Page({
           allContentList: that.data.allContentList
         })
         that.bottom();
-        // }
       });
     } else {
       that.getDialogRecord();
