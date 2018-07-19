@@ -27,6 +27,7 @@ Page({
     this.setData({
       mobile: e.detail.value
     })
+    console.log(this.data.mobile)
   },
   firstPwd: function(e) {
     // console.log(e.detail.value);
@@ -49,6 +50,7 @@ Page({
         duration: 1000
       })
     } else {
+      console.log(this.data.mobile);
       wx.request({
         url: app.globalData.api.patientReg.sendCode,
         data: {
