@@ -5,44 +5,56 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    // transactionList:[],
-    page: 1,
-    load: true
+  data: { 
   },
-  getData: function(pg) {
+  getData: function(page) { 
     wx.showNavigationBarLoading();
     let token = wx.getStorageSync('token');
-    // console.log(token) 
-    pg = pg ? pg : 0;
+    // console.log(token)  
     wx.request({
       url: app.globalData.api.transactionList.myPayList,
       data: {
         'userId': this.data.myId,
-        'page': pg,
+        'page': page,
         'token': token
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res.data)
-
+        console.log(res.data) 
         let tmpArr;
-        if (this.data.transactionList) {
+        if (page > 1) {
           tmpArr = this.data.transactionList;
         } else {
           tmpArr = [];
-        }
+        } 
         // 这一步实现了上拉加载更多
-        if (res.data.data.datas.length < 15) {
-          this.data.load = false;
-        }
         tmpArr.push.apply(tmpArr, res.data.data.datas);
         this.setData({
-          transactionList: tmpArr
+          transactionList: tmpArr,
+          // isHideLoadMore: false 
         })
-        this.data.page++;
+        console.log(res.data.data.datas.length);
+        if (res.data.data.datas.length==0){
+          this.setData({ 
+            isEnd: true
+          }) 
+        }else{
+          if (res.data.data.datas.length < 15) {
+            this.setData({
+              isLoad: false,
+              isHideLoadMore: true,
+              isEnd: false
+            })
+          } else {
+            this.setData({
+              isHideLoadMore: true,
+              page: ++page
+            })
+          }
+        } 
+        // console.log(this.data.page);
         wx.hideNavigationBarLoading();
       }
     })
@@ -62,9 +74,13 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
+      isHideLoadMore: true,
+      page:1,
+      isLoad:true,
+      isEnd:true,
       myId: wx.getStorageSync('userList').userId
     });
-    this.getData(0);
+    this.getData(this.data.page);
   },
 
   /**
@@ -99,23 +115,36 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading() //在标题栏中显示加载  
+    setTimeout(() => {
+      this.getData(1);
+      this.setData({
+        page:1,
+        isEnd: true,  
+        isLoad: true 
+      })
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新 
+    }, 1500); 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    // 显示加载图标  
-    if (this.data.load) {
-      wx.showLoading({
-        title: '玩命加载中',
+    // 显示加载图标 
+    if (this.data.isLoad) {
+        this.setData({
+          isHideLoadMore: false
+        })
+        setTimeout(() => {
+          this.getData(this.data.page);
+        }, 1500)  
+    } else {
+      this.setData({
+        isEnd:false
       })
-      this.getData(this.data.page);
-      // 隐藏加载框  
-      wx.hideLoading();
-    }
-
+    } 
   },
 
   /**

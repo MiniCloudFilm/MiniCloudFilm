@@ -1,61 +1,76 @@
 /* pages/videoMag/videoMag.wxss */
- .upload{
+
+.upload {
   text-align: center;
-  position:fixed;
-  right:60rpx;
-  bottom:100rpx;
-  z-index: 1000; 
-} 
-.upload navigator{ 
-  border-radius: 100%; 
-  background:#1c7eff; 
-  width:120rpx;
-  height:120rpx;
-} 
-.weui-cell__bd{ 
-  height:100rpx;
+  position: fixed;
+  right: 60rpx;
+  bottom: 100rpx;
+  z-index: 1000;
+}
+
+.upload navigator {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+.upload image {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.weui-cell__bd {
+  height: 100rpx;
   position: relative;
 }
-.type{ 
-  margin-top:10rpx;
-  color:#ff8f45;
-  font-size:30rpx;
-} 
-.weui-cell:before{
-  border:none;
+
+.type {
+  margin-top: 10rpx;
+  color: #ff8f45;
+  font-size: 30rpx;
 }
-.img-box{
-  width:200rpx;
-  height:100rpx;
-} 
+
+.weui-cell:before {
+  border: none;
+}
+
+.img-box {
+  width: 200rpx;
+  height: 100rpx;
+}
+
 /* pages/film/film.wxss */
-page,
-.page,
-.page__bd{
-    height: 100%;
+
+page, .page, .page__bd {
+  height: 100%;
 }
-.page__bd{
-    padding-bottom: 0;
+
+.page__bd {
+  padding-bottom: 0;
 }
-.weui-tab__content{
-    padding-top: 60px;
-    text-align: center; 
-}  
-.weui-navbar__slider{ 
-  width:20%;
-  height:4rpx;
+
+.weui-tab__content {
+  padding-top: 60px;
+  text-align: center;
+}
+.weui-navbar{ 
+  background: #fff;
+}
+.weui-navbar__slider {
+  width: 20%;
+  height: 4rpx;
   background-color: #1c7eff;
-} 
-.weui-navbar__title{
-  color: #2e3135; 
 }
-.weui-navbar view.active .weui-navbar__title{
-  color: #1c7eff; 
-}  
-scroll-view{
-  height:90vh;
+
+.weui-navbar__title {
+  color: #2e3135;
 }
-.noData{
-  margin-top:0;
-  padding-top:200rpx;
+
+.weui-navbar view.active .weui-navbar__title {
+  color: #1c7eff;
+}
+
+
+.noData {
+  margin-top: 0;
+  padding-top: 200rpx;
 }

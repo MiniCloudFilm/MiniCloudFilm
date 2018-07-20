@@ -8,8 +8,8 @@
       <view wx:if="{{userName}}" class="outLogin" bindtap='outLogin'>
         退出登录
       </view> 
-      <button open-type="getUserInfo" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="myImg">
-        <image src="{{avatarUrl?avatarUrl:'/image/my.png'}}"></image>
+      <button hover-class="transparent" open-type="getUserInfo" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="myImg">
+        <image src="{{doctorStatus&&doctorStatus!=0?doctorAva:(avatarUrl?avatarUrl:'/image/my.png')}}"></image>
       </button>
       <view class="myName" wx:if="{{userName}}">
         {{userName}}
