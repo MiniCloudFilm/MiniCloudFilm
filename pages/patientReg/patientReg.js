@@ -27,6 +27,7 @@ Page({
     this.setData({
       mobile: e.detail.value
     })
+    console.log(this.data.mobile)
   },
   firstPwd: function(e) {
     // console.log(e.detail.value);
@@ -49,6 +50,7 @@ Page({
         duration: 1000
       })
     } else {
+      console.log(this.data.mobile);
       wx.request({
         url: app.globalData.api.patientReg.sendCode,
         data: {
@@ -59,6 +61,7 @@ Page({
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: res=>{
+          console.log(res)
           wx.showToast({
             title: '获取验证码成功！',
             icon: 'none',
@@ -124,8 +127,7 @@ Page({
       })
     } else { //注册逻辑
       wx.login({
-        success: res => {
-          let that = this;
+        success: res => { 
           wx.request({
             url: app.globalData.api.patientReg.checkCode,
             data: {
@@ -136,20 +138,16 @@ Page({
             header: {
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
-            success: resA => {
-              // console.log(resA.data)
-              // that.setData({
-              //   checkCode:res.data.data
-              // }) 
+            success: resA => { 
               if (resA.data.data == true) {
-                console.log('进入注册逻辑');
+                // console.log('进入注册逻辑');
                 wx.request({
                   url: app.globalData.api.patientReg.logon,
                   data: {
                     'name': e.detail.value.name,
                     'idcard': e.detail.value.idCard,
-                    'mobile': that.data.mobile,
-                    'password': that.data.firstP,
+                    'mobile': this.data.mobile,
+                    'password': this.data.firstP,
                     'userType': e.detail.value.userType,
                     'code': res.code,
                   },
@@ -158,7 +156,7 @@ Page({
                     'content-type': 'application/x-www-form-urlencoded' // 默认值
                   },
                   success: resB => {
-                    // console.log(resB.data);
+                    console.log(resB.data);
                     if (resB.data.code == "200") {
                       wx.showToast({
                         title: '恭喜你，注册成功',
@@ -166,9 +164,9 @@ Page({
                         image: '',
                         duration: 1000,
                         success: resC => {
-                          setTimeout(function(){
-                            wx.navigateTo({
-                              url: '../login/login'
+                          setTimeout(()=>{
+                            wx.redirectTo({ 
+                              url: `../login/login?phone=${this.data.mobile}&userType=${e.detail.value.userType}`
                             });
                           },2000)
                         }

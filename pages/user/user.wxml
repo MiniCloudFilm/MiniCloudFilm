@@ -2,15 +2,15 @@
   <view class="login-box">
     <view class="blue"></view>
     <view class="login"> 
-      <button wx:if="{{!userName}}" class="outLogin" open-type="getUserInfo" bindgetuserinfo='login'>
+      <button wx:if="{{!userName}}" class="outLogin">
         登录|注册
       </button>
       <view wx:if="{{userName}}" class="outLogin" bindtap='outLogin'>
         退出登录
       </view> 
-      <view class="myImg">
+      <button open-type="getUserInfo" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="myImg">
         <image src="{{avatarUrl?avatarUrl:'/image/my.png'}}"></image>
-      </view>
+      </button>
       <view class="myName" wx:if="{{userName}}">
         {{userName}}
       </view>

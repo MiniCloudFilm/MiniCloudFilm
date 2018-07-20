@@ -1,14 +1,10 @@
 // pages/login/login.js
-let app = getApp();
-var util = require('../../utils/util.js')
+let app = getApp(); 
 Page({ 
   /**
    * 页面的初始数据
    */
-  data: {
-    currentTab:1, 
-    userPwd: "",
-    turn:true
+  data: { 
   },
   //用户手机号
   mobileCheck: function (e) { 
@@ -16,7 +12,7 @@ Page({
       userName: e.detail.value
     })   
     wx.setStorageSync('user', e.detail.value)
-    console.log(wx.getStorageSync('user'));
+    // console.log(wx.getStorageSync('user'));
   },
   //用户密码
   userPwdInput: function (e) {
@@ -24,15 +20,18 @@ Page({
       userPwd: e.detail.value
     })
   },
-  navbarTap: function (e) {
-    var that = this;
-    that.setData({
-      currentTab: e.currentTarget.dataset.idx
+  //切换用户
+  navbarTap: function (e) { 
+    // console.log(e.currentTarget.dataset.idx);
+    let type = e.currentTarget.dataset.idx;
+    this.setData({
+      currentTab: type
     })
-  },
- 
+    wx.setStorageSync('type',type)
+  },  
+  //登录
   formSubmit: function (e) {
-    console.log(e);
+    // console.log(e);
     // console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
       wx.setTopBarText({
@@ -52,9 +51,9 @@ Page({
     wx.showLoading({
       title: '登录中...',
     })
-    wx.login({
-      success: res => {
-        var code = res.code 
+    // wx.login({
+    //   success: res => {
+        // var code = res.code 
         // console.log(code);  
         // 发送 res.code 到后台换取 openId, sessionKey, unionId  
         // wx.request({
@@ -75,8 +74,8 @@ Page({
         //     console.log(openid);
         //   }
         // })
-      }
-    })
+    //   }
+    // })
     //登录
     wx.request({
       url:app.globalData.api.login.login, 
@@ -96,12 +95,18 @@ Page({
           wx.setStorageSync('token', res.data.data.token);
           // console.log(wx.getStorageSync('userList'))
           // console.log(app.globalData.token );
-          app.globalData.userList = wx.getStorageSync('userList');
-          app.globalData.token = wx.getStorageSync('token');
+          app.globalData.userList = res.data.data.user;
+          app.globalData.token = res.data.data.token; 
           // console.log(app.globalData.token);
-          wx.reLaunch({
-            url: this.data.backUrl
-          });
+          if (!this.data.backUrl){ 
+            wx.switchTab({
+              url: '../user/user',
+            })
+          }else{
+            wx.reLaunch({
+              url: this.data.backUrl
+            });
+          }
          }else{
           wx.showToast({
             title: res.data.msg,
@@ -119,27 +124,24 @@ Page({
         })
       }
     })
-  }, 
-  radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
-  },
-  radioAllow: function (e) {
-    this.data.allow = !this.data.allow;
-  },
-
+  },   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) { 
-
+    // console.log(getCurrentPages()); 
+    // console.log(wx.getStorageSync('type'));
+    console.log(options.phone); 
+    if(options.phone){
+      wx.setStorageSync('user', options.phone)
+      wx.setStorageSync('type', options.userType) 
+    } 
     this.setData({
-      backUrl:null
+      currentTab: options.userType ? options.userType:(wx.getStorageSync('type') ? wx.getStorageSync('type') : 1),
+      userName: options.phone ? options.phone:wx.getStorageSync('user'), 
+      backUrl: options.backUrl ? options.backUrl:null
     })
-    this.setData({
-      userName: wx.getStorageSync('user'), 
-      backUrl:options.backUrl
-    })
-    console.log(this.data.backUrl);
+    // console.log(this.data.backUrl); 
   },
 
   /**
@@ -152,9 +154,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { 
-    var page  = getCurrentPages();
-    console.log(page)
+  onShow: function () {  
 },
 
   /**

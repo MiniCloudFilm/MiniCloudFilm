@@ -74,8 +74,6 @@
             </view>
           </button>
         </form>
-
-
       </view>
     </view>
     <view class="weui-panel weui-panel_access">
@@ -102,6 +100,4 @@
       </view>
     </view>
   </view>
-
-
 </view>
