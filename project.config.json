@@ -176,14 +176,14 @@
 				{
 					"id": -1,
 					"name": "咨询列表",
-					"pathName": "pages/counList/counList",
+					"pathName": "pages/counList/counList", 
 					"query": "" 
 				},
 				{
 					"id": -1,
 					"name": "交易记录",
 					"pathName": "pages/transactionList/transaction",
-					"query": "" 
+					"query": ""  
 				}
 			]
 		}

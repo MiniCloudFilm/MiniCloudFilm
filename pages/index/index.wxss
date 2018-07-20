@@ -63,6 +63,3 @@ image {
 .main{
   height:500rpx;
 }
- navigator{
-  height:178rpx;
-} 
