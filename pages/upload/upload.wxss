@@ -36,3 +36,7 @@ button.vsub{
   background: #1C7EFF;
   color:#fff;
 }
+navigator text{ 
+  font-size:13px;  
+  vertical-align: middle;
+}

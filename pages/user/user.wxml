@@ -1,13 +1,8 @@
 <view class="container">
   <view class="login-box">
     <view class="blue"></view>
-    <view class="login"> 
-<<<<<<< HEAD
-      <button wx:if="{{!userName}}" class="outLogin">
-=======
-      <button wx:if="{{!userName}}" class="outLogin" >
->>>>>>> d7e34af5a07fbe675067cb93c84b464e43343a9b
-        登录|注册
+    <view class="login">  
+      <button wx:if="{{!userName}}" class="outLogin"> 
       </button>
       <view wx:if="{{userName}}" class="outLogin" bindtap='outLogin'>
         退出登录
