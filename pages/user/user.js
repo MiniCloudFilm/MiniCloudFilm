@@ -4,9 +4,10 @@ Page({
 
   /**
    * 页面的初始数据
-   */
-  data: {
-  },
+   */ 
+  data: { 
+    url: app.globalData.api.expertList.image
+  },  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -40,7 +41,9 @@ Page({
     if (app.globalData.userList) {
       this.setData({
         userName: app.globalData.userList.name,
-        userType: app.globalData.userList.userType
+        userType: app.globalData.userList.userType,
+        doctorStatus: app.globalData.userList.doctorStatus,
+        doctorAva: this.data.url + app.globalData.userList.doctorId
       })
     } else {
       this.setData({

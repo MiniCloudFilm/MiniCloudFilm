@@ -1,4 +1,5 @@
 {
-  "navigationBarTitleText": "交易记录", 
-  "onReachBottom": true
+  "navigationBarTitleText": "交易记录",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50 
 }

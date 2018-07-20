@@ -133,36 +133,6 @@
 				},
 				{
 					"id": -1,
-					"name": "咨询记录",
-					"pathName": "pages/conAssistance/conAssistance",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "咨询记录",
-					"pathName": "pages/conAssistance/conAssistance",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "咨询记录",
-					"pathName": "pages/counList/counList",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "咨询记录",
-					"pathName": "pages/conAssistance/conAssistance",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "咨询记录",
-					"pathName": "pages/conAssistance/conAssistance",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "提现页面",
 					"pathName": "pages/myAccount/account",
 					"query": ""
@@ -207,7 +177,13 @@
 					"id": -1,
 					"name": "咨询列表",
 					"pathName": "pages/counList/counList",
-					"query": ""
+					"query": "" 
+				},
+				{
+					"id": -1,
+					"name": "交易记录",
+					"pathName": "pages/transactionList/transaction",
+					"query": "" 
 				}
 			]
 		}

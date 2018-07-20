@@ -2,13 +2,12 @@
 let app = getApp();
 let util = app.globalData.util;
 Page({
-
   /**
    * 页面的初始数据
    */
-  data: {
-    tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"], 
-    activeIndex: 0,   
+  data: { 
+    tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"],
+    activeIndex: 0, 
     videoList: [],
     page: 1,
     load: true,
@@ -16,14 +15,15 @@ Page({
     url: app.globalData.api.url
   },
   //nav切换
-  tabClick: function(e) { 
+  tabClick: function(e) {
     // console.log(this.data.videoList);
     // console.log(e.currentTarget);
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.currentTarget.id,
+      status: e.currentTarget.dataset.index
     });
-    this.getData(e.currentTarget.dataset.index);
+    this.getData(e.currentTarget.dataset.index, this.data.page);
     // console.log(this.data.videoList)
   },
   //打开选择操作
@@ -136,7 +136,7 @@ Page({
       success: res => {
         console.log(res);
         //do something
-        if (res.data.code == "200") { 
+        if (res.data.code == "200") {
           this.getData(data.status, 1)
         }
       }
@@ -175,18 +175,13 @@ Page({
   //视频修改
   updateVideo: function(data) {},
   //视频
-  getData: function(status, pg) {
-    // wx.showNavigationBarLoading();
-    // wx.showLoading({ 
-    //   title: '视频列表加载中。。。'
-    // })
+  getData: function(status, page) {
     let user = wx.getStorageSync('userList')
-    pg = pg ? pg : 0;
     wx.request({
       url: app.globalData.api.videoMag.myUploadVideo,
       data: {
         "userId": user.userId,
-        "page": pg,
+        "page": page,
         "status": status,
         "token": this.data.token
 
@@ -195,23 +190,38 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res)
+        console.log(res)
         let tmpArr;
-        if(pg>1){  
-          tmpArr=this.data.videoList;
-        }else{
-          tmpArr=[];
+        if (page > 1) {
+          tmpArr = this.data.videoList;
+        } else {
+          tmpArr = [];
         }
         // 这一步实现了上拉加载更多
-        if (res.data.data.datas.length < 15) {
-          this.data.load = false;
-        }
         tmpArr.push.apply(tmpArr, res.data.data.datas);
         this.setData({
           videoList: tmpArr
         })
-        // console.log(this.data.videoList);
-        this.data.page++;
+        if (res.data.data.datas.length == 0) {
+          this.setData({
+            isEnd: true
+          })
+        } else {
+          if (res.data.data.datas.length < 15) {
+            this.setData({
+              isLoad: false,
+              isHideLoadMore: true,
+              isEnd: false
+            })
+          } else {
+            this.setData({ 
+              isLoad: true,
+              isHideLoadMore: true,
+              page: ++page
+            })
+          }
+        }
+        // console.log(this.data.videoList); 
         wx.hideNavigationBarLoading();
         wx.hideLoading()
       },
@@ -220,11 +230,11 @@ Page({
         util.showToast('服务器连接失败！')
       }
     })
-  }, 
+  },
   //视频观看
-  videoType:function(e){   
-    let data = e.currentTarget.dataset; 
-    let arr = data.videoUrl.split('?'); 
+  videoType: function(e) {
+    let data = e.currentTarget.dataset;
+    let arr = data.videoUrl.split('?');
     // console.log(data);
     // console.log(arr);
     wx.navigateTo({
@@ -238,7 +248,13 @@ Page({
     wx.showLoading({
       title: '加载中..',
     })
-    this.getData(0, 1);
+    this.setData({
+      isHideLoadMore: true,
+      page: 1,
+      isLoad: true,
+      isEnd: true,
+    })
+    this.getData(0, this.data.page);
     // wx.getSystemInfo({
     //   success: res => {
     //     this.setData({
@@ -281,7 +297,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading() //在标题栏中显示加载  
+    setTimeout(() => {
+      this.getData(this.data.status, 1)
+      this.setData({
+        page: 1,
+        isEnd: true,
+        isLoad: true
+      })
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新 
+    }, 1500);
   },
 
   /**
@@ -289,13 +315,19 @@ Page({
    */
   onReachBottom: function() {
     // 显示加载图标  
-    if (this.data.load) {
-      wx.showLoading({
-        title: '玩命加载中',
+    console.log(this.data.isLoad);
+    if (this.data.isLoad) {
+      console.log('进入');
+      this.setData({
+        isHideLoadMore: false
       })
-      this.getData(this.data.page);
-      // 隐藏加载框  
-      wx.hideLoading();
+      setTimeout(() => {
+        this.getData(this.data.status, this.data.page);
+      }, 1500)
+    } else {
+      this.setData({
+        isEnd: false
+      })
     }
 
   },

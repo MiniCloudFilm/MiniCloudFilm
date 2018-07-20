@@ -2,17 +2,19 @@
   <view class='noData' wx:if="{{transactionList&&transactionList.length==0}}">
     <image mode="widthFix" src='../../image/no-data.png'></image>
   </view>
-  <view  wx:for='{{transactionList}}' wx:key="index" class="item" 
-  data-order-fee="{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}" 
-  data-order-id="{{item.id}}"
-  data-order-mobile="{{item.orderMobile}}"
-  data-order-time="{{item.orderTime}}"
-  data-order-type="{{item.orderType}}"
-  bindtap='openDetail'>
+  <view wx:for='{{transactionList}}' wx:key="index" class="item" data-order-fee="{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}" data-order-id="{{item.id}}" data-order-mobile="{{item.orderMobile}}" data-order-time="{{item.orderTime}}" data-order-type="{{item.orderType}}"
+    bindtap='openDetail'>
     <view class="left">
       <view class="type">{{item.orderType==1?'医生咨询':'视频购买'}}</view>
       <view class="time">{{item.orderTime}}</view>
     </view>
     <text>{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}</text>
-  </view>  
+  </view>
+</view>
+<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+  <view class="weui-loading"></view>
+  <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="weui-loadmore" hidden="{{isEnd}}"> 
+  <view class="weui-loadmore__tips">已经没有数据了。。</view>
 </view>
