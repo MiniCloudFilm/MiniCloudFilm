@@ -119,7 +119,7 @@ button {
   width:30rpx;
   height: 30rpx;
   color: white;
-  font-size: 16rpx;
+  font-size: 22rpx;
   line-height: 30rpx;
   font-weight: 700;
   background-color: red;
