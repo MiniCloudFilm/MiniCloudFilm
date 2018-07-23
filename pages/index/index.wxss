@@ -63,6 +63,7 @@ image {
 .main{
   height:500rpx;
 }
- navigator{
-  height:178rpx;
-} 
+.new_desc{
+  padding-top: 2rpx;
+  line-height: 1.6;
+}

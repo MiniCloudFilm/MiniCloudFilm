@@ -27,14 +27,14 @@
       </view>
       <view class="weui-cell__bd">
         <view class="doctorMes">
-          <view style="font-family:Arial;">
+          <view>
             <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx;">{{item.name}}</text>
             <text style="color:#616569;margin-right:20rpx;">{{item.deptName}}</text>
             <text style="color:#616569;">{{item.doctorLevel}}</text>
           </view>
-          <view >
+          <view style="padding:10rpx 0">
             <text style="color:#616569;">{{item.hospitalName}}</text>
-            <text style="background:#558cd3;color:#fff;border-radius:4px;margin-left:20rpx;padding:8rpx 16rpx;">{{item.hospitalLevel}}</text>
+            <text style="background:#558cd3;color:#fff;border-radius:2px;margin-left:20rpx;padding:6rpx 12rpx;">{{item.hospitalLevel}}</text>
           </view>
           <view style="color:  #969ba1;">
             <text>擅长:</text>
@@ -43,7 +43,7 @@
         </view>
         <view class="weui-flex shop">
           <view>
-            <text style="color: #FF9800;">￥{{item.charge}}/次</text>
+            <text style="color: #FF9800;font-weight:bold">￥{{item.charge}}/次</text>
           </view>
           <view class="weui-flex__item"></view>
           <view> 
