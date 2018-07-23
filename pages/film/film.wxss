@@ -37,9 +37,9 @@ page,
 }
 .type{
   position: absolute;
-  bottom: 10rpx;
+  bottom: -10rpx;
   color:#ff8f45;
-  font-size:30rpx;
+  font-size:26rpx;
 } 
 scroll-view{
   height:90vh;
@@ -51,4 +51,12 @@ background-color:#1c7eff;
 .noData{
   margin-top:0;
   padding-top:200rpx;
+}
+.v-title{
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  -webkit-line-clamp: 2; 
+  overflow: hidden; 
 }

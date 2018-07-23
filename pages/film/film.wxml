@@ -20,10 +20,10 @@
               </view>
             </view>
             <view class="weui-cell__bd">
-              <view style="font-size:26rpx; color:#2e3135;">{{item.videoTitle}}</view>
+              <view class="v-title" style="font-size:26rpx; color:#2e3135;">{{item.videoTitle}}</view>
               <view class="type">
                 <view>
-                  <text>{{item.videoIsCharge=='N'?"免费":"￥"+item.videoCharge}}</text>
+                  <text style="font-weight:bold">{{item.videoIsCharge=='N'?"免费":"￥"+item.videoCharge}}</text>
                 </view>
               </view>
             </view>
