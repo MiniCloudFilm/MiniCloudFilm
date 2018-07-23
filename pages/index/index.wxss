@@ -63,3 +63,7 @@ image {
 .main{
   height:500rpx;
 }
+.new_desc{
+  padding-top: 2rpx;
+  line-height: 1.6;
+}

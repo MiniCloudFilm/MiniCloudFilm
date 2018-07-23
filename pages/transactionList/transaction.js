@@ -1,7 +1,6 @@
 // pages/transactionList/transaction.js 
 let app = getApp(); 
-Page({
-
+Page({ 
   /**
    * 页面的初始数据
    */ 

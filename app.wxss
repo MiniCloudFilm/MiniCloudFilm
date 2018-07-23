@@ -31,10 +31,10 @@ button.btn::after{
 .noData{
   text-align: center;
   margin-top: 100rpx;
-}
-.noData image{ 
-  width: 500rpx;  
-  width: 500rpx;
+} 
+.noData image{
+  width: 300rpx;
+  margin: auto; 
 } 
 /* 暂无数据img显示end */ 
 .transparent{
