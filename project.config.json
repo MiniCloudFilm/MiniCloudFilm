@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -177,13 +177,13 @@
 					"id": -1,
 					"name": "咨询列表",
 					"pathName": "pages/counList/counList",
-					"query": "" 
+					"query": ""
 				},
 				{
 					"id": -1,
 					"name": "交易记录",
 					"pathName": "pages/transactionList/transaction",
-					"query": "" 
+					"query": ""
 				}
 			]
 		}

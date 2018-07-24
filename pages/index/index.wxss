@@ -2,16 +2,18 @@
 @import "../../iconfont.wxss";
 
 .page-body {
-  width: 100%; 
-  background:#f7f7f7;
+  width: 100%;
+  background: #f7f7f7;
 }
-page{
+
+page {
   height: 100%;
-  background:#f7f7f7;
+  background: #f7f7f7;
 }
+
 .page-section {
   width: 100%;
-  padding-bottom: 30rpx; 
+  padding-bottom: 30rpx;
 }
 
 swiper {
@@ -19,16 +21,18 @@ swiper {
 }
 
 image {
-  width: 100%; 
-  height:400rpx;
-} 
-.nav{
-  position:relative;
-  height:180rpx;
-  text-align: center;
-  background: #ffffff;
+  width: 100%;
+  height: 400rpx;
 }
-.nav:before{
+
+.nav {
+  position: relative;
+  height: 180rpx;
+  text-align: center;
+  background: #fff;
+}
+
+.nav:before {
   content: " ";
   position: absolute;
   left: 0;
@@ -36,34 +40,59 @@ image {
   right: 0;
   height: 1px;
   border-top: 1rpx solid #d7dae0;
-  color: #d9d9d9; 
-
+  color: #d9d9d9;
 }
-.nav:after{
+
+.nav:after {
   content: " ";
   position: absolute;
   left: 0;
   bottom: 0;
   right: 0;
   height: 1px;
-  background-color:#d7dae0; 
-} 
-.navT{  
-  padding-top:16rpx;
-  height:100rpx;
+  background-color: #d7dae0;
 }
-.navT image{   
-  width:100rpx;
-  height:100rpx;
+
+.navT {
+  padding-top: 16rpx;
+  height: 100rpx;
+}
+
+.navT image {
+  width: 100rpx;
+  height: 100rpx;
   text-align: bottom;
 }
-.nav text{
-  font-size:24rpx;
-} 
-.main{
-  height:500rpx;
+
+.nav text {
+  font-size: 24rpx;
 }
-.new_desc{
+
+.main {
+  height: 500rpx;
+}
+
+.new_desc {
   padding-top: 2rpx;
   line-height: 1.6;
 }
+
+.btnMes {
+  text-align: left;
+}
+
+.btnMes:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1rpx solid #e5e5e5;
+  color: #e5e5e5;
+  left: 15px;
+}
+
+ form:first-child .btnMes:before {
+   display: none; 
+} 
