@@ -23,7 +23,8 @@
     "pages/pickupCach/pickupCach",
     "pages/assistList/assister",
     "pages/myVideo/myVideo",
-    "pages/pickupCachRecord/pickupCachRecord"
+    "pages/pickupCachRecord/pickupCachRecord",
+    "pages/newsDetail/newsDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

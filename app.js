@@ -35,7 +35,7 @@ App({
           })
         }
       }
-    }) 
+    })
   },
   globalData: {
     userInfo: null,
@@ -69,5 +69,26 @@ App({
     var url = getCurrentPages()[getCurrentPages().length - 1].__route__;
     url = url.replace("pages", ".."); //替换路径全路径。修改该路径为相对路径
     return url;
+  },
+  // 保存formID
+  saveFormId: function(formId) {
+    if (formId && formId != 'the formId is a mock one') {
+      wx.request({ //通过网络请求发送openId和formIds到服务器
+        url: this.globalData.api.index.postFormId,
+        method: 'post',
+        data: {
+          "userId": this.globalData.userList.userId,
+          "openId": this.globalData.userList.userOpenId,
+          "formId": formId
+        },
+        success: function(res) {
+          // console.log(res)
+        }
+      });
+    } else {
+      // return false;
+      console.log("电脑端")
+    }
+
   }
 })

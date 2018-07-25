@@ -79,24 +79,31 @@
     <view class="weui-panel weui-panel_access">
       <view class="weui-panel__hd">最新资讯</view>
       <view class="weui-panel__bd">
-        <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" src="../../image/timg1.jpg" style='border-radius:10rpx;'/>
-          </view>
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <view class="weui-media-box__title">标题一标题一标题一标题一标题一标题一</view>
-            <view class="weui-media-box__desc new_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-          </view>
-        </navigator>
-        <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" src="../../image/timg.jpg"  style='border-radius:10rpx;' />
-          </view>
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <view class="weui-media-box__title">标题二</view>
-            <view class="weui-media-box__desc new_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-          </view>
-        </navigator>
+        <form bindsubmit="getMessageDetail" report-submit="true" wx:for="{{messageList}}" wx:key="{{index}}" data-id='{{item.id}}'>
+          <button formType="submit" class='btn btnMes'>
+            <view class="weui-media-box weui-media-box_appmsg">
+              <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image class="weui-media-box__thumb" src="{{url+item.id}}" style='border-radius:10rpx;' />
+              </view>
+              <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title">{{item.title}}</view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta">蓝网科技</view>
+                  <view class="weui-media-box__info__meta">{{item.createTime}}</view>
+                </view>
+              </view>
+            </view>
+          </button>
+        </form>
+      </view>
+      <view class='page__bd'>
+        <view class="weui-loadmore" hidden="{{loadingIsHidden}}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{nodataIsHidden}}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载完成</view>
+        </view>
       </view>
     </view>
   </view>

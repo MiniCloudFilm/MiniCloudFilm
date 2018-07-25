@@ -84,10 +84,13 @@ module.exports = {
   },
   //影像
   filmshow: {
-    filmUrl: 'https://reader.lanwon.com/clinicWebPacsViewMobile/mobile.html#'
+    filmUrl: 'https://reader.lanwon.com/clinicWebPacsViewMobile/mobile.html#',
+    news:'https://reader.lanwon.com/news.html#'
   },
   index: {
-    postFormId: basePath + '/wxapi/wechatForm'
+    postFormId: basePath + '/wxapi/wechatForm',
+    getMessage: basePath + '/information/v1/list',
+    showImage: basePath + '/information/v1/lookImage/'
   },
   //登录
   login: {
