@@ -12,7 +12,10 @@ Page({
     tabs: ["患者咨询", "医生协助", "待处理"],
     activeIndex: 0,
     token: '',
-    url: app.globalData.api.expertList.image
+    url: app.globalData.api.expertList.image,
+    page: 1,
+    nodataIsHidden: true,
+    loadingIsHidden: true,
   },
   tabClick: function(e) {
     let index = e.currentTarget.id;

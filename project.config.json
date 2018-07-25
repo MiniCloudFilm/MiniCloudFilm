@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -151,24 +151,6 @@
 				},
 				{
 					"id": -1,
-					"name": "协助 页面",
-					"pathName": "pages/assistList/assister",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "会话",
-					"pathName": "pages/ConInterface/ConInterface",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "会话",
-					"pathName": "pages/ConInterface/ConInterface",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "会诊记录",
 					"pathName": "pages/conAssistance/conAssistance",
 					"query": ""
@@ -184,11 +166,6 @@
 					"name": "交易记录",
 					"pathName": "pages/transactionList/transaction",
 					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "咨询列表",
-					"pathName": "pages/counList/counList"
 				}
 			]
 		}
