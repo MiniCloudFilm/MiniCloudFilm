@@ -46,22 +46,38 @@ Page({
   },
   //选证书
   chooseImage: function(e) {
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: res => {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        // console.log(res);
-        this.setData({
-          image: this.data.image.concat(res.tempFilePaths)
-        });
-        console.log(this.data.image);
-      }
-    })
+    console.log(e.currentTarget.id)
+    if (e.currentTarget.id){
+      wx.chooseImage({
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: res => {
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+          // console.log(res);
+          this.data.image[e.currentTarget.id] = res.tempFilePaths;
+          this.setData({
+            image: this.data.image
+          }); 
+        }
+      })
+    }else{ 
+      wx.chooseImage({
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: res => {
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+          // console.log(res);
+          this.setData({
+            image: this.data.image.concat(res.tempFilePaths)
+          });
+          console.log(this.data.image);
+        }
+      })
+    }
   },
   //选头像
   chooseHead: function(e) {
-    if (this.data.head.length < 1) {
+  //   if (this.data.head.length < 1) {
       wx.chooseImage({
         count: 1,
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -70,14 +86,14 @@ Page({
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           console.log(res);
           this.setData({
-            head: this.data.head.concat(res.tempFilePaths)
+            head:res.tempFilePaths
           });
           console.log(this.data.head);
         }
-      })
-    } else {
-      util.showToast('只能上传一张头像！')
-    }
+      }) 
+    // } else {
+    //   util.showToast('只能上传一张头像！')
+    // }
   },
   //上传头像
   upAvatar: function() {
@@ -126,6 +142,7 @@ Page({
     }
   },
   previewImage: function(e) {
+    console.log(e.currentTarget.id)
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表

@@ -1,4 +1,4 @@
-{
+ {
 	"description": "项目配置文件。",
 	"packOptions": {
 		"ignore": []
@@ -35,12 +35,6 @@
 		"miniprogram": {
 			"current": 25,
 			"list": [
-				{
-					"id": -1,
-					"name": "交易明细",
-					"pathName": "pages/transactionList/transaction",
-					"query": ""
-				},
 				{
 					"id": -1,
 					"name": "视频管理",
@@ -103,12 +97,6 @@
 				},
 				{
 					"id": -1,
-					"name": "咨询列表",
-					"pathName": "pages/counList/counList",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "医学影像视频",
 					"pathName": "pages/film/film",
 					"query": ""
@@ -121,38 +109,14 @@
 				},
 				{
 					"id": -1,
-					"name": "会诊记录",
-					"pathName": "pages/conAssistance/conAssistance",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "咨询列表",
-					"pathName": "pages/counList/counList",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "提现页面",
 					"pathName": "pages/myAccount/account",
 					"query": ""
 				},
 				{
 					"id": -1,
-					"name": "提现页面",
-					"pathName": "pages/pickupCach/pickupCach",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "协助 页面",
 					"pathName": "pages/assistList/assister",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "会诊记录",
-					"pathName": "pages/conAssistance/conAssistance",
 					"query": ""
 				},
 				{

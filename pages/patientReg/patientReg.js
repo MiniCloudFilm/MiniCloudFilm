@@ -164,9 +164,11 @@ Page({
                         image: '',
                         duration: 1000,
                         success: resC => {
-                          setTimeout(()=>{
-                            wx.redirectTo({ 
-                              url: `../login/login?phone=${this.data.mobile}&userType=${e.detail.value.userType}`
+                          setTimeout(() => {
+                            wx.setStorageSync('user', this.data.mobile)
+                            wx.setStorageSync('type', e.detail.value.userType) 
+                            wx.navigateBack({  
+                              delta: 1
                             });
                           },2000)
                         }

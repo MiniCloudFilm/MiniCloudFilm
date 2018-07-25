@@ -16,5 +16,5 @@
   <view class="weui-loadmore__tips">正在加载</view>
 </view>
 <view class="weui-loadmore" hidden="{{isEnd}}"> 
-  <view class="weui-loadmore__tips">已经没有数据了。。</view>
+  <view class="weui-loadmore__tips">数据已全部加载</view>
 </view>

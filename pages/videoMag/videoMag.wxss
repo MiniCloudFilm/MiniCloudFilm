@@ -28,19 +28,19 @@
   color: #ff8f45;
   font-size: 30rpx;
 }
-
+.box{
+  position:relative;
+}
 .weui-cell:before {
   border: none;
-}
-
+} 
 .img-box {
   width: 200rpx;
   height: 100rpx;
 }
 
 /* pages/film/film.wxss */
-
-page, .page, .page__bd {
+.page, .page__bd {
   height: 100%;
 }
 
@@ -60,7 +60,10 @@ page, .page, .page__bd {
   height: 4rpx;
   background-color: #1c7eff;
 }
-
+.weui-tab__panel{
+  padding-top:0;
+  overflow: visible;
+}
 .weui-navbar__title {
   color: #2e3135;
 }

@@ -5,32 +5,36 @@ Page({
     info: '',
     play: false,
     isAgree: false,
-    showTopTips: false, 
+    showTopTips: false,
     title: '',
     charge: '',
-    id: '' 
+    id: ''
   },
   chooseVideo() {
     this.setData({
       info: ''
     })
     wx.chooseVideo({
-      sourceType: ['album', 'camera'],
-      compressed: true,
+      sourceType: ['album'],
+      compressed: false,
       maxDuration: 60,
       success: (res) => {
-        // console.log(res);
+        console.log(res);
+        console.log(res.tempFilePath);
+        wx.saveVideoToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success(res) {
+            console.log(res.errMsg)
+          }
+        })
         this.setData({
           src: res.tempFilePath,
           info: this.format(res)
         })
         console.log(this.data.src);
-        // console.log(this.data.info);
       },
       fail: (res) => {
-        this.setData({
-          info: this.format(res)
-        })
+
       }
     })
   },
@@ -44,14 +48,14 @@ Page({
 
   subVideo: function(e) {
     let user = wx.getStorageSync("userList");
-    let token = wx.getStorageSync("token") 
+    let token = wx.getStorageSync("token")
     if (this.data.src) {
       if (e.detail.value.title) {
-        if (e.detail.value.charge) { 
-          if (e.detail.value.isAgree != 0){
+        if (e.detail.value.charge) {
+          if (e.detail.value.isAgree != 0) {
             wx.showLoading({
               title: '视频上传中请稍等！',
-            }) 
+            })
             wx.uploadFile({
               url: app.globalData.api.upload.uploadVideo,
               filePath: this.data.src,
@@ -66,7 +70,7 @@ Page({
               header: {
                 'content-type': 'application/x-www-form-urlencoded' // 默认值
               },
-              success: function (res) {
+              success: function(res) {
                 console.log(res);
                 let data = JSON.parse(res.data);
                 //do something
@@ -76,27 +80,34 @@ Page({
                     title: '视频上传成功！',
                     icon: 'success',
                     duration: 2000,
-                    success:resA=>{ 
+                    success: resA => {
                       wx.redirectTo({
                         url: '../videoMag/videoMag',
                       })
                     }
                   })
                 }
+              },
+              fail: function(res) {
+                wx.showToast({
+                  title: '视频上传失败！',
+                  icon: 'none',
+                  duration: 2000
+                })
               }
             })
-          }else{ 
+          } else {
             util.showToast('请阅读并同意相关条款！');
           }
         } else {
-          util.showToast('请填写视频价格！'); 
+          util.showToast('请填写视频价格！');
         }
       } else {
-        util.showToast('请填写视频标题！');  
+        util.showToast('请填写视频标题！');
       }
-    } else { 
+    } else {
       // app.globalData.util.showModel('失败提示','请选择要上传的视频！');
-      util.showToast('请选择要上传的视频！'); 
+      util.showToast('请选择要上传的视频！');
     }
 
 
