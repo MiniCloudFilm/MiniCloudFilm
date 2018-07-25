@@ -32,27 +32,6 @@ image {
   background: #fff;
 }
 
-.nav:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  height: 1px;
-  border-top: 1rpx solid #d7dae0;
-  color: #d9d9d9;
-}
-
-.nav:after {
-  content: " ";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 1px;
-  background-color: #d7dae0;
-}
-
 .navT {
   padding-top: 16rpx;
   height: 100rpx;
@@ -96,3 +75,8 @@ image {
  form:first-child .btnMes:before {
    display: none; 
 } 
+
+/* 修改最新资讯顶部边款 */
+.weui-panel:before{
+  border:none;
+  }
