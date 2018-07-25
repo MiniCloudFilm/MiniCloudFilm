@@ -32,6 +32,10 @@
   font-weight: bold;
   padding: 112rpx;
 }
+.amount .sign{
+  font-size: 40rpx;
+  vertical-align:super;
+}
 .btn{
   width: 90%;
   margin:30rpx 0;

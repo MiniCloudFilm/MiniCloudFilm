@@ -108,7 +108,7 @@
         </view>
       </view>
     </view>
-    <view class="weui-btn-area">
+    <view class="weui-btn-area" style="padding-bottom:40px">
       <button class="weui-btn vsub" formType="submit">确认</button>
     </view>
   </form>

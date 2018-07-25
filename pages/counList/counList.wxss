@@ -43,7 +43,7 @@ page,
   width: 122rpx;
   height: 122rpx;
   display: block;
-  border-radius: 20rpx;
+  border-radius: 50%;
 }
 
 .doctorMes {
