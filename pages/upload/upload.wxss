@@ -6,7 +6,7 @@
 .weui-panel__bd {
   position: relative;
   text-align: center;
-  padding: 10px 30px;
+  padding: 20rpx 30rpx;
 } 
  
 .choose{
@@ -16,7 +16,7 @@
   display:none;
  }
  .weui-label{
-   width:60px;
+   width:120rpx;
  }
  .weui-label text{ 
   font-size:28rpx;
@@ -29,7 +29,7 @@
  }
  
 .placeholder {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #969ba1; 
 }
 button.vsub{
@@ -37,6 +37,6 @@ button.vsub{
   color:#fff;
 }
 navigator text{ 
-  font-size:13px;  
+  font-size:26rpx;  
   vertical-align: middle;
 }

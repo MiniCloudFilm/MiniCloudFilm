@@ -97,7 +97,13 @@ Page({
       success: res => {
         console.log(res.data)
         if (res.data.code == "200") { 
-          this.getQueryVideoLog();
+          if (this.data.check == '0') {
+            this.getFreeVideo();
+          } else if (this.data.check  == '1') {
+            this.getChargeVideo();
+          } else if (this.data.check  == '2') {
+            this.getQueryVideoLog();
+          }
           // console.log(data);
           let arr = data.videoUrl.split('?');
           wx.navigateTo({

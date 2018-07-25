@@ -28,6 +28,10 @@ Page({
           tmpArr = this.data.transactionList;
         } else {
           tmpArr = [];
+          this.setData({
+            isEnd: true
+
+          })
         } 
         // 这一步实现了上拉加载更多
         tmpArr.push.apply(tmpArr, res.data.data.datas);
@@ -37,16 +41,22 @@ Page({
         })
         console.log(res.data.data.datas.length);
         if (res.data.data.datas.length==0){
-          this.setData({ 
-            isEnd: true
-          }) 
+          if(page>1){ 
+            this.setData({
+              isEnd: true
+            }) 
+          }
         }else{
           if (res.data.data.datas.length < 15) {
             this.setData({
               isLoad: false,
               isHideLoadMore: true,
-              isEnd: false
             })
+            if(page>1){
+              this.setData({ 
+                isEnd: false
+              })
+            }
           } else {
             this.setData({
               isHideLoadMore: true,

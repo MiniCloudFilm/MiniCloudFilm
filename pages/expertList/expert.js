@@ -8,8 +8,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    customItem: '全部',
+  data: { 
     hospital: [],
     departmentIndex: [0, 0],
     depart: [
@@ -72,7 +71,7 @@ Page({
         // console.log(res.data)
         let arr = res.data.data;
         let arr0 = {
-          "deptName": "全部",
+          "deptName": "科室",
           "children": [],
           "deptId": 'all',
           "parentId": 0
@@ -221,7 +220,7 @@ Page({
           let list = res.data.data;
           let first = {
             "areaId": 'all',
-            "areaName": '全部',
+            "areaName": '地区',
             "areaLevel": level,
             "parentId": parentId
           }

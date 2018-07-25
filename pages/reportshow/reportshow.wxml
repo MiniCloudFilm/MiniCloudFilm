@@ -1,4 +1,4 @@
-<image src="{{imgSrc}}" wx:if="{{!noDataImg}}"></image>
+<image  bindtap="imgYu" data-src="{{imgSrc}}" src="{{imgSrc}}" wx:if="{{!noDataImg}}"></image>
 <view class='noData' wx:if="{{noDataImg}}">
   <image mode="widthFix" src='../../image/no-data.png'></image>
 </view>

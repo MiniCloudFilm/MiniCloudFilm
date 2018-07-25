@@ -1,6 +1,10 @@
 <view class="container"> 
   <view class="video" >
      <video style="width:750rpx" src="{{url+videoList.frontUrl+'?videoId='+videoList.videoId}}"
-      id="{{videoList.videoId}}" autoplay show-center-play-btn="{{false}}" ></video>  
+      id="{{videoList.videoId}}" autoplay controls></video>
   </view>
+  <!-- <video style="width:750rpx" src="wxfile://tmp_a5c94c31278dc8c45abfa55bee1ea01a7b7595a4fb8a466.mp4" autoplay controls></video>  -->
+<!--   
+  <image src="http://tmp/wxa4cd3f1e2af9b0dd.o6zAJs7jthNxr3vsVbjWA56rHvkA.hfOcFdKJgijr2ff4de6529ece91ab5f15d9d3d645345.jpg"></image> -->
+  <!--  -->
 </view>

@@ -51,7 +51,7 @@ App({
         content: '请先登录账号！',
         success: res => {
           if (res.confirm) {
-            wx.redirectTo({
+            wx.navigateTo({
               url: `${this.globalData.loginUrl}?backUrl=${url}`,
             })
           } else if (res.cancel) {

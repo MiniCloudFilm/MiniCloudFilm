@@ -8,23 +8,17 @@ Page({
   data: {
     tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"],
     activeIndex: 0,
-    videoList: [],
-    page: 1,
-    load: true,
-    token: wx.getStorageSync("token"),
     url: app.globalData.api.url
   },
   //nav切换
   tabClick: function(e) {
-    // console.log(this.data.videoList);
-    // console.log(e.currentTarget);
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
-      status: e.currentTarget.dataset.index
+      status: e.currentTarget.dataset.index,
+      page: 1
     });
     this.getData(e.currentTarget.dataset.index, this.data.page);
-    // console.log(this.data.videoList)
   },
   //打开选择操作
   open: function(e) {
@@ -38,7 +32,6 @@ Page({
         success: res => {
           // console.log(res);
           if (!res.cancel) {
-            // console.log(res.tapIndex)
             this.upVideo(data, -1);
             this.setData({
               videoList: []
@@ -55,7 +48,6 @@ Page({
         success: res => {
           // console.log(res);
           if (!res.cancel) {
-            // console.log(res.tapIndex)
             if (res.tapIndex == 0) {
               this.upVideo(data, 1);
               this.setData({
@@ -78,9 +70,8 @@ Page({
         itemList: ['视频上架', '删除'],
         itemColor: '#1c7eff',
         success: res => {
-          console.log(res);
+          // console.log(res);
           if (!res.cancel) {
-            console.log(res.tapIndex)
             if (res.tapIndex == 0) {
               this.upVideo(data);
             } else if (res.tapIndex == 1) {
@@ -118,7 +109,7 @@ Page({
   },
   //视频上架
   upVideo: function(data, type) {
-    console.log(data);
+    // console.log(data);
     this.setData({
       videoList: []
     })
@@ -134,7 +125,7 @@ Page({
       },
       method: 'GET',
       success: res => {
-        console.log(res);
+        // console.log(res);
         //do something
         if (res.data.code == "200") {
           this.getData(data.status, 1)
@@ -158,7 +149,7 @@ Page({
       },
       method: 'GET',
       success: res => {
-        console.log(res);
+        // console.log(res);
         if (res.data.code == "200") {
           wx.showToast({
             title: `${data.title}视频删除成功！`,
@@ -190,12 +181,15 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res)
+        // console.log(res) 
         let tmpArr;
         if (page > 1) {
           tmpArr = this.data.videoList;
         } else {
           tmpArr = [];
+          this.setData({
+            isEnd: true 
+          })
         }
         // 这一步实现了上拉加载更多
         tmpArr.push.apply(tmpArr, res.data.data.datas);
@@ -203,25 +197,33 @@ Page({
           videoList: tmpArr
         })
         if (res.data.data.datas.length == 0) {
-          this.setData({
-            isEnd: true
+          this.setData({ 
+            isLoad: false,
           })
+          if (page > 1) {
+            this.setData({
+              isEnd: true
+            })
+          }
         } else {
           if (res.data.data.datas.length < 15) {
             this.setData({
               isLoad: false,
-              isHideLoadMore: true,
-              isEnd: false
+              isHideLoadMore: true 
             })
+            if (page > 1) {
+              this.setData({
+                isEnd: false
+              })
+            }
           } else {
-            this.setData({ 
+            this.setData({
               isLoad: true,
               isHideLoadMore: true,
               page: ++page
             })
           }
         }
-        // console.log(this.data.videoList); 
         wx.hideNavigationBarLoading();
         wx.hideLoading()
       },
@@ -235,11 +237,21 @@ Page({
   videoType: function(e) {
     let data = e.currentTarget.dataset;
     let arr = data.videoUrl.split('?');
-    // console.log(data);
-    // console.log(arr);
     wx.navigateTo({
       url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`
     })
+  },
+  onPageScroll: function(e) {
+    console.log(e);
+    if (e.scrollTop > 0) {
+      this.setData({
+        fixed: true
+      })
+    } else {
+      this.setData({
+        fixed: false
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -249,6 +261,7 @@ Page({
       title: '加载中..',
     })
     this.setData({
+      token: app.globalData.token,
       isHideLoadMore: true,
       page: 1,
       isLoad: true,
@@ -314,10 +327,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    // 显示加载图标  
-    console.log(this.data.isLoad);
+    // 显示加载图标   
     if (this.data.isLoad) {
-      console.log('进入');
       this.setData({
         isHideLoadMore: false
       })

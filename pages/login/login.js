@@ -102,10 +102,17 @@ Page({
             wx.switchTab({
               url: '../user/user',
             })
-          }else{
-            wx.reLaunch({
-              url: this.data.backUrl
-            });
+          }else{ 
+            console.log(this.data.backUrl);
+            if (this.data.backUrl == '../user/user' || this.data.backUrl == '../counList/counList'){ 
+              wx.switchTab({
+                url: this.data.backUrl
+              });
+            } else {
+              wx.redirectTo({
+                url: this.data.backUrl
+              }); 
+            }
           }
          }else{
           wx.showToast({
@@ -129,18 +136,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) { 
+    this.setData({ 
+      backUrl: options.backUrl ? options.backUrl : null
+    }) 
     // console.log(getCurrentPages()); 
     // console.log(wx.getStorageSync('type'));
-    console.log(options.phone); 
-    if(options.phone){
-      wx.setStorageSync('user', options.phone)
-      wx.setStorageSync('type', options.userType) 
-    } 
-    this.setData({
-      currentTab: options.userType ? options.userType:(wx.getStorageSync('type') ? wx.getStorageSync('type') : 1),
-      userName: options.phone ? options.phone:wx.getStorageSync('user'), 
-      backUrl: options.backUrl ? options.backUrl:null
-    })
+    // console.log(options);  
+    // this.setData({
+    //   currentTab: wx.getStorageSync('type') ? wx.getStorageSync('type') : 1,
+    //   userName: wx.getStorageSync('user'), 
+    //   backUrl: options.backUrl ? options.backUrl:null
+    // })
     // console.log(this.data.backUrl); 
   },
 
@@ -155,6 +161,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {  
+    this.setData({
+      currentTab: wx.getStorageSync('type') ? wx.getStorageSync('type') : 1,
+      userName: wx.getStorageSync('user')
+    })
+    console.log(wx.getStorageSync('user'));
 },
 
   /**

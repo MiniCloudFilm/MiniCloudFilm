@@ -40,21 +40,23 @@
             <view class="weui-select">{{doctorLevel[titleIndex]}}</view>
           </picker>
         </view>
+      </view>   
+      <view class="weui-cell">
+        <view class=" weui-cell__hd_in-select-after" style="padding-right:30rpx;"> 
+            <text>年龄</text> 
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入年龄(岁)" placeholder-class="placeholder" name="age" />
+        </view>
       </view>
       <view class="weui-cell">
-        <view class="weui-cell__hd_in-select-after" style="padding-right:30rpx;">
-          <text>年龄</text>
+        <view class=" weui-cell__hd_in-select-after" style="padding-right:30rpx;"> 
+            <text>会诊费</text> 
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" type="number" maxlength="2" placeholder="请输入年龄" placeholder-class="placeholder" name="age" />
+          <input class="weui-input" placeholder="请输入金额(元)" placeholder-class="placeholder" name="charge" />
         </view>
-        <view style="padding-right:30rpx;">
-          <text>价格</text>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" type="digit" placeholder="请输入金额" placeholder-class="placeholder" name="charge" />
-        </view>
-      </view> 
+      </view>
       <view class="weui-cell">
         <view class=" weui-cell__hd_in-select-after" style="padding-right:30rpx;"> 
             <text>医师资格证</text> 
@@ -77,11 +79,11 @@
           <view class="weui-uploader__bd">
             <view class="weui-uploader__files" id="uploaderFiles">
               <block wx:for="{{head}}" wx:key="*this">
-                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                <view class="weui-uploader__file" bindtap="chooseHead" id="{{item}}">
                   <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                 </view>
               </block>
-              <view class="weui-uploader__input-box">
+              <view class="weui-uploader__input-box" wx:if="{{head.length==0}}">
                 <view class="weui-uploader__input" bindtap="chooseHead"></view>
               </view>
             </view>
@@ -94,7 +96,7 @@
           <view class="weui-uploader__bd">
             <view class="weui-uploader__files" id="uploaderFiles">
               <block wx:for="{{image}}" wx:key="*this">
-                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                <view class="weui-uploader__file" bindtap="chooseImage" id="{{index}}">
                   <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                 </view>
               </block>
