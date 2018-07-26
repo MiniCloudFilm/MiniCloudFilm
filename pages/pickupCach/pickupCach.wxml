@@ -85,7 +85,7 @@
   <view class='item-title'>收款账号</view>
   <input class='item-content' type='number' placeholder='请输入收款账号' bindinput='getUserIdCardNumber' value='{{bankNumber}}'></input>
   <view wx:if="{{ifHasRecord}}" class='cardRecord'>
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{cardList}}">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{cardMesArr}}">
            <image src='../../image/my-card.png'></image>
       </picker>
   </view>
@@ -104,5 +104,5 @@
 <view class='withdraw-note'>提现须知：</view>
 <view class='bank-reminder'>请在上方填写您的真实的个人信息并与身份证信息一致，信息出错或者不一致会导致您提现失效。我们承诺您的资料只会在本平台用户提现打款时使用不会对外使用，请放心填写。</view>
 <view>
-  <button class='sign-up' bindtap="submitInfos">提交</button>
+  <button class='sign-up' bindtap="saveCard">提交</button>
 </view>

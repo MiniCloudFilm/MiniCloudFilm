@@ -51,8 +51,8 @@ Page({
     wx.showLoading({
       title: '登录中...',
     })
-    wx.login({
-      success: resA => { 
+    wx.login({ 
+      success: resA => {  
         //登录
         wx.request({
           url: app.globalData.api.login.login,
@@ -108,8 +108,10 @@ Page({
               duration: 1500
             })
           }
-        })
-        // console.log(code);   
+        }) 
+        // var code = res.code 
+        // console.log(code);  
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId   
         // wx.request({
         //   url: `https://api.weixin.qq.com/sns/jscode2session`,
         //   data: {

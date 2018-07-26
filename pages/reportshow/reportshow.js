@@ -22,36 +22,41 @@ Page({
       // 当前显示图片的http链接
       urls: imgList // 需要预览的图片http链接列表
     })
+  }, 
+  onLoad: function (options) {
+    this.setData({
+      reportUrl: app.globalData.api.filmshow.reportUrl + options.studyUid
+    }) 
   },
-  onLoad: function(options) { 
-    if (app.globalData.userList) {
-      wx.request({
-        url: app.globalData.api.reportshow.getReportPicture,
-        data: {
-          'token': app.globalData.token,
-          'studyUid': options.studyUid
-        },
-        method: 'GET',
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: res => {
-          if (res.data.code == '200') {
-            console.log(res.data.data.jpgStr);
-            // const base64 = wx.arrayBufferToBase64(res.data);
-            this.setData({
-              imgSrc: `data:image/png;base64,` + res.data.data.jpgStr
-            })
-            console.log(res.data)
-          } else {
-            this.setData({
-              noDataImg: true
-            })
-          }
-        }
-      })
-    }
-  },
+  // onLoad: function(options) {
+  //   let that = this;
+  //   if (app.globalData.userList) {
+  //     wx.request({
+  //       url: app.globalData.api.reportshow.getReportPicture,
+  //       data: {
+  //         'token': app.globalData.token,
+  //         'studyUid': options.studyUid
+  //       },
+  //       method: 'GET',
+  //       header: {
+  //         'content-type': 'application/json' // 默认值
+  //       },
+  //       success: function(res) {
+  //         if (res.data.code == '200') {
+  //           // const base64 = wx.arrayBufferToBase64(res.data);
+  //           that.setData({
+  //             imgSrc: `data:image/png;base64,` + res.data.data.jpgStr
+  //           })
+  //           console.log(res.data)
+  //         } else {
+  //           that.setData({
+  //             noDataImg: true
+  //           })
+  //         }
+  //       }
+  //     })
+  //   }
+  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

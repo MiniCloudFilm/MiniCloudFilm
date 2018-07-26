@@ -49,6 +49,7 @@ radio{
 
 radio-group{
   width: 98%;
+  margin-bottom:80rpx;
 }
 
 .confirmAssist{

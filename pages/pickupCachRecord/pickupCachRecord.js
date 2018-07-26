@@ -13,12 +13,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getRecord();
+    this.getCashRecord();
   },
-  getRecord:function(){
-    this.setData({
-      pickupCashRecord:[]
+  getCashRecord:function(){
+    wx.request({
+      url: app.globalData.api.pickupCachRecord.getCashRecord,
+      data: {
+        'token': app.globalData.token
+      },
+      method: 'get',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res)
+        if (res.data.code == "200") {
+          this.setData({
+            pickupCashRecord: res.data.data
+          })
+        };
+      }
     })
+    
   },
 
   /**
