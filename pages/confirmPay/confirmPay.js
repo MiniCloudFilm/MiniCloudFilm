@@ -109,7 +109,8 @@ Page({
         "sponsor": user.userId,
         "receiver": payList.doctorId,
         "reportId": payList.reportId,
-        "isAssist": this.data.allow ? 'Y' : 'N',
+        // "isAssist": this.data.allow ? 'Y' : 'N',
+        "isAssist":'Y',
         'orderId': orderId
       },
       method: 'POST',

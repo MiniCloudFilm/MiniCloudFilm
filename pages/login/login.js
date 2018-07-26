@@ -51,8 +51,64 @@ Page({
     wx.showLoading({
       title: '登录中...',
     })
-    // wx.login({
-    //   success: res => {
+    wx.login({
+      success: resA=> {
+        //登录
+        wx.request({
+          url: app.globalData.api.login.login,
+          data: {
+            'userName': e.detail.value.userName,
+            'password': e.detail.value.password,
+            'userType': this.data.currentTab,
+            'code':resA.code
+          },
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' // 默认值
+          },
+          success: res => {
+            wx.hideLoading();
+            if (res.data.code == '200') {
+              wx.setStorageSync('userList', res.data.data.user);
+              wx.setStorageSync('token', res.data.data.token);
+              // console.log(wx.getStorageSync('userList'))
+              // console.log(app.globalData.token );
+              app.globalData.userList = res.data.data.user;
+              app.globalData.token = res.data.data.token;
+              // console.log(app.globalData.token);
+              if (!this.data.backUrl) {
+                wx.switchTab({
+                  url: '../user/user',
+                })
+              } else {
+                console.log(this.data.backUrl);
+                if (this.data.backUrl == '../user/user' || this.data.backUrl == '../counList/counList') {
+                  wx.switchTab({
+                    url: this.data.backUrl
+                  });
+                } else {
+                  wx.redirectTo({
+                    url: this.data.backUrl
+                  });
+                }
+              }
+            } else {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 3000
+              })
+            }
+          },
+          fail: function () {
+            wx.hideLoading();
+            wx.showToast({
+              title: '服务器异常，请稍后再试！',
+              icon: 'none',
+              duration: 1500
+            })
+          }
+        })
         // var code = res.code 
         // console.log(code);  
         // 发送 res.code 到后台换取 openId, sessionKey, unionId  
@@ -74,63 +130,9 @@ Page({
         //     console.log(openid);
         //   }
         // })
-    //   }
-    // })
-    //登录
-    wx.request({
-      url:app.globalData.api.login.login, 
-      data: {
-        'userName': e.detail.value.userName,
-        'password': e.detail.value.password,
-        'userType': this.data.currentTab
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        wx.hideLoading();
-        if (res.data.code == '200') {
-          wx.setStorageSync('userList', res.data.data.user);
-          wx.setStorageSync('token', res.data.data.token);
-          // console.log(wx.getStorageSync('userList'))
-          // console.log(app.globalData.token );
-          app.globalData.userList = res.data.data.user;
-          app.globalData.token = res.data.data.token; 
-          // console.log(app.globalData.token);
-          if (!this.data.backUrl){ 
-            wx.switchTab({
-              url: '../user/user',
-            })
-          }else{ 
-            console.log(this.data.backUrl);
-            if (this.data.backUrl == '../user/user' || this.data.backUrl == '../counList/counList'){ 
-              wx.switchTab({
-                url: this.data.backUrl
-              });
-            } else {
-              wx.redirectTo({
-                url: this.data.backUrl
-              }); 
-            }
-          }
-         }else{
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 3000
-          })
-        }
-      },
-      fail:function(){
-        wx.hideLoading();
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 1500
-        })
       }
     })
+  
   },   
   /**
    * 生命周期函数--监听页面加载

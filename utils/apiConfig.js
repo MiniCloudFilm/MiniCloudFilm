@@ -85,6 +85,7 @@ module.exports = {
   //影像
   filmshow: {
     filmUrl: 'https://reader.lanwon.com/clinicWebPacsViewMobile/mobile.html#',
+    reportUrl: 'https://reader.lanwon.com/clinicWebPacsViewMobile/report.html#',
     news:'https://reader.lanwon.com/news.html#'
   },
   index: {
@@ -123,10 +124,13 @@ module.exports = {
     saveCard: basePath + '/doctor/api/v1/saveBankCard',
     searchCard: basePath + '/doctor/api/v1/queryBankCard'
   },
-  //报告展示
-  reportshow: {
-    getReportPicture: basePath + '/api/v1/report/getReportPicture',
+  pickupCachRecord:{
+    getCashRecord: basePath + '/doctor/api/v1/getCashRecord'
   },
+  //报告展示
+  // reportshow: {
+  //   getReportPicture: basePath + '/api/v1/report/getReportPicture',
+  // },
   transactionList: {
     myPayList: basePath + '/doctor/api/v1/myPayList',
   },

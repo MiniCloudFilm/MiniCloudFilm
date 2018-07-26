@@ -1,4 +1,4 @@
- {
+{
 	"description": "项目配置文件。",
 	"packOptions": {
 		"ignore": []
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 17,
 			"list": [
 				{
 					"id": -1,
@@ -129,6 +129,18 @@
 					"id": -1,
 					"name": "交易记录",
 					"pathName": "pages/transactionList/transaction",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "提现",
+					"pathName": "pages/pickupCach/pickupCach",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "提现记录",
+					"pathName": "pages/pickupCachRecord/pickupCachRecord",
 					"query": ""
 				}
 			]
