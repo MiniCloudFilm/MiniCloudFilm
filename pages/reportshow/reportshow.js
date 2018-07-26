@@ -14,18 +14,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   imgYu: function(event) {
-    console.log(event);
-    var src = event.currentTarget.dataset.src; //获取data-src
+    console.log(event); 
     var imgList = []; //获取data-list
     imgList[0] = event.currentTarget.dataset.src;
     //图片预览
-    wx.previewImage({
-      current: src, // 当前显示图片的http链接
+    wx.previewImage({ 
+      // 当前显示图片的http链接
       urls: imgList // 需要预览的图片http链接列表
     })
   },
-  onLoad: function(options) {
-    let that = this;
+  onLoad: function(options) { 
     if (app.globalData.userList) {
       wx.request({
         url: app.globalData.api.reportshow.getReportPicture,
@@ -37,15 +35,16 @@ Page({
         header: {
           'content-type': 'application/json' // 默认值
         },
-        success: function(res) {
+        success: res => {
           if (res.data.code == '200') {
+            console.log(res.data.data.jpgStr);
             // const base64 = wx.arrayBufferToBase64(res.data);
-            that.setData({
+            this.setData({
               imgSrc: `data:image/png;base64,` + res.data.data.jpgStr
             })
             console.log(res.data)
           } else {
-            that.setData({
+            this.setData({
               noDataImg: true
             })
           }

@@ -63,7 +63,7 @@ Page({
         userType: ''
       })
     }
-    console.log(this.data.userType);
+    // console.log(this.data.userType);
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -199,7 +199,7 @@ Page({
                 })
               }
             };
-            console.log(this.data.page)
+            // console.log(this.data.page)
           }
         }
       }

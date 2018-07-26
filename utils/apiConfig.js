@@ -1,5 +1,6 @@
 const server = require('serverConfig.js')
-const basePath = server.url;
+// const basePath = server.url;
+const basePath ='http://192.168.131.102:8080'
 module.exports = {
   url: basePath,
   // 会话页面
@@ -133,6 +134,10 @@ module.exports = {
   //上传视频
   upload: {
     uploadVideo: basePath + '/doctor/api/v1/uploadVideo'
+  },
+  //个人中心
+  user:{
+    exit: basePath + '/api/v1/user/exit'
   },
   //视频管理
   videoMag: {

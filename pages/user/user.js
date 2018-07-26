@@ -14,7 +14,7 @@ Page({
   outLogin: function() {
     wx.request({
       // url: app.globalData.api.login.login,
-      url:'http://192.168.131.102:8080/api/v1/user/exit',
+      url: app.globalData.api.user.exit,
       data: {
         'token': app.globalData.token
       },

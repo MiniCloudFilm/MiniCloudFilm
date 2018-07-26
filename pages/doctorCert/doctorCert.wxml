@@ -36,8 +36,8 @@
           <view class="weui-label">职称</view>
         </view>
         <view class="weui-cell__ft">
-          <picker bindchange="bindTitleChange" value="{{titleIndex}}" name="doctorLevel" range="{{doctorLevel}}" custom-item="{{customItem}}">
-            <view class="weui-select">{{doctorLevel[titleIndex]}}</view>
+          <picker bindchange="bindTitleChange" value="{{doctorList.doctorLevel?doctorList.doctorLevel:''}}"  name="doctorLevel" range="{{doctorLevel}}" custom-item="{{customItem}}">
+            <view class="weui-select">{{doctorLevel[doctorList.doctorLevel?doctorList.doctorLevel:0]}}</view>
           </picker>
         </view>
       </view>   
@@ -46,7 +46,7 @@
             <text>年龄</text> 
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入年龄(岁)" placeholder-class="placeholder" name="age" />
+          <input class="weui-input" placeholder="请输入年龄(岁)" placeholder-class="placeholder" value="{{doctorList.doctorAge?doctorList.doctorAge:''}}" name="age" />
         </view>
       </view>
       <view class="weui-cell">
@@ -54,7 +54,7 @@
             <text>会诊费</text> 
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入金额(元)" placeholder-class="placeholder" name="charge" />
+          <input class="weui-input" placeholder="请输入金额(元)" placeholder-class="placeholder" value="{{doctorList.doctorCharge?doctorList.doctorCharge:''}}" name="charge" />
         </view>
       </view>
       <view class="weui-cell">
@@ -62,14 +62,14 @@
             <text>医师资格证</text> 
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请填写医师资格证编号" placeholder-class="placeholder" name="doctorNum" />
+          <input class="weui-input" placeholder="请填写医师资格证编号" placeholder-class="placeholder" name="doctorNum" value="{{doctorList.provinceId?doctorList.provinceId:''}}"/>
         </view>
       </view>
       <view class="weui-cells__title">简介</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea class="weui-textarea" placeholder="请输入简要介绍" placeholder-class='placeholder' style="height: 4.3em" name="introduction" />
+            <textarea class="weui-textarea" placeholder="请输入简要介绍" placeholder-class='placeholder' value="{{doctorList.doctorSynopsis?doctorList.doctorSynopsis:''}}" style="height: 4.3em" name="introduction" />
           </view>
         </view>
       </view>

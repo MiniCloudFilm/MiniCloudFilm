@@ -1,4 +1,4 @@
- {
+{
 	"description": "项目配置文件。",
 	"packOptions": {
 		"ignore": []
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
