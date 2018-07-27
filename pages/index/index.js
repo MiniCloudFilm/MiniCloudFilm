@@ -63,7 +63,7 @@ Page({
         userType: ''
       })
     }
-    console.log(this.data.userType);
+    // console.log(this.data.userType);
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -102,6 +102,16 @@ Page({
     let formId = e.detail.formId;
     wx.navigateTo({
       url: "../film/film"
+    });
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId);
+    };
+  },
+  //生活小常识
+  turnUserVideo:function(e){
+    let formId = e.detail.formId;
+    wx.navigateTo({
+      url: "../userFilm/userFilm"
     });
     if (formId && formId != 'the formId is a mock one') {
       this.saveFormId(formId);
@@ -199,7 +209,7 @@ Page({
                 })
               }
             };
-            console.log(this.data.page)
+            // console.log(this.data.page)
           }
         }
       }

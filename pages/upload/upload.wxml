@@ -3,7 +3,7 @@
   <view class="weui-panel__hd"></view>
   <view class="weui-panel__bd">
      <image wx:if="{{!src}}" src="/image/unselect-video.jpg" style='width:600rpx;height:450rpx;'></image> 
-    <video wx:if="{{src}}" controls src="{{src}}" poster="/image/timg1.jpg" show-center-play-btn></video>
+    <video wx:if="{{src}}" controls src="{{src}}" show-center-play-btn></video>
     <button class="choose" bindtap="chooseVideo">选择视频</button>
   </view>
   <view class="weui-panel__ft"></view>

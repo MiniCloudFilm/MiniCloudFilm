@@ -33,12 +33,12 @@
                 <image src="/image/icon2.png"></image>
               </view>
               <view>
-                <text>报告解读</text>
+                <text>我的报告</text>
               </view>
             </view>
           </button>
         </form>
-        <form bindsubmit="turnToVideo" report-submit="true" class='form'>
+        <form bindsubmit="turnToVideo" report-submit="true" class='form' wx:if="{{userType==2}}">
           <button formType="submit" class='btn'>
             <view class="weui-flex__item">
               <view class="navT">
@@ -49,7 +49,19 @@
               </view>
             </view>
           </button>
-        </form>
+      </form>
+          <form bindsubmit="turnUserVideo" report-submit="true" class='form' wx:if="{{userType==1}}">
+        <button formType="submit" class='btn'>
+          <view class="weui-flex__item">
+            <view class="navT">
+              <image src="/image/icon3.png"></image>
+            </view>
+            <view>
+              <text>生活小常识</text>
+            </view>
+          </view>
+        </button>
+      </form>
         <form bindsubmit="turnToConAssistance" report-submit="true" class='form' wx:if="{{userType==2}}">
           <button formType="submit" class='btn'>
             <view class="weui-flex__item">

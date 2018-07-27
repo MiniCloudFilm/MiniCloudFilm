@@ -234,7 +234,7 @@ Page({
           let list = res.data.data;
           let first = {
             "areaId": 'all',
-            "areaName": '地区',
+            "areaName": '全部',
             "areaLevel": level,
             "parentId": parentId
           }

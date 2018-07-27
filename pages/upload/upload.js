@@ -10,31 +10,19 @@ Page({
     charge: '',
     id: ''
   },
-  chooseVideo() {
-    this.setData({
-      info: ''
-    })
+  chooseVideo: function() {
     wx.chooseVideo({
-      sourceType: ['album'],
-      compressed: false,
+      sourceType: ['album', 'camera'], 
       maxDuration: 60,
+      camera: 'back',
       success: (res) => {
         console.log(res);
-        console.log(res.tempFilePath);
-        wx.saveVideoToPhotosAlbum({
-          filePath: res.tempFilePath,
-          success(res) {
-            console.log(res.errMsg)
-          }
-        })
+        console.log(res.tempFilePath); 
         this.setData({
-          src: res.tempFilePath,
-          info: this.format(res)
+          src: res.tempFilePath
         })
-        console.log(this.data.src);
       },
-      fail: (res) => {
-
+      fail: (res) => { 
       }
     })
   },
@@ -44,11 +32,10 @@ Page({
         return '  ' + key + ': ' + obj[key] + ','
       }).join('\n') + '\n' +
       '}'
-  },
-
+  }, 
   subVideo: function(e) {
-    let user = wx.getStorageSync("userList");
-    let token = wx.getStorageSync("token")
+    let user = app.globalData.userList;
+    let token = app.globalData.token;
     if (this.data.src) {
       if (e.detail.value.title) {
         if (e.detail.value.charge) {
@@ -59,6 +46,7 @@ Page({
             wx.uploadFile({
               url: app.globalData.api.upload.uploadVideo,
               filePath: this.data.src,
+              method: 'POST',
               name: 'file',
               formData: {
                 'userId': user.userId,
@@ -68,7 +56,7 @@ Page({
                 "token": token
               },
               header: {
-                'content-type': 'application/x-www-form-urlencoded' // 默认值
+                'Content-Type': 'multipart/form-data' // 默认值
               },
               success: function(res) {
                 console.log(res);

@@ -32,8 +32,8 @@
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
-			"current": 19,
+		"miniprogram": { 
+			"current": -1, 
 			"list": [
 				{
 					"id": -1,
@@ -148,11 +148,6 @@
 					"name": "交易详情",
 					"pathName": "pages/payDetail/payDetail",
 					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "报告列表",
-					"pathName": "pages/chRepCon/chRepCon"
 				}
 			]
 		}
