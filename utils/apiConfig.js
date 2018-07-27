@@ -133,6 +133,7 @@ module.exports = {
   // },
   transactionList: {
     myPayList: basePath + '/doctor/api/v1/myPayList',
+    myPayListOfPatient: basePath + '/patient/api/v1/myPayList',
   },
   //上传视频
   upload: {

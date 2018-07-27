@@ -13,13 +13,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getCashRecord();
+    this.getCashRecord(1);
   },
-  getCashRecord:function(){
+  getCashRecord: function (page){
     wx.request({
       url: app.globalData.api.pickupCachRecord.getCashRecord,
       data: {
-        'token': app.globalData.token
+        'token': app.globalData.token,
+        'page': page,
+        'pageSize':12
       },
       method: 'get',
       header: {
@@ -29,7 +31,7 @@ Page({
         console.log(res)
         if (res.data.code == "200") {
           this.setData({
-            pickupCashRecord: res.data.data
+            pickupCashRecord: res.data.data.datas
           })
         };
       }

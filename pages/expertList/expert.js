@@ -29,6 +29,18 @@ Page({
         url: `../chRepCon/chRepCon?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&order=after`
       })
     } else {
+      console.log(this.data.doctorMes.doctoruserid)
+      console.log(e.currentTarget.dataset.doctorid)
+      console.log(this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid))
+      if (this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid)!=-1){
+        wx.showModal({
+          title: '温馨提示',
+          content: '该检查报告正在和此医生咨询，请勿重复选择',
+          showCancel: false,
+          success: function (res) { }
+        });
+        return false;
+      }
       wx.navigateTo({
         url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportId}&type=1`
       })
@@ -37,23 +49,25 @@ Page({
   },
 
   //获取专家列表
-  getExpert: function(areaId, deptId) {
+  getExpert: function(areaId, deptId,page) {
     wx.request({
       url: app.globalData.api.expertList.expertList,
       data: {
         'token': '',
         'areaId': areaId,
-        'deptId': deptId
+        'deptId': deptId,
+        'page':page,
+        'pageSize':8
       },
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data.data)
+        console.log(res.data.data.datas)
         if (res.data.code == "200") {
           this.setData({
-            expertList: res.data.data
+            expertList: res.data.data.datas
           }) 
           wx.hideLoading()
         }
@@ -136,12 +150,12 @@ Page({
           this.setData({
             deptId: list[i].deptId
           })
-          this.getExpert(areaId, this.data.deptId) 
+          this.getExpert(areaId, this.data.deptId,1) 
         } else { 
           this.setData({
             deptId: list[i].children[value].deptId
           })
-          this.getExpert(areaId, this.data.deptId)
+          this.getExpert(areaId, this.data.deptId,1)
         }
       }
     }
@@ -183,18 +197,18 @@ Page({
       if(indexArr[1]==0){
         if(indexArr[0]==0){
           areaId=areaList[0][0].areaId
-          this.getExpert(areaId, deptId);
+          this.getExpert(areaId, deptId,1);
         }else{ 
           areaId = areaList[0][indexArr[0]].areaId
-          this.getExpert(areaId, deptId);
+          this.getExpert(areaId, deptId,1);
         }
       }else{
         areaId = areaList[1][indexArr[1]].areaId
-        this.getExpert(areaId, deptId);
+        this.getExpert(areaId, deptId,1);
       }
     }else{
       areaId = areaList[2][indexArr[2]].areaId
-      this.getExpert(areaId, deptId);
+      this.getExpert(areaId, deptId,1);
     }
     this.setData({
       areaId:areaId
@@ -262,7 +276,7 @@ Page({
     this.getArea('0', 1);
     // console.log(options);
     this.getDepartment();
-    this.getExpert('all', 'all'); 
+    this.getExpert('all', 'all',1); 
     this.setData({
       doctorMes: options,
       areaList: [

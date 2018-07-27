@@ -55,7 +55,7 @@
     </radio-group>
   </view>
   <view class='confirmAssist'>
-    <button type='primary' bindtap='chooseAssist'>确认</button>
+    <button bindtap='chooseAssist'>确认</button>
   </view>
 
 </view>

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 19,
 			"list": [
 				{
 					"id": -1,
@@ -142,6 +142,17 @@
 					"name": "提现记录",
 					"pathName": "pages/pickupCachRecord/pickupCachRecord",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "交易详情",
+					"pathName": "pages/payDetail/payDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "报告列表",
+					"pathName": "pages/chRepCon/chRepCon"
 				}
 			]
 		}

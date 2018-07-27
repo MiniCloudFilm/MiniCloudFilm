@@ -1,31 +1,37 @@
 <view class="page">
-    <view class="page__bd">
-        <view class="weui-form-preview" >
-            <view class="weui-form-preview__hd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">{{orderMes.orderFee>0?'收入':'支出'}}金额</view> 
-                    <view class="weui-form-preview__value_in-hd">{{orderMes.orderFee}}</view> 
-                </view>
-            </view>
-            <view class="weui-form-preview__bd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">类型</view>
-                    <view class="weui-form-preview__value">{{orderMes.orderFee>0?'收入':'支出'}}</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">时间</view> 
-                    <view class="weui-form-preview__value">{{orderMes.orderTime}}</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">交易单号</view>
-                    <view class="weui-form-preview__value">{{orderMes.orderId}}</view> 
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">备注</view>
-                    <view class="weui-form-preview__value">{{orderMes.orderType==1?'付费咨询':'视频购买'}}</view>
-                </view>
-            </view>
-            
+  <view class="page__bd">
+    <view class="title">
+        <view class="name">
+          <image class='name_icon' src='../../image/icon-doctor.png'></image>
+          <text wx:if="{{orderMes.orderType==2}}" class='name_text'>视频购买</text>
+          <text wx:if="{{orderMes.orderType==1}}" class='name_text'>{{orderMes.doctorName}}</text>
         </view>
+        <view class="orderFee">{{orderMes.orderFee}}</view>
     </view>
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__bd">
+         <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">交易状态</view>
+          <view class="weui-form-preview__value">{{orderMes.orderPayType==0?'已完成':'已退款'}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">类型</view>
+          <view class="weui-form-preview__value">{{orderMes.orderType==1?'报告咨询':'视频购买'}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">时间</view>
+          <view class="weui-form-preview__value">{{orderMes.orderTime}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">交易单号</view>
+          <view class="weui-form-preview__value">{{orderMes.orderId}}</view>
+        </view>
+        <view class="weui-form-preview__item" hidden="{{orderMes.videoTitle==''}}">
+          <view class="weui-form-preview__label">视频名称</view>
+          <view class="weui-form-preview__value">{{'<<'+orderMes.videoTitle+'>>'}}</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
 </view>

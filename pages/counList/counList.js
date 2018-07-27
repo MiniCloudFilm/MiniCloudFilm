@@ -16,6 +16,7 @@ Page({
     page: 1,
     nodataIsHidden: true,
     loadingIsHidden: true,
+    pageSize:10
   },
   tabClick: function(e) {
     let index = e.currentTarget.id;
@@ -89,17 +90,19 @@ Page({
       success: res => {
         // console.log(res);
         if (res.data.code=="200") {
-          this.pendingAction(); 
+          this.pendingAction(1); 
         } 
       }
     })
   },
   //获取咨询列表---患者端
-  getCounListOfPatient: function() {
+  getCounListOfPatient: function(page) {
     wx.request({
       url: app.globalData.api.counList.getCounListOfPatient,
       data: {
-        "token": app.globalData.token
+        "token": app.globalData.token,
+        "page":page,
+        "pageSize": this.data.pageSize
       },
       method: 'GET',
       header: {
@@ -109,9 +112,15 @@ Page({
         // console.log(res.data);
         if (res.data.code == '200') {
           this.setData({
-            counList: res.data.data
+            counList: res.data.data.datas
           })
           wx.hideLoading();
+        }else{
+          wx.showToast({
+            title: '查询列表失败',
+            icon: 'none',
+            duration: 2000
+          })
         }
       },
       fail:res=>{
@@ -125,11 +134,14 @@ Page({
     })
   },
   //获取咨询列表---医生端
-  getCounList: function() {
+  getCounList: function(page) {
     wx.request({
       url: app.globalData.api.counList.getCounList,
       data: {
-        "token": app.globalData.token
+        "token": app.globalData.token,
+        "page": page,
+        "pageSize": this.data.pageSize
+
       },
       method: 'GET',
       header: {
@@ -137,11 +149,17 @@ Page({
       },
       success: res => {
         // console.log(res.data)
+        wx.hideLoading()
         if (res.data.code == "200") {
           this.setData({
-            counList: res.data.data
+            counList: res.data.data.datas
           });
-          wx.hideLoading()
+        }else{
+          wx.showToast({
+            title: '查询列表失败',
+            icon: 'none',
+            duration: 2000
+          })
         }
       },
       fail: res => {
@@ -154,11 +172,13 @@ Page({
       }
     })
   },
-  receiveAssist: function() { //我接收的协助
+  receiveAssist: function(page) { //我接收的协助
     wx.request({
       url: app.globalData.api.counList.receiveAssist,
       data: {
-        "token": app.globalData.token
+        "token": app.globalData.token,
+        "page": page,
+        "pageSize": this.data.pageSize
       },
       method: 'GET',
       header: {
@@ -168,17 +188,19 @@ Page({
         // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
-            receiveAssistList: res.data.data
+            receiveAssistList: res.data.data.datas
           })
         }
       }
     })
   },
-  pendingAction: function() { //待处理
+  pendingAction: function(page) { //待处理
     wx.request({
       url: app.globalData.api.counList.pendingAction,
       data: {
-        "token": app.globalData.token
+        "token": app.globalData.token,
+        "page": page,
+        "pageSize": this.data.pageSize
       },
       method: 'GET',
       header: {
@@ -188,7 +210,7 @@ Page({
         // console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
-            pendingActionList: res.data.data
+            pendingActionList: res.data.data.datas
           })
         }
       }
@@ -252,12 +274,12 @@ Page({
       }); 
     }
     if (this.data.userType == 1) {
-      this.getCounListOfPatient();
+      this.getCounListOfPatient(1);
       return false;
     } else if (this.data.userType == 2) {
-      this.getCounList();
-      this.pendingAction();
-      this.receiveAssist();
+      this.getCounList(1);
+      this.pendingAction(1);
+      this.receiveAssist(1);
     }
   },
 

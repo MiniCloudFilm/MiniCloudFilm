@@ -2,10 +2,10 @@
   <view class='noData' wx:if="{{transactionList&&transactionList.length==0}}">
     <image mode="widthFix" src='../../image/no-data.png'></image>
   </view>
-  <view wx:for='{{transactionList}}' wx:key="index" class="item" data-order-fee="{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}" data-order-id="{{item.id}}" data-order-mobile="{{item.orderMobile}}" data-order-time="{{item.orderTime}}" data-order-type="{{item.orderType}}"
+  <view wx:for='{{transactionList}}' wx:key="index" class="item" data-order-fee="{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}" data-order-id="{{item.id}}" data-order-mobile="{{item.orderMobile}}" data-order-time="{{item.orderTime}}" data-order-type="{{item.orderType}}" data-user-name='{{item.userName}}' data-orderpaytype='{{item.orderPayType}}' data-videotitle='{{item.videoTitle}}' data-doctor-name='{{item.doctorName}}'
     bindtap='openDetail'>
     <view class="left">
-      <view class="type">{{item.orderType==1?'医生咨询':'视频购买'}}</view>
+      <view class="type">{{item.orderType==1?'报告咨询 —':'视频购买'}} {{userType==2&&!item.videoTitle?item.userName:item.doctorName}}</view>
       <view class="time">{{item.orderTime}}</view>
     </view>
     <text>{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}</text>
