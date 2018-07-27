@@ -28,6 +28,48 @@ Page({
       success: res => {
         console.log(res.data)
         if (res.data.code == "200") {
+        //   let tmpArr;
+        //   if (page > 1) {
+        //     tmpArr = this.data.videoList;
+        //   } else {
+        //     tmpArr = [];
+        //     this.setData({
+        //       isEnd: true
+        //     })
+        //   }
+        //   // 这一步实现了上拉加载更多
+        //   tmpArr.push.apply(tmpArr, res.data.data.datas);
+        //   this.setData({
+        //     videoList: tmpArr
+        //   })
+        //   if (res.data.data.datas.length == 0) {
+        //     this.setData({
+        //       isLoad: false,
+        //     })
+        //     if (page > 1) {
+        //       this.setData({
+        //         isEnd: true
+        //       })
+        //     }
+        //   } else {
+        //     if (res.data.data.datas.length < 15) {
+        //       this.setData({
+        //         isLoad: false,
+        //         isHideLoadMore: true
+        //       })
+        //       if (page > 1) {
+        //         this.setData({
+        //           isEnd: false
+        //         })
+        //       }
+        //     } else {
+        //       this.setData({
+        //         isLoad: true,
+        //         isHideLoadMore: true,
+        //         page: ++page
+        //       })
+        //     }
+        //   }
           this.setData({
             videoList: res.data.data.datas
           })
@@ -196,5 +238,53 @@ Page({
     } else {
       this.getSaveVideoLog(dataList);
     }
-  }
+  },
+   //监听页面滚动
+  onPageScroll: function (e) {
+    console.log(e);
+    if (e.scrollTop > 0) {
+      this.setData({
+        fixed: true
+      })
+    } else {
+      this.setData({
+        fixed: false
+      })
+    }
+  },
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading() //在标题栏中显示加载  
+    setTimeout(() => {
+      this.getData(this.data.status, 1)
+      this.setData({
+        page: 1,
+        isEnd: true,
+        isLoad: true
+      })
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新 
+    }, 1500);
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    // 显示加载图标   
+    if (this.data.isLoad) {
+      this.setData({
+        isHideLoadMore: false
+      })
+      setTimeout(() => {
+        this.getData(this.data.status, this.data.page);
+      }, 1500)
+    } else {
+      this.setData({
+        isEnd: false
+      })
+    }
+  },
+
 });

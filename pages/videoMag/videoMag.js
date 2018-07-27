@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["已上架", "未上架", "已下架", "未审核", "未通过"],
+    tabs: ["已上架", "未审核","待审核",  "未通过"],
     activeIndex: 0,
     url: app.globalData.api.url
   },
@@ -18,7 +18,13 @@ Page({
       status: e.currentTarget.dataset.index,
       page: 1
     });
-    this.getData(e.currentTarget.dataset.index, this.data.page);
+    if (e.currentTarget.dataset.index==0){ 
+      this.getData(e.currentTarget.dataset.index, this.data.page);
+      console.log(e.currentTarget.dataset.index);
+    } else {
+      this.getData(e.currentTarget.dataset.index+1, this.data.page); 
+      console.log(e.currentTarget.dataset.index + 1);
+    }
   },
   //打开选择操作
   open: function(e) {
@@ -152,7 +158,7 @@ Page({
         // console.log(res);
         if (res.data.code == "200") {
           wx.showToast({
-            title: `${data.title}视频删除成功！`,
+            title: `视频删除成功！`,
             icon: 'success',
             duration: 2000,
             success: resA => {
@@ -167,21 +173,20 @@ Page({
   updateVideo: function(data) {},
   //视频
   getData: function(status, page) {
-    let user = wx.getStorageSync('userList')
+    let user = app.globalData.userList;
     wx.request({
       url: app.globalData.api.videoMag.myUploadVideo,
       data: {
         "userId": user.userId,
         "page": page,
-        "status": status,
+        "status": status, 
         "token": this.data.token
-
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res) 
+        console.log(res) 
         let tmpArr;
         if (page > 1) {
           tmpArr = this.data.videoList;
@@ -240,19 +245,7 @@ Page({
     wx.navigateTo({
       url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`
     })
-  },
-  onPageScroll: function(e) {
-    console.log(e);
-    if (e.scrollTop > 0) {
-      this.setData({
-        fixed: true
-      })
-    } else {
-      this.setData({
-        fixed: false
-      })
-    }
-  },
+  }, 
   /**
    * 生命周期函数--监听页面加载
    */
@@ -288,8 +281,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: function() { 
   },
 
   /**
@@ -305,7 +297,19 @@ Page({
   onUnload: function() {
 
   },
-
+  //监听页面滚动
+  onPageScroll: function (e) {
+    console.log(e);
+    if (e.scrollTop > 0) {
+      this.setData({
+        fixed: true
+      })
+    } else {
+      this.setData({
+        fixed: false
+      })
+    }
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -321,8 +325,7 @@ Page({
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新 
     }, 1500);
-  },
-
+  }, 
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -339,8 +342,7 @@ Page({
       this.setData({
         isEnd: false
       })
-    }
-
+    } 
   },
 
   /**

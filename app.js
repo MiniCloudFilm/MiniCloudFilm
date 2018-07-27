@@ -14,6 +14,7 @@ App({
     this.globalData.userList = wx.getStorageSync('userList');
     this.globalData.token = wx.getStorageSync('token');
     console.log(this.globalData.userList);
+    console.log(this.globalData.token);
     // 获取用户信息
     wx.getSetting({
       success: res => {

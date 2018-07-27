@@ -107,6 +107,16 @@ Page({
       this.saveFormId(formId);
     };
   },
+  //生活小常识
+  turnUserVideo:function(e){
+    let formId = e.detail.formId;
+    wx.navigateTo({
+      url: "../userFilm/userFilm"
+    });
+    if (formId && formId != 'the formId is a mock one') {
+      this.saveFormId(formId);
+    };
+  },
   // 会诊记录
   turnToConAssistance: function(e) {
     // console.log(app.globalData.userList)

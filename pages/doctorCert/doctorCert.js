@@ -7,12 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hospital: [{
-      "hospitalId": "0",
-      "hospitalLevel": "3",
-      "hospitalName": "请选择医院"
-    }],
-    hospitalIndex: 0,
+    hospitalIndex: 0, 
     customItem: "请选择",
     departmentIndex: [0, 0],
     depart: [
@@ -26,54 +21,124 @@ Page({
     head: [],
     countHeadImg: 0
   },
-  bindHospitalChange: function(e) {
-    // console.log('picker country 发生选择改变，携带值为', e.detail.value); 
+  bindHospitalChange: function(e) { 
+    if (this.data.doctorList) {
+      this.data.doctorList.hospitalId = '';
+      this.setData({
+        doctorList: this.data.doctorList
+      })
+    }
     this.setData({
       hospitalIndex: e.detail.value
     })
   },
-  bindDepartmentChange: function(e) {
-    // console.log('picker account 发生选择改变，携带值为', e.detail.value); 
-    this.setData({
-      departmentIndex: e.detail.value
-    })
-  },
   bindTitleChange: function(e) {
     // console.log('picker country 发生选择改变，携带值为', e.detail.value); 
+    if (this.data.doctorList) {
+      this.data.doctorList.doctorLevel = '';
+      this.setData({
+        doctorList: this.data.doctorList
+      })
+    }
     this.setData({
       titleIndex: e.detail.value
     })
   },
-  //选证书
-  chooseImage: function(e) {
-    console.log(e.currentTarget.id)
-    if (e.currentTarget.id) {
-      wx.chooseImage({
-        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        success: res => {
-          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-          // console.log(res);
-          this.data.image[e.currentTarget.id] = res.tempFilePaths;
-          this.setData({
-            image: this.data.image
-          });
-        }
-      })
-    } else {
-      wx.chooseImage({
-        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        success: res => {
-          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-          // console.log(res);
-          this.setData({
-            image: this.data.image.concat(res.tempFilePaths)
-          });
-          console.log(this.data.image);
-        }
+  //获取年龄
+  getAge: function (e) {
+    if (this.data.doctorList) {
+      this.data.doctorList.doctorAge = '';
+      this.setData({
+        doctorList: this.data.doctorList
       })
     }
+      this.setData({
+        age:e.detail.value
+      })
+  },
+
+  //获取年龄
+  getCharge: function (e) {
+    if (this.data.doctorList) {
+      this.data.doctorList.doctorCharge = '';
+      this.setData({
+        doctorList: this.data.doctorList
+      })
+    }
+    this.setData({
+      charge: e.detail.value
+    })
+  },
+
+  //获取年龄
+  getQualification: function (e) {
+    if (this.data.doctorList) {
+      this.data.doctorList.doctorQualification = '';
+      this.setData({
+        doctorList: this.data.doctorList
+      })
+    }
+    this.setData({
+      qualification: e.detail.value
+    })
+  },
+
+  //获取简介
+  getSynopsis: function (e) {
+    console.log(e.detail.value);
+    if (this.data.doctorList) {
+      this.data.doctorList.doctorSynopsis = '';
+      this.setData({
+        doctorList: this.data.doctorList
+      })
+    }
+    this.setData({
+      synopsis: e.detail.value
+    })
+  },
+  //选证书
+  chooseImage: function(e) {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: res => {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        console.log(res);
+        this.setData({
+          image: res.tempFilePaths
+        });
+        console.log(this.data.image);
+      }
+    })
+    // console.log(e.currentTarget.id)
+    // if (e.currentTarget.id) {
+    //   wx.chooseImage({
+    //     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+    //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+    //     success: res => {
+    //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+    //       // console.log(res);
+    //       this.data.image[e.currentTarget.id] = res.tempFilePaths;
+    //       this.setData({
+    //         image: this.data.image
+    //       });
+    //     }
+    //   })
+    // } else {
+    //   wx.chooseImage({
+    //     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+    //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+    //     success: res => {
+    //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+    //       // console.log(res);
+    //       this.setData({
+    //         image: res.tempFilePaths
+    //       });
+    //       console.log(this.data.image);
+    //     }
+    //   })
+    // }
   },
   //选头像
   chooseHead: function(e) {
@@ -116,13 +181,13 @@ Page({
     })
   },
   //上传证书方法
-  upCertificaterMethod: function(num) {
+  upCertificaterMethod: function() {
     // console.log(this.data.image);
     // console.log('方法');
     let user = this.data.user;
     wx.uploadFile({
       url: app.globalData.api.doctorCert.upCertificaterMethod,
-      filePath: this.data.image[num],
+      filePath: this.data.image[0],
       name: 'certificateFile',
       formData: {
         'token': this.data.token
@@ -137,9 +202,9 @@ Page({
   },
   //上传多张证书
   upCertificater: function() {
-    for (let i = 0; i < this.data.image.length; i++) {
-      this.upCertificaterMethod(i);
-    }
+    // for (let i = 0; i < this.data.image.length; i++) {
+    //   this.upCertificaterMethod(i);
+    // }
   },
 
   previewImage: function(e) {
@@ -150,15 +215,24 @@ Page({
   },
   formSubmit: function(e) {
     console.log(e.detail.value);
+    console.log();
     console.log(
       this.data.head, this.data.image);
     let user = this.data.user;
     let data = e.detail.value
     console.log(this.data.deptId);
     if (!data.hospitalId) {
-      util.showToast('请根据地区选择医院！')
+      if (this.data.doctorList) {
+        data.hospitalId = this.data.doctorList.hospitalId
+      } else {
+        util.showToast('请根据地区选择医院！')
+      }
     } else if (!this.data.deptId) {
-      util.showToast('请选择科室！')
+      if (this.data.doctorList) {
+        data.deptId = this.data.doctorList.deptId
+      } else {
+        util.showToast('请选择科室！')
+      }
     } else if (!data.age) {
       util.showToast('请填写年龄！')
     } else if (!data.charge) {
@@ -176,7 +250,7 @@ Page({
         title: '医生认证信息提交中...',
       })
       this.upAvatar();
-      this.upCertificater();
+      this.upCertificaterMethod();
       let dataList = {
         'token': this.data.token,
         'deptId': this.data.deptId,
@@ -224,7 +298,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res.data)
+        // console.log(res.data) 
         let arr = res.data.data;
         let arr0 = {
           "deptName": "请选择科室",
@@ -281,7 +355,14 @@ Page({
   },
   //选定科室
   bindDepartmentChange: function(e) {
-    // console.log(e);
+    // console.log(e);  
+    if (this.data.doctorList) {
+      this.data.doctorList.deptId = '';
+      console.log(this.data.doctorList.deptId);
+      this.setData({
+        doctorList: this.data.doctorList
+      })
+    }
     let index = e.detail.value;
     let parent = index[0];
     let value = index[1];
@@ -328,7 +409,13 @@ Page({
   },
   //选定区域
   bindAreaChange: function(e) {
-    // console.log(e.detail.value, this.data.areaList); 
+    // console.log(e.detail.value, this.data.areaList);
+    if (this.data.doctorList) {
+      this.data.doctorList.provinceName = '';
+      this.setData({
+        doctorList: this.data.doctorList
+      })
+    }
     let indexArr = e.detail.value;
     let areaList = this.data.areaList;
     let areaId = "";
@@ -364,7 +451,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res);
+        // console.log(res);
         // console.log(res.data.data)
         if (res.data.code == "200") {
           let list = res.data.data;
@@ -405,8 +492,8 @@ Page({
   //获取医生信息
   getDoctor: function() {
     wx.request({
-      // url: app.globalData.api.login.login,
-      url: 'http://192.168.131.102:8080/doctor/api/v1/doctorInfo',
+      url: app.globalData.api.doctorCert.getDoctorInfo,
+      // url: 'http://192.168.131.102:8080/doctor/api/v1/doctorInfo',
       data: {
         'token': app.globalData.token
       },
@@ -416,23 +503,24 @@ Page({
       },
       success: res => {
         console.log(res);
-        this.setData({
-          doctorList: res.data.data
-        })
-        let doctor = this.data.doctorList;
-        let department = this.data.department;
-        for (let i = 0; i < this.data.department; i++) {
-          // if (this.data.doctorList.deptId == this.data.department[i].deptId) { }
+        if (res.data.code == '200') {
+          if (res.data.data.doctorStatus != 0) {
+            this.setData({
+              doctorList: res.data.data,
+              image: [app.globalData.api.doctorCert.getDoctorImg + app.globalData.userList.doctorId],
+              head: [app.globalData.api.expertList.image + app.globalData.userList.doctorId]
+            })
+            let doctor = this.data.doctorList;
+            if (doctor.areaId) {
+              this.getHospital(doctor.areaId)
+            } else if (doctor.cityId) {
+              this.getHospital(doctor.cityId)
+            } else if (doctor.provinceId) {
+              this.getHospital(doctor.provinceId)
+            }
+          }
         }
-        if (doctor.areaId) {
-          this.getArea(doctor.cityId, 3) 
-          // for (let i = 0; i < department.length;i++){
-          //   if (department[i].areaId==doctor.areaId){
-          //     console.log(department[i]);
-          //   }
-          // }
-        }
-        console.log(this.data.doctorList);
+        console.log(this.data.doctorList)
       },
       fail: () => {
         wx.hideLoading();
@@ -446,6 +534,9 @@ Page({
   },
   //获取医院
   getHospital: function(areaId) {
+    this.setData({
+      hospital: []
+    })
     wx.request({
       url: app.globalData.api.doctorCert.getHospital,
       data: {
@@ -457,18 +548,33 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res.data.data);
+        console.log(res.data.data);
         if (res.data.code == "200") {
-          let arr = this.data.hospital;
-          arr = arr.concat(res.data.data);
-          // console.log(arr);
-          this.setData({
-            hospital: arr
-          })
+          if (res.data.data.length == 0) {
+            this.setData({
+              hospital: [{
+                "hospitalId": "0",
+                "hospitalLevel": "3",
+                "hospitalName": "该地区医院暂时未备案！"
+              }]
+            })
+          } else {
+            this.data.hospital = [{
+              "hospitalId": "0",
+              "hospitalLevel": "3",
+              "hospitalName": "请选择医院"
+            }]
+            let arr = this.data.hospital;
+            arr = arr.concat(res.data.data);
+            this.setData({
+              hospital: arr
+            })
+          }
         }
       }
     })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -483,6 +589,7 @@ Page({
     this.getDepartment();
     this.getArea('0', 1);
     this.getDoctor();
+    console.log(this.data.charge);
   },
 
   /**

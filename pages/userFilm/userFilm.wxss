@@ -1,0 +1,62 @@
+/* pages/film/film.wxss */
+page,
+.page,
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{
+    padding-top: 60px;
+    text-align: center;
+}
+/* .weui-navbar{
+  border-bottom:none;
+} */
+.weui-navbar__slider{ 
+  /* width:80rpx; */
+  width: 50%;
+  height:4rpx;
+  background-color: #1c7eff;
+  /* bottom:10rpx; */
+} 
+.weui-navbar__title{
+  color: #2e3135; 
+}
+.weui-navbar view.active .weui-navbar__title{
+  color: #1c7eff; 
+} 
+.img-box{
+  width:200rpx;
+  height:100rpx;
+}  
+.weui-cell__bd{
+  height:100rpx;
+  position: relative;
+}
+.type{
+  position: absolute;
+  bottom: -10rpx;
+  color:#ff8f45;
+  font-size:26rpx;
+} 
+scroll-view{
+  height:90vh;
+}
+button[type=bule] {
+color:#FFFFFF;
+background-color:#1c7eff; 
+}
+.noData{
+  margin-top:0;
+  padding-top:200rpx;
+}
+.v-title{
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  -webkit-line-clamp: 2; 
+  overflow: hidden; 
+}

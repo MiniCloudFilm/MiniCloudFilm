@@ -1,15 +1,15 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/user/user", 
+    "pages/user/user",
     "pages/expertList/expert",
-    "pages/counList/counList", 
+    "pages/counList/counList",
     "pages/film/film",
     "pages/login/login",
     "pages/patientReg/patientReg",
     "pages/chRepCon/chRepCon",
-    "pages/confirmPay/confirmPay", 
-    "pages/ConInterface/ConInterface", 
+    "pages/confirmPay/confirmPay",
+    "pages/ConInterface/ConInterface",
     "pages/conAssistance/conAssistance",
     "pages/video/video",
     "pages/myAccount/account",
@@ -24,13 +24,14 @@
     "pages/assistList/assister",
     "pages/myVideo/myVideo",
     "pages/pickupCachRecord/pickupCachRecord",
-    "pages/newsDetail/newsDetail"
+    "pages/newsDetail/newsDetail",
+    "pages/userFilm/userFilm"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1C7EFF",
     "navigationBarTitleText": "主页",
-    "navigationBarTextStyle": "#fff", 
+    "navigationBarTextStyle": "#fff",
     "backgroundColor": "#1C7EFF"
   },
   "tabBar": {
@@ -60,7 +61,7 @@
   },
   "networkTimeout": {
     "request": "1000000",
-    "uploadFile":"1000000",
-    "downloadFile":"1000000"
+    "uploadFile": "1000000",
+    "downloadFile": "1000000"
   }
 }

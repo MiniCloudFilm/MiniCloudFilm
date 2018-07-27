@@ -1,6 +1,7 @@
 const server = require('serverConfig.js')
-// const basePath = server.url;
-const basePath ='http://192.168.131.102:8080'
+const basePath = server.url;
+// const basePath = 'http://192.168.131.162:8080'
+// const basePath = 'http://192.168.131.102:8080'
 module.exports = {
   url: basePath,
   // 会话页面
@@ -65,8 +66,12 @@ module.exports = {
     upCertificaterMethod: basePath + '/doctor/api/v1/uploadCertificate',
     // 认证提交
     formSubmit: basePath + '/doctor/api/v1/doctorCertified',
+    //获取医院
+    getHospital: basePath + '/api/v1/dict/getHospital',
     //获取医生
-    getHospital: basePath + '/api/v1/dict/getHospital'
+    getDoctorInfo: basePath + '/doctor/api/v1/doctorInfo',
+    //获取医生头像
+    getDoctorImg:basePath + '/doctor/api/v1/lookQualification/'
   },
   //专家列表
   expertList: {
@@ -143,11 +148,16 @@ module.exports = {
   user:{
     exit: basePath + '/api/v1/user/exit'
   },
+  //生活小常识
+  userFilm:{
+    queryVideoList: basePath + '/video/api/vi/queryVideoList'
+  },
   //视频管理
   videoMag: {
     upVideo: basePath + '/doctor/api/v1/upVideo',
     deleteVideo: basePath + '/doctor/api/v1/deleteVideo',
     myUploadVideo: basePath + '/doctor/api/v1/myUploadVideo'
+    
   },
   //获取下拉列表
   picker: {

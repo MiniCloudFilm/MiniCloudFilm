@@ -7,7 +7,7 @@
         </view>
         <view class="weui-cell__ft">
           <picker mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaList}}" range-key="{{'areaName'}}">
-            <view class="weui-select">{{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[0][areaIndex[0]].areaName+' '+areaList[1][areaIndex[1]].areaName+' '+areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[0][areaIndex[0]].areaName+' '+areaList[1][areaIndex[1]].areaName:areaList[0][areaIndex[0]].areaName)}}</view>
+            <view class="weui-select">{{doctorList.provinceName?(doctorList.areaName? doctorList.provinceName+' '+doctorList.cityName+' '+doctorList.areaName:(doctorList.cityName?doctorList.provinceName+' '+doctorList.cityName:doctorList.provinceName)):(areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[0][areaIndex[0]].areaName+' '+areaList[1][areaIndex[1]].areaName+' '+areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[0][areaIndex[0]].areaName+' '+areaList[1][areaIndex[1]].areaName:areaList[0][areaIndex[0]].areaName))}}</view>
           </picker>
         </view>
       </view>
@@ -17,7 +17,7 @@
         </view>
         <view class="weui-cell__ft">
           <picker bindchange="bindHospitalChange" name="hospitalId" value="{{hospitalIndex}}" range="{{hospital}}" range-key="{{'hospitalName'}}">
-            <view class="weui-select">{{hospital[hospitalIndex].hospitalName}}</view>
+            <view class="weui-select">{{doctorList.hospitalId?doctorList.hospitalName:(hospital[hospitalIndex].hospitalName?hospital[hospitalIndex].hospitalName:"请选择医院")}}</view>
           </picker>
         </view>
       </view>
@@ -27,7 +27,7 @@
         </view>
         <view class="weui-cell__ft">
           <picker mode="multiSelector" name="depart"  bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange" value="{{departmentIndex}}" range="{{department}}" range-key="{{'deptName'}}">
-            <view class="weui-select"> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</view>
+            <view class="weui-select"> {{doctorList.deptId?doctorList.deptName:(department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName)}}</view>
           </picker> 
         </view>
       </view>
@@ -35,9 +35,14 @@
         <view class="weui-cell__bd weui-cell__hd_in-select-after">
           <view class="weui-label">职称</view>
         </view>
+        <!-- <view class="weui-cell__ft">
+          <picker bindchange="bindTitleChange" value="{{dtitleIndex}}"  name="doctorLevel" range="{{doctorLevel}}" custom-item="{{customItem}}">
+            <view class="weui-select">{{doctorLevel[titleIndex]}}</view>
+          </picker>
+        </view> -->
         <view class="weui-cell__ft">
-          <picker bindchange="bindTitleChange" value="{{doctorList.doctorLevel?doctorList.doctorLevel:''}}"  name="doctorLevel" range="{{doctorLevel}}" custom-item="{{customItem}}">
-            <view class="weui-select">{{doctorLevel[doctorList.doctorLevel?doctorList.doctorLevel:0]}}</view>
+          <picker bindchange="bindTitleChange" value="{{titleIndex}}"  name="doctorLevel" range="{{doctorLevel}}" custom-item="{{customItem}}">
+            <view class="weui-select">{{doctorLevel[doctorList.doctorLevel?doctorList.doctorLevel-1:titleIndex]}}</view>
           </picker>
         </view>
       </view>   
@@ -46,15 +51,15 @@
             <text>年龄</text> 
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入年龄(岁)" placeholder-class="placeholder" value="{{doctorList.doctorAge?doctorList.doctorAge:''}}" name="age" />
+          <input class="weui-input" maxlength='2'  placeholder="请输入年龄(岁)" placeholder-class="placeholder" bindblur="getAge" value="{{doctorList.doctorAge?doctorList.doctorAge:age}}" name="age" />
         </view>
       </view>
       <view class="weui-cell">
-        <view class=" weui-cell__hd_in-select-after" style="padding-right:30rpx;"> 
+        <view class=" weui-cell__hd_in-select-after"  style="padding-right:30rpx;"> 
             <text>会诊费</text> 
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入金额(元)" placeholder-class="placeholder" value="{{doctorList.doctorCharge?doctorList.doctorCharge:''}}" name="charge" />
+          <input class="weui-input" bindblur="getCharge" maxlength='5' placeholder="请输入金额(元)" placeholder-class="placeholder" value="{{doctorList.doctorCharge?doctorList.doctorCharge:charge}}" name="charge" />
         </view>
       </view>
       <view class="weui-cell">
@@ -62,14 +67,14 @@
             <text>医师资格证</text> 
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请填写医师资格证编号" placeholder-class="placeholder" name="doctorNum" value="{{doctorList.provinceId?doctorList.provinceId:''}}"/>
+          <input class="weui-input"  bindblur="getQualification" placeholder="请填写医师资格证编号" placeholder-class="placeholder" name="doctorNum" value="{{doctorList.doctorQualification?doctorList.doctorQualification:qualification}}"/>
         </view>
       </view>
       <view class="weui-cells__title">简介</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea class="weui-textarea" placeholder="请输入简要介绍" placeholder-class='placeholder' value="{{doctorList.doctorSynopsis?doctorList.doctorSynopsis:''}}" style="height: 4.3em" name="introduction" />
+            <textarea class="weui-textarea" bindblur="getSynopsis" maxlength='50' placeholder="请输入简要介绍(限50字)" placeholder-class='placeholder' value="{{doctorList.doctorSynopsis?doctorList.doctorSynopsis:synopsis}}" style="height: 4.3em" name="introduction" />
           </view>
         </view>
       </view>
@@ -90,7 +95,7 @@
           </view>
         </view>
       </view>
-      <view class="weui-cells__title">资质证书</view>
+      <view class="weui-cells__title">医师资格证书</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-uploader__bd">
@@ -100,7 +105,7 @@
                   <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                 </view>
               </block>
-              <view class="weui-uploader__input-box">
+              <view class="weui-uploader__input-box" wx:if="{{image.length==0}}">
                 <view class="weui-uploader__input" bindtap="chooseImage"></view>
               </view>
             </view>
@@ -108,8 +113,11 @@
         </view>
       </view>
     </view>
-    <view class="weui-btn-area" style="padding-bottom:40px">
+    <view class="weui-btn-area" style="padding-bottom:40px" wx:if="{{!doctorList}}">
       <button class="weui-btn vsub" formType="submit">确认</button>
+    </view> 
+    <view class="weui-btn-area" style="padding-bottom:40px" wx:if="{{doctorList}}">
+      <button class="weui-btn vsub" formType="submit">提交修改</button>
     </view>
   </form>
 </view>

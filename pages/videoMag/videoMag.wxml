@@ -45,11 +45,11 @@
         <view class="weui-loading"></view>
         <view class="weui-loadmore__tips">正在加载</view>
       </view>
-      <view class="upload">
+      <!-- <view class="upload">
         <navigator hover-class="transparent" open-type="redirect" url="../upload/upload">
           <image src="/image/upload-video.png"></image>
         </navigator>
-      </view>
+      </view> -->
     </view>
   </view>
 </view>
