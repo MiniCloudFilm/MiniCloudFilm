@@ -1,7 +1,5 @@
 var app = getApp();
 var util = require('../../utils/bank.js');
-var userList = app.globalData.userList;
-var myId = JSON.stringify(userList.userId);
 Page({
   /**
    * 页面的初始数据
@@ -48,18 +46,16 @@ Page({
         },
         success: function (res) {
           if (res.data.code=="200"){
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              image: '',
-              duration: 1500,
-              success:function(){
-                setTimeout(function () {
-                  //要延时执行的代码
+            wx.showModal({
+              title: '提现成功',
+              content: '我们将在3个工作日把款项转至您账户,请耐心等待。',
+              showCancel:false,
+              success: function (res) {
+                if (res.confirm) {
                   wx.navigateBack({
                     url: "../myAccount/account"
                   })
-                }, 2000) //延迟时间 
+                }
               }
             })
           }else{
@@ -178,6 +174,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var userList = app.globalData.userList;
     this.setData({
       reflectCharge: options.balance,
       name: userList.name,

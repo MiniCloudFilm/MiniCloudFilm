@@ -9,12 +9,14 @@ Page({
   },
   getData: function(page) { 
     wx.showNavigationBarLoading();
-    let token = wx.getStorageSync('token');
+    let token = app.globalData.token;
+    var doctorUrl = app.globalData.api.transactionList.myPayList;
+    var patientUrl = app.globalData.api.transactionList.myPayListOfPatient;
+    var url = this.data.userType == 2 ? doctorUrl : patientUrl;
     // console.log(token)  
     wx.request({
-      url: app.globalData.api.transactionList.myPayList,
+      url: url,
       data: {
-        'userId': this.data.myId,
         'page': page,
         'token': token
       },
@@ -75,8 +77,12 @@ Page({
     let orderMobile = e.currentTarget.dataset.orderMobile;
     let orderTime = e.currentTarget.dataset.orderTime;
     let orderType = e.currentTarget.dataset.orderType;
+    let userName = e.currentTarget.dataset.userName;
+    let orderPayType = e.currentTarget.dataset.orderpaytype;
+    let videoTitle = e.currentTarget.dataset.videotitle;
+    let doctorName = e.currentTarget.dataset.doctorName;
     wx.navigateTo({
-      url: `../payDetail/payDetail?orderId=${orderId}&orderFee=${orderFee}&orderMobile=${orderMobile}&orderTime=${orderTime}&orderType=${orderType}`,
+      url: `../payDetail/payDetail?orderId=${orderId}&orderFee=${orderFee}&orderMobile=${orderMobile}&orderTime=${orderTime}&orderType=${orderType}&userName=${userName}&orderPayType=${orderPayType}&videoTitle=${videoTitle}&doctorName=${doctorName}`
     })
   },
   /**
@@ -88,7 +94,8 @@ Page({
       page:1,
       isLoad:true,
       isEnd:true,
-      myId: wx.getStorageSync('userList').userId
+      myId: app.globalData.userList.userId,
+      userType: app.globalData.userList.userType
     });
     this.getData(this.data.page);
   },

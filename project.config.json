@@ -32,8 +32,8 @@
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
-			"current": -1,
+		"miniprogram": { 
+			"current": -1, 
 			"list": [
 				{
 					"id": -1,
@@ -141,6 +141,12 @@
 					"id": -1,
 					"name": "提现记录",
 					"pathName": "pages/pickupCachRecord/pickupCachRecord",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "交易详情",
+					"pathName": "pages/payDetail/payDetail",
 					"query": ""
 				}
 			]

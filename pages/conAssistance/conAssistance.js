@@ -13,7 +13,8 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     isAccept:false,
-    token:""
+    token:"",
+    pageSize:12
   },
 
   /**
@@ -34,9 +35,9 @@ Page({
     this.setData({
       token:wx.getStorageSync("token")
     });
-    this.myALLConsult();
-    this.sendAssist();
-    this.receiveAssist();
+    this.myALLConsult(1);
+    this.sendAssist(1);
+    this.receiveAssist(1);
   },
   tabClick: function (e) {
     console.log(e.currentTarget.offsetLeft);
@@ -45,11 +46,13 @@ Page({
       activeIndex: e.currentTarget.id
     });
   },
-  myALLConsult:function(){//所有患者的咨询---医生端
+  myALLConsult:function(page){//所有患者的咨询---医生端
     wx.request({
       url: app.globalData.api.conAssistance.myALLConsult,
       data: {
-        'token': this.data.token
+        'token': this.data.token,
+        'page':page,
+        'pageSize': this.data.pageSize
       },
       method: 'GET',
       header: {
@@ -58,17 +61,19 @@ Page({
       success: res => {
         if (res.data.code == '200') {
           this.setData({
-            myALLConsultList:res.data.data
+            myALLConsultList: res.data.data.datas
           })
         }
       }
     })
   },
-  sendAssist:function(){//我向别人发起协助的会诊
+  sendAssist:function(page){//我向别人发起协助的会诊
     wx.request({
       url: app.globalData.api.conAssistance.sendAssist, //仅为示例，并非真实的接口地址
       data: {
-        'token': this.data.token
+        'token': this.data.token,
+        'page': page,
+        'pageSize': this.data.pageSize
       },
       method: 'GET',
       header: {
@@ -77,17 +82,19 @@ Page({
       success: res => {
         if (res.data.code == '200') {
           this.setData({
-            sendAssistList: res.data.data
+            sendAssistList: res.data.data.datas
           })
         }
       }
     })
   },
-  receiveAssist:function(){//别人向我发起的协助会诊
+  receiveAssist:function(page){//别人向我发起的协助会诊
     wx.request({
       url: app.globalData.api.conAssistance.receiveAssist,
       data: {
-        'token': this.data.token
+        'token': this.data.token,
+        'page': page,
+        'pageSize': this.data.pageSize
       },
       method: 'GET',
       header: {
@@ -96,7 +103,7 @@ Page({
       success: res => {
         if (res.data.code == '200') {
           this.setData({
-            receiveAssistList: res.data.data
+            receiveAssistList: res.data.data.datas
           })
         }
       }

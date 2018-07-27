@@ -1,4 +1,36 @@
 /* pages/payDetail/payDetail.wxss */
+
 .weui-form-preview__item {
-  line-height:66rpx;
+  line-height: 66rpx;
 }
+
+.title {
+  height: 220rpx;
+  padding-top: 40rpx;
+}
+
+.name {
+  text-align: center;
+}
+
+.orderFee {
+  text-align: center;
+  font-size: 50rpx;
+  font-weight: 700;
+}
+
+.name_text {
+  line-height: 80rpx;
+  font-size: 40rpx;
+}
+
+.name_icon {
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: -16rpx;
+  margin-right: 10rpx;
+}
+
+/* .weui-form-preview:after {
+  border-bottom: 0rpx solid #d9d9d9;
+} */
