@@ -103,7 +103,7 @@ Page({
           url: app.globalData.api.pickupCach.saveCard,
           data: {
             'cardBankName': this.data.cardType,
-            'cardUserName': userList.name,
+            'cardUserName': this.data.name,
             'cardNumber': bankNumber,
             'token': this.data.token
           },
