@@ -34,3 +34,8 @@
 /* .weui-form-preview:after {
   border-bottom: 0rpx solid #d9d9d9;
 } */
+
+.weui-form-preview__value,
+.weui-form-preview__label{
+  font-size:28rpx
+}

@@ -85,7 +85,7 @@
   <view class='item-title'>收款账号</view>
   <input class='item-content' type='number' placeholder='请输入收款账号' bindinput='getUserIdCardNumber' value='{{bankNumber}}'></input>
   <view wx:if="{{ifHasRecord}}" class='cardRecord'>
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{cardMesArr}}">
+      <picker mode = selector bindchange="bindPickerChange" value="{{index}}" range="{{cardMesArr}}">
            <image src='../../image/my-card.png'></image>
       </picker>
   </view>

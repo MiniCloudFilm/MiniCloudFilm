@@ -28,6 +28,9 @@ page,
   width: 100%;
   border-bottom: 1px solid #e3e3e3;
 }
+.docter-box:last-child{
+  border-bottom: 0px solid #e3e3e3;
+}
 
 .doctor-b {
   padding-right: 0;

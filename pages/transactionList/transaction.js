@@ -154,9 +154,7 @@ Page({
         this.setData({
           isHideLoadMore: false
         })
-        setTimeout(() => {
-          this.getData(this.data.page);
-        }, 1500)  
+        this.getData(this.data.page);
     } else {
       this.setData({
         isEnd:false

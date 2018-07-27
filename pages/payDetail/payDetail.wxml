@@ -4,7 +4,8 @@
         <view class="name">
           <image class='name_icon' src='../../image/icon-doctor.png'></image>
           <text wx:if="{{orderMes.orderType==2}}" class='name_text'>视频购买</text>
-          <text wx:if="{{orderMes.orderType==1}}" class='name_text'>{{orderMes.doctorName}}</text>
+          <text wx:if="{{orderMes.orderType==1&&orderMes.orderFee<0}}" class='name_text'>{{orderMes.doctorName}}</text>
+          <text wx:if="{{orderMes.orderType==1&&orderMes.orderFee>0}}" class='name_text'>{{orderMes.userName}}</text>
         </view>
         <view class="orderFee">{{orderMes.orderFee}}</view>
     </view>
