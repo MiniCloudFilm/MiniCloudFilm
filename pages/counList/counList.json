@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "咨询列表",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 60 
+  "onReachBottomDistance": 50 
 }

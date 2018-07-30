@@ -17,7 +17,7 @@ Page({
     page: 1,
     nodataIsHidden: true,
     loadingIsHidden: true,
-    pageSize:5
+    pageSize: 10
   },
   tabClick: function(e) {
     let index = e.currentTarget.id;
@@ -25,6 +25,14 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: index
     });
+    // tab切换
+    if (index == 0) {
+      this.getCounList(1);
+    } else if (index == 1) {
+      this.receiveAssist(1);
+    } else {
+      this.pendingAction(1);
+    }
   },
   //退款
   refund: function(e) {
@@ -40,8 +48,15 @@ Page({
       success: res => {
         console.log(res);
         if (res.data.data == 'SUCCESS') {
-          this.refuse(e.currentTarget.dataset.consult);
-        }else{
+          wx.showToast({
+            title: '拒绝成功',
+            icon: 'none',
+            duration: 2000,
+            success: () => {
+              this.refuse(e.currentTarget.dataset.consult);
+            }
+          })
+        } else {
           wx.showToast({
             title: '拒绝失败，请稍后再试',
             icon: 'none',
@@ -78,11 +93,11 @@ Page({
     })
   },
   //拒绝
-  refuse: function (consult) {
+  refuse: function(consult) {
     wx.request({
       url: app.globalData.api.counList.refuse,
       data: {
-        'consultId':consult,
+        'consultId': consult,
       },
       method: 'GET',
       header: {
@@ -90,9 +105,9 @@ Page({
       },
       success: res => {
         // console.log(res);
-        if (res.data.code=="200") {
-          this.pendingAction(1); 
-        } 
+        if (res.data.code == "200") {
+          this.pendingAction(1);
+        }
       }
     })
   },
@@ -102,7 +117,7 @@ Page({
       url: app.globalData.api.counList.getCounListOfPatient,
       data: {
         "token": app.globalData.token,
-        "page":page,
+        "page": page,
         "pageSize": this.data.pageSize
       },
       method: 'GET',
@@ -110,13 +125,39 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res.data);
         if (res.data.code == '200') {
+          let mesArr;
+          if (page > 1) {
+            mesArr = this.data.counList;
+          } else {
+            mesArr = [];
+          };
+          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
           this.setData({
-            counList: res.data.data.datas
-          })
+            counList: mesArr
+          });
+          // 判断是否换页
+          if (res.data.data.datas.length == 0) {
+            this.setData({
+              loadingIsHidden: true,
+              ifHasData: false
+            })
+          } else {
+            if (res.data.data.datas.length < this.data.pageSize) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true,
+                ifHasData: false
+              })
+            } else {
+              this.setData({
+                loadingIsHidden: true,
+                page: ++page
+              })
+            }
+          };
           wx.hideLoading();
-        }else{
+        } else {
           wx.showToast({
             title: '查询列表失败',
             icon: 'none',
@@ -124,10 +165,10 @@ Page({
           })
         }
       },
-      fail:res=>{
+      fail: res => {
         wx.hideLoading();
         wx.showToast({
-          title: '服务器异常，请稍后再试！',
+          title: '服务器或网络异常，请稍后再试！',
           icon: 'none',
           duration: 2000
         })
@@ -155,7 +196,7 @@ Page({
           this.setData({
             counList: res.data.data.datas
           });
-        }else{
+        } else {
           wx.showToast({
             title: '查询列表失败',
             icon: 'none',
@@ -210,9 +251,37 @@ Page({
       success: res => {
         // console.log(res.data)
         if (res.data.code == "200") {
+          let mesArr;
+          if (page > 1) {
+            mesArr = this.data.pendingActionList;
+          } else {
+            mesArr = [];
+          };
+          mesArr.push.apply(mesArr, res.data.data.data); //合并数组
           this.setData({
-            pendingActionList: res.data.data.datas
-          })
+            totalPending: res.data.data.pageCount,
+            pendingActionList: mesArr
+          });
+          // 判断是否换页
+          if (res.data.data.data.length == 0) {
+            this.setData({
+              loadingIsHidden: true,
+              ifHasData: false
+            })
+          } else {
+            if (res.data.data.data.length < this.data.pageSize) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true,
+                ifHasData: false
+              })
+            } else {
+              this.setData({
+                loadingIsHidden: true,
+                page: ++page
+              })
+            }
+          };
         }
       }
     })
@@ -220,7 +289,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log((this.data.counList && this.data.counList.length == 0));
   },
 
@@ -257,22 +326,23 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     wx.showLoading({
-      title: '加载中..', 
-    })
+      title: '加载中..',
+    });
+    this.reset();// 重置数据
     //登录校验
-    app.checkLoginInfo(app.getCurrentUrl()); 
+    app.checkLoginInfo(app.getCurrentUrl());
     let user = app.globalData.userList;
-    console.log(user); 
+    console.log(user);
     if (user) {
       this.setData({
         userType: user.userType
-      }); 
-    }else{ 
+      });
+    } else {
       this.setData({
         userType: null
-      }); 
+      });
     }
     if (this.data.userType == 1) {
       this.getCounListOfPatient(1);
@@ -280,7 +350,7 @@ Page({
     } else if (this.data.userType == 2) {
       this.getCounList(1);
       this.pendingAction(1);
-      this.receiveAssist(1);
+      // this.receiveAssist(1);
     }
   },
 
@@ -301,19 +371,25 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    wx.showNavigationBarLoading() //在标题栏中显示加载  
+  onPullDownRefresh: function() {
+    wx.showNavigationBarLoading(); //在标题栏中显示加载  
     setTimeout(() => {
-      this.getCounListOfPatient(1);
-      this.setData({
-        page: 1,
-        loadingIsHidden: true,
-        nodataIsHidden: true,
-        ifHasData: true
-      })
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新 
-    }, 5000);
+      this.reset();// 重置数据
+      wx.hideNavigationBarLoading();//完成停止加载
+      wx.stopPullDownRefresh(); //停止下拉刷新 
+      if (this.data.userType == 1) {
+        this.getCounListOfPatient(1);
+        return false;
+      } else if (this.data.userType == 2) {
+        if (this.data.activeIndex == 0) {
+          this.getCounList(1);
+        } else if (this.data.activeIndex == 1) {
+          this.receiveAssist(1);
+        } else {
+          this.pendingAction(1);
+        }
+      }
+    }, 1000);
 
   },
 
@@ -321,7 +397,35 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (this.data.ifHasData) {
+      this.setData({
+        // 显示加载图标 
+        loadingIsHidden: false
+      });
+      if (this.data.userType == 1) {
+        this.getCounListOfPatient(this.data.page);
+        return false;
+      } else if (this.data.userType == 2) {
+        if (this.data.activeIndex == 0) {
+          this.getCounList(this.data.page);
+        } else if (this.data.activeIndex == 1) {
+          this.receiveAssist(this.data.page);
+        } else {
+          this.pendingAction(this.data.page);
+        }
 
+      }
+    }
+
+  },
+  // 重置参数
+  reset: function() {
+    this.setData({
+      page: 1,
+      loadingIsHidden: true,
+      nodataIsHidden: true,
+      ifHasData: true
+    })
   },
 
   /**

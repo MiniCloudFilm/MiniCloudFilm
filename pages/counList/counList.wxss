@@ -103,8 +103,8 @@ button {
 }
 
 .tip {
-  width: 24rpx;
-  height: 24rpx;
+  width: 30rpx;
+  height: 30rpx;
   border-radius: 50%;
   background-color: red;
   position: absolute;
@@ -112,7 +112,7 @@ button {
   color: white;
   font-weight: 700;
   text-align: center;
-  line-height: 24rpx;
+  line-height: 30rpx;
   top: 16rpx;
   right: 55rpx;
 }
@@ -131,4 +131,8 @@ button {
   position: absolute;
   top:0;
   right: 0
+}
+
+.weui-loadmore{
+  padding-bottom: 40rpx;
 }

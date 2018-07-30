@@ -32,20 +32,19 @@ Page({
           tmpArr = [];
           this.setData({
             isEnd: true
-
           })
         } 
         // 这一步实现了上拉加载更多
         tmpArr.push.apply(tmpArr, res.data.data.datas);
         this.setData({
-          transactionList: tmpArr,
-          // isHideLoadMore: false 
+          transactionList: tmpArr
         })
         console.log(res.data.data.datas.length);
         if (res.data.data.datas.length==0){
-          if(page>1){ 
+          if(page>1){
             this.setData({
-              isEnd: true
+              isEnd: false,
+              isHideLoadMore: true
             }) 
           }
         }else{
