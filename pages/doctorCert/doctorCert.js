@@ -271,10 +271,10 @@ Page({
       }
       let dataList = {
         'token': this.data.token,
-        'deptId': this.data.doctorList.deptId ? this.data.doctorList.deptId:this.data.deptId,
+        'deptId': this.data.doctorList&&this.data.doctorList.deptId ? this.data.doctorList.deptId:this.data.deptId,
         'age': data.age,
         'charge': data.charge,
-        'hospitalId': this.data.doctorList.hospitalId ? this.data.doctorList.hospitalId:this.data.hospital[data.hospitalId].hospitalId,
+        'hospitalId': this.data.doctorList&&this.data.doctorList.hospitalId ? this.data.doctorList.hospitalId:this.data.hospital[data.hospitalId].hospitalId,
         'doctorLevel': parseInt(data.doctorLevel) + 1,
         'synopsis': data.introduction,
         'qualification': data.doctorNum

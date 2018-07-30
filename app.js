@@ -52,9 +52,9 @@ App({
         content: '请先登录账号！',
         success: res => {
           if (res.confirm) {
-            wx.navigateTo({
+            wx.redirectTo({
               url: `${this.globalData.loginUrl}?backUrl=${url}`,
-            })
+            }) 
           } else if (res.cancel) {
             wx.reLaunch({
               url: '../index/index',

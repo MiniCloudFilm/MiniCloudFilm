@@ -87,9 +87,17 @@ Page({
                     url: this.data.backUrl
                   });
                 } else {
-                  wx.redirectTo({
-                    url: this.data.backUrl
-                  });
+
+                  if (this.data.backUrl == '../expertList/expert' || this.data.backUrl == '../chRepCon/chRepCon') { 
+                    wx.redirectTo({
+                      url: this.data.backUrl +'?order=before'
+                    });
+                  } else {
+                    wx.redirectTo({
+                      url: this.data.backUrl
+                    });
+
+                  }
                 }
               }
             } else {
