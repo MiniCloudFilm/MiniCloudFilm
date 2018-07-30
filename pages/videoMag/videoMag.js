@@ -14,7 +14,11 @@ Page({
   tabClick: function(e) {
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      page: 1
+      page: 1,
+      videoList: [], 
+      isHideLoadMore: true,
+      isLoad: true,
+      isEnd: true
     });
     if (e.currentTarget.dataset.index==0){ 
       this.setData({ 
@@ -50,55 +54,64 @@ Page({
           }
         }
       });
-    } else if (data.status == "1") {
-      wx.showActionSheet({
-        //未上架
-        itemList: ['视频上架', '删除'],
-        itemColor: '#1c7eff',
-        success: res => {
-          // console.log(res);
-          if (!res.cancel) {
-            if (res.tapIndex == 0) {
-              this.upVideo(data, 1);
-              this.setData({
-                videoList: []
-              })
-              this.getData('1', 1)
-            } else if (res.tapIndex == 1) {
-              this.deleteVideo(data);
-              this.setData({
-                videoList: []
-              })
-              this.getData('1', 1)
-            }
-          }
-        }
-      });
-    } else if (data.status == "2") {
-      wx.showActionSheet({
-        //已下架
-        itemList: ['视频上架', '删除'],
-        itemColor: '#1c7eff',
-        success: res => {
-          // console.log(res);
-          if (!res.cancel) {
-            if (res.tapIndex == 0) {
-              this.upVideo(data);
-            } else if (res.tapIndex == 1) {
-              this.deleteVideo(data);
-            }
-          }
-        }
-      });
-    } else if (data.status == "3") {
+    } 
+    else if (data.status == "1") {
+      wx.showToast({
+        title: `视频审核中`,
+        icon: 'none',
+        duration: 2000
+      })
+      // wx.showActionSheet({
+      //   //未上架
+      //   itemList: ['视频上架', '删除'],
+      //   itemColor: '#1c7eff',
+      //   success: res => {
+      //     // console.log(res);
+      //     if (!res.cancel) {
+      //       if (res.tapIndex == 0) {
+      //         this.upVideo(data, 1);
+      //         this.setData({
+      //           videoList: []
+      //         })
+      //         this.getData('1', 1)
+      //       } else if (res.tapIndex == 1) {
+      //         this.deleteVideo(data);
+      //         this.setData({
+      //           videoList: []
+      //         })
+      //         this.getData('1', 1)
+      //       }
+      //     }
+      //   }
+      // });
+    }
+    //  else if (data.status == "2") {
+    //   wx.showActionSheet({
+    //     //已下架
+    //     itemList: ['视频上架', '删除'],
+    //     itemColor: '#1c7eff',
+    //     success: res => {
+    //       // console.log(res);
+    //       if (!res.cancel) {
+    //         if (res.tapIndex == 0) {
+    //           this.upVideo(data);
+    //         } else if (res.tapIndex == 1) {
+    //           this.deleteVideo(data);
+    //         }
+    //       }
+    //     }
+    //   });
+    // } 
+    else if (data.status == "3") {
       //未审核
       wx.showActionSheet({
-        itemList: ['删除'],
+        itemList: ['上架'],
         itemColor: '#1c7eff',
         success: res => {
           console.log(res);
           if (!res.cancel) {
-            this.deleteVideo(data);
+            // this.deleteVideo(data);
+            this.upVideo(data,1);
           }
         }
       });
@@ -297,7 +310,7 @@ Page({
   //监听页面滚动
   onPageScroll: function (e) {
     console.log(e);
-    if (e.scrollTop > 0) {
+    if (e.scrollTop > 10) {
       this.setData({
         fixed: true
       })

@@ -1,6 +1,6 @@
 const server = require('serverConfig.js')
-const basePath = server.url;
-// const basePath = 'http://192.168.131.162:8080'
+// const basePath = server.url;
+const basePath = 'http://192.168.131.186:8080'
 // const basePath = 'http://192.168.131.102:8080'
 module.exports = {
   url: basePath,

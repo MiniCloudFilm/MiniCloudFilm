@@ -63,6 +63,7 @@
 .weui-tab__panel{
   padding-top:0;
   overflow: visible;
+  border-bottom: 1rpx solid #d9d9d9;
 }
 .weui-navbar__title {
   color: #2e3135;
