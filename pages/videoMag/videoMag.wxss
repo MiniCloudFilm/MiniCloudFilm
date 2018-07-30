@@ -56,7 +56,7 @@
   background: #fff;
 }
 .weui-navbar__slider {
-  width: 20%;
+  width: 25%;
   height: 4rpx;
   background-color: #1c7eff;
 }
@@ -71,8 +71,7 @@
 .weui-navbar view.active .weui-navbar__title {
   color: #1c7eff;
 }
-
-
+ 
 .noData {
   margin-top: 0;
   padding-top: 200rpx;

@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["已上架", "未审核","待审核",  "未通过"],
+    tabs: ["已上架", "审核中","未上架",  "未通过"],
     activeIndex: 0,
     url: app.globalData.api.url
   },
@@ -14,16 +14,20 @@ Page({
   tabClick: function(e) {
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id,
-      status: e.currentTarget.dataset.index,
       page: 1
     });
     if (e.currentTarget.dataset.index==0){ 
-      this.getData(e.currentTarget.dataset.index, this.data.page);
-      console.log(e.currentTarget.dataset.index);
+      this.setData({ 
+        activeIndex: e.currentTarget.id,
+        status: e.currentTarget.dataset.index,
+      })
+      this.getData(e.currentTarget.dataset.index, this.data.page); 
     } else {
-      this.getData(e.currentTarget.dataset.index+1, this.data.page); 
-      console.log(e.currentTarget.dataset.index + 1);
+      this.getData(e.currentTarget.dataset.index + 1, this.data.page);
+      this.setData({
+        activeIndex: parseInt(e.currentTarget.id),
+        status: parseInt(e.currentTarget.dataset.index)+1,
+      })
     }
   },
   //打开选择操作
@@ -201,6 +205,7 @@ Page({
         this.setData({
           videoList: tmpArr
         })
+        console.log(this.data.videoList);
         if (res.data.data.datas.length == 0) {
           this.setData({ 
             isLoad: false,
@@ -260,15 +265,7 @@ Page({
       isLoad: true,
       isEnd: true,
     })
-    this.getData(0, this.data.page);
-    // wx.getSystemInfo({
-    //   success: res => {
-    //     this.setData({
-    //       sliderLeft: (res.windowWidth / this.data.tabs.length) / 2 - 20,
-    //       sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
-    //     });
-    //   }
-    // });
+    this.getData(0, this.data.page); 
   },
 
   /**

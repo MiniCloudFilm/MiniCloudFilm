@@ -10,7 +10,7 @@
         <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
       <view class="weui-tab__panel" wx:if="{{videoList.length!=0}}">
-        <view hidden="{{activeIndex != item.videoStatus}}" wx:for="{{videoList}}" wx:key="{{index}}">
+        <view hidden="{{activeIndex != (item.videoStatus>0?item.videoStatus-1:item.videoStatus)}}" wx:for="{{videoList}}" wx:key="{{index}}">
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <view class="weui-cell" data-id="{{item.id}}" data-title="{{item.videoTitle}}" data-video-url="{{item.videoUrl}}" bindtap='videoType'>

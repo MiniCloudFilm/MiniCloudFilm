@@ -57,7 +57,7 @@ Page({
         'areaId': areaId,
         'deptId': deptId,
         'page':page,
-        'pageSize':8
+        'pageSize':50
       },
       method: 'GET',
       header: {
@@ -269,7 +269,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
+    app.checkLoginInfo(app.getCurrentUrl()); 
     wx.showLoading({
       title: '加载中..',
     })

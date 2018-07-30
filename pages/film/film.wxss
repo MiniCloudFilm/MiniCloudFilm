@@ -40,10 +40,7 @@ page,
   bottom: -10rpx;
   color:#ff8f45;
   font-size:26rpx;
-} 
-scroll-view{
-  height:90vh;
-}
+}  
 button[type=bule] {
 color:#FFFFFF;
 background-color:#1c7eff; 
@@ -59,4 +56,8 @@ background-color:#1c7eff;
   -webkit-box-orient: vertical; 
   -webkit-line-clamp: 2; 
   overflow: hidden; 
+}
+.weui-tab__panel{
+  padding-top:0;
+  overflow: visible;
 }
