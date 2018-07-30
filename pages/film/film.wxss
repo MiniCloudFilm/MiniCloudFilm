@@ -1,5 +1,4 @@
-/* pages/film/film.wxss */
-page,
+/* pages/film/film.wxss */  
 .page,
 .page__bd{
     height: 100%;
@@ -57,7 +56,11 @@ background-color:#1c7eff;
   -webkit-line-clamp: 2; 
   overflow: hidden; 
 }
-.weui-tab__panel{
+.weui-tab__panel{ 
   padding-top:0;
   overflow: visible;
+  border-bottom: 1rpx solid #d9d9d9;
+}
+.weui-navbar{
+  background: #fff;
 }
