@@ -13,10 +13,11 @@ Page({
     activeIndex: 0,
     token: '',
     url: app.globalData.api.expertList.image,
+    ifHasData: true, //是否可以下拉刷新
     page: 1,
     nodataIsHidden: true,
     loadingIsHidden: true,
-    pageSize:10
+    pageSize:5
   },
   tabClick: function(e) {
     let index = e.currentTarget.id;
@@ -300,7 +301,19 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading() //在标题栏中显示加载  
+    setTimeout(() => {
+      this.getCounListOfPatient(1);
+      this.setData({
+        page: 1,
+        loadingIsHidden: true,
+        nodataIsHidden: true,
+        ifHasData: true
+      })
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新 
+    }, 5000);
 
   },
 

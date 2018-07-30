@@ -6,7 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    ifHasData: true, //是否可以下拉刷新
+    page: 1,
+    nodataIsHidden: true,
+    loadingIsHidden: true,
+    pageSize:12//每页信息条数
   },
 
   /**
@@ -21,7 +25,7 @@ Page({
       data: {
         'token': app.globalData.token,
         'page': page,
-        'pageSize':12
+        'pageSize': this.data.pageSize
       },
       method: 'get',
       header: {
@@ -30,9 +34,36 @@ Page({
       success: res => {
         console.log(res)
         if (res.data.code == "200") {
+          let mesArr;
+          if (page > 1) {
+            mesArr = this.data.pickupCashRecord;
+          } else {
+            mesArr = [];
+          };
+          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
           this.setData({
-            pickupCashRecord: res.data.data.datas
-          })
+            pickupCashRecord: mesArr
+          });
+          // 判断是否换页
+          if (res.data.data.datas.length == 0) {
+            this.setData({
+              loadingIsHidden: true,
+              ifHasData: false
+            })
+          } else {
+            if (res.data.data.datas.length < this.data.pageSize) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true,
+                ifHasData: false
+              })
+            } else {
+              this.setData({
+                loadingIsHidden: true,
+                page: ++page
+              })
+            }
+          };
         };
       }
     })
@@ -71,14 +102,31 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    wx.showNavigationBarLoading() //在标题栏中显示加载  
+    setTimeout(() => {
+      this.getCashRecord(1);
+      this.setData({
+        page: 1,
+        loadingIsHidden: true,
+        nodataIsHidden: true,
+        ifHasData: true
+      })
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新 
+    }, 1000);
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    if (this.data.ifHasData){
+      this.setData({
+        // 显示加载图标 
+        loadingIsHidden:false
+      });
+      this.getCashRecord(this.data.page)
+    }
   },
 
   /**
