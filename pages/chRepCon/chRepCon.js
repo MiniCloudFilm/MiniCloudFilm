@@ -40,8 +40,7 @@ Page({
       title: '报告加载中..',
     });
     this.setData({ 
-      isHideLoadMore: true,
-      isLoad: true,
+      isHideLoadMore: true, 
       isEnd: true,
       page: 1
     })

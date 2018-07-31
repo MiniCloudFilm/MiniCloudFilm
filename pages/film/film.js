@@ -23,9 +23,9 @@ Page({
       check: e.currentTarget.dataset.index,
       videoList:[],
       page: 1,
-      isHideLoadMore: true,
-      isLoad: true,
-      isEnd: true
+      isHideLoadMore: true, 
+      isEnd: true, 
+      showNoData: false
     });
     // console.log(this.data.check);
     if (e.currentTarget.dataset.index == '0') {
@@ -58,52 +58,12 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
-        if (res.data.code == "200") {
-          let tmpArr;
-          if (this.data.page > 1) {
-            tmpArr = this.data.videoList;
-          } else {
-            tmpArr = [];
+        console.log(res.data) 
+          if (res.data.code == "200") {
             this.setData({
-              isEnd: true
+              videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
             })
           }
-          // 这一步实现了上拉加载更多
-          tmpArr.push.apply(tmpArr, res.data.data.datas);
-          this.setData({
-            videoList: tmpArr
-          })
-          if (res.data.data.datas.length == 0) {
-            this.setData({
-              isLoad: false,
-            })
-            if (this.data.page > 1) {
-              this.setData({
-                isEnd: false,
-                isHideLoadMore: true
-              })
-            }
-          } else {
-            if (res.data.data.datas.length < 15) {
-              this.setData({
-                isLoad: false,
-                isHideLoadMore: true
-              })
-              if (this.data.page > 1) {
-                this.setData({
-                  isEnd: false
-                })
-              }
-            } else {
-              this.setData({
-                isLoad: true,
-                isHideLoadMore: true,
-                page: ++this.data.page
-              })
-            }
-          } 
-        }
         console.log(this.data.videoList);
         wx.hideLoading()
       },
@@ -132,49 +92,10 @@ Page({
       success: res => {
         console.log(res.data)
         if (res.data.code == "200") {
-          let tmpArr;
-          if (this.data.page > 1) {
-            tmpArr = this.data.videoList;
-          } else {
-            tmpArr = [];
             this.setData({
-              isEnd: true
+              videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
             })
           }
-          // 这一步实现了上拉加载更多
-          tmpArr.push.apply(tmpArr, res.data.data.datas);
-          this.setData({
-            videoList: tmpArr
-          })
-          if (res.data.data.datas.length == 0) {
-            this.setData({
-              isLoad: false,
-            })
-            if (this.data.page > 1) {
-              this.setData({
-                isEnd: true
-              })
-            }
-          } else {
-            if (res.data.data.datas.length < 15) {
-              this.setData({
-                isLoad: false,
-                isHideLoadMore: true
-              })
-              if (this.data.page > 1) {
-                this.setData({
-                  isEnd: false
-                })
-              }
-            } else {
-              this.setData({
-                isLoad: true,
-                isHideLoadMore: true,
-                page: ++this.data.page
-              })
-            }
-          }
-        }
         console.log(this.data.videoList);
         wx.hideLoading()
       },
@@ -272,8 +193,7 @@ Page({
     this.setData({
       token: app.globalData.token,
       user: app.globalData.userList,
-      isHideLoadMore: true,
-      isLoad: true,
+      isHideLoadMore: true, 
       isEnd: true,
       page: 1,
     })
@@ -299,17 +219,16 @@ Page({
     wx.showNavigationBarLoading() //在标题栏中显示加载  
     this.setData({
       page: 1,
-      isEnd: true,
-      isLoad: true
+      isEnd: true 
     })
-    setTimeout(() => {
       if (this.data.check == '0') {
         this.getVideo(this.data.free)
       } else if (this.data.check == '1') {
         this.getVideo(this.data.charge)
       } else if (this.data.check == '2') {
         this.getQueryVideoLog();
-      } 
+      }  
+    setTimeout(() => {
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新 
     }, 1500);

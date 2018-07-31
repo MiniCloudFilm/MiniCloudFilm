@@ -4,12 +4,13 @@ var check = (dataList, dataJson, pageSize,that)=>{
     tmpArr = dataList
   } else {
     tmpArr = [];
-  } 
+  }   
   tmpArr.push.apply(tmpArr, dataJson);
   if (dataJson.length == 0) {
     that.setData({
+      showNoData:true,
       isLoad: false
-    })
+    }) 
     if (that.data.page > 1) {
       that.setData({
         isEnd: false,
@@ -43,7 +44,8 @@ var pullDownRefresh= (that, getData,arr) => {
   wx.showNavigationBarLoading() //在标题栏中显示加载  
   that.setData({
     page: 1,
-    isEnd: true 
+    isEnd: true,
+    showNoData: false  //暂无数据判定
   }) 
   if(arr){ 
     getData.apply(that, arr);
