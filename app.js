@@ -1,8 +1,9 @@
 //app.js
 let code = '';
 let APPID = 'wxa4cd3f1e2af9b0dd'
-const api = require('utils/apiConfig.js')
+const api = require('utils/apiConfig')
 const util = require('utils/util')
+const check = require('utils/checkUp')
 App({
   onLaunch: function() {
     // 展示本地存储能力 
@@ -11,6 +12,7 @@ App({
     wx.setStorageSync('logs', logs)
     this.globalData.api = api;
     this.globalData.util = util;
+    this.globalData.pageLoad = check;
     this.globalData.userList = wx.getStorageSync('userList');
     this.globalData.token = wx.getStorageSync('token');
     console.log(this.globalData.userList);
@@ -52,9 +54,15 @@ App({
         content: '请先登录账号！',
         success: res => {
           if (res.confirm) {
-            wx.redirectTo({
-              url: `${this.globalData.loginUrl}?backUrl=${url}`,
-            }) 
+            if (url == '../user/user' || url == '../counList/counList') {
+              wx.navigateTo({
+                url: `${this.globalData.loginUrl}?backUrl=${url}`,
+              })  
+            } else {
+              wx.redirectTo({
+                url: `${this.globalData.loginUrl}?backUrl=${url}`,
+              })  
+            }
           } else if (res.cancel) {
             wx.reLaunch({
               url: '../index/index',

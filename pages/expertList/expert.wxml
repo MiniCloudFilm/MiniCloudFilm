@@ -1,9 +1,9 @@
 <view class="container">
-  <view class="weui-flex drop-box">
+  <view class="weui-flex nav-box" style="position:{{fixed?'fixed':'relative'}}">
   <view class="weui-flex__item">
       <picker   mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange"  value="{{areaIndex}}"   range="{{areaList}}"  range-key="{{'areaName'}}">
         <view class="picker">
-        <text> {{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:'地区')}}</text>
+        <text> {{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:(areaList[0][areaIndex[0]].areaName=='全部'?'地区':areaList[0][areaIndex[0]].areaName))}}</text>
         <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
@@ -17,7 +17,7 @@
       </picker>
     </view>
   </view>
-  <view class='noData' wx:if="{{expertList&&expertList.length==0}}">
+  <view class='noData' wx:if="{{expertList&&expertList.length==0&&!isLoad}}">
     <image mode="widthFix" src='../../image/no-data.png'></image>
   </view>
   <view class="docter-box" wx:for="{{expertList}}" wx:key="index">
@@ -54,4 +54,11 @@
       </view>
     </view>
   </view>  
+   <view class="weui-loadmore" hidden="{{isEnd}}">
+        <view class="weui-loadmore__tips">数据已全部加载</view>
+      </view>
+      <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
 </view>

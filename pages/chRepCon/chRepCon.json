@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "选择要咨询的报告"
+  "navigationBarTitleText": "选择要咨询的报告",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
 }

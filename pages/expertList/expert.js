@@ -32,15 +32,15 @@ Page({
       console.log(this.data.doctorMes.doctoruserid)
       console.log(e.currentTarget.dataset.doctorid)
       console.log(this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid))
-      // if (this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid)!=-1){
-      //   wx.showModal({
-      //     title: '温馨提示',
-      //     content: '该检查报告正在和此医生咨询，请勿重复选择',
-      //     showCancel: false,
-      //     success: function (res) { }
-      //   });
-      //   return false;
-      // }
+      if (this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid)!=-1){
+        wx.showModal({
+          title: '温馨提示',
+          content: '该检查报告正在和此医生咨询，请勿重复选择',
+          showCancel: false,
+          success: function (res) { }
+        });
+        return false;
+      }
       wx.navigateTo({
         url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportId}&type=1`
       })
@@ -48,32 +48,6 @@ Page({
     }
   },
 
-  //获取专家列表
-  getExpert: function(areaId, deptId,page) {
-    wx.request({
-      url: app.globalData.api.expertList.expertList,
-      data: {
-        'token': '',
-        'areaId': areaId,
-        'deptId': deptId,
-        'page':page,
-        'pageSize':50
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        console.log(res.data.data.datas)
-        if (res.data.code == "200") {
-          this.setData({
-            expertList: res.data.data.datas
-          }) 
-          wx.hideLoading()
-        }
-      }
-    })
-  },
   //获取科室
   getDepartment: function() { 
     wx.request({
@@ -137,8 +111,18 @@ Page({
     })
   },
   //选定科室
-  bindDepartmentChange: function(e) {
-    // console.log(e);
+  bindDepartmentChange: function (e) {
+    wx.showLoading({
+      title: '加载中..',
+    })
+    this.setData({ 
+      expertList:[],
+      page: 1,
+      isHideLoadMore: true,
+      isLoad: true,
+      isEnd: true
+    })
+    // console.log(e); 
     let index = e.detail.value;
     let parent = index[0];
     let value = index[1];
@@ -188,7 +172,17 @@ Page({
   },
   //选定区域
   bindAreaChange: function(e) {
-    // console.log(e.detail.value, this.data.areaList); 
+    // console.log(e.detail.value, this.data.areaList);  
+    wx.showLoading({
+      title: '加载中..',
+    })
+    this.setData({
+      expertList: [],
+      page: 1,
+      isHideLoadMore: true,
+      isLoad: true,
+      isEnd: true
+    })
     let indexArr = e.detail.value;
     let areaList=this.data.areaList;
     let areaId="";
@@ -270,10 +264,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    app.checkLoginInfo(app.getCurrentUrl()); 
+    app.checkLoginInfo(app.getCurrentUrl());  
     wx.showLoading({
       title: '加载中..',
-    })
+    }) 
     this.getArea('0', 1);
     // console.log(options);
     this.getDepartment();
@@ -284,10 +278,72 @@ Page({
         [],
         [],
         []
-      ]
+      ],  
+      isHideLoadMore: true,
+      isEnd: true,
+      page: 1,
     }) 
   },
-
+  //获取专家列表
+  getExpert: function (areaId, deptId, page) {
+    wx.request({
+      url: app.globalData.api.expertList.expertList,
+      data: {
+        'token': '',
+        'areaId': areaId,
+        'deptId': deptId,
+        'page': page,
+        'pageSize': 10
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: res => {
+        console.log(res) 
+          if (res.data.code == "200") { 
+            this.setData({
+              expertList: app.globalData.pageLoad.check(this.data.expertList, res.data.data.datas, 10, this)
+            }) 
+          } 
+        // console.log(this.data.expertList);
+        // console.log(this.data.page)
+           wx.hideLoading() 
+        },
+        fail: res => {
+          wx.hideLoading()
+          wx.showToast({
+            title: '服务器异常，请稍后再试！',
+            icon: 'none',
+            duration: 2000
+          })
+        } 
+    })
+  },
+  onPageScroll: function (e) {
+    if (e.scrollTop > 10) {
+      this.setData({
+        fixed: true
+      })
+    } else {
+      this.setData({
+        fixed: false
+      })
+    }
+  },
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () { 
+    app.globalData.pageLoad.pullDownRefresh(this, this.getExpert, [this.data.areaId, this.data.deptId,1]); 
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    // 显示加载图标   
+    app.globalData.pageLoad.reachBottom(this, this.getExpert, [this.data.areaId, this.data.deptId, this.data.page]); 
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -315,21 +371,7 @@ Page({
   onUnload: function() {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
+ 
   /**
    * 用户点击右上角分享
    */

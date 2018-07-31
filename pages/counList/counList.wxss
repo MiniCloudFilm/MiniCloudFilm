@@ -1,5 +1,4 @@
-/* pages/counList/counList.wxss */
-page,
+/* pages/counList/counList.wxss */ 
 .page{
     height: 100%;
 }

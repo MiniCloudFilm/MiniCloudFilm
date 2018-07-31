@@ -8,8 +8,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     bannerList: [],
-    url: app.globalData.api.index.showImage,
-    ifHasData: true, //是否可以下拉刷新
+    url: app.globalData.api.index.showImage, 
     page: 1,
     nodataIsHidden: true,
     loadingIsHidden: true,
@@ -204,6 +203,7 @@ Page({
                 })
               } else {
                 this.setData({
+                  ifHasData: true,
                   loadingIsHidden: true,
                   page: ++page
                 })
@@ -228,15 +228,14 @@ Page({
    */
   onPullDownRefresh: function() {
     wx.showNavigationBarLoading() //在标题栏中显示加载  
-    setTimeout(() => {
       this.getMessage(2, 1);
       this.getMessage(1, 1);
       this.setData({
         page: 1,
         loadingIsHidden: true,
-        nodataIsHidden: true,
-        ifHasData: true
-      })
+        nodataIsHidden: true
+    })
+    setTimeout(() => {
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新 
     }, 1000);
