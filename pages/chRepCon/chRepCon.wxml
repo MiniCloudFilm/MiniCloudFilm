@@ -1,7 +1,7 @@
 <view class="container">
   <view class="page-body">
     <view class="con-list">
-      <view class='noData' wx:if="{{reportList&&reportList.length==0}}">
+      <view class='noData' wx:if="{{reportList&&reportList.length==0&&showNoData}}">
         <image mode="widthFix" src='../../image/no-data.png'></image>
       </view>
       <view class="con-box" wx:for="{{reportList}}" wx:key="index">
