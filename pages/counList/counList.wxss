@@ -1,5 +1,4 @@
-/* pages/counList/counList.wxss */
-page,
+/* pages/counList/counList.wxss */ 
 .page{
     height: 100%;
 }
@@ -11,6 +10,10 @@ page,
   width: 33.333%;
   height: 2px;
   background: #1c7eff;
+}
+.weui-tab__panel{ 
+  padding-top:0;
+  overflow: visible;
 }
 
 .counlist {
@@ -133,6 +136,3 @@ button {
   right: 0
 }
 
-.weui-loadmore{
-  padding-bottom: 40rpx;
-}

@@ -39,7 +39,7 @@
     </view>
     <!-- 医生端 -->
     <view wx:if="{{userType==2}}" class="weui-tab" style="width:100%">
-      <view class="weui-navbar">
+      <view class="weui-navbar" style="position:{{fixed?'fixed':'relative'}}">
         <block wx:for="{{tabs}}" wx:key="*this">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
@@ -141,23 +141,16 @@
                 </view>
                 <view class="weui-flex choice">
                   <view class="accept">
-                    <button data-consult="{{item.dialogConsultId}}" data-dialoger="{{item.aponsorName}}" data-dialog-id="{{item.dialogId}}" data-report-id="{{item.dialogReportId}}" bindtap='accept'>接受</button>
+                    <button data-consult="{{item.dialogConsultId}}" data-dialoger="{{item.aponsorName}}" data-dialog-id="{{item.dialogId}}" data-report-id="{{item.dialogReportId}}" bindtap="confirmAccept">接受</button>
                   </view>
                   <view class="refuse">
-                    <button data-consult="{{item.dialogConsultId}}" data-order-id="{{item.dialogOrderId}}" bindtap='refund'>拒绝</button>
+                    <button data-consult="{{item.dialogConsultId}}" data-order-id="{{item.dialogOrderId}}" bindtap='confirmrefuse'>拒绝</button>
                   </view>
                 </view>
               </view>
             </view>
           </view>
         </view>
-        <!-- <view class="weui-loadmore" hidden="{{loadingIsHidden}}">
-          <view class="weui-loading"></view>
-          <view class="weui-loadmore__tips">正在加载</view>
-        </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden="{{nodataIsHidden}}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载完成</view>
-        </view> -->
       </view>
     </view>
     <!-- 加载更多/加载完成 -->

@@ -32,15 +32,15 @@ Page({
       console.log(this.data.doctorMes.doctoruserid)
       console.log(e.currentTarget.dataset.doctorid)
       console.log(this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid))
-      // if (this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid)!=-1){
-      //   wx.showModal({
-      //     title: '温馨提示',
-      //     content: '该检查报告正在和此医生咨询，请勿重复选择',
-      //     showCancel: false,
-      //     success: function (res) { }
-      //   });
-      //   return false;
-      // }
+      if (this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid)!=-1){
+        wx.showModal({
+          title: '温馨提示',
+          content: '该检查报告正在和此医生咨询，请勿重复选择',
+          showCancel: false,
+          success: function (res) { }
+        });
+        return false;
+      }
       wx.navigateTo({
         url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportId}&type=1`
       })

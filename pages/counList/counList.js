@@ -25,6 +25,8 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: index
     });
+
+    this.reset(); // 重置数据
     // tab切换
     if (index == 0) {
       this.getCounList(1);
@@ -34,8 +36,37 @@ Page({
       this.pendingAction(1);
     }
   },
+  // 确认接收会诊
+  confirmAccept: function(e) {
+      wx.showModal({
+        title: '提示',
+        content: '确定接受此会诊？',
+        cancelText: '取消',
+        success: res=>{
+          if (res.confirm) {
+            this.accept(e);
+          }
+        }
+      })
+  },
+
+  // 确认拒绝会诊
+  confirmrefuse:function(e){
+    console.log(e)
+    wx.showModal({
+      title: '提示',
+      content: '确定拒绝此会诊？',
+      cancelText: '取消',
+      success: res=> {
+        if (res.confirm) {
+          this.refund(e);
+        }
+      }
+    })
+  },
   //退款
   refund: function(e) {
+    console.log(e)
     wx.request({
       url: app.globalData.api.counList.refund,
       data: {
@@ -46,7 +77,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res);
         if (res.data.data == 'SUCCESS') {
           wx.showToast({
             title: '拒绝成功',
@@ -139,16 +169,25 @@ Page({
           // 判断是否换页
           if (res.data.data.datas.length == 0) {
             this.setData({
-              loadingIsHidden: true,
               ifHasData: false
             })
+            if (page > 1) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true
+              })
+            }
           } else {
             if (res.data.data.datas.length < this.data.pageSize) {
               this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true,
                 ifHasData: false
               })
+              if (page > 1) {
+                this.setData({
+                  nodataIsHidden: false,
+                  loadingIsHidden: true
+                })
+              }
             } else {
               this.setData({
                 loadingIsHidden: true,
@@ -190,12 +229,48 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res.data)
         wx.hideLoading()
         if (res.data.code == "200") {
+          let mesArr;
+          if (page > 1) {
+            mesArr = this.data.counList;
+          } else {
+            mesArr = [];
+          };
+          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
           this.setData({
-            counList: res.data.data.datas
+            counList: mesArr
           });
+          // 判断是否换页
+          if (res.data.data.datas.length == 0) {
+            this.setData({
+              ifHasData: false
+            })
+            if (page > 1) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true
+              })
+            }
+          } else {
+            if (res.data.data.datas.length < this.data.pageSize) {
+              this.setData({
+                ifHasData: false
+              })
+
+              if (page > 1) {
+                this.setData({
+                  nodataIsHidden: false,
+                  loadingIsHidden: true
+                })
+              }
+            } else {
+              this.setData({
+                loadingIsHidden: true,
+                page: ++page
+              })
+            }
+          };
         } else {
           wx.showToast({
             title: '查询列表失败',
@@ -227,12 +302,56 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res.data)
+        wx.hideLoading();
         if (res.data.code == "200") {
+          let mesArr;
+          if (page > 1) {
+            mesArr = this.data.receiveAssistList;
+          } else {
+            mesArr = [];
+          };
+          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
           this.setData({
-            receiveAssistList: res.data.data.datas
+            receiveAssistList: mesArr
+          });
+          // 判断是否换页
+          if (res.data.data.datas.length == 0) {
+            if (page > 1) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true,
+                ifHasData: false
+              })
+            }
+          } else {
+            if (res.data.data.datas.length < this.data.pageSize) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true,
+                ifHasData: false
+              })
+            } else {
+              this.setData({
+                loadingIsHidden: true,
+                page: ++page
+              })
+            }
+          };
+        } else {
+          wx.showToast({
+            title: '查询列表失败',
+            icon: 'none',
+            duration: 2000
           })
         }
+      },
+      fail: res => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
@@ -249,7 +368,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res.data)
+        wx.hideLoading();
         if (res.data.code == "200") {
           let mesArr;
           if (page > 1) {
@@ -265,16 +384,25 @@ Page({
           // 判断是否换页
           if (res.data.data.data.length == 0) {
             this.setData({
-              loadingIsHidden: true,
               ifHasData: false
             })
+            if (page > 1) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true
+              })
+            }
           } else {
             if (res.data.data.data.length < this.data.pageSize) {
               this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true,
                 ifHasData: false
               })
+              if (page > 1) {
+                this.setData({
+                  nodataIsHidden: false,
+                  loadingIsHidden: true
+                })
+              }
             } else {
               this.setData({
                 loadingIsHidden: true,
@@ -282,16 +410,28 @@ Page({
               })
             }
           };
+        } else {
+          wx.showToast({
+            title: '查询列表失败',
+            icon: 'none',
+            duration: 2000
+          })
         }
+      },
+      fail: res => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    console.log((this.data.counList && this.data.counList.length == 0));
-  },
+  onLoad: function(options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -330,27 +470,36 @@ Page({
     wx.showLoading({
       title: '加载中..',
     });
-    this.reset();// 重置数据
+    this.reset(); // 重置数据
     //登录校验
     app.checkLoginInfo(app.getCurrentUrl());
     let user = app.globalData.userList;
     console.log(user);
     if (user) {
       this.setData({
-        userType: user.userType
+        userType: user.userType,
+        counList: [],
+        receiveAssistList: [],
+        pendingActionList: []
       });
     } else {
       this.setData({
         userType: null
       });
-    }
+    };
+    console.log(this.data.ifHasData)
     if (this.data.userType == 1) {
       this.getCounListOfPatient(1);
       return false;
     } else if (this.data.userType == 2) {
-      this.getCounList(1);
-      this.pendingAction(1);
-      // this.receiveAssist(1);
+      if (this.data.activeIndex == 0) {
+        this.getCounList(1);
+        this.pendingAction(1);
+      } else if (this.data.activeIndex == 1) {
+        this.receiveAssist(1);
+      } else {
+        this.pendingAction(1);
+      }
     }
   },
 
@@ -374,8 +523,8 @@ Page({
   onPullDownRefresh: function() {
     wx.showNavigationBarLoading(); //在标题栏中显示加载  
     setTimeout(() => {
-      this.reset();// 重置数据
-      wx.hideNavigationBarLoading();//完成停止加载
+      this.reset(); // 重置数据
+      wx.hideNavigationBarLoading(); //完成停止加载
       wx.stopPullDownRefresh(); //停止下拉刷新 
       if (this.data.userType == 1) {
         this.getCounListOfPatient(1);
@@ -426,6 +575,18 @@ Page({
       nodataIsHidden: true,
       ifHasData: true
     })
+  },
+  // 监听页面滚动
+  onPageScroll: function(e) {
+    if (e.scrollTop > 10) {
+      this.setData({
+        fixed: true
+      })
+    } else {
+      this.setData({
+        fixed: false
+      })
+    }
   },
 
   /**

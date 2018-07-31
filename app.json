@@ -25,7 +25,8 @@
     "pages/myVideo/myVideo",
     "pages/pickupCachRecord/pickupCachRecord",
     "pages/newsDetail/newsDetail",
-    "pages/userFilm/userFilm"
+    "pages/userFilm/userFilm",
+    "pages/personalInfo/personalInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

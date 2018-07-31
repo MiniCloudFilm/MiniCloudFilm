@@ -1,5 +1,4 @@
 /* pages/counList/counList.wxss */
-page,
 .page,
 .page__bd{
     height: 100%;
@@ -14,6 +13,10 @@ page,
    width:33.333%; 
   height:2px;
   background:#1c7eff;
+}
+.weui-tab__panel{ 
+  padding-top:0;
+  overflow: visible;
 }
 .weui-navbar__item.weui-bar__item_on{
   color:#1c7eff;

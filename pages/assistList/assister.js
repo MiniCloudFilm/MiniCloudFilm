@@ -21,23 +21,24 @@ Page({
   },
 
   //获取专家列表
-  getExpert: function (areaId, deptId) {
+  getExpert: function (areaId, deptId,page) {
     wx.request({
       url: app.globalData.api.expertList.expertList,
       data: {
         'token': '',
         'areaId': areaId,
-        'deptId': deptId
+        'deptId': deptId,
+        'page':page
       },
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        // console.log(res.data.data)
+        console.log(res.data.data.datas)
         if (res.data.code == "200") {
           this.setData({
-            expertList: res.data.data
+            expertList: res.data.data.datas
           })
         }
       }
@@ -119,12 +120,12 @@ Page({
           this.setData({
             deptId: list[i].deptId
           })
-          this.getExpert(areaId, this.data.deptId)
+          this.getExpert(areaId, this.data.deptId,1)
         } else {
           this.setData({
             deptId: list[i].children[value].deptId
           })
-          this.getExpert(areaId, this.data.deptId)
+          this.getExpert(areaId, this.data.deptId,1)
         }
       }
     }
@@ -166,18 +167,18 @@ Page({
       if (indexArr[1] == 0) {
         if (indexArr[0] == 0) {
           areaId = areaList[0][0].areaId
-          this.getExpert(areaId, deptId);
+          this.getExpert(areaId, deptId,1);
         } else {
           areaId = areaList[0][indexArr[0]].areaId
-          this.getExpert(areaId, deptId);
+          this.getExpert(areaId, deptId,1);
         }
       } else {
         areaId = areaList[1][indexArr[1]].areaId
-        this.getExpert(areaId, deptId);
+        this.getExpert(areaId, deptId,1);
       }
     } else {
       areaId = areaList[2][indexArr[2]].areaId
-      this.getExpert(areaId, deptId);
+      this.getExpert(areaId, deptId,1);
     }
     this.setData({
       areaId: areaId
@@ -242,7 +243,7 @@ Page({
     this.getArea('0', 1);
     // console.log(options);
     this.getDepartment();
-    this.getExpert('all', 'all');
+    this.getExpert('all', 'all',1);
     this.setData({
       dialogId: options.dialogId,
       areaList: [
