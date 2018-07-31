@@ -73,7 +73,12 @@ Page({
     app.checkLoginInfo(app.getCurrentUrl());
     this.setData({
       token: app.globalData.token,
-      user: app.globalData.userList
+      user: app.globalData.userList,
+      videoList: [],
+      page: 1,
+      isHideLoadMore: true,
+      isLoad: true,
+      isEnd: true
     }) 
     this.getData(1)
     wx.hideLoading()
@@ -151,12 +156,16 @@ Page({
             })
           }
         }
-        wx.hideNavigationBarLoading();
+        wx.hideNavigationBarLoading(); 
         wx.hideLoading()
       },
       fail: res => {
         wx.hideLoading()
-        util.showToast('服务器连接失败！')
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },

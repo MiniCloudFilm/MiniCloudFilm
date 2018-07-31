@@ -39,6 +39,12 @@ Page({
     wx.showLoading({
       title: '报告加载中..',
     });
+    this.setData({ 
+      isHideLoadMore: true,
+      isLoad: true,
+      isEnd: true,
+      page: 1
+    })
     if (options.order == 'before') {
       this.setData({
         doctorMes: options
@@ -51,17 +57,19 @@ Page({
     }
     app.checkLoginInfo(app.getCurrentUrl()); 
     if (app.globalData.userList) {
-      this.getReportList(1)
+      this.getReportList()
     }
   },
-  getReportList:function(page){
+
+  //获取列表
+  getReportList:function( ){
     wx.request({
       url: app.globalData.api.chRepCon.getReportList,
       data: {
         'token': app.globalData.token,
         'name': app.globalData.userList.name,
-        'pageSize': 8,
-        'page': page
+        'pageSize': 5,
+        'page': this.data.page
       },
       method: 'GET',
       header: {
@@ -69,19 +77,25 @@ Page({
       },
       success: res => {
         console.log(res);
-        if (res.data.code == '200') {
+        if (res.data.code == "200") {
           this.setData({
-            reportList: res.data.data.datas
-          })
-          wx.hideLoading()
-          // console.log(res.data)
-        }
+            reportList: app.globalData.pageLoad.check(this.data.reportList, res.data.data.datas, 5,this)
+          }) 
+        }  
+        // console.log(this.data.page);
+        // console.log(this.data.reportList);
+        wx.hideLoading()
       },
       fail: res => {
         wx.hideLoading()
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
-  },
+  }, 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -108,22 +122,17 @@ Page({
    */
   onUnload: function () {
 
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
+  }, 
   onPullDownRefresh: function () {
-
+    app.globalData.pageLoad.pullDownRefresh(this,this.getReportList);
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
-  },
-
+    // 显示加载图标   
+    app.globalData.pageLoad.reachBottom(this, this.getReportList); 
+  }, 
   /**
    * 用户点击右上角分享
    */

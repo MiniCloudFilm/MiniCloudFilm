@@ -80,7 +80,8 @@ Page({
             })
             if (this.data.page > 1) {
               this.setData({
-                isEnd: true
+                isEnd: false,
+                isHideLoadMore: true
               })
             }
           } else {
@@ -211,11 +212,13 @@ Page({
           } else if (this.data.check  == '2') {
             this.getQueryVideoLog();
           }
-          // console.log(data);
-          let arr = data.videoUrl.split('?');
-          wx.navigateTo({
-            url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
-          })
+          console.log(data);
+          if (data.isBuy || data.isCharge=='N') {
+            let arr = data.videoUrl.split('?');
+            wx.navigateTo({
+              url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
+            }) 
+          } 
         }
       }
     })
