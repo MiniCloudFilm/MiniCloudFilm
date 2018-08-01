@@ -111,14 +111,14 @@
           </view>
         </view>
       </view>
-       <!-- 加载更多/加载完成 -->
-        <view class="weui-loadmore" hidden="{{loadingIsHidden}}">
-          <view class="weui-loading"></view>
-          <view class="weui-loadmore__tips">正在加载</view>
-        </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden="{{nodataIsHidden}}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载完成</view>
-        </view>
+      <!-- 加载更多/加载完成 -->
+      <view class="weui-loadmore" hidden="{{loadingIsHidden}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="weui-loadmore" hidden="{{nodataIsHidden}}">
+        <view class="weui-loadmore__tips">数据已全部加载</view>
+      </view>
     </view>
   </view>
 </view>

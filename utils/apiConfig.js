@@ -164,5 +164,9 @@ module.exports = {
   picker: {
     getDepartment: basePath + '/api/v1/dict/getDept',
     getArea: basePath + '/api/v1/dict/getArea'
+  },
+  //修改个人信息
+  personalInfo:{
+    modifyInfo: basePath +'api/v1/user/logout'
   }
 }

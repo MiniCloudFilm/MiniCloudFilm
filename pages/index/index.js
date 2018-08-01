@@ -8,10 +8,10 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     bannerList: [],
-    url: app.globalData.api.index.showImage, 
-    page: 1,
-    nodataIsHidden: true,
-    loadingIsHidden: true,
+    url: app.globalData.api.index.showImage
+    // page: 1,
+    // nodataIsHidden: true,
+    // loadingIsHidden: true,
 
   },
   //事件处理函数
@@ -21,6 +21,11 @@ Page({
     })
   },
   onLoad: function() {
+    this.setData({
+      isHideLoadMore: true,
+      isEnd: true,
+      page: 1,
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -162,7 +167,7 @@ Page({
       method: 'post',
       data: {
         "pageNum": page,
-        "rowsCount": 6,
+        "rowsCount": 8,
         "type": type
       },
       success: res => {
@@ -177,39 +182,41 @@ Page({
               bannerList: bannerList
             })
           } else if (type == 2) {
-            //咨询列表
-            let mesArr;
-            if (page > 1) {
-              mesArr = this.data.messageList;
-            } else {
-              mesArr = [];
-            };
-            mesArr.push.apply(mesArr, res.data.data.data); //合并数组
             this.setData({
-              messageList: mesArr
-            });
-            // 判断是否换页
-            if (res.data.data.data.length == 0) {
-              this.setData({
-                loadingIsHidden: true,
-                ifHasData: false
-              })
-            } else {
-              if (res.data.data.data.length < 6) {
-                this.setData({
-                  nodataIsHidden: false,
-                  loadingIsHidden: true,
-                  ifHasData: false
-                })
-              } else {
-                this.setData({
-                  ifHasData: true,
-                  loadingIsHidden: true,
-                  page: ++page
-                })
-              }
-            };
-            // console.log(this.data.page)
+              messageList: app.globalData.pageLoad.check(this.data.messageList, res.data.data.data, 8, this)
+            }) 
+            //咨询列表
+            // let mesArr;
+            // if (page > 1) {
+            //   mesArr = this.data.messageList;
+            // } else {
+            //   mesArr = [];
+            // };
+            // mesArr.push.apply(mesArr, res.data.data.data); //合并数组
+            // this.setData({
+            //   messageList: mesArr
+            // });
+            // // 判断是否换页
+            // if (res.data.data.data.length == 0) {
+            //   this.setData({
+            //     loadingIsHidden: true,
+            //     ifHasData: false
+            //   })
+            // } else {
+            //   if (res.data.data.data.length < 6) {
+            //     this.setData({
+            //       nodataIsHidden: false,
+            //       loadingIsHidden: true,
+            //       ifHasData: false
+            //     })
+            //   } else {
+            //     this.setData({
+            //       ifHasData: true,
+            //       loadingIsHidden: true,
+            //       page: ++page
+            //     })
+            //   }
+            // };
           }
         }
       }
@@ -226,33 +233,43 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-    wx.showNavigationBarLoading() //在标题栏中显示加载  
-      this.getMessage(2, 1);
-      this.getMessage(1, 1);
-      this.setData({
-        page: 1,
-        loadingIsHidden: true,
-        nodataIsHidden: true
-    })
-    setTimeout(() => {
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新 
-    }, 1000);
+  // onPullDownRefresh: function() {
+  //   wx.showNavigationBarLoading() //在标题栏中显示加载  
+  //     this.getMessage(2, 1);
+  //     this.getMessage(1, 1);
+  //     this.setData({
+  //       page: 1,
+  //       loadingIsHidden: true,
+  //       nodataIsHidden: true
+  //   })
+  //   setTimeout(() => {
+  //     wx.hideNavigationBarLoading() //完成停止加载
+  //     wx.stopPullDownRefresh() //停止下拉刷新 
+  //   }, 1000);
+  // },
+  // /**
+  //  * 页面上拉触底事件的处理函数
+  //  */
+  // onReachBottom: function() {
+  //   // 显示加载图标 
+  //   if (this.data.ifHasData) {
+  //     this.setData({
+  //       loadingIsHidden: false
+  //     })
+
+  //     this.getMessage(2, this.data.page);
+
+  //   }
+  // },
+  onPullDownRefresh: function () {
+    this.getMessage(1, 1);
+    app.globalData.pageLoad.pullDownRefresh(this, this.getMessage, [2, 1]); 
   },
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-    // 显示加载图标 
-    if (this.data.ifHasData) {
-      this.setData({
-        loadingIsHidden: false
-      })
-
-      this.getMessage(2, this.data.page);
-
-    }
+  onReachBottom: function () {
+    app.globalData.pageLoad.reachBottom(this, this.getMessage, [2, this.data.page]); 
   },
 
 

@@ -13,7 +13,6 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     isAccept: false,
-    token: "",
     ifHasData: true, //是否可以下拉刷新
     page: 1,
     nodataIsHidden: true,
@@ -40,7 +39,7 @@ Page({
       }
     });
     this.setData({
-      token: wx.getStorageSync("token")
+      token: app.globalData.token
     });
     this.myALLConsult(1);
   },

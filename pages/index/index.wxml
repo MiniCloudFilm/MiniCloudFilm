@@ -49,19 +49,19 @@
               </view>
             </view>
           </button>
-      </form>
-          <form bindsubmit="turnUserVideo" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
-        <button formType="submit" class='btn'>
-          <view class="weui-flex__item">
-            <view class="navT">
-              <image src="/image/icon3.png"></image>
+        </form>
+        <form bindsubmit="turnUserVideo" report-submit="true" class='form' wx:if="{{userType==1||!userType}}">
+          <button formType="submit" class='btn'>
+            <view class="weui-flex__item">
+              <view class="navT">
+                <image src="/image/icon3.png"></image>
+              </view>
+              <view>
+                <text>生活小常识</text>
+              </view>
             </view>
-            <view>
-              <text>生活小常识</text>
-            </view>
-          </view>
-        </button>
-      </form>
+          </button>
+        </form>
         <form bindsubmit="turnToConAssistance" report-submit="true" class='form' wx:if="{{userType==2}}">
           <button formType="submit" class='btn'>
             <view class="weui-flex__item">
@@ -109,12 +109,12 @@
         </form>
       </view>
       <view class='page__bd'>
-        <view class="weui-loadmore" hidden="{{loadingIsHidden}}">
+        <view class="weui-loadmore" hidden="{{isEnd}}">
+          <view class="weui-loadmore__tips">数据已全部加载</view>
+        </view>
+        <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
           <view class="weui-loading"></view>
           <view class="weui-loadmore__tips">正在加载</view>
-        </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden="{{nodataIsHidden}}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载完成</view>
         </view>
       </view>
     </view>
