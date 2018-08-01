@@ -47,18 +47,17 @@ var pullDownRefresh= (that, getData,arr) => {
     isEnd: true,
     showNoData: false  //暂无数据判定
   }) 
+  console.log(arr)
   if(arr){ 
     getData.apply(that, arr);
   }else{ 
-    getData(arr);
+    getData();
   }
   setTimeout(() => {
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新 
   }, 1500);
 } 
-
-
 /**
  * 上拉加载  that:this对象  getData: 获取数据方法 arr: 参数
  */
@@ -70,7 +69,7 @@ var reachBottom = (that, getData, arr)=>{
     if (arr) {
       getData.apply(that, arr);
     } else {
-      getData(arr);
+      getData();
     }
   } else {
     if (that.data.page > 1) {

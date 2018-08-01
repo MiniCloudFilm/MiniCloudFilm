@@ -1,18 +1,18 @@
 <view class="container">
   <view class="weui-flex nav-box" style="position:{{fixed?'fixed':'relative'}}">
-  <view class="weui-flex__item">
-      <picker   mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange"  value="{{areaIndex}}"   range="{{areaList}}"  range-key="{{'areaName'}}">
+    <view class="weui-flex__item">
+      <picker mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaList}}" range-key="{{'areaName'}}">
         <view class="picker">
-        <text> {{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:(areaList[0][areaIndex[0]].areaName=='全部'?'地区':areaList[0][areaIndex[0]].areaName))}}</text>
-        <image src="/image/arrow-down.png"></image>
+          <text> {{areaList[2][areaIndex[2]].areaName&&areaIndex[2]!=0?areaList[2][areaIndex[2]].areaName:(areaList[1][areaIndex[1]].areaName&&areaIndex[1]!=0?areaList[1][areaIndex[1]].areaName:(areaList[0][areaIndex[0]].areaName=='全部'?'地区':areaList[0][areaIndex[0]].areaName))}}</text>
+          <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
-    </view> 
+    </view>
     <view class="weui-flex__item">
-      <picker   mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange"  value="{{departmentIndex}}"   range="{{department}}"  range-key="{{'deptName'}}">
+      <picker mode="multiSelector" bindcolumnchange="bindMultiPickerColumnChange" bindchange="bindDepartmentChange" value="{{departmentIndex}}" range="{{department}}" range-key="{{'deptName'}}">
         <view class="picker">
-        <text> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</text>
-         <image src="/image/arrow-down.png"></image>  
+          <text> {{department[1][departmentIndex[1]].deptName?department[1][departmentIndex[1]].deptName:department[0][departmentIndex[0]].deptName}}</text>
+          <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
     </view>
@@ -23,7 +23,7 @@
   <view class="docter-box" wx:for="{{expertList}}" wx:key="index">
     <view class="weui-cell">
       <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-         <image src="{{url+item.doctorId}}" style="width: 122rpx; height: 122rpx; display: block;border-radius:50%" /> 
+        <image src="{{url+item.doctorId}}" style="width: 122rpx; height: 122rpx; display: block;border-radius:50%" />
       </view>
       <view class="weui-cell__bd">
         <view class="doctorMes">
@@ -46,19 +46,19 @@
             <text style="color: #FF9800;font-weight:bold">￥{{item.charge}}/次</text>
           </view>
           <view class="weui-flex__item"></view>
-          <view> 
-            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' data-doctorid="{{item.userId}}" >
-              {{doctorMes.order=='before'?'选择报告':'购买'}} </view>  
+          <view>
+            <view class="nav" bindtap='turn' data-doctor='{{item.name}}' data-belong='{{item.hospitalName}}' data-price='{{item.charge}}' data-doctorid="{{item.userId}}">
+              {{doctorMes.order=='before'?'选择报告':'购买'}} </view>
           </view>
         </view>
       </view>
     </view>
-  </view>  
-   <view class="weui-loadmore" hidden="{{isEnd}}">
-        <view class="weui-loadmore__tips">数据已全部加载</view>
-      </view>
-      <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
-        <view class="weui-loading"></view>
-        <view class="weui-loadmore__tips">正在加载</view>
-      </view>
+  </view>
+  <view class="weui-loadmore" hidden="{{isEnd}}">
+    <view class="weui-loadmore__tips">数据已全部加载</view>
+  </view>
+  <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
 </view>

@@ -28,20 +28,30 @@ Page({
         'token': '',
         'areaId': areaId,
         'deptId': deptId,
-        'page':page
+        'page': page,
+        'pageSize': 10
       },
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: res => {
-        console.log(res.data.data.datas)
+        wx.hideLoading();
         if (res.data.code == "200") {
           this.setData({
-            expertList: res.data.data.datas
+            expertList: app.globalData.pageLoad.check(this.data.expertList, res.data.data.datas, 10, this)
           })
         }
-      }
+      },
+      fail: res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
+      } 
+
     })
   },
   //获取科室
@@ -108,6 +118,16 @@ Page({
   },
   //选定科室
   bindDepartmentChange: function (e) {
+    wx.showLoading({
+      title: '加载中..',
+    })
+    this.setData({
+      expertList: [],
+      page: 1,
+      isHideLoadMore: true,
+      isLoad: true,
+      isEnd: true
+    })
     // console.log(e);
     let index = e.detail.value;
     let parent = index[0];
@@ -132,6 +152,16 @@ Page({
   },
   //选择区域
   bindAreaColumnChange: function (e) {
+    wx.showLoading({
+      title: '加载中..',
+    })
+    this.setData({
+      expertList: [],
+      page: 1,
+      isHideLoadMore: true,
+      isLoad: true,
+      isEnd: true
+    })
     var data = {
       areaList: this.data.areaList,
       areaIndex: this.data.areaIndex
@@ -240,6 +270,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中..',
+    });
     this.getArea('0', 1);
     // console.log(options);
     this.getDepartment();
@@ -250,7 +283,10 @@ Page({
         [],
         [],
         []
-      ]
+      ],
+      isHideLoadMore: true,
+      isEnd: true,
+      page: 1
     })
   },
   chooseAssist: function () {//确认选择医生
@@ -308,5 +344,29 @@ Page({
     this.setData({
       assisterId: e.detail.value
     });
-  }
+  },
+  /**
+ * 页面相关事件处理函数--监听用户下拉动作
+ */
+  onPullDownRefresh: function () {
+    app.globalData.pageLoad.pullDownRefresh(this, this.getExpert, [this.data.areaId, this.data.deptId, 1]);
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    // 显示加载图标   
+    app.globalData.pageLoad.reachBottom(this, this.getExpert, [this.data.areaId, this.data.deptId, this.data.page]);
+  },
+  onPageScroll: function (e) {
+    if (e.scrollTop > 10) {
+      this.setData({
+        fixed: true
+      })
+    } else {
+      this.setData({
+        fixed: false
+      })
+    }
+  },
 })

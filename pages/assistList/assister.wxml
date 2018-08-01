@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="weui-flex drop-box">
+  <view class="weui-flex drop-box" style="position:{{fixed?'fixed':'relative'}}">
     <view class="weui-flex__item">
       <picker mode="multiSelector" bindcolumnchange="bindAreaColumnChange" bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaList}}" range-key="{{'areaName'}}">
         <view class="picker">
@@ -53,6 +53,13 @@
         </view>
       </label>
     </radio-group>
+  </view>
+  <view class="weui-loadmore" hidden="{{isEnd}}">
+    <view class="weui-loadmore__tips">数据已全部加载</view>
+  </view>
+  <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
   </view>
   <view class='confirmAssist'>
     <button bindtap='chooseAssist'>确认</button>
