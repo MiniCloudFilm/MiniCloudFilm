@@ -47,16 +47,25 @@ Page({
           // 判断是否换页
           if (res.data.data.datas.length == 0) {
             this.setData({
-              loadingIsHidden: true,
               ifHasData: false
             })
+            if (page > 1) {
+              this.setData({
+                nodataIsHidden: false,
+                loadingIsHidden: true
+              })
+            }
           } else {
             if (res.data.data.datas.length < this.data.pageSize) {
               this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true,
                 ifHasData: false
               })
+              if (page > 1) {
+                this.setData({
+                  nodataIsHidden: false,
+                  loadingIsHidden: true
+                })
+              }
             } else {
               this.setData({
                 loadingIsHidden: true,

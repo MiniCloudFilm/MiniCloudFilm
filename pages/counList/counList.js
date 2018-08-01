@@ -169,7 +169,8 @@ Page({
           // 判断是否换页
           if (res.data.data.datas.length == 0) {
             this.setData({
-              ifHasData: false
+              ifHasData: false,
+              showNoData: true
             })
             if (page > 1) {
               this.setData({
@@ -244,6 +245,7 @@ Page({
           // 判断是否换页
           if (res.data.data.datas.length == 0) {
             this.setData({
+              showNoData: true,
               ifHasData: false
             })
             if (page > 1) {
@@ -316,11 +318,14 @@ Page({
           });
           // 判断是否换页
           if (res.data.data.datas.length == 0) {
+            this.setData({
+              showNoData: true,
+              ifHasData: false
+            })
             if (page > 1) {
               this.setData({
                 nodataIsHidden: false,
-                loadingIsHidden: true,
-                ifHasData: false
+                loadingIsHidden: true
               })
             }
           } else {
@@ -384,6 +389,7 @@ Page({
           // 判断是否换页
           if (res.data.data.data.length == 0) {
             this.setData({
+              showNoData: true,
               ifHasData: false
             })
             if (page > 1) {
@@ -478,6 +484,7 @@ Page({
     if (user) {
       this.setData({
         userType: user.userType,
+        showNoData:false,
         counList: [],
         receiveAssistList: [],
         pendingActionList: []
@@ -573,7 +580,8 @@ Page({
       page: 1,
       loadingIsHidden: true,
       nodataIsHidden: true,
-      ifHasData: true
+      ifHasData: true,
+      showNoData: false
     })
   },
   // 监听页面滚动
