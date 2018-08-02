@@ -33,7 +33,7 @@
         </view>
       </view>
       <view wx:if="{{fromWhere=='noRecord'&&endbutton=='true'}}" class="end">
-        <button type='default' bindtap='endDialog'>
+        <button type='default' bindtap='confirmEndDialog'>
           <image src="/image/icon-end.png"></image>
           结束咨询</button>
       </view>
@@ -90,7 +90,7 @@
     </view>
 
     <view class="sendmessage" wx:if="{{fromWhere!='record'}}">
-      <input type="text" confirm-type="done" bindconfirm="submitTo" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
+      <input type="text" confirm-type="done" confirm-hold="true" bindconfirm="submitTo" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
       <form bindsubmit="submitTo" report-submit="true" class='form'>
         <button type='default' formType="submit">发送</button>
       </form>

@@ -167,6 +167,6 @@ module.exports = {
   },
   //修改个人信息
   personalInfo:{
-    modifyInfo: basePath +'api/v1/user/logout'
+    modifyInfo: basePath +'/api/v1/user/modify'
   }
 }

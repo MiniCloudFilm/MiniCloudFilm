@@ -17,6 +17,7 @@ var check = (dataList, dataJson, pageSize,that)=>{
       })
     }
   } else {
+
     if (dataJson.length < pageSize) {
       that.setData({
         isLoad: false

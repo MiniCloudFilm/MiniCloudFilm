@@ -6,21 +6,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    balance:"0.00"
+    balance:"0"
     },
   // 提现
   pickupCash: function () {
-    // if(this.data.balance>=1){
+    if(this.data.balance>=0.01){
       wx.navigateTo({
         url: '../pickupCach/pickupCach?balance=' + this.data.balance
       });
-    // }else{
-    //   wx.showToast({
-    //     title: '金额大于100元方可提现！',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    // } 
+    }else{
+      wx.showToast({
+        title: '金额大于0.01元方可提现！',
+        icon: 'none',
+        duration: 2000
+      })
+    } 
   },
   pickupCashRecord:function(){
     wx.navigateTo({

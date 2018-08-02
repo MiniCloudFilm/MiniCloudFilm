@@ -21,26 +21,78 @@ Page({
     getCodeButtonText:'获取验证码',
     getCodeButtonStatu:false,
     countdown: 60,
+    password:true,
+    invisible:true,
+    name:'',
+    idcard:'',
+    secCode:''
+  },
+  // 绑定输入
+  getName:function(e){
+    this.setData({
+      name: e.detail.value
+    })
+  },
+  checkIdcard:function(e){
+    this.setData({
+      idcard: e.detail.value
+    })
   },
   mobileNum: function(e) {
-    // console.log(e.detail.value);
     this.setData({
       mobile: e.detail.value
     })
     console.log(this.data.mobile)
   },
+  getCode:function(e){
+    this.setData({
+      secCode: e.detail.value
+    })
+  },
   firstPwd: function(e) {
-    // console.log(e.detail.value);
     this.setData({
       firstP: e.detail.value
     })
   },
   secondPwd: function(e) {
-    // console.log(e.detail.value);
     this.setData({
       secondP: e.detail.value
     })
   },
+
+  //绑定删除icon
+  clearName:function(){
+    this.setData({
+      name: ""
+    })
+  },
+  clearIdcard: function () {
+    this.setData({
+      idcard: ""
+    })
+  },
+  clearMobile: function () {
+    this.setData({
+      mobile: ""
+    })
+  },
+  clearCode: function () {
+    this.setData({
+      secCode: ""
+    })
+  },
+  clearfirstP: function () {
+    this.setData({
+      firstP: ""
+    })
+  },
+  clearsecondP: function () {
+    this.setData({
+      secondP: ""
+    })
+  },
+
+  // 验证手机号码
   sendCode: function() {
     if (!phoneReg.test(this.data.mobile)) { //验证手机号码
       wx.showToast({
@@ -74,7 +126,6 @@ Page({
     }
   },
   formSubmit: function(e) {
-    // console.log(e.detail.value);
     var idCardReg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
     if (e.detail.value.name == '') {
       wx.showToast({
@@ -183,6 +234,13 @@ Page({
                     }
                   }
                 })
+              }else{
+                wx.showToast({
+                  title: resA.data.msg,
+                  icon: 'none',
+                  image: '',
+                  duration: 2000
+                });
               }
             }
           })
@@ -215,6 +273,16 @@ Page({
         })
       }
     }, 1000)
+  },
+
+  //切换密码可见图片
+  switchImage:function(){
+    let tempVisible = !this.data.invisible;
+    let tempPassword = !this.data.password;
+    this.setData({
+      invisible: tempVisible,
+      password: tempPassword
+    })
   },
   /**
    * 生命周期函数--监听页面加载

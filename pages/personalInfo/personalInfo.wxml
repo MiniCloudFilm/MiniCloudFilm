@@ -1,2 +1,45 @@
-<!--pages/personalInfo/personalInfo.wxml-->
-<text>pages/personalInfo/personalInfo.wxml</text>
+<view class="container">
+  <form bindsubmit='formSubmit'>
+    <view class='inputContainer'>
+      <input type='text' name="name" placeholder='请输入姓名' placeholder-class="placeholder" value="{{name}}" bindinput="getName"></input>
+      <view class="iconClear" wx:if="{{name.length>0}}" bindtap="clearName">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class='inputContainer'>
+      <input type='idcard' name="idCard" placeholder='请输入身份证号' placeholder-class="placeholder" value="{{idcard}}" bindinput="checkIdcard"></input>
+      <view class="iconClear" wx:if="{{idcard.length>0}}" bindtap="clearIdcard">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class='inputContainer'>
+      <input type='number' name="mobile" value="{{mobile}}" disabled='true'></input>
+    </view>
+    <view class='inputContainer password-box'>
+      <input class='passwInput' password='{{password}}' name="pwd" placeholder='修改密码（可选）' placeholder-class="placeholder" value="{{firstP}}" bindinput="firstPwd"></input>
+      <view class="switchButton" catchtap='switchImage'>
+        <image src="{{invisible?'/image/pword-invisible.png':'/image/pword-visible.png'}}"></image>
+      </view>
+      <view class="iconClear" wx:if="{{firstP.length>0}}" bindtap="clearfirstP">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class='inputContainer'>
+      <input password='{{password}}' placeholder='确认密码（可选）' placeholder-class="placeholder" value="{{secondP}}" bindinput="secondPwd"></input>
+      <view class="iconClear" wx:if="{{secondP.length>0}}" bindtap="clearsecondP">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+     <view class="section">
+      <picker bindchange="bindPickerChange" name="sex" value="{{array[index].value}}" range="{{array}}" range-key="{{'name'}}">
+        <view class="picker">
+          <text> {{array[index].name}}</text>
+          <image src="/image/arrow-down.png"></image>
+        </view>
+      </picker>
+    </view>
+    <view>
+      <button class='submitButton' formType="submit">确认修改</button>
+    </view>
+  </form>
+</view>

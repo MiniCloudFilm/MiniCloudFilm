@@ -41,7 +41,7 @@ Page({
         });
         return false;
       }
-      wx.navigateTo({
+      wx.redirectTo({
         url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportId}&type=1`
       })
 

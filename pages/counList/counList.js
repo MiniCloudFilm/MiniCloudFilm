@@ -529,22 +529,22 @@ Page({
    */
   onPullDownRefresh: function() {
     wx.showNavigationBarLoading(); //在标题栏中显示加载  
-    setTimeout(() => {
-      this.reset(); // 重置数据
-      wx.hideNavigationBarLoading(); //完成停止加载
-      wx.stopPullDownRefresh(); //停止下拉刷新 
-      if (this.data.userType == 1) {
-        this.getCounListOfPatient(1);
-        return false;
-      } else if (this.data.userType == 2) {
-        if (this.data.activeIndex == 0) {
-          this.getCounList(1);
-        } else if (this.data.activeIndex == 1) {
-          this.receiveAssist(1);
-        } else {
-          this.pendingAction(1);
-        }
+    this.reset(); // 重置数据
+    if (this.data.userType == 1) {
+      this.getCounListOfPatient(1);
+      return false;
+    } else if (this.data.userType == 2) {
+      if (this.data.activeIndex == 0) {
+        this.getCounList(1);
+      } else if (this.data.activeIndex == 1) {
+        this.receiveAssist(1);
+      } else {
+        this.pendingAction(1);
       }
+    }
+    setTimeout(() => {
+      wx.hideNavigationBarLoading(); //完成停止加载
+      wx.stopPullDownRefresh(); //停止下拉刷新  
     }, 1000);
 
   },
