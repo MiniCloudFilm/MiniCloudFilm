@@ -19,21 +19,21 @@
             <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=false&fromWhere=record&endbutton=false&consultId=">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                  <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+                  <image src="/image/icon-doctor.png" style="width: 98rpx; height: 98rpx; display: block" />
                   <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
                 </view>
                 <view class="weui-cell__bd">
                   <view class="doctorMes">
                     <view class="weui-flex">
                       <view class="weui-flex__item">
-                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
-                        <text style="color:#1c7eff;margin-right:20rpx;">{{item.status==2?"已结束":(item.status==3?"已拒绝":"")}}</text>
+                        <text style="font-weight:bold; font-size:34rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
+                        <text  class="hint {{item.status==2?'orange':(item.status==3?'red':'')}}">{{item.status==2?"已结束":(item.status==3?"已拒绝":"")}}</text>
                       </view>
                       <view>
                         <text>{{item.dialogTime}}</text>
                       </view>
                     </view>
-                    <view>
+                    <view class="formsg">
                       <text>咨询的部位：{{item.bodyPart}}</text>
                     </view>
                   </view>
@@ -50,24 +50,25 @@
             <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=false&fromWhere=record&endbutton=false&consultId=">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                  <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+                  <image src="/image/icon-doctor.png" style="width: 98rpx; height: 98rpx; display: block" />
                   <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
                 </view>
                 <view class="weui-cell__bd">
                   <view class="doctorMes">
                     <view class="weui-flex">
                       <view class="weui-flex__item">
-                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
-                        <text style="color:#1c7eff;margin-right:20rpx;">已结束/发起</text>
+                        <text style="font-weight:bold; font-size:34rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
+                        <text class="hint orange">已结束</text>
                       </view>
                       <view>
                         <text>{{item.dialogTime}}</text>
                       </view>
                     </view>
-                    <view>
+                    <!-- <view>
                       <text>协助医生：{{item.assisterName}}</text>
-                    </view>
-                    <view>
+                    </view> -->
+                    <view class="formsg">
+                      <text class="whohelp">[协助医生：{{item.assisterName}}]</text>
                       <text>咨询部位：{{item.bodyPart}}</text>
                     </view>
                   </view>
@@ -84,24 +85,25 @@
             <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=false&fromWhere=record&endbutton=false&consultId=">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                  <image src="/image/icon-doctor.png" style="width: 122rpx; height: 122rpx; display: block" />
+                  <image src="/image/icon-doctor.png" style="width: 98rpx; height: 98rpx; display: block" />
                   <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
                 </view>
                 <view class="weui-cell__bd">
                   <view class="doctorMes">
                     <view class="weui-flex">
                       <view class="weui-flex__item">
-                        <text style="font-weight:bold; font-size:30rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
-                        <text style="color:#1c7eff;margin-right:20rpx;">已结束/接收</text>
+                        <text style="font-weight:bold; font-size:34rpx;margin-right:20rpx; color:#2e3135;">{{item.aponsorName}}</text>
+                        <text class="hint orange">已结束</text>
                       </view>
                       <view>
                         <text>{{item.dialogTime}}</text>
                       </view>
                     </view>
-                    <view>
+                    <!-- <view>
                       <text>发起医生：{{item.receiverName}}</text>
-                    </view>
-                    <view>
+                    </view> -->
+                    <view class="formsg">
+                      <text class="whohelp">[发起医生：{{item.receiverName}}]</text>
                       <text>咨询部位：{{item.bodyPart}}</text>
                     </view>
                   </view>

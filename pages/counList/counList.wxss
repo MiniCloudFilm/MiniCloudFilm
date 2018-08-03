@@ -29,7 +29,7 @@
 }
 .docter-box {
   width: 100%;
-  border-bottom: 1px solid #e3e3e3;
+  /* border-bottom: 1px solid #e3e3e3; */
 }
 /* .docter-box:last-child{
   border-bottom: 0px solid #e3e3e3;
@@ -46,14 +46,21 @@
 }
 
 .doctorImg image {
-  width: 122rpx;
-  height: 122rpx;
+  width: 98rpx;
+  height: 98rpx;
   display: block;
   border-radius: 50%;
 }
-
+.formsg{
+  padding-top: 12rpx;
+  font-size: 26rpx;
+  color: #555657; 
+}
+.whohelp{
+  color: #1c7eff;
+}
 .doctorMes {
-  padding-bottom: 10rpx;
+  padding: 10rpx 0;
   font-family: Arial;
   font-size: 24rpx;
   color: #969ba1;
@@ -85,7 +92,7 @@ button {
 .hint {
   color: #fff;
   margin-right: 20rpx;
-  padding: 4rpx 8rpx;
+  padding: 2rpx 8rpx;
   border-radius: 6rpx;
 }
 

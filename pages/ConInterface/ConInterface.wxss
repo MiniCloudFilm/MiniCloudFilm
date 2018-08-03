@@ -104,7 +104,7 @@
   width: 50%;
   text-align: center;
   font-size: 24rpx;
-  color: #dee4e8;
+  color: #b4c2cb;
 } 
 .start,.end{
   position: relative;
