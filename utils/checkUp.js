@@ -53,11 +53,9 @@ var pullDownRefresh= (that, getData,arr) => {
     getData.apply(that, arr);
   }else{ 
     getData();
-  }
-  setTimeout(() => {
+  } 
     wx.hideNavigationBarLoading() //完成停止加载
-    wx.stopPullDownRefresh() //停止下拉刷新 
-  }, 1500);
+    wx.stopPullDownRefresh() //停止下拉刷新  
 } 
 /**
  * 上拉加载  that:this对象  getData: 获取数据方法 arr: 参数

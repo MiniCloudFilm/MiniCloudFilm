@@ -29,10 +29,20 @@ Page({
         console.log(res.data)
         if (res.data.code == "200") {
           this.setData({
-            videoList: res.data.data.datas
+            videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
           })
         }
-      }
+        console.log(this.data.videoList);
+        wx.hideLoading()
+      },
+      fail: res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
+      } 
     })
   },
   //观看记录保存
@@ -76,8 +86,7 @@ Page({
       user: app.globalData.userList,
       videoList: [],
       page: 1,
-      isHideLoadMore: true,
-      isLoad: true,
+      isHideLoadMore: true, 
       isEnd: true
     }) 
     this.getData(1)
@@ -87,7 +96,11 @@ Page({
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
-      check: e.currentTarget.dataset.index
+      check: e.currentTarget.dataset.index,
+      page: 1,
+      isHideLoadMore: true,
+      isEnd: true,
+      showNoData: false
     });
     // console.log(this.data.check);
     if (e.currentTarget.dataset.index == '0') {
@@ -97,66 +110,40 @@ Page({
     } 
   },
   videoType: function (e) {
+    console.log(e.currentTarget.dataset.delFlag);
+    if (e.currentTarget.dataset.delFlag == "1") {
+      wx.showModal({
+        title: '提示',
+        content: e.currentTarget.dataset.delReason,
+        showCancel: false,
+        success: res => {
+          if (res.confirm) {
+          }
+        }
+      })
+    } else {
     let dataList = e.currentTarget.dataset; 
-    this.getSaveVideoLog(dataList); 
+    this.getSaveVideoLog(dataList); }
   },
   //获取视频
-  getData: function (page) {
+  getData: function () {
     let user = app.globalData.userList;
     wx.request({
       url: app.globalData.api.userFilm.queryVideoList,
       data: { 
-        "page": page,  
+        "page": this.data.page,  
         'userType':user.userType
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res)
-        let tmpArr;
-        if (page > 1) {
-          tmpArr = this.data.videoList;
-        } else {
-          tmpArr = [];
+        if (res.data.code == "200") {
           this.setData({
-            isEnd: true
+            videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
           })
         }
-        // 这一步实现了上拉加载更多
-        tmpArr.push.apply(tmpArr, res.data.data.datas);
-        this.setData({
-          videoList: tmpArr
-        })
-        if (res.data.data.datas.length == 0) {
-          this.setData({
-            isLoad: false,
-          })
-          if (page > 1) {
-            this.setData({
-              isEnd: true
-            })
-          }
-        } else {
-          if (res.data.data.datas.length < 15) {
-            this.setData({
-              isLoad: false,
-              isHideLoadMore: true
-            })
-            if (page > 1) {
-              this.setData({
-                isEnd: false
-              })
-            }
-          } else {
-            this.setData({
-              isLoad: true,
-              isHideLoadMore: true,
-              page: ++page
-            })
-          }
-        }
-        wx.hideNavigationBarLoading(); 
+        console.log(this.data.videoList);
         wx.hideLoading()
       },
       fail: res => {
@@ -186,35 +173,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.showNavigationBarLoading() //在标题栏中显示加载  
-    setTimeout(() => {
-      this.getData(this.data.status, 1)
-      this.setData({
-        page: 1,
-        isEnd: true,
-        isLoad: true
-      })
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新 
-    }, 1500);
+    app.globalData.pageLoad.pullDownRefresh(this, this.getData); 
   },
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
     // 显示加载图标   
-    if (this.data.isLoad) {
-      this.setData({
-        isHideLoadMore: false
-      })
-      setTimeout(() => {
-        this.getData(this.data.status, this.data.page);
-      }, 1500)
-    } else {
-      this.setData({
-        isEnd: false
-      })
-    }
-
+    app.globalData.pageLoad.reachBottom(this, this.getData); 
   },
 });

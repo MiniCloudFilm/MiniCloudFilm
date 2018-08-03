@@ -14,10 +14,13 @@
     </view>
   </view>
 </view>
-<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
-  <view class="weui-loading"></view>
-  <view class="weui-loadmore__tips">正在加载</view>
+<view class='noData' wx:if="{{transactionList&&transactionList.length==0&&showNoData}}">
+  <image mode="widthFix" src='../../image/no-data.png'></image>
 </view>
 <view class="weui-loadmore" hidden="{{isEnd}}">
   <view class="weui-loadmore__tips">数据已全部加载</view>
+</view>
+<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+  <view class="weui-loading"></view>
+  <view class="weui-loadmore__tips">正在加载</view>
 </view>

@@ -3,8 +3,9 @@
     <view class="blue"></view>
     <view class="login">
       <button wx:if="{{!userName}}" class="outLogin" bindtap='login'>
-        登录|注册
       </button>
+      
+        <!-- 登录|注册 -->
       <view wx:if="{{userName}}" class="outLogin" bindtap='outLogin'>
         退出登录
       </view>
@@ -38,7 +39,7 @@
       <view class="weui-cell__bd">交易记录</view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
-    <navigator url="../myVideo/myVideo" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <navigator  wx:if="{{userType==2}}"  url="../myVideo/myVideo" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__hd">
         <image src="/image/my-video.png" style="margin-right: 5px;vertical-align: middle;width:30px; height: 30px;"></image>
       </view>

@@ -31,11 +31,12 @@
   border-radius: 50%;
 }
 .outLogin{
-  font-size:24rpx;
+  font-size:30rpx;
   color:#48ace9;
-  text-align: right;
-  padding-top:20rpx;
+  text-align: right; 
   padding-right:30rpx;
+  line-height: 70rpx;
+  height:70rpx;
 }
  
 button.outLogin{
