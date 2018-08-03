@@ -6,34 +6,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["已上架", "审核中","未上架",  "未通过"],
+    tabs: ["已上架", "审核中", "未上架", "未通过"],
     activeIndex: 0,
     url: app.globalData.api.url
   },
   //nav切换
-  tabClick: function (e) {
+  tabClick: function(e) {
     wx.showLoading({
       title: '加载中..',
     })
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       page: 1,
-      videoList: [], 
-      isHideLoadMore: true, 
+      videoList: [],
+      isHideLoadMore: true,
       isEnd: true,
-      showNoData: false 
+      showNoData: false
     });
-    if (e.currentTarget.dataset.index==0){ 
-      this.setData({ 
+    if (e.currentTarget.dataset.index == 0) {
+      this.setData({
         activeIndex: e.currentTarget.id,
         status: e.currentTarget.dataset.index,
       })
-      this.getData(e.currentTarget.dataset.index, this.data.page); 
+      this.getData(e.currentTarget.dataset.index, this.data.page);
     } else {
       this.getData(e.currentTarget.dataset.index + 1, this.data.page);
       this.setData({
         activeIndex: parseInt(e.currentTarget.id),
-        status: parseInt(e.currentTarget.dataset.index)+1,
+        status: parseInt(e.currentTarget.dataset.index) + 1,
       })
     }
   },
@@ -57,8 +57,7 @@ Page({
           }
         }
       });
-    } 
-    else if (data.status == "1") {
+    } else if (data.status == "1") {
       wx.showToast({
         title: `视频审核中`,
         icon: 'none',
@@ -114,7 +113,7 @@ Page({
           console.log(res);
           if (!res.cancel) {
             // this.deleteVideo(data);
-            this.upVideo(data,1);
+            this.upVideo(data, 1);
           }
         }
       });
@@ -199,14 +198,14 @@ Page({
       data: {
         "userId": user.userId,
         "page": page,
-        "status": status, 
+        "status": status,
         "token": this.data.token
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res)  
+        console.log(res)
         if (res.data.code == "200") {
           this.setData({
             videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
@@ -223,12 +222,23 @@ Page({
   },
   //视频观看
   videoType: function(e) {
-    let data = e.currentTarget.dataset;
-    let arr = data.videoUrl.split('?');
-    wx.navigateTo({
-      url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`
-    })
-  }, 
+    if (e.currentTarget.dataset.delFlag == "1") {
+      wx.showModal({
+        title: '提示',
+        content: e.currentTarget.dataset.delReason,
+        showCancel: false,
+        success: res => {
+          if (res.confirm) {}
+        }
+      })
+    } else {
+      let data = e.currentTarget.dataset;
+      let arr = data.videoUrl.split('?');
+      wx.navigateTo({
+        url: `../video/video?title=${data.title}&videoId=${data.id}&frontUrl=${arr[0]}&${arr[1]}`
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -239,10 +249,10 @@ Page({
     this.setData({
       token: app.globalData.token,
       isHideLoadMore: true,
-      page: 1, 
+      page: 1,
       isEnd: true,
     })
-    this.getData(0, this.data.page); 
+    this.getData(0, this.data.page);
   },
 
   /**
@@ -255,8 +265,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() { 
-  },
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -272,7 +281,7 @@ Page({
 
   },
   //监听页面滚动
-  onPageScroll: function (e) {
+  onPageScroll: function(e) {
     console.log(e);
     if (e.scrollTop > 10) {
       this.setData({
@@ -289,7 +298,7 @@ Page({
    */
   onPullDownRefresh: function() {
 
-    app.globalData.pageLoad.pullDownRefresh(this, this.getData,[this.data.status,1]);
+    app.globalData.pageLoad.pullDownRefresh(this, this.getData, [this.data.status, 1]);
     // wx.showNavigationBarLoading() //在标题栏中显示加载  
     // setTimeout(() => {
     //   this.getData(this.data.status, 1)
@@ -301,12 +310,12 @@ Page({
     //   wx.hideNavigationBarLoading() //完成停止加载
     //   wx.stopPullDownRefresh() //停止下拉刷新 
     // }, 1500);
-  }, 
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() { 
-    app.globalData.pageLoad.reachBottom(this, this.getData,[this.data.status,this.data.page] );  
+  onReachBottom: function() {
+    app.globalData.pageLoad.reachBottom(this, this.getData, [this.data.status, this.data.page]);
     // if (this.data.isLoad) {
     //   this.setData({
     //     isHideLoadMore: false

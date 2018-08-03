@@ -37,11 +37,28 @@ Page({
     }
   },
   videoType: function (e) {
-    let dataList = e.currentTarget.dataset;
-    if (e.currentTarget.dataset.isCharge == "Y") {
-      this.checkIsBuy(dataList, this.data.user.userId);
-    } else {
-      this.getSaveVideoLog(dataList);
+    console.log(e.currentTarget.dataset.delFlag);
+    if (e.currentTarget.dataset.delFlag == "1") { 
+        wx.showModal({
+          title: '提示',
+          content: e.currentTarget.dataset.delReason,
+          showCancel:false,
+          success: res => {
+            if (res.confirm) { 
+             }  
+          }
+        }) 
+    }else{
+      let dataList = e.currentTarget.dataset;
+      if (e.currentTarget.dataset.isCharge == "Y") {
+        if (this.data.user.userId == e.currentTarget.dataset.userId) {
+          this.getSaveVideoLog(dataList);
+        } else {
+          this.checkIsBuy(dataList, this.data.user.userId);
+        }
+      } else {
+        this.getSaveVideoLog(dataList);
+      } 
     }
   },
   //获取视频
@@ -134,7 +151,7 @@ Page({
             this.getQueryVideoLog();
           }
           console.log(data);
-          if (data.isBuy || data.isCharge=='N') {
+          if (data.isBuy || data.isCharge == 'N' || data.userId == this.data.user.userId) {
             let arr = data.videoUrl.split('?');
             wx.navigateTo({
               url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,

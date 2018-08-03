@@ -22,7 +22,7 @@ Page({
       url: app.globalData.api.confirmPay.prepay, 
       data: {
         "totalFee": payList.charge ? payList.charge : payList.price,
-        "body": payList.doctorName ? payList.doctorName : payList.title,
+        "body": payList.doctorName ? '报告咨询' : '购买视频',
         "openId": user.userOpenId,
         "mobile": user.mobile,
         "payType": payList.type
@@ -41,13 +41,19 @@ Page({
             'package': wxPay.data.package,
             'signType': wxPay.data.signType,
             'paySign': wxPay.data.paySign,
-            'success': res => {
+            success: res => {
               console.log(res);
               //确认订单
+              this.setData({
+                disabled:true
+              })
               this.saveOrder(user, payList, wxPay);
             }, 
-            'fail': res => {
-              console.log(res); 
+            fail: res => {
+              console.log('fail'); 
+            }, 
+            complete: res => {
+              console.log('complete');
             }
           })
         }

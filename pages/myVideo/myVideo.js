@@ -20,7 +20,11 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-
+    this.setData({ 
+      isHideLoadMore: true,
+      isEnd: true,
+      page: 1 
+    })
     this.getData(0);
   },
   //获取视频
@@ -40,22 +44,23 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        // console.log(res.data)
-        var tmpArr = this.data.videoList;
-        // 这一步实现了上拉加载更多
-        if (res.data.data.datas.length < 15) {
-          this.data.load = false;
+        if (res.data.code == "200") {
+          console.log(res);
+          this.setData({
+            videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
+          })
         }
-        tmpArr.push.apply(tmpArr, res.data.data.datas);
-        this.setData({
-          videoList: this.data.videoList
-        })
-        this.data.page++;
-        wx.hideNavigationBarLoading();
-        wx.hideLoading()
+        console.log(this.data.videoList);
+        wx.hideLoading();
+        wx.hideNavigationBarLoading()
       },
-      fail:res=>{ 
+      fail: res => {
         wx.hideLoading()
+        wx.showToast({
+          title: '服务器异常，请稍后再试！',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
@@ -92,7 +97,19 @@ Page({
   videoType: function (e) {
     let dataList = e.currentTarget.dataset; 
     // console.log(dataList);
+    if (e.currentTarget.dataset.delFlag == "1") {
+      wx.showModal({
+        title: '提示',
+        content: e.currentTarget.dataset.delReason,
+        showCancel: false,
+        success: res => {
+          if (res.confirm) {
+          }
+        }
+      })
+    } else {
       this.getSaveVideoLog(dataList); 
+      }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -125,8 +142,8 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
+  onPullDownRefresh: function () { 
+    app.globalData.pageLoad.pullDownRefresh(this, this.getData); 
   },
 
   /**
@@ -134,12 +151,12 @@ Page({
    */
   onReachBottom: function () {
 
+    app.globalData.pageLoad.reachBottom(this, this.getData); 
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
   }
 })

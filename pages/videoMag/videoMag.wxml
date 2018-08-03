@@ -13,7 +13,8 @@
         <view hidden="{{activeIndex != (item.videoStatus>0?item.videoStatus-1:item.videoStatus)}}" wx:for="{{videoList}}" wx:key="{{index}}">
           <view class="weui-cell">
             <view class="weui-cell__bd">
-              <view class="weui-cell" data-id="{{item.id}}" data-title="{{item.videoTitle}}" data-video-url="{{item.videoUrl}}" bindtap='videoType'>
+              <view class="weui-cell" data-id="{{item.id}}" data-title="{{item.videoTitle}}" data-video-url="{{item.videoUrl}}" bindtap='videoType' data-del-flag="{{item.delFlag}}" 
+            data-del-reason="{{item.delReason}}" >
                 <view class="img-box">
                   <image src="{{url+item.videoCoverPath}}" style="width: 200rpx; height: 100rpx; display: block" />
                 </view>

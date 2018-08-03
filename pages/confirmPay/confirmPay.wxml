@@ -58,7 +58,7 @@
       </checkbox-group>
     </view> -->
     <view>
-      <button class="weui-btn" type="primary" bindtap="openConfirm">去支付</button>
+      <button class="weui-btn" type="primary" disabled='{{disabled?disabled:false}}' bindtap="openConfirm">去支付</button>
     </view>
   </view>
 </view>

@@ -22,8 +22,8 @@
 .navbar .item { 
   position: relative; 
   text-align: center;
-  line-height: 60rpx;
-  font-size: 28rpx;
+  line-height: 70rpx;
+  font-size: 30rpx;
   color: #ccc;
   font-family: Microsoft YaHei;
 }
@@ -140,7 +140,7 @@ button {
   text-align: center;
   line-height: 120rpx;
   color: rgba(3, 94, 173, 1);
-  font-size: 28rpx;
+  font-size: 32rpx;
   font-family: Arial;
   border-radius: 5px;
 }

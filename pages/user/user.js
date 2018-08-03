@@ -74,7 +74,7 @@ Page({
         avatarUrl: app.globalData.userInfo.avatarUrl
       })
     }
-    // console.log(wx.getStorageSync('userList')); 
+    console.log(this.data.avatarUrl); 
     if (app.globalData.userList) {
       this.setData({
         userName: app.globalData.userList.name,

@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hospitalIndex: 0, 
+    hospitalIndex: 0,
     customItem: "请选择",
     departmentIndex: [0, 0],
     depart: [
@@ -21,7 +21,7 @@ Page({
     head: [],
     countHeadImg: 0
   },
-  bindHospitalChange: function(e) { 
+  bindHospitalChange: function(e) {
     if (this.data.doctorList) {
       this.data.doctorList.hospitalId = '';
       this.setData({
@@ -45,20 +45,20 @@ Page({
     })
   },
   //获取年龄
-  getAge: function (e) {
+  getAge: function(e) {
     if (this.data.doctorList) {
       this.data.doctorList.doctorAge = '';
       this.setData({
         doctorList: this.data.doctorList
       })
     }
-      this.setData({
-        age:e.detail.value
-      })
+    this.setData({
+      age: e.detail.value
+    })
   },
 
   //获取年龄
-  getCharge: function (e) {
+  getCharge: function(e) {
     if (this.data.doctorList) {
       this.data.doctorList.doctorCharge = '';
       this.setData({
@@ -71,7 +71,7 @@ Page({
   },
 
   //获取年龄
-  getQualification: function (e) {
+  getQualification: function(e) {
     if (this.data.doctorList) {
       this.data.doctorList.doctorQualification = '';
       this.setData({
@@ -84,7 +84,7 @@ Page({
   },
 
   //获取简介
-  getSynopsis: function (e) {
+  getSynopsis: function(e) {
     console.log(e.detail.value);
     if (this.data.doctorList) {
       this.data.doctorList.doctorSynopsis = '';
@@ -97,9 +97,9 @@ Page({
     })
   },
   //选证书
-  chooseImage: function (e) { 
+  chooseImage: function(e) {
     this.setData({
-      haveImage:true
+      haveImage: true
     })
     wx.chooseImage({
       count: 1,
@@ -207,9 +207,9 @@ Page({
   },
   //上传多张证书
   // upCertificater: function() {
-    // for (let i = 0; i < this.data.image.length; i++) {
-    //   this.upCertificaterMethod(i);
-    // }
+  // for (let i = 0; i < this.data.image.length; i++) {
+  //   this.upCertificaterMethod(i);
+  // }
   // }, 
   previewImage: function(e) {
     wx.previewImage({
@@ -218,104 +218,114 @@ Page({
     })
   },
   formSubmit: function(e) {
-    console.log(e.detail.value); 
-    console.log(
-      this.data.head, this.data.image);
-    let user = this.data.user;
-    let data = e.detail.value 
-    if (!data.hospitalId) {
-      if (this.data.doctorList) {
-        data.hospitalId = this.data.doctorList.hospitalId
-      } else {
-        util.showToast('请根据地区选择医院！')
-      }
-    } 
-    if (!this.data.deptId) {
-      if (this.data.doctorList) {
-        data.deptId = this.data.doctorList.deptId
-      } else {
-        util.showToast('请选择科室！')
-      }
-    } 
-     if (!data.age) {
-      util.showToast('请填写年龄！')
-    } 
-     if (!data.charge) {
-      util.showToast('请填写价格！')
-    } 
-    if (!data.doctorNum) {
-      util.showToast('请填写医师资格证！')
-    } 
-     if (!data.introduction) {
-      util.showToast('请填写简介！')
-    } 
-     if (this.data.head == 0) {
-      util.showToast('请上传头像！')
-    } 
-    if (this.data.image == 0) {
-      util.showToast('请上传证书！')
-    } else {
-      wx.showLoading({
-        title: '认证提交中...',
-      })
-      if (!this.data.doctorList){ 
-        this.upAvatar();
-        this.upCertificaterMethod();
-      }else{
-        if (this.data.haveImage) {
-          this.upCertificaterMethod();
-        }
-        if (this.data.haveHead){ 
-          this.upAvatar(); 
-        }
-      }
-      let dataList = {
-        'token': this.data.token,
-        'deptId': this.data.doctorList&&this.data.doctorList.deptId ? this.data.doctorList.deptId:this.data.deptId,
-        'age': data.age,
-        'charge': data.charge,
-        'hospitalId': this.data.doctorList&&this.data.doctorList.hospitalId ? this.data.doctorList.hospitalId:this.data.hospital[data.hospitalId].hospitalId,
-        'doctorLevel': parseInt(data.doctorLevel) + 1,
-        'synopsis': data.introduction,
-        'qualification': data.doctorNum
-      }
-      console.log(data);
-      wx.request({
-        url: app.globalData.api.doctorCert.formSubmit,
-        data: dataList,
-        method: 'POST',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: res => {
-          console.log(res);
-          if (res.data.code == "200") {
-            wx.hideLoading()
-            wx.showModal({
-              title: '提示',
-              content: '认证信息提交成功！',
-              showCancel: false,
-              success: function(res) {
-                if (res.confirm) {
-                  wx.navigateBack({
-                    delta: 1
+    wx.showModal({
+      title: '提示',
+      content: '提交修改,将重新认证！',
+      success: res => {
+        if (res.confirm) {
+          console.log(e.detail.value);
+          console.log(
+            this.data.head, this.data.image);
+          let user = this.data.user;
+          let data = e.detail.value
+          if (!data.hospitalId) {
+            if (this.data.doctorList) {
+              data.hospitalId = this.data.doctorList.hospitalId
+            } else {
+              util.showToast('请根据地区选择医院！')
+            }
+          }
+          if (!this.data.deptId) {
+            if (this.data.doctorList) {
+              data.deptId = this.data.doctorList.deptId
+            } else {
+              util.showToast('请选择科室！')
+            }
+          }
+          if (!data.age) {
+            util.showToast('请填写年龄！')
+          }
+          if (!data.charge) {
+            util.showToast('请填写价格！')
+          }
+          if (!data.doctorNum) {
+            util.showToast('请填写医师资格证！')
+          }
+          if (!data.introduction) {
+            util.showToast('请填写简介！')
+          }
+          if (this.data.head == 0) {
+            util.showToast('请上传头像！')
+          }
+          if (this.data.image == 0) {
+            util.showToast('请上传证书！')
+          } else {
+            wx.showLoading({
+              title: '认证提交中...',
+            })
+            if (!this.data.doctorList) {
+              this.upAvatar();
+              this.upCertificaterMethod();
+            } else {
+              if (this.data.haveImage) {
+                this.upCertificaterMethod();
+              }
+              if (this.data.haveHead) {
+                this.upAvatar();
+              }
+            }
+            let dataList = {
+              'token': this.data.token,
+              'deptId': this.data.doctorList && this.data.doctorList.deptId ? this.data.doctorList.deptId : this.data.deptId,
+              'age': data.age,
+              'charge': data.charge,
+              'hospitalId': this.data.doctorList && this.data.doctorList.hospitalId ? this.data.doctorList.hospitalId : this.data.hospital[data.hospitalId].hospitalId,
+              'doctorLevel': parseInt(data.doctorLevel) + 1,
+              'synopsis': data.introduction,
+              'qualification': data.doctorNum
+            }
+            console.log(data);
+            wx.request({
+              url: app.globalData.api.doctorCert.formSubmit,
+              data: dataList,
+              method: 'POST',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded' // 默认值
+              },
+              success: res => {
+                console.log(res);
+                if (res.data.code == "200") {
+                  wx.hideLoading()
+                  wx.showModal({
+                    title: '提示',
+                    content: '认证信息提交成功！',
+                    showCancel: false,
+                    success: function(res) {
+                      if (res.confirm) {
+                        wx.reLaunch({
+                          url: '../user/user'
+                        })
+                      }
+                    }
                   })
                 }
+
+              },
+              fail: res => {
+                wx.hideLoading()
+                wx.showToast({
+                  title: '服务器异常，请稍后再试！',
+                  icon: 'none',
+                  duration: 2000
+                })
               }
             })
           }
-
-        },
-        fail: res => {
-          wx.hideLoading()
-          wx.showToast({
-            title: '服务器异常，请稍后再试！',
-            icon: 'none',
-            duration: 2000
-          })
-        } 
-      })
-    }
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   },
   //获取科室
   getDepartment: function() {

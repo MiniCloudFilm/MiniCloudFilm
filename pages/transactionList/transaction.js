@@ -7,7 +7,7 @@ Page({
    */
   data: { 
   },
-  getData: function(page) { 
+  getData: function() { 
     wx.showNavigationBarLoading();
     let token = app.globalData.token;
     var doctorUrl = app.globalData.api.transactionList.myPayList;
@@ -17,57 +17,25 @@ Page({
     wx.request({
       url: url,
       data: {
-        'page': page,
+        'page': this.data.page,
         'token': token
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data) 
-        let tmpArr;
-        if (page > 1) {
-          tmpArr = this.data.transactionList;
-        } else {
-          tmpArr = [];
+        if (res.data.code == "200") {
           this.setData({
-            isEnd: true
+            transactionList: app.globalData.pageLoad.check(this.data.transactionList, res.data.data.datas, 15, this)
           })
-        } 
-        // 这一步实现了上拉加载更多
-        tmpArr.push.apply(tmpArr, res.data.data.datas);
-        this.setData({
-          transactionList: tmpArr
-        })
-        console.log(res.data.data.datas.length);
-        if (res.data.data.datas.length==0){
-          if(page>1){
-            this.setData({
-              isEnd: false,
-              isHideLoadMore: true
-            }) 
-          }
-        }else{
-          if (res.data.data.datas.length < 15) {
-            this.setData({
-              isLoad: false,
-              isHideLoadMore: true,
-            })
-            if(page>1){
-              this.setData({ 
-                isEnd: false
-              })
-            }
-          } else {
-            this.setData({
-              isHideLoadMore: true,
-              page: ++page
-            })
-          }
-        } 
-        // console.log(this.data.page);
+        }
         wx.hideNavigationBarLoading();
-      }
+        wx.hideLoading()
+      },
+      fail: res => {
+        wx.hideLoading()
+        util.showToast('服务器连接失败！')
+      }  
     })
   },
   openDetail: function(e) {
@@ -90,8 +58,7 @@ Page({
   onLoad: function(options) {
     this.setData({
       isHideLoadMore: true,
-      page:1,
-      isLoad:true,
+      page:1, 
       isEnd:true,
       myId: app.globalData.userList.userId,
       userType: app.globalData.userList.userType
@@ -130,18 +97,8 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-    wx.showNavigationBarLoading() //在标题栏中显示加载  
-    setTimeout(() => {
-      this.getData(1);
-      this.setData({
-        page:1,
-        isEnd: true,  
-        isLoad: true 
-      })
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新 
-    }, 1500); 
+  onPullDownRefresh: function () {
+    app.globalData.pageLoad.pullDownRefresh(this, this.getData); 
   },
 
   /**
@@ -149,16 +106,7 @@ Page({
    */
   onReachBottom: function() {
     // 显示加载图标 
-    if (this.data.isLoad) {
-        this.setData({
-          isHideLoadMore: false
-        })
-        this.getData(this.data.page);
-    } else {
-      this.setData({
-        isEnd:false
-      })
-    } 
+    app.globalData.pageLoad.reachBottom(this, this.getData); 
   },
 
   /**
