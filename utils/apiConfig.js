@@ -117,7 +117,11 @@ module.exports = {
     //发送检验码
     sendCode: basePath + '/api/v1/user/sendCode',
     //检验验证码
-    checkCode: basePath + '/api/v1/user/checkCode'
+    checkCode: basePath + '/api/v1/user/checkCode',
+    //修改个人信息
+    modifyInfo: basePath + '/api/v1/user/modify',
+    //忘记密码
+    forgetPas: basePath + '/api/v1/user/forgetPassword'
   },
   //报告列表
   report: {
@@ -164,9 +168,5 @@ module.exports = {
   picker: {
     getDepartment: basePath + '/api/v1/dict/getDept',
     getArea: basePath + '/api/v1/dict/getArea'
-  },
-  //修改个人信息
-  personalInfo:{
-    modifyInfo: basePath +'/api/v1/user/modify'
   }
 }

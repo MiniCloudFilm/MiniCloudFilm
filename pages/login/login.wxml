@@ -23,15 +23,14 @@
           </view>
         </form>
       </view> 
-      <view class="agree-box">
-        <text>登录即表示同意</text>
-        <text class="agree">《服务协议》</text>
+      <view class="forgetPas" bindtap='modifyPassword'>
+        <navigator url="../patientReg/patientReg?from=forgetPas">忘记密码</navigator>
       </view>
     </view>
   </view>
   <view class="register-box">  
     <view class="sel-register">
-    <navigator url="../patientReg/patientReg">用户注册</navigator> 
+    <navigator url="../patientReg/patientReg?from=register">用户注册</navigator> 
     </view>
   </view>
 </view>

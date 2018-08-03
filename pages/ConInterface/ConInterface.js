@@ -28,9 +28,7 @@ Page({
         title: '温馨提示',
         content: '医生暂未接收您的会诊，接收之后将会看到您的留言！',
         showCancel: false,
-        success: function(res) {
-          
-        }
+        success: function(res) {}
       })
     }
     this.setData({
@@ -204,7 +202,8 @@ Page({
     wx.request({
       url: app.globalData.api.ConInterface.endDialog,
       data: {
-        'consultId': this.data.consultId
+        'consultId': this.data.consultId,
+        'userType':this.data.myType
       },
       method: 'GET',
       header: {

@@ -38,7 +38,7 @@ button[plain].code{
 .password-box .switchButton{
   width:100rpx;
   height:80rpx;
-  line-height: 106rpx;
+  line-height: 104rpx;
   text-align: center;
   border-bottom: 2rpx solid rgba(187, 187, 187, 1);
 }
@@ -93,4 +93,20 @@ picker{
   width:18rpx;
   height:10rpx;
   margin-left:20rpx;
+}
+
+/* 同意协议 */
+.agree-box {
+  font-size: 10px;
+  text-align: center;
+  margin-top: 40rpx;
+}
+
+.agree {
+  color: rgba(3, 94, 173, 1);
+  font-family: Arial;
+}
+
+.mobileStyle{
+  color: rgba(187, 187, 187, 0.8);
 }

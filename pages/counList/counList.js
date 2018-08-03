@@ -38,26 +38,26 @@ Page({
   },
   // 确认接收会诊
   confirmAccept: function(e) {
-      wx.showModal({
-        title: '提示',
-        content: '确定接受此会诊？',
-        cancelText: '取消',
-        success: res=>{
-          if (res.confirm) {
-            this.accept(e);
-          }
+    wx.showModal({
+      title: '提示',
+      content: '确定接受此会诊？',
+      cancelText: '取消',
+      success: res => {
+        if (res.confirm) {
+          this.accept(e);
         }
-      })
+      }
+    })
   },
 
   // 确认拒绝会诊
-  confirmrefuse:function(e){
+  confirmrefuse: function(e) {
     console.log(e)
     wx.showModal({
       title: '提示',
       content: '确定拒绝此会诊？',
       cancelText: '取消',
-      success: res=> {
+      success: res => {
         if (res.confirm) {
           this.refund(e);
         }
@@ -446,22 +446,20 @@ Page({
 
   },
   trunConInterface: function(e) {
-    if (e.currentTarget.dataset.status == "0") {
-      wx.showToast({
-        title: '请等待专家确认！',
-        icon: 'none',
-        duration: 2000
+    if (e.currentTarget.dataset.status == "0") { // 患者端待接收
+      wx.navigateTo({
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=false&consultId=${e.currentTarget.dataset.consultid}&fromWhere=waiting&endbutton=false&firstEnter=true`,
       })
-    } else if (e.currentTarget.dataset.status == "1") {
+    } else if (e.currentTarget.dataset.status == "1") {//咨询中
       var limitsOfEnd = e.currentTarget.dataset.endbutton ? 'false' : 'true'
       wx.navigateTo({
         url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=${e.currentTarget.dataset.assisterid ? false : true}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=noRecord&endbutton=${limitsOfEnd}`,
       })
-    } else if (e.currentTarget.dataset.status == "2") {
+    } else if (e.currentTarget.dataset.status == "2") {//已结束
       wx.navigateTo({
         url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=false&consultId=&fromWhere=record&endbutton=false`,
       })
-    } else if (e.currentTarget.dataset.status == "3") {
+    } else if (e.currentTarget.dataset.status == "3") {//患者端已拒绝
       wx.showToast({
         title: '咨询已被拒绝！',
         icon: 'none',
@@ -484,7 +482,7 @@ Page({
     if (user) {
       this.setData({
         userType: user.userType,
-        showNoData:false,
+        showNoData: false,
         counList: [],
         receiveAssistList: [],
         pendingActionList: []
