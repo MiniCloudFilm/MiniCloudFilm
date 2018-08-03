@@ -208,7 +208,7 @@ Page({
       fail: res => {
         wx.hideLoading();
         wx.showToast({
-          title: '服务器或网络异常，请稍后再试！',
+          title: '服务器异常，请稍后再试！',
           icon: 'none',
           duration: 2000
         })
@@ -331,10 +331,15 @@ Page({
           } else {
             if (res.data.data.datas.length < this.data.pageSize) {
               this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true,
                 ifHasData: false
               })
+
+              if (page > 1) {
+                this.setData({
+                  nodataIsHidden: false,
+                  loadingIsHidden: true
+                })
+              }
             } else {
               this.setData({
                 loadingIsHidden: true,
