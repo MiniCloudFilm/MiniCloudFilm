@@ -8,39 +8,90 @@ Page({
    */
   data: {
     array: [{
-        value: 1,
-        name: '普通用户'
-      },
-      {
-        value: 2,
-        name: '医生'
-      }
+      value: 1,
+      name: '普通用户'
+    },
+    {
+      value: 2,
+      name: '医生'
+    }
     ],
     index: 0,
     mobile: '',
-    getCodeButtonText:'获取验证码',
-    getCodeButtonStatu:false,
+    getCodeButtonText: '获取验证码',
+    getCodeButtonStatu: false,
     countdown: 60,
+    password: true,
+    invisible: true,
+    name: '',
+    idcard: '',
+    secCode: ''
+  },
+  // 绑定输入
+  getName: function(e) {
+    this.setData({
+      name: e.detail.value
+    })
+  },
+  checkIdcard: function(e) {
+    this.setData({
+      idcard: e.detail.value
+    })
   },
   mobileNum: function(e) {
-    // console.log(e.detail.value);
     this.setData({
       mobile: e.detail.value
     })
-    console.log(this.data.mobile)
+  },
+  getCode: function(e) {
+    this.setData({
+      secCode: e.detail.value
+    })
   },
   firstPwd: function(e) {
-    // console.log(e.detail.value);
     this.setData({
       firstP: e.detail.value
     })
   },
   secondPwd: function(e) {
-    // console.log(e.detail.value);
     this.setData({
       secondP: e.detail.value
     })
   },
+
+  //绑定删除icon
+  clearName: function() {
+    this.setData({
+      name: ""
+    })
+  },
+  clearIdcard: function() {
+    this.setData({
+      idcard: ""
+    })
+  },
+  clearMobile: function() {
+    this.setData({
+      mobile: ""
+    })
+  },
+  clearCode: function() {
+    this.setData({
+      secCode: ""
+    })
+  },
+  clearfirstP: function() {
+    this.setData({
+      firstP: ""
+    })
+  },
+  clearsecondP: function() {
+    this.setData({
+      secondP: ""
+    })
+  },
+
+  // 验证手机号码
   sendCode: function() {
     if (!phoneReg.test(this.data.mobile)) { //验证手机号码
       wx.showToast({
@@ -60,7 +111,7 @@ Page({
         header: {
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
-        success: res=>{
+        success: res => {
           console.log(res)
           wx.showToast({
             title: '获取验证码成功！',
@@ -74,23 +125,24 @@ Page({
     }
   },
   formSubmit: function(e) {
-    // console.log(e.detail.value);
     var idCardReg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
-    if (e.detail.value.name == '') {
+    console.log(e.detail.value.name);
+    console.log(e.detail.value.idCard)
+    if (this.data.from=='register'&&e.detail.value.name == '') {
       wx.showToast({
         title: '姓名不能为空',
         icon: 'none',
         image: '',
         duration: 1000
       })
-    } else if (e.detail.value.idCard == '') {
+    } else if (this.data.from == 'register' &&e.detail.value.idCard == '') {
       wx.showToast({
         title: '身份证不能为空',
         icon: 'none',
         image: '',
         duration: 1000
       })
-    } else if (!idCardReg.test(e.detail.value.idCard)) {
+    } else if (this.data.from == 'register'&&!idCardReg.test(e.detail.value.idCard)) {
       wx.showToast({
         title: '身份证格式有误',
         icon: 'none',
@@ -127,7 +179,7 @@ Page({
       })
     } else { //注册逻辑
       wx.login({
-        success: res => { 
+        success: res => {
           wx.request({
             url: app.globalData.api.patientReg.checkCode,
             data: {
@@ -138,39 +190,53 @@ Page({
             header: {
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
-            success: resA => { 
+            success: resA => {
               if (resA.data.data == true) {
-                // console.log('进入注册逻辑');
-                wx.request({
-                  url: app.globalData.api.patientReg.logon,
-                  data: {
+                // console.log('进入注册/忘记密码逻辑');
+                let url, data, tipTitle;
+                if(this.data.from=='register'){
+                  url = app.globalData.api.patientReg.logon;
+                  data = {
                     'name': e.detail.value.name,
                     'idcard': e.detail.value.idCard,
                     'mobile': this.data.mobile,
                     'password': this.data.firstP,
                     'userType': e.detail.value.userType,
-                    'code': res.code,
-                  },
+                    'code': res.code
+                  };
+                  tipTitle ="恭喜注册成功";
+                } else if (this.data.from == 'forgetPas'){
+                  url = app.globalData.api.patientReg.forgetPas;
+                  data = {
+                    'mobile': this.data.mobile,
+                    'password': this.data.firstP,
+                    'userType': e.detail.value.userType,
+                    'code': res.code
+                  };
+                  tipTitle = "重置密码成功"
+                }
+                wx.request({
+                  url: url,
+                  data: data,
                   method: 'POST',
                   header: {
                     'content-type': 'application/x-www-form-urlencoded' // 默认值
                   },
                   success: resB => {
-                    console.log(resB.data);
                     if (resB.data.code == "200") {
                       wx.showToast({
-                        title: '恭喜你，注册成功',
-                        icon: 'none',
+                        title: tipTitle,
+                        icon: 'success',
                         image: '',
                         duration: 1000,
                         success: resC => {
                           setTimeout(() => {
                             wx.setStorageSync('user', this.data.mobile)
-                            wx.setStorageSync('type', e.detail.value.userType) 
-                            wx.navigateBack({  
+                            wx.setStorageSync('type', e.detail.value.userType)
+                            wx.navigateBack({
                               delta: 1
                             });
-                          },2000)
+                          }, 2000)
                         }
                       });
                     } else {
@@ -183,6 +249,13 @@ Page({
                     }
                   }
                 })
+              } else {
+                wx.showToast({
+                  title: resA.data.msg,
+                  icon: 'none',
+                  image: '',
+                  duration: 2000
+                });
               }
             }
           })
@@ -195,13 +268,58 @@ Page({
       index: e.detail.value
     })
   },
-   //重新获取验证码
+  //修改个人信息
+  modifyInfo:function(e){
+    wx.request({
+      url: app.globalData.api.patientReg.modifyInfo,
+      data: {
+        'token': app.globalData.token,
+        'name': e.detail.value.name,
+        'idcard': e.detail.value.idCard,
+        'mobile': e.detail.value.mobile,
+        'password': e.detail.value.pwd,
+        'sex': e.detail.value.sex,
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: resB => {
+        console.log(resB.data);
+        if (resB.data.code == "200") {
+          wx.setStorageSync('userList', resB.data.data.user);
+          app.globalData.userList = resB.data.data.user;
+          wx.showToast({
+            title: '修改信息成功！',
+            icon: 'success',
+            image: '',
+            duration: 1000,
+            success: resC => {
+              setTimeout(() => {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 2000)
+            }
+          });
+        } else {
+          wx.showToast({
+            title: '修改信息失败！',
+            icon: 'none',
+            image: '/image/pword-different.png',
+            duration: 2000
+          });
+        }
+      }
+    })
+  },
+  //重新获取验证码
   setTime(type) {
     this.setData({
       getCodeButtonText: `${this.data.countdown}s后重新获取`,
-      getCodeButtonStatu:true
+      getCodeButtonStatu: true
     })
-    let interval = setInterval(()=>{
+    let interval = setInterval(() => {
       this.data.countdown--;
       this.setData({
         getCodeButtonText: `${this.data.countdown}s后重新获取`
@@ -210,17 +328,60 @@ Page({
         clearInterval(interval);
         this.setData({
           getCodeButtonText: '获取验证码',
-          countdown:60,
+          countdown: 60,
           getCodeButtonStatu: false
         })
       }
     }, 1000)
   },
+
+  //切换密码可见图片
+  switchImage: function() {
+    let tempVisible = !this.data.invisible;
+    let tempPassword = !this.data.password;
+    this.setData({
+      invisible: tempVisible,
+      password: tempPassword
+    })
+  },
+  // 获取用户信息---个人信息
+  getPersonalInfo: function() {
+    var personalInfo = app.globalData.userList;
+    this.setData({
+      name: personalInfo.name,
+      idcard: personalInfo.userIdcard,
+      mobile: personalInfo.mobile
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    console.log(options.from)
+    if (options.from == "personalInfo") {
+      wx.setNavigationBarTitle({
+        title: '用户信息修改'
+      });
+      this.getPersonalInfo();
+      this.setData({
+        array: [{
+            value: 'M',
+            name: '男'
+          },
+          {
+            value: 'W',
+            name: '女'
+          }
+        ]
+      });
+    } else if (options.from == "forgetPas") {
+      wx.setNavigationBarTitle({
+        title: '忘记密码'
+      });
+    }
+    this.setData({
+      from: options.from
+    });
   },
 
   /**

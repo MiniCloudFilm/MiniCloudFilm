@@ -38,26 +38,26 @@ Page({
   },
   // 确认接收会诊
   confirmAccept: function(e) {
-      wx.showModal({
-        title: '提示',
-        content: '确定接受此会诊？',
-        cancelText: '取消',
-        success: res=>{
-          if (res.confirm) {
-            this.accept(e);
-          }
+    wx.showModal({
+      title: '提示',
+      content: '确定接受此会诊？',
+      cancelText: '取消',
+      success: res => {
+        if (res.confirm) {
+          this.accept(e);
         }
-      })
+      }
+    })
   },
 
   // 确认拒绝会诊
-  confirmrefuse:function(e){
+  confirmrefuse: function(e) {
     console.log(e)
     wx.showModal({
       title: '提示',
       content: '确定拒绝此会诊？',
       cancelText: '取消',
-      success: res=> {
+      success: res => {
         if (res.confirm) {
           this.refund(e);
         }
@@ -208,7 +208,7 @@ Page({
       fail: res => {
         wx.hideLoading();
         wx.showToast({
-          title: '服务器或网络异常，请稍后再试！',
+          title: '服务器异常，请稍后再试！',
           icon: 'none',
           duration: 2000
         })
@@ -331,10 +331,15 @@ Page({
           } else {
             if (res.data.data.datas.length < this.data.pageSize) {
               this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true,
                 ifHasData: false
               })
+
+              if (page > 1) {
+                this.setData({
+                  nodataIsHidden: false,
+                  loadingIsHidden: true
+                })
+              }
             } else {
               this.setData({
                 loadingIsHidden: true,
@@ -446,22 +451,20 @@ Page({
 
   },
   trunConInterface: function(e) {
-    if (e.currentTarget.dataset.status == "0") {
-      wx.showToast({
-        title: '请等待专家确认！',
-        icon: 'none',
-        duration: 2000
+    if (e.currentTarget.dataset.status == "0") { // 患者端待接收
+      wx.navigateTo({
+        url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=false&consultId=${e.currentTarget.dataset.consultid}&fromWhere=waiting&endbutton=false&firstEnter=true`,
       })
-    } else if (e.currentTarget.dataset.status == "1") {
+    } else if (e.currentTarget.dataset.status == "1") {//咨询中
       var limitsOfEnd = e.currentTarget.dataset.endbutton ? 'false' : 'true'
       wx.navigateTo({
         url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=${e.currentTarget.dataset.assisterid ? false : true}&consultId=${e.currentTarget.dataset.consultid}&fromWhere=noRecord&endbutton=${limitsOfEnd}`,
       })
-    } else if (e.currentTarget.dataset.status == "2") {
+    } else if (e.currentTarget.dataset.status == "2") {//已结束
       wx.navigateTo({
         url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=false&consultId=&fromWhere=record&endbutton=false`,
       })
-    } else if (e.currentTarget.dataset.status == "3") {
+    } else if (e.currentTarget.dataset.status == "3") {//患者端已拒绝
       wx.showToast({
         title: '咨询已被拒绝！',
         icon: 'none',
@@ -484,7 +487,7 @@ Page({
     if (user) {
       this.setData({
         userType: user.userType,
-        showNoData:false,
+        showNoData: false,
         counList: [],
         receiveAssistList: [],
         pendingActionList: []
@@ -529,22 +532,22 @@ Page({
    */
   onPullDownRefresh: function() {
     wx.showNavigationBarLoading(); //在标题栏中显示加载  
-    setTimeout(() => {
-      this.reset(); // 重置数据
-      wx.hideNavigationBarLoading(); //完成停止加载
-      wx.stopPullDownRefresh(); //停止下拉刷新 
-      if (this.data.userType == 1) {
-        this.getCounListOfPatient(1);
-        return false;
-      } else if (this.data.userType == 2) {
-        if (this.data.activeIndex == 0) {
-          this.getCounList(1);
-        } else if (this.data.activeIndex == 1) {
-          this.receiveAssist(1);
-        } else {
-          this.pendingAction(1);
-        }
+    this.reset(); // 重置数据
+    if (this.data.userType == 1) {
+      this.getCounListOfPatient(1);
+      return false;
+    } else if (this.data.userType == 2) {
+      if (this.data.activeIndex == 0) {
+        this.getCounList(1);
+      } else if (this.data.activeIndex == 1) {
+        this.receiveAssist(1);
+      } else {
+        this.pendingAction(1);
       }
+    }
+    setTimeout(() => {
+      wx.hideNavigationBarLoading(); //完成停止加载
+      wx.stopPullDownRefresh(); //停止下拉刷新  
     }, 1000);
 
   },

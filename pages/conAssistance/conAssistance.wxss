@@ -26,8 +26,16 @@
 }
 .docter-box{
   width:100%;
-  border-bottom:1px solid #e3e3e3;
+  /* border-bottom:1px solid #e3e3e3; */
 } 
+.formsg{
+  padding-top: 12rpx;
+  font-size: 26rpx;
+  color: #555657; 
+}
+.whohelp{
+  color: #1c7eff;
+}
 .doctor-b{
   padding-right:0;
 }
@@ -35,7 +43,7 @@
   height:100%;
 }
 .doctorMes{
-  padding-bottom:10rpx;
+  padding:10rpx 0;
   font-family:Arial;
   font-size:24rpx;
   color:#969ba1;
@@ -62,4 +70,25 @@ button{
 .weui-flex{
   line-height: 48rpx;
 }
- 
+.hint {
+  color: #fff;
+  margin-right: 20rpx;
+  padding: 2rpx 8rpx;
+  border-radius: 6rpx;
+}
+
+.green {
+  background: #009688;
+}
+
+.blue {
+  background: #3083d5;
+}
+
+.orange {
+  background: #f0bd72;
+}
+
+.red {
+  background: red;
+}

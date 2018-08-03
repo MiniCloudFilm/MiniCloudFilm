@@ -104,7 +104,7 @@
   width: 50%;
   text-align: center;
   font-size: 24rpx;
-  color: #dee4e8;
+  color: #b4c2cb;
 } 
 .start,.end{
   position: relative;
@@ -127,7 +127,7 @@
   padding: 5rpx 20rpx 5rpx 20rpx;  
   width: 200rpx;  
   font-size: 24rpx;  
-  background-color: #E8E8E8;   
+  background-color: #d2d3d4;   
   border-radius: 10rpx;
   color:#fff;
 }   
@@ -152,7 +152,7 @@
   width: 80rpx;  
   height: 80rpx;  
   border-radius: 50%;  
-  background: #ddd;
+  background: #1c7eff;
   font-size:22rpx;
   text-align:center;
   color:white;
@@ -170,8 +170,8 @@
   max-width: 440rpx;
 } 
 .txt_r{ 
-  background-color: #408df5;  
-  color:#fff;
+  background-color: #c9e7ff;  
+  /* color:#fff; */
   margin-right:22rpx;
 }
 .txt_l{ 
@@ -200,7 +200,7 @@
   border-style: solid;  
 }
 .my {  
-  border-color: transparent transparent transparent #408df5;  
+  border-color: transparent transparent transparent #c9e7ff;  
 }  
   
 .you {  

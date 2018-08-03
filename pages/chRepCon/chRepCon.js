@@ -54,10 +54,7 @@ Page({
       })
       // console.log(this.data.doctorMes);
     }
-    app.checkLoginInfo(app.getCurrentUrl()); 
-    if (app.globalData.userList) {
-      this.getReportList()
-    }
+    app.checkLoginInfo(app.getCurrentUrl());
   },
 
   //获取列表
@@ -106,7 +103,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getReportList()
   },
 
   /**

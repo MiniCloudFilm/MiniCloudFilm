@@ -1,34 +1,59 @@
- <view class="container"> 
-  <form bindsubmit='formSubmit'  > 
-  <view>
-    <input type='text' name="name" placeholder='请输入姓名' placeholder-class="placeholder"></input> 
-  </view>
-  <view>
-    <input type='idcard' name="idCard" placeholder='请输入身份证号' placeholder-class="placeholder" bindblur="checkIdcard"></input> 
-  </view>
-  <view>
-    <input type='number' name="mobile" placeholder='请输入手机号' placeholder-class="placeholder" bindinput="mobileNum" maxlength="11"></input> 
-  </view>
-  <view class="code-box">
-    <input class='codeInput' type='number' name="code" placeholder='请输入验证码' placeholder-class="placeholder"></input>
-    <button plain='true' class="code" disabled='{{getCodeButtonStatu}}' catchtap='sendCode'>{{getCodeButtonText}}</button>
-  </view>
-  <view>
-    <input type='password'name="pwd" placeholder='设置密码' placeholder-class="placeholder" bindblur="firstPwd"></input>
-  </view>
-  <view>
-    <input type='password' placeholder='确认密码' placeholder-class="placeholder" bindblur="secondPwd"></input> 
-  </view>
-  <view class="section"> 
-  <picker bindchange="bindPickerChange" name="userType" value="{{array[index].value}}" range="{{array}}"  range-key="{{'name'}}">
-     <view class="picker"> 
-        <text> {{array[index].name}}</text>
-        <image src="/image/arrow-down.png"></image>
+<view class="container">
+  <form bindsubmit="{{from=='personalInfo'?'modifyInfo':'formSubmit'}}">
+    <view class='inputContainer' hidden="{{from=='forgetPas'}}">
+      <input type='text' name="name" placeholder='请输入姓名' placeholder-class="placeholder" value="{{name}}" bindinput="getName"></input>
+      <view class="iconClear" wx:if="{{name.length>0}}" bindtap="clearName">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class='inputContainer' hidden="{{from=='forgetPas'}}">
+      <input type='idcard' name="idCard" placeholder='请输入身份证号' placeholder-class="placeholder" value="{{idcard}}" bindinput="checkIdcard"></input>
+      <view class="iconClear" wx:if="{{idcard.length>0}}" bindtap="clearIdcard">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class='inputContainer'>
+      <input type='number' name="mobile" placeholder='请输入手机号' placeholder-class="placeholder" value="{{mobile}}" bindinput="mobileNum" maxlength="11" disabled="{{from=='personalInfo'}}" class="{{from=='personalInfo'?'mobileStyle':''}}"></input>
+      <view class="iconClear" wx:if="{{mobile.length>0&&from!='personalInfo'}}" bindtap="clearMobile">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class="inputContainer code-box" wx:if="{{from=='register'||from=='forgetPas'}}">
+      <input class='codeInput' type='number' name="code" placeholder='请输入验证码' placeholder-class="placeholder" value="{{secCode}}" bindinput="getCode"></input>
+      <button plain='true' class="code" disabled='{{getCodeButtonStatu}}' catchtap='sendCode'>{{getCodeButtonText}}</button>
+      <view class="iconClear" wx:if="{{secCode.length>0}}" bindtap="clearCode">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class='inputContainer password-box'>
+      <input class='passwInput' password='{{password}}' name="pwd" placeholder="{{from=='personalInfo'?'修改密码（可选填）':'设置密码'}}" placeholder-class="placeholder" value="{{firstP}}" bindinput="firstPwd"></input>
+      <view class="switchButton" catchtap='switchImage'>
+        <image src="{{invisible?'/image/pword-invisible.png':'/image/pword-visible.png'}}"></image>
+      </view>
+      <view class="iconClear" wx:if="{{firstP.length>0}}" bindtap="clearfirstP">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class='inputContainer'>
+      <input password='{{password}}' placeholder="{{from=='personalInfo'?'确认密码（可选填）':'确认密码'}}" placeholder-class="placeholder" value="{{secondP}}" bindinput="secondPwd"></input>
+      <view class="iconClear" wx:if="{{secondP.length>0}}" bindtap="clearsecondP">
+        <icon type="clear" size="16"></icon>
+      </view>
+    </view>
+    <view class="section">
+      <picker bindchange="bindPickerChange" name="{{from=='personalInfo'?'sex':'userType'}}" value="{{array[index].value}}" range="{{array}}" range-key="name">
+        <view class="picker">
+          <text> {{array[index].name}}</text>
+          <image src="/image/arrow-down.png"></image>
         </view>
-  </picker>
-</view>  
-  <view>
-    <button class='submitButton' formType="submit">注册</button>
-  </view>
+      </picker>
+    </view>
+    <view>
+      <button class='submitButton' formType="submit">{{from=='register'?'注册':'确认修改'}}</button>
+    </view>
   </form>
- </view>
+  <view class="agree-box" wx:if="{{from=='register'}}">
+    <text>登录即表示同意</text>
+    <text class="agree">《服务协议》</text>
+  </view>
+</view>

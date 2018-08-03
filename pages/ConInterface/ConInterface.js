@@ -22,6 +22,15 @@ Page({
     console.log(options)
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var time = util.formatTime(new Date());
+    if(options.firstEnter){
+      console.log("第一次登陆");
+      wx:wx.showModal({
+        title: '温馨提示',
+        content: '医生暂未接收您的会诊，接收之后将会看到您的留言！',
+        showCancel: false,
+        success: function(res) {}
+      })
+    }
     this.setData({
       myId: JSON.stringify(userList.userId),
       myName: userList.name,
@@ -190,11 +199,11 @@ Page({
   },
   //结束会话
   endDialog: function() {
-    console.log(this.data.concultId)
     wx.request({
       url: app.globalData.api.ConInterface.endDialog,
       data: {
-        'consultId': this.data.consultId
+        'consultId': this.data.consultId,
+        'userType':this.data.myType
       },
       method: 'GET',
       header: {
@@ -214,12 +223,25 @@ Page({
                   delta: 1
                 })
               }, 2000) //延迟时间
-
             }
-          })
+          });
         }
       }
     })
+  },
+  // 是否结束
+  confirmEndDialog:function(){
+    wx:wx.showModal({
+      title: '提示',
+      content: '结束之后将不能再次进行对话，确认结束此次会诊？',
+      cancelText: '取消',
+      confirmText: '确认结束',
+      success: res=>{
+        if(res.confirm){
+          this.endDialog();
+        }
+      }
+    });
   },
   upimg: function() {
     var that = this;

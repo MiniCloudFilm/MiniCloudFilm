@@ -33,14 +33,15 @@
         </view>
       </view>
       <view wx:if="{{fromWhere=='noRecord'&&endbutton=='true'}}" class="end">
-        <button type='default' bindtap='endDialog'>
+        <button type='default' bindtap='confirmEndDialog'>
           <image src="/image/icon-end.png"></image>
           结束咨询</button>
       </view>
       <view class="weui-flex title-box">
         <view class="weui-flex__item start"></view>
-        <view class="title" wx:if="{{fromWhere!='record'}}">您正在与{{dialoger}}{{myType==1?"医生":""}}沟通</view>
+        <view class="title" wx:if="{{fromWhere=='noRecord'}}">您正在与{{dialoger}}{{myType==1?"医生":""}}沟通</view>
         <view class="title" wx:if="{{fromWhere=='record'}}">您与{{dialoger}}{{myType==1?"医生":""}}的聊天记录</view>
+        <view class="title" wx:if="{{fromWhere=='waiting'}}">等待{{dialoger}}医生接收咨询...</view>
         <view class="weui-flex__item end"></view>
       </view>
     </view>
@@ -57,7 +58,7 @@
             <view class='my_right'>
               <view class="weui-flex">
                 <view class="new_txt txt_r">
-                  <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
+                  <text selectable='true' wx:if='{{!item.is_img}}'>{{item.content}}</text>
                   <view wx:if='{{!item.is_img}}' class='sanjiao my'></view>
                 </view>
                 <view class='new_img'>
@@ -77,7 +78,7 @@
                   <!-- <image wx:if='{{!item.isMy}}' src='{{youPicture}}'></image> -->
                 </view>
                 <view class="new_txt txt_l">
-                  <text wx:if='{{!item.is_img}}'>{{item.content}}</text>
+                  <text selectable='true' wx:if='{{!item.is_img}}'>{{item.content}}</text>
                   <view wx:if='{{!item.is_img}}' class='sanjiao1 you'></view>
                 </view>
               </view>
@@ -90,7 +91,7 @@
     </view>
 
     <view class="sendmessage" wx:if="{{fromWhere!='record'}}">
-      <input type="text" confirm-type="done" bindconfirm="submitTo" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
+      <input type="text" confirm-type="done" confirm-hold="true" bindconfirm="submitTo" bindinput="bindKeyInput" value='{{inputValue}}' placeholder="" />
       <form bindsubmit="submitTo" report-submit="true" class='form'>
         <button type='default' formType="submit">发送</button>
       </form>
