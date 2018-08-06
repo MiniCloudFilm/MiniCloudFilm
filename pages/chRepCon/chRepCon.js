@@ -4,9 +4,8 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: { 
-  },
-  turn: function (e) {
+  data: {},
+  turn: function(e) {
     if (this.data.doctorMes.order == 'before') {
       console.log(e.currentTarget.dataset.doctoruserid)
       wx.navigateTo({
@@ -16,17 +15,17 @@ Page({
       console.log(e.currentTarget.dataset.doctoruserid)
       console.log(this.data.doctorMes.doctorId)
       console.log(e.currentTarget.dataset.doctoruserid.indexOf(this.data.doctorMes.doctorId))
-      if (e.currentTarget.dataset.doctoruserid.indexOf(this.data.doctorMes.doctorId)!=-1){
+      if (e.currentTarget.dataset.doctoruserid.indexOf(this.data.doctorMes.doctorId) != -1) {
         wx.showModal({
           title: '温馨提示',
           content: '该检查报告正在和此医生咨询中，请勿重复选择',
           showCancel: false,
-          success: function (res) {}
+          success: function(res) {}
         });
         return false;
       }
       wx.navigateTo({
-        url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&reportId=${e.currentTarget.dataset.reportid }&type=1` 
+        url: `../confirmPay/confirmPay?price=${this.data.doctorMes.price}&doctorName=${this.data.doctorMes.doctorName}&belong=${this.data.doctorMes.belong}&doctorId=${this.data.doctorMes.doctorId}&reportId=${e.currentTarget.dataset.reportid }&type=1`
       })
     }
 
@@ -35,12 +34,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.showLoading({
       title: '报告加载中..',
     });
-    this.setData({ 
-      isHideLoadMore: true, 
+    this.setData({
+      isHideLoadMore: true,
       isEnd: true,
       page: 1
     })
@@ -58,7 +57,7 @@ Page({
   },
 
   //获取列表
-  getReportList:function( ){
+  getReportList: function() {
     wx.request({
       url: app.globalData.api.chRepCon.getReportList,
       data: {
@@ -75,9 +74,14 @@ Page({
         console.log(res);
         if (res.data.code == "200") {
           this.setData({
-            reportList: app.globalData.pageLoad.check(this.data.reportList, res.data.data.datas, 5,this)
-          }) 
-        }  
+            reportList: app.globalData.pageLoad.check(this.data.reportList, res.data.data.datas, 5, this)
+          })
+        };
+        if (res.data.code == "400") {
+          app.globalData.pageLoad.outTime(res);
+        }
+        // console.log(this.data.page);
+        // console.log(this.data.reportList);
         wx.hideLoading()
       },
       fail: res => {
@@ -89,48 +93,48 @@ Page({
         })
       }
     })
-  }, 
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     this.getReportList()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
-  }, 
-  onPullDownRefresh: function () {
-    app.globalData.pageLoad.pullDownRefresh(this,this.getReportList);
+  },
+  onPullDownRefresh: function() {
+    app.globalData.pageLoad.pullDownRefresh(this, this.getReportList);
   },
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     // 显示加载图标   
-    app.globalData.pageLoad.reachBottom(this, this.getReportList); 
-  }, 
+    app.globalData.pageLoad.reachBottom(this, this.getReportList);
+  },
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

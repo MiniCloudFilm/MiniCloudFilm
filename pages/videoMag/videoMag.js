@@ -105,15 +105,24 @@ Page({
     //   });
     // } 
     else if (data.status == "3") {
+      let item = ['上架']
+      console.log(this.data.videoList[0].delFlag);
+      if (this.data.videoList[0].delFlag=='1'){
+        item = ['删除'];
+      }
       //未审核
       wx.showActionSheet({
-        itemList: ['上架'],
+        itemList: item,
         itemColor: '#1c7eff',
         success: res => {
           console.log(res);
           if (!res.cancel) {
             // this.deleteVideo(data);
-            this.upVideo(data, 1);
+            if (item[0] == '上架') {
+              this.upVideo(data, 1); 
+            }else{ 
+              this.deleteVideo(data);
+            }
           }
         }
       });
