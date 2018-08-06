@@ -78,4 +78,20 @@ var reachBottom = (that, getData, arr)=>{
     } 
   }
 }
-module.exports = { check, pullDownRefresh, reachBottom} 
+
+//token 过期
+var outTime=(res)=>{
+    wx.showModal({
+      title: '提示',
+      content: '登录已过期请重新登录！',
+      success: res => {
+        if (res.confirm) {
+          wx.redirectTo({
+            url: '../login/login',
+          })
+        } else if (res.cancel) {
+        }
+      }
+    }) 
+}
+module.exports = { check, pullDownRefresh, reachBottom,outTime} 

@@ -57,6 +57,40 @@ Page({
   onLoad: function(options) {  
   },
 
+//获取医生状态
+getDoctorStatus:function(){
+  wx.request({
+    url: app.globalData.api.doctorCert.getDoctorInfo,
+    // url: 'http://192.168.131.102:8080/doctor/api/v1/doctorInfo',
+    data: {
+      'token': app.globalData.token,
+      'keys':'doctorStatus'
+    },
+    method: 'GET',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded' // 默认值
+    },
+    success: res => {
+      console.log(res);
+      if (res.data.code == '200') {  
+        this.setData({
+          doctorStatus:res.data.data.doctorStatus
+        })
+      }
+      if (res.data.code == "400") {
+        app.globalData.pageLoad.outTime(res);
+      }
+    },
+    fail: () => {
+      wx.hideLoading();
+      wx.showToast({
+        title: '服务器异常，请稍后再试！',
+        icon: 'none',
+        duration: 1500
+      })
+    }
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -78,8 +112,7 @@ Page({
     if (app.globalData.userList) {
       this.setData({
         userName: app.globalData.userList.name,
-        userType: app.globalData.userList.userType,
-        doctorStatus: app.globalData.userList.doctorStatus,
+        userType: app.globalData.userList.userType, 
         doctorAva: this.data.url + app.globalData.userList.doctorId
       })
     } else {
@@ -87,7 +120,8 @@ Page({
         userName: '',
         userType: ''
       })
-    }
+    } 
+    this.getDoctorStatus();
   },
 
   /**

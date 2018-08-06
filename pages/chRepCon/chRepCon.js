@@ -61,7 +61,7 @@ Page({
   getReportList:function( ){
     wx.request({
       url: app.globalData.api.chRepCon.getReportList,
-      data: {
+      data: { 
         'token': app.globalData.token,
         'name': app.globalData.userList.name,
         'pageSize': 5,
@@ -76,8 +76,12 @@ Page({
         if (res.data.code == "200") {
           this.setData({
             reportList: app.globalData.pageLoad.check(this.data.reportList, res.data.data.datas, 5,this)
-          }) 
-        }  
+          })  
+        }   
+
+        if (res.data.code == "400") {
+          app.globalData.pageLoad.outTime(res);
+          }
         // console.log(this.data.page);
         // console.log(this.data.reportList);
         wx.hideLoading()

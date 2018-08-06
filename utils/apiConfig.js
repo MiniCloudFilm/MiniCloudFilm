@@ -152,7 +152,7 @@ module.exports = {
   },
   //个人中心
   user:{
-    exit: basePath + '/api/v1/user/exit'
+    exit: basePath + '/api/v1/user/exit',
   },
   //生活小常识
   userFilm:{
