@@ -80,18 +80,14 @@ Page({
         if (res.data.data == 'SUCCESS') {
           wx.showToast({
             title: '拒绝成功',
-            icon: 'none',
+            icon: 'success',
             duration: 2000,
             success: () => {
               this.refuse(e.currentTarget.dataset.consult);
             }
           })
         } else {
-          wx.showToast({
-            title: '拒绝失败，请稍后再试',
-            icon: 'none',
-            duration: 2000
-          })
+          app.globalData.util.showFail("拒收失败");
         }
       }
     })
@@ -198,20 +194,12 @@ Page({
           };
           wx.hideLoading();
         } else {
-          wx.showToast({
-            title: '查询列表失败',
-            icon: 'none',
-            duration: 2000
-          })
+          app.globalData.util.showFail("查询列表失败");
         }
       },
       fail: res => {
         wx.hideLoading();
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 2000
-        })
+        app.globalData.util.showFail("服务连接失败")
       }
     })
   },
@@ -274,20 +262,12 @@ Page({
             }
           };
         } else {
-          wx.showToast({
-            title: '查询列表失败',
-            icon: 'none',
-            duration: 2000
-          })
+          app.globalData.util.showFail("查询列表失败");
         }
       },
       fail: res => {
         wx.hideLoading();
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 2000
-        })
+        app.globalData.util.showFail("服务连接失败")
       }
     })
   },
@@ -348,20 +328,12 @@ Page({
             }
           };
         } else {
-          wx.showToast({
-            title: '查询列表失败',
-            icon: 'none',
-            duration: 2000
-          })
+          app.globalData.util.showFail("查询列表失败");
         }
       },
       fail: res => {
         wx.hideLoading();
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 2000
-        })
+        app.globalData.util.showFail("服务连接失败")
       }
     })
   },
@@ -422,20 +394,12 @@ Page({
             }
           };
         } else {
-          wx.showToast({
-            title: '查询列表失败',
-            icon: 'none',
-            duration: 2000
-          })
+          app.globalData.util.showFail("查询列表失败");
         }
       },
       fail: res => {
         wx.hideLoading();
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 2000
-        })
+        app.globalData.util.showFail("服务连接失败")
       }
     })
   },
@@ -465,11 +429,7 @@ Page({
         url: `../ConInterface/ConInterface?dialogId=${e.currentTarget.dataset.dialogid}&reportId=${e.currentTarget.dataset.reportid}&dialoger=${e.currentTarget.dataset.aponsorname}&ifNeedAssist=false&consultId=&fromWhere=record&endbutton=false`,
       })
     } else if (e.currentTarget.dataset.status == "3") {//患者端已拒绝
-      wx.showToast({
-        title: '咨询已被拒绝！',
-        icon: 'none',
-        duration: 2000
-      })
+      app.globalData.util.showWarning("咨询已被拒绝")
     }
   },
   /**
@@ -477,7 +437,7 @@ Page({
    */
   onShow: function() {
     wx.showLoading({
-      title: '加载中..',
+      title: '加载中...',
     });
     this.reset(); // 重置数据
     //登录校验

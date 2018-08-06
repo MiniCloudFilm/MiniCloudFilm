@@ -20,15 +20,18 @@
 }
 
 .right{
+  height: 112rpx;
   float: right;
   color: #2e3135;
   padding-right: 20rpx;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 .right text:first-child{
   font-size: 40rpx;
   font-weight: 700;
+  text-align: right
 }
 
 .right .desc{

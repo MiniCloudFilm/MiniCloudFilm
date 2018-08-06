@@ -43,7 +43,7 @@
     <view class="section">
       <picker bindchange="bindPickerChange" name="{{from=='personalInfo'?'sex':'userType'}}" value="{{array[index].value}}" range="{{array}}" range-key="name">
         <view class="picker">
-          <text> {{array[index].name}}</text>
+          <text> {{sex}}</text>
           <image src="/image/arrow-down.png"></image>
         </view>
       </picker>

@@ -8,13 +8,13 @@ Page({
    */
   data: {
     array: [{
-      value: 1,
-      name: '普通用户'
-    },
-    {
-      value: 2,
-      name: '医生'
-    }
+        value: 1,
+        name: '普通用户'
+      },
+      {
+        value: 2,
+        name: '医生'
+      }
     ],
     index: 0,
     mobile: '',
@@ -126,23 +126,21 @@ Page({
   },
   formSubmit: function(e) {
     var idCardReg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
-    console.log(e.detail.value.name);
-    console.log(e.detail.value.idCard)
-    if (this.data.from=='register'&&e.detail.value.name == '') {
+    if (this.data.from == 'register' && e.detail.value.name == '') {
       wx.showToast({
         title: '姓名不能为空',
         icon: 'none',
         image: '',
         duration: 1000
       })
-    } else if (this.data.from == 'register' &&e.detail.value.idCard == '') {
+    } else if (this.data.from == 'register' && e.detail.value.idCard == '') {
       wx.showToast({
         title: '身份证不能为空',
         icon: 'none',
         image: '',
         duration: 1000
       })
-    } else if (this.data.from == 'register'&&!idCardReg.test(e.detail.value.idCard)) {
+    } else if (this.data.from == 'register' && !idCardReg.test(e.detail.value.idCard)) {
       wx.showToast({
         title: '身份证格式有误',
         icon: 'none',
@@ -194,7 +192,7 @@ Page({
               if (resA.data.data == true) {
                 // console.log('进入注册/忘记密码逻辑');
                 let url, data, tipTitle;
-                if(this.data.from=='register'){
+                if (this.data.from == 'register') {
                   url = app.globalData.api.patientReg.logon;
                   data = {
                     'name': e.detail.value.name,
@@ -204,8 +202,8 @@ Page({
                     'userType': e.detail.value.userType,
                     'code': res.code
                   };
-                  tipTitle ="恭喜注册成功";
-                } else if (this.data.from == 'forgetPas'){
+                  tipTitle = "恭喜注册成功";
+                } else if (this.data.from == 'forgetPas') {
                   url = app.globalData.api.patientReg.forgetPas;
                   data = {
                     'mobile': this.data.mobile,
@@ -265,53 +263,85 @@ Page({
   },
   bindPickerChange: function(e) {
     this.setData({
-      index: e.detail.value
+      index: e.detail.value,
+      sex: this.data.array[e.detail.value].name
     })
   },
   //修改个人信息
-  modifyInfo:function(e){
-    wx.request({
-      url: app.globalData.api.patientReg.modifyInfo,
-      data: {
-        'token': app.globalData.token,
-        'name': e.detail.value.name,
-        'idcard': e.detail.value.idCard,
-        'mobile': e.detail.value.mobile,
-        'password': e.detail.value.pwd,
-        'sex': e.detail.value.sex,
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: resB => {
-        console.log(resB.data);
-        if (resB.data.code == "200") {
-          wx.setStorageSync('userList', resB.data.data.user);
-          app.globalData.userList = resB.data.data.user;
-          wx.showToast({
-            title: '修改信息成功！',
-            icon: 'success',
-            image: '',
-            duration: 1000,
-            success: resC => {
-              setTimeout(() => {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }, 2000)
-            }
-          });
-        } else {
-          wx.showToast({
-            title: '修改信息失败！',
-            icon: 'none',
-            image: '/image/pword-different.png',
-            duration: 2000
-          });
+  modifyInfo: function(e) {
+    var idCardReg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+    if (e.detail.value.name == '') {
+      wx.showToast({
+        title: '姓名不能为空',
+        icon: 'none',
+        image: '',
+        duration: 1000
+      })
+    } else if (e.detail.value.idCard == '') {
+      wx.showToast({
+        title: '身份证不能为空',
+        icon: 'none',
+        image: '',
+        duration: 1000
+      })
+    } else if (!idCardReg.test(e.detail.value.idCard)) {
+      wx.showToast({
+        title: '身份证格式有误',
+        icon: 'none',
+        image: '',
+        duration: 1000
+      })
+    }else if (this.data.firstP != this.data.secondP) {
+      wx.showToast({
+        title: '两次密码不一致，请重新输入！',
+        icon: 'none',
+        image: '',
+        duration: 1000
+      })
+    } else { //注册逻辑
+      wx.request({
+        url: app.globalData.api.patientReg.modifyInfo,
+        data: {
+          'token': app.globalData.token,
+          'name': e.detail.value.name,
+          'idcard': e.detail.value.idCard,
+          'mobile': e.detail.value.mobile,
+          'password': e.detail.value.pwd,
+          'sex': e.detail.value.sex,
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: resB => {
+          console.log(resB.data);
+          if (resB.data.code == "200") {
+            wx.setStorageSync('userList', resB.data.data.user);
+            app.globalData.userList = resB.data.data.user;
+            wx.showToast({
+              title: '修改信息成功！',
+              icon: 'success',
+              image: '',
+              duration: 1000,
+              success: resC => {
+                setTimeout(() => {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }, 2000)
+              }
+            });
+          } else {
+            wx.showToast({
+              title: '修改信息失败！',
+              icon: 'none',
+              image: '/image/pword-different.png',
+              duration: 2000
+            });
+          }
         }
-      }
-    })
+      });
+    }
   },
   //重新获取验证码
   setTime(type) {
@@ -350,7 +380,8 @@ Page({
     this.setData({
       name: personalInfo.name,
       idcard: personalInfo.userIdcard,
-      mobile: personalInfo.mobile
+      mobile: personalInfo.mobile,
+      sex: personalInfo.sex == 'M' ? '男' : '女',
     })
   },
   /**

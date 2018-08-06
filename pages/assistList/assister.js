@@ -44,12 +44,8 @@ Page({
         }
       },
       fail: res => {
-        wx.hideLoading()
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 2000
-        })
+        wx.hideLoading();
+        app.globalData.util.showFail("服务连接失败");
       } 
 
     })
@@ -119,7 +115,7 @@ Page({
   //选定科室
   bindDepartmentChange: function (e) {
     wx.showLoading({
-      title: '加载中..',
+      title: '加载中...',
     })
     this.setData({
       expertList: [],
@@ -153,7 +149,7 @@ Page({
   //选择区域
   bindAreaColumnChange: function (e) {
     wx.showLoading({
-      title: '加载中..',
+      title: '加载中...',
     })
     this.setData({
       expertList: [],
@@ -291,19 +287,9 @@ Page({
   },
   chooseAssist: function () {//确认选择医生
     if (this.data.assisterId == wx.getStorageSync('userList').userId) {
-      wx.showToast({
-        title: '协助专家不能为自己，请重选',
-        icon: 'none',
-        image: '',
-        duration: 1500
-      });
+      app.globalData.util.showWarning("不能选自己哦");
     } else if (this.data.assisterId == undefined) {
-      wx.showToast({
-        title: '请选择要协助的医生',
-        icon: 'none',
-        image: '',
-        duration: 1500
-      });
+      app.globalData.util.showWarning("请选择协助者");
     } else {
       wx.request({
         url: app.globalData.api.assistList.chooseAssist,
@@ -328,13 +314,12 @@ Page({
               delta: 1
             });
           }else{
-            wx.showToast({
-              title: '请求失败，稍后再试',
-              icon: 'none',
-              duration: 1500
-            })
+            app.globalData.util.showFail("请求失败")
           }
           
+        },
+        fail:function(){
+          app.globalData.util.showFail("服务连接失败")
         }
       });
 

@@ -1,9 +1,5 @@
 <view class="container">
-  <view class='noData' wx:if="{{transactionList&&transactionList.length==0}}">
-    <image mode="widthFix" src='../../image/no-data.png'></image>
-  </view>
-  <view wx:for='{{transactionList}}' wx:key="index" class="item" data-order-fee="{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}" data-order-id="{{item.id}}" data-order-mobile="{{item.orderMobile}}" data-order-time="{{item.orderTime}}" data-order-type="{{item.orderType}}"
-    data-user-name='{{item.userName}}' data-orderpaytype='{{item.orderPayType}}' data-videotitle='{{item.videoTitle}}' data-doctor-name='{{item.doctorName}}' bindtap='openDetail'>
+  <view wx:for='{{transactionList}}' wx:key="index" class="item" data-order-fee="{{myId==item.userId?'-'+item.orderFee:'+'+item.orderFee}}" data-order-id="{{item.id}}" data-order-mobile="{{item.orderMobile}}" data-order-time="{{item.orderTime}}" data-order-type="{{item.orderType}}" data-user-name='{{item.userName}}' data-orderpaytype='{{item.orderPayType}}' data-videotitle='{{item.videoTitle}}' data-doctor-name='{{item.doctorName}}' bindtap='openDetail'>
     <view class="left">
       <view class="type">{{item.orderType==1?'报告咨询 —':'视频购买'}} {{userType==2&&!item.videoTitle?item.userName:item.doctorName}}</view>
       <view class="time">{{item.orderTime}}</view>
@@ -13,14 +9,16 @@
       <text class='desc' wx:if="{{item.orderPayType=='-1'}}">已全额退款</text>
     </view>
   </view>
+  <view style='width:100%'>
+  <view class="weui-loadmore" hidden="{{isEnd}}">
+    <view class="weui-loadmore__tips">数据已全部加载</view>
+  </view>
+  <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+</view>
 </view>
 <view class='noData' wx:if="{{transactionList&&transactionList.length==0&&showNoData}}">
   <image mode="widthFix" src='../../image/no-data.png'></image>
-</view>
-<view class="weui-loadmore" hidden="{{isEnd}}">
-  <view class="weui-loadmore__tips">数据已全部加载</view>
-</view>
-<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
-  <view class="weui-loading"></view>
-  <view class="weui-loadmore__tips">正在加载</view>
 </view>

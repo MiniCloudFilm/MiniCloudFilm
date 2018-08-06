@@ -7,8 +7,7 @@ Page({
    */
   data: { 
   },
-  getData: function() { 
-    wx.showNavigationBarLoading();
+  getData: function() {
     let token = app.globalData.token;
     var doctorUrl = app.globalData.api.transactionList.myPayList;
     var patientUrl = app.globalData.api.transactionList.myPayListOfPatient;
@@ -28,13 +27,14 @@ Page({
           this.setData({
             transactionList: app.globalData.pageLoad.check(this.data.transactionList, res.data.data.datas, 15, this)
           })
+        }else{
+          util.showToast('获取列表失败');
         }
-        wx.hideNavigationBarLoading();
-        wx.hideLoading()
+        wx.hideLoading();
       },
       fail: res => {
-        wx.hideLoading()
-        util.showToast('服务器连接失败！')
+        wx.hideLoading();
+        util.showToast('服务器连接失败！');
       }  
     })
   },
@@ -63,7 +63,7 @@ Page({
       myId: app.globalData.userList.userId,
       userType: app.globalData.userList.userType
     });
-    this.getData(this.data.page);
+    this.getData();
   },
 
   /**

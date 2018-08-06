@@ -23,7 +23,6 @@ Page({
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var time = util.formatTime(new Date());
     if(options.firstEnter){
-      console.log("第一次登陆");
       wx:wx.showModal({
         title: '温馨提示',
         content: '医生暂未接收您的会诊，接收之后将会看到您的留言！',
@@ -131,10 +130,7 @@ Page({
           console.log('WebSocket连接创建', res)
         },
         fail: function(err) {
-          wx.showToast({
-            title: '网络异常！',
-          })
-          console.log(err)
+          app.globalData.util.showFail("服务连接失败")
         },
       })
     })
@@ -147,12 +143,7 @@ Page({
       this.saveFormId(formId)
     };
     if (this.data.inputValue.length == 0) {
-      wx.showToast({
-        title: '发送内容不能为空',
-        icon: 'none',
-        image: '',
-        duration: 1500
-      });
+      app.globalData.util.showWarning("内容不能为空");
       return false;
     }
     if (this.data.socketOpen) {
@@ -213,9 +204,8 @@ Page({
         if (res.data.code == "200") {
           wx.showToast({
             title: res.data.msg,
-            icon: 'none',
-            image: '',
-            duration: 1500,
+            icon: 'success',
+            duration: 2000,
             success: function() {
               setTimeout(function() {
                 //要延时执行的代码
@@ -256,11 +246,7 @@ Page({
           filePath: res.tempFilePaths,
           name: 'img',
           success: function(res) {
-            console.log(res)
-            wx.showToast({
-              title: '图片发送成功！',
-              duration: 3000
-            });
+            app.globalData.util.showSuccess("图片发送成功")
           }
         })
         that.data.allContentList.push({

@@ -19,6 +19,7 @@ Page({
       bankNumber: value
     });
     value = value.replace(/\s/ig, '');
+    console.log(value)
     var temp = util.bankCardAttribution(value);
     console.log(temp)
     if (temp == Error) {
@@ -59,14 +60,13 @@ Page({
               }
             })
           }else{
-            wx.showToast({
-              title:'提现失败，请稍后再试！',
-              icon: 'none',
-              image: '',
-              duration: 1500
-            })
+            app.globalData.util.showFail("提现失败！")
           }
+        },
+        fail:function(){
+          app.globalData.util.showFail("服务连接失败")
         }
+
       })
 
   },
@@ -74,19 +74,9 @@ Page({
   saveCard: function() {
     var that = this;
     if (!that.data.bankNumber) {
-      wx.showToast({
-        title: '收款账号不能为空',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
+      app.globalData.util.showWarning('账号不能为空')
     } else if (!that.data.cardType) {
-      wx.showToast({
-        title: '不支持该类型的银行卡，请更换',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
+      app.globalData.util.showWarning('卡号类型不支持')
     } else {
       let bankNumber = this.data.bankNumber.replace(/\s/ig, '');
       var flag = false;//判断卡号是否重复
@@ -168,6 +158,15 @@ Page({
       cardId: that.data.cardList[e.detail.value].id,
       bankNumber: value
     });
+    var temp = util.bankCardAttribution(this.data.cardList[e.detail.value].cardNumber);
+    if (temp == Error) {
+      temp.bankName = '';
+      temp.cardTypeName = '';
+    } else {
+      this.setData({
+        cardType: temp.bankName + temp.cardTypeName,
+      })
+    }
   },
 
   /**

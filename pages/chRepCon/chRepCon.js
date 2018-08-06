@@ -78,8 +78,6 @@ Page({
             reportList: app.globalData.pageLoad.check(this.data.reportList, res.data.data.datas, 5,this)
           }) 
         }  
-        // console.log(this.data.page);
-        // console.log(this.data.reportList);
         wx.hideLoading()
       },
       fail: res => {

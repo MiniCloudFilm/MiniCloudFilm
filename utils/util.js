@@ -36,7 +36,21 @@ var showSuccess = text => wx.showToast({
   duration: 2000
 })
 
-// 显示失败提示
+// 显示警告提示
+var showWarning = text => wx.showToast({
+  title: text,
+  image: '/image/icon-warning.png',
+  duration: 2000
+})
+
+// 显示失败提示1
+var showFail = text => wx.showToast({
+  title: text,
+  image: '/image/icon-failed.png',
+  duration: 2000
+})
+
+// 显示失败提示2
 var showModel = (title, content) => {
   wx.hideLoading();
   wx.hideToast(); 
@@ -47,4 +61,4 @@ var showModel = (title, content) => {
   })
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showModel, showToast } 
+module.exports = { formatTime, showBusy, showSuccess, showWarning, showFail,showModel, showToast } 

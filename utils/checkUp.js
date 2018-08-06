@@ -48,7 +48,6 @@ var pullDownRefresh= (that, getData,arr) => {
     isEnd: true,
     showNoData: false  //暂无数据判定
   }) 
-  console.log(arr)
   if(arr){ 
     getData.apply(that, arr);
   }else{ 

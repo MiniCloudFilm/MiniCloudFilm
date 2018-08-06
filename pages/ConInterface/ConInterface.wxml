@@ -32,7 +32,7 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{fromWhere=='noRecord'&&endbutton=='true'}}" class="end">
+      <view wx:if="{{endbutton=='true'}}" class="end">
         <button type='default' bindtap='confirmEndDialog'>
           <image src="/image/icon-end.png"></image>
           结束咨询</button>
