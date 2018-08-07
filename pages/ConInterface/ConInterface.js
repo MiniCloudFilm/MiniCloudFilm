@@ -70,7 +70,7 @@ Page({
   // 页面加载完成
   onShow: function() {
     var that = this;
-    if (this.data.fromWhere == 'noRecord') {
+    if (this.data.fromWhere == 'noRecord' || this.data.fromWhere == 'waiting') {
       if (!this.data.socketOpen) {
         this.webSocket()
       };

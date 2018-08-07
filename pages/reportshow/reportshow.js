@@ -26,7 +26,7 @@ Page({
   onLoad: function (options) {
     this.setData({
       reportUrl: app.globalData.api.filmshow.reportUrl + options.studyUid
-    }) 
+    });
   },
 
   /**
