@@ -85,7 +85,7 @@ Page({
             myALLConsultList: mesArr
           });
           // 判断是否换页
-          this.switchPage(res.data.data.datas,page)
+          this.switchPage(res.data.data.datas, page)
         }
       }
     })
@@ -172,7 +172,7 @@ Page({
     }
   },
   // 判断是否翻页
-  switchPage:function(dataArr,page){
+  switchPage: function(dataArr, page) {
     if (dataArr.length == 0) {
       this.setData({
         ifHasData: false
@@ -238,19 +238,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    wx.showNavigationBarLoading(); //在标题栏中显示加载  
-    setTimeout(() => {
-      this.reset(); // 重置数据
-      wx.hideNavigationBarLoading(); //完成停止加载
-      wx.stopPullDownRefresh(); //停止下拉刷新 
-      if (this.data.activeIndex == 0) {
-        this.myALLConsult(1);
-      } else if (this.data.activeIndex == 1) {
-        this.sendAssist(1);
-      } else {
-        this.receiveAssist(1);
-      }
-    }, 1000);
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
+    this.reset(); // 重置数据
+    if (this.data.activeIndex == 0) {
+      this.myALLConsult(1);
+    } else if (this.data.activeIndex == 1) {
+      this.sendAssist(1);
+    } else {
+      this.receiveAssist(1);
+    };
+
+    wx.hideNavigationBarLoading(); //完成停止加载
+    wx.stopPullDownRefresh(); //停止下拉刷新 
   },
 
 })
