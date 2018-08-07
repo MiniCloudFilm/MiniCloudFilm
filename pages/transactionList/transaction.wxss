@@ -38,6 +38,7 @@
   font-size: 22rpx;
   color: rgba(255, 0, 0, 0.8);
   text-align: center;
+  margin-bottom:18rpx;
 }
 
 
