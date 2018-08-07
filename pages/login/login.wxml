@@ -24,7 +24,7 @@
         </form>
       </view> 
       <view class="forgetPas" bindtap='modifyPassword'>
-        <navigator url="../patientReg/patientReg?from=forgetPas">忘记密码</navigator>
+        <navigator url="../patientReg/patientReg?from=forgetPas">忘记密码？</navigator>
       </view>
     </view>
   </view>

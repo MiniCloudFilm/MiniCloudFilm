@@ -302,7 +302,7 @@ Page({
       name: personalInfo.name,
       idcard: personalInfo.userIdcard,
       mobile: personalInfo.mobile,
-      sex: personalInfo.sex == 'M' ? '男' : '女',
+      index: personalInfo.sex == 'M' ? 0 : (personalInfo.sex == 'W'?1:2),
     })
   },
   /**
@@ -323,6 +323,10 @@ Page({
           {
             value: 'W',
             name: '女'
+          },
+          {
+            value:'U',
+            name:'未知'
           }
         ]
       });

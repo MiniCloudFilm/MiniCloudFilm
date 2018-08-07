@@ -105,6 +105,7 @@ getDoctorStatus:function(){
       this.setData({
         userName: app.globalData.userList.name,
         userType: app.globalData.userList.userType, 
+        doctorStatus: app.globalData.userList.doctorStatus,
         doctorAva: this.data.url + app.globalData.userList.doctorId
       })
     } else {
@@ -113,7 +114,7 @@ getDoctorStatus:function(){
         userType: ''
       })
     }
-    if (this.data.userType==2){
+    if (this.data.userType=="2"){
       this.getDoctorStatus();
     }
     

@@ -96,7 +96,7 @@ button {
 }
 
 .forgetPas navigator {
-  color: rgba(3, 94, 173, 1);
+  color: rgba(178,178,178);
   font-family: Arial;
   height: 50rpx;
   font-size: 24rpx;
