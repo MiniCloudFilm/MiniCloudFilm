@@ -34,11 +34,7 @@ Page({
       },
       fail:()=>{
         wx.hideLoading();
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 1500
-        })
+        app.globalData.util.showFail("服务连接失败");
       }
     })
   },
@@ -83,11 +79,7 @@ getDoctorStatus:function(){
     },
     fail: () => {
       wx.hideLoading();
-      wx.showToast({
-        title: '服务器异常，请稍后再试！',
-        icon: 'none',
-        duration: 1500
-      })
+      app.globalData.util.showFail("服务连接失败");
     }
   })
 },
@@ -120,8 +112,11 @@ getDoctorStatus:function(){
         userName: '',
         userType: ''
       })
-    } 
-    this.getDoctorStatus();
+    }
+    if (this.data.userType==2){
+      this.getDoctorStatus();
+    }
+    
   },
 
   /**

@@ -37,11 +37,7 @@ Page({
       },
       fail: res => {
         wx.hideLoading()
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 2000
-        })
+        app.globalData.util.showFail("服务连接失败");
       } 
     })
   },
@@ -148,11 +144,7 @@ Page({
       },
       fail: res => {
         wx.hideLoading()
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 2000
-        })
+        app.globalData.util.showFail("服务连接失败");
       }
     })
   },

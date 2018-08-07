@@ -28,13 +28,13 @@ Page({
             transactionList: app.globalData.pageLoad.check(this.data.transactionList, res.data.data.datas, 15, this)
           })
         }else{
-          util.showToast('获取列表失败');
+          app.globalData.util.showFail("获取列表失败");
         }
         wx.hideLoading();
       },
       fail: res => {
         wx.hideLoading();
-        util.showToast('服务器连接失败！');
+        app.globalData.util.showFail("服务连接失败");
       }  
     })
   },

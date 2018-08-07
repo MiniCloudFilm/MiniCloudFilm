@@ -15,12 +15,12 @@
 }
 
 .navbar {
-  margin-top: 80rpx; 
+  margin-top: 80rpx;
   width: 100%;
 }
 
-.navbar .item { 
-  position: relative; 
+.navbar .item {
+  position: relative;
   text-align: center;
   line-height: 70rpx;
   font-size: 30rpx;
@@ -29,7 +29,7 @@
 }
 
 .navbar .item.active {
-  color: #035ead; 
+  color: #035ead;
 }
 
 .navbar .item.active:after {
@@ -63,17 +63,17 @@
 
 .placeholder {
   font-size: 14px;
-  color: #ccc; 
+  color: #ccc;
 }
 
 .input {
   margin: 25px 25px;
   height: 40px;
   border-radius: 90px;
-  color:#616569;
+  color: #616569;
   font-family: Microsoft Yahei;
   border: 1px solid rgba(187, 187, 187, 1);
-  padding-left:30rpx;
+  padding-left: 30rpx;
 }
 
 button {
@@ -92,12 +92,15 @@ button {
 .forgetPas {
   font-size: 10px;
   text-align: center;
-  padding:20rpx 0;
+  padding: 20rpx 0;
 }
 
 .forgetPas navigator {
   color: rgba(3, 94, 173, 1);
   font-family: Arial;
+  height: 50rpx;
+  font-size: 24rpx;
+  line-height: 50rpx;
 }
 
 .register-box {
@@ -106,18 +109,21 @@ button {
   bottom: 0;
 }
 
-.title-box { 
-  width: 100%; 
-}  
+.title-box {
+  width: 100%;
+}
+
 .title {
   width: 20%;
   text-align: center;
   font-size: 20rpx;
   color: #ccc;
-} 
-.start,.end{
+}
+
+.start, .end {
   position: relative;
 }
+
 .start:before, .end:before {
   content: "";
   display: block;
@@ -126,8 +132,8 @@ button {
   left: 0;
   right: 0;
   transform: translateY(-50%);
-  height: 1px; 
-  border-top:1px solid #ccc;
+  height: 1px;
+  border-top: 1px solid #ccc;
 }
 
 .sel-register {

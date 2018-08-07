@@ -58,11 +58,7 @@ Page({
         }
       });
     } else if (data.status == "1") {
-      wx.showToast({
-        title: `视频审核中`,
-        icon: 'none',
-        duration: 2000
-      })
+      app.globalData.util.showWarning("视频审核中");
       // wx.showActionSheet({
       //   //未上架
       //   itemList: ['视频上架', '删除'],
@@ -224,8 +220,8 @@ Page({
         wx.hideLoading()
       },
       fail: res => {
-        wx.hideLoading()
-        util.showToast('服务器连接失败！')
+        wx.hideLoading();
+        app.globalData.util.showFail("服务连接失败");
       }
     })
   },

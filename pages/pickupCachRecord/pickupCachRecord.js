@@ -6,10 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // ifHasData: true, //是否可以下拉刷新
-    // page: 1,
-    // nodataIsHidden: true,
-    // loadingIsHidden: true,
     pageSize:10//每页信息条数
   },
 
@@ -41,46 +37,7 @@ Page({
         if (res.data.code == "200") {
           this.setData({
             pickupCashRecord: app.globalData.pageLoad.check(this.data.pickupCashRecord, res.data.data.datas, this.data.pageSize, this)
-          }) 
-          // let mesArr;
-          // if (page > 1) {
-          //   mesArr = this.data.pickupCashRecord;
-          // } else {
-          //   mesArr = [];
-          // };
-          // mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
-          // this.setData({
-          //   pickupCashRecord: mesArr
-          // });
-          // // 判断是否换页
-          // if (res.data.data.datas.length == 0) {
-          //   this.setData({
-          //     ifHasData: false
-          //   })
-          //   if (page > 1) {
-          //     this.setData({
-          //       nodataIsHidden: false,
-          //       loadingIsHidden: true
-          //     })
-          //   }
-          // } else {
-          //   if (res.data.data.datas.length < this.data.pageSize) {
-          //     this.setData({
-          //       ifHasData: false
-          //     })
-          //     if (page > 1) {
-          //       this.setData({
-          //         nodataIsHidden: false,
-          //         loadingIsHidden: true
-          //       })
-          //     }
-          //   } else {
-          //     this.setData({
-          //       loadingIsHidden: true,
-          //       page: ++page
-          //     })
-          //   }
-          // };
+          });
         };
       }
     })
@@ -120,18 +77,6 @@ Page({
    */
   onPullDownRefresh: function () {
     app.globalData.pageLoad.pullDownRefresh(this, this.getCashRecord);
-    // wx.showNavigationBarLoading() //在标题栏中显示加载  
-    // setTimeout(() => {
-    //   this.getCashRecord(1);
-    //   this.setData({
-    //     page: 1,
-    //     loadingIsHidden: true,
-    //     nodataIsHidden: true,
-    //     ifHasData: true
-    //   })
-    //   wx.hideNavigationBarLoading() //完成停止加载
-    //   wx.stopPullDownRefresh() //停止下拉刷新 
-    // }, 1000);
   },
 
   /**

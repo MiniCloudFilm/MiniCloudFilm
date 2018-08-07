@@ -80,3 +80,7 @@ image {
 .weui-panel:before{
   border:none;
   }
+
+  .weui-media-box__hd_in-appmsg {
+    width:80px;
+  }

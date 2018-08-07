@@ -77,25 +77,20 @@ Page({
                 }
               },
               fail: function(res) {
-                wx.showToast({
-                  title: '视频上传失败！',
-                  icon: 'none',
-                  duration: 2000
-                })
+                app.globalData.util.showFail("视频上传失败");
               }
             })
           } else {
-            util.showToast('请阅读并同意相关条款！');
+            app.globalData.util.showWarning("同意相关条款");
           }
         } else {
-          util.showToast('请填写视频价格！');
+          app.globalData.util.showWarning("请填写视频价格");
         }
       } else {
-        util.showToast('请填写视频标题！');
+        app.globalData.util.showWarning("请填写视频标题");
       }
     } else {
-      // app.globalData.util.showModel('失败提示','请选择要上传的视频！');
-      util.showToast('请选择要上传的视频！');
+      app.globalData.util.showWarning("请选择上传视频");
     }
 
 

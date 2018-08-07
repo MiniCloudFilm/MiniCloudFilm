@@ -31,20 +31,13 @@ Page({
   },  
   //登录
   formSubmit: function (e) {
-    // console.log(e);
-    // console.log((e.detail.value.userName)); 
+    console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
-      wx.setTopBarText({
-        text: '请输入手机号!'
-      })
+      app.globalData.util.showWarning("请输入手机号");
       return false;
     };
     if (e.detail.value.password.length == 0) {
-      wx.showToast({
-        title: '请输入密码',
-        icon: 'none',
-        duration: 1500
-      })
+      app.globalData.util.showWarning("请输入密码");
       return false;
     };
     // lanjq
@@ -101,20 +94,12 @@ Page({
                 }
               }
             } else {
-              wx.showToast({
-                title: res.data.msg,
-                icon: 'none',
-                duration: 3000
-              })
+              app.globalData.util.showFail('账号或密码错误');
             }
           },
           fail: function () {
             wx.hideLoading();
-            wx.showToast({
-              title: '服务器异常，请稍后再试！',
-              icon: 'none',
-              duration: 1500
-            })
+            app.globalData.util.showFail("服务连接失败");
           }
         }) 
         // var code = res.code 

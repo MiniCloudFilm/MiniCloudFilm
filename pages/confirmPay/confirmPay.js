@@ -93,11 +93,7 @@ Page({
             this.start(user, payList,res.data.data)
           }
           if (payList.type == "2") {
-            wx.showToast({
-              title: '视频购买成功！',
-              icon: 'none',
-              duration: 2000
-            })
+            app.globalData.util.showSuccess("视频购买成功");
             wx.navigateBack({
               delta: 1
             })

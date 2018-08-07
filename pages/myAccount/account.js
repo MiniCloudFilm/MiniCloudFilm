@@ -10,17 +10,13 @@ Page({
     },
   // 提现
   pickupCash: function () {
-    // if(this.data.balance>=0.01){
+    if(this.data.balance>=0.01){
       wx.navigateTo({
         url: '../pickupCach/pickupCach?balance=' + this.data.balance
       });
-    // }else{
-    //   wx.showToast({
-    //     title: '金额大于0.01元方可提现！',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    // } 
+    }else{
+      app.globalData.util.showWarning("金额需大于0.01");
+    } 
   },
   pickupCashRecord:function(){
     wx.navigateTo({

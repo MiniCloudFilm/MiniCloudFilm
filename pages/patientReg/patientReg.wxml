@@ -43,7 +43,8 @@
     <view class="section">
       <picker bindchange="bindPickerChange" name="{{from=='personalInfo'?'sex':'userType'}}" value="{{array[index].value}}" range="{{array}}" range-key="name">
         <view class="picker">
-          <text> {{sex}}</text>
+        <text>{{array[index].name}}</text>
+          <!-- <text>{{from=='personalInfo'?sex:array[index].name}} </text> -->
           <image src="/image/arrow-down.png"></image>
         </view>
       </picker>
@@ -53,7 +54,7 @@
     </view>
   </form>
   <view class="agree-box" wx:if="{{from=='register'}}">
-    <text>登录即表示同意</text>
+    <text>注册即表示同意</text>
     <text class="agree">《服务协议》</text>
   </view>
 </view>

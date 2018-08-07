@@ -232,33 +232,33 @@ Page({
             if (this.data.doctorList) {
               data.hospitalId = this.data.doctorList.hospitalId
             } else {
-              util.showToast('请根据地区选择医院！')
+              app.globalData.util.showWarning("请选择医院");
             }
           }
           if (!this.data.deptId) {
             if (this.data.doctorList) {
               data.deptId = this.data.doctorList.deptId
             } else {
-              util.showToast('请选择科室！')
+              app.globalData.util.showWarning("请选择科室");
             }
           }
           if (!data.age) {
-            util.showToast('请填写年龄！')
+            app.globalData.util.showWarning("请填写年龄");
           }
           if (!data.charge) {
-            util.showToast('请填写价格！')
+            app.globalData.util.showWarning("请填写价格");
           }
           if (!data.doctorNum) {
-            util.showToast('请填写医师资格证！')
+            app.globalData.util.showWarning("请填写资格证");
           }
           if (!data.introduction) {
-            util.showToast('请填写简介！')
+            app.globalData.util.showWarning("请填写简介");
           }
           if (this.data.head == 0) {
-            util.showToast('请上传头像！')
+            app.globalData.util.showWarning("请上传头像");
           }
           if (this.data.image == 0) {
-            util.showToast('请上传证书！')
+            app.globalData.util.showWarning("请上传证书");
           } else {
             wx.showLoading({
               title: '认证提交中...',
@@ -313,11 +313,7 @@ Page({
               },
               fail: res => {
                 wx.hideLoading()
-                wx.showToast({
-                  title: '服务器异常，请稍后再试！',
-                  icon: 'none',
-                  duration: 2000
-                })
+                app.globalData.util.showFail("服务连接失败");
               }
             })
           }
@@ -561,11 +557,7 @@ Page({
       },
       fail: () => {
         wx.hideLoading();
-        wx.showToast({
-          title: '服务器异常，请稍后再试！',
-          icon: 'none',
-          duration: 1500
-        })
+        app.globalData.util.showFail("服务连接失败");
       }
     })
   },
