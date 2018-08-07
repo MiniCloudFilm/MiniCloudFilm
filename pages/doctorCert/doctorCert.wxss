@@ -42,7 +42,9 @@ button.vsub{
   color:#fff;
 } 
 .remind{
-  color:#f6597e;
+  color:#f31246;
   font-size: 24rpx;
-  text-align: center;
+  font-weight: bolder;
+  text-align:left;
+  padding:8px;
 }
