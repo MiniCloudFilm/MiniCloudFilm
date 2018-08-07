@@ -57,7 +57,7 @@
           <view class="docter-box" wx:for="{{counList}}" wx:key="index">
             <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.aponsorName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}">
               <view class="weui-cell__hd doctorImg">
-                <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
+                <image src="{{item.avatarUrl==null?'/image/icon-sex0.png':item.avatarUrl}}" />
                 <view wx:if="{{item.unreadCount!=0}}" class='unreadCountStyle'>{{item.unreadCount}}</view>
               </view>
               <view class="weui-cell__bd">
@@ -93,7 +93,7 @@
             <view class="weui-cell doctor-b" bindtap='trunConInterface' data-aponsorname='{{item.aponsorName}}' data-status='{{item.status}}' data-dialogid='{{item.dialogId}}' data-reportid="{{item.dialogReportId}}" data-assisterid="{{item.assisterId}}" data-consultid="{{item.dialogConsultId}}"
               data-endbutton='1'>
               <view class="weui-cell__hd doctorImg">
-                <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
+                <image src="{{item.avatarUrl==null?'/image/icon-sex0.png':item.avatarUrl}}" />
                 <view wx:if="{{item.unreadCount!=0}}" class='unreadCountStyle'>{{item.unreadCount}}</view>
               </view>
               <view class="weui-cell__bd">
@@ -123,7 +123,7 @@
           <view class="docter-box" wx:for="{{pendingActionList}}" wx:key="index">
             <view class="weui-cell doctor-b">
               <view class="weui-cell__hd doctorImg">
-                <image src="{{item.avatarUrl==null?'/image/icon-doctor.png':item.avatarUrl}}" />
+                <image src="{{item.avatarUrl==null?'/image/icon-sex0.png':item.avatarUrl}}" />
                 <view style="height:36px;"></view>
               </view>
               <view class="weui-cell__bd">
