@@ -1,5 +1,4 @@
 <view class="page-body">
-  <view class="remind" wx:if="{{doctorList.doctorStatus=='3'}}">*审核未通过原因：{{doctorList.doctorRemark}}</view>
   <form bindsubmit="formSubmit">
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">

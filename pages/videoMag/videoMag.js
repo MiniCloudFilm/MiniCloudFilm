@@ -58,7 +58,7 @@ Page({
         }
       });
     } else if (data.status == "1") {
-      app.globalData.util.showWarning("视频审核中");
+     util.showWarning("视频审核中");
       // wx.showActionSheet({
       //   //未上架
       //   itemList: ['视频上架', '删除'],
@@ -83,7 +83,8 @@ Page({
       //   }
       // });
     }
-    //  else if (data.status == "2") {
+     else if (data.status == "2") { 
+      util.showWarning("视频审核中！");
     //   wx.showActionSheet({
     //     //已下架
     //     itemList: ['视频上架', '删除'],
@@ -99,29 +100,24 @@ Page({
     //       }
     //     }
     //   });
-    // } 
-    else if (data.status == "3") {
-      let item = ['上架']
-      console.log(this.data.videoList[0].delFlag);
-      if (this.data.videoList[0].delFlag=='1'){
-        item = ['删除'];
-      }
-      //未审核
-      wx.showActionSheet({
-        itemList: item,
-        itemColor: '#1c7eff',
-        success: res => {
-          console.log(res);
-          if (!res.cancel) {
-            // this.deleteVideo(data);
-            if (item[0] == '上架') {
-              this.upVideo(data, 1); 
-            }else{ 
-              this.deleteVideo(data);
+    } 
+    else if (data.status == "3") {  
+      if (data.delFlag=='1'){ 
+        util.showWarning("该视频已被删除");
+      }else{
+        wx.showActionSheet({
+          itemList: ['上架'],
+          itemColor: '#1c7eff',
+          success: res => {
+            console.log(res);
+            if (!res.cancel) {
+              this.upVideo(data, 1);
             }
           }
-        }
-      });
+        });
+      }
+      //未审核
+      
     } else if (data.status == "4") {
       wx.showActionSheet({
         itemList: ['删除'],

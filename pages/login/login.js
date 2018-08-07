@@ -31,13 +31,20 @@ Page({
   },  
   //登录
   formSubmit: function (e) {
-    console.log((e.detail.value.userName)); 
+    // console.log(e);
+    // console.log((e.detail.value.userName)); 
     if (e.detail.value.userName.length == 0) {
-      app.globalData.util.showWarning("请输入手机号");
+      wx.setTopBarText({
+        text: '请输入手机号!'
+      })
       return false;
     };
     if (e.detail.value.password.length == 0) {
-      app.globalData.util.showWarning("请输入密码");
+      wx.showToast({
+        title: '请输入密码',
+        icon: 'none',
+        duration: 1500
+      })
       return false;
     };
     // lanjq
@@ -94,12 +101,20 @@ Page({
                 }
               }
             } else {
-              app.globalData.util.showFail('账号或密码错误');
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 3000
+              })
             }
           },
           fail: function () {
             wx.hideLoading();
-            app.globalData.util.showFail("服务连接失败");
+            wx.showToast({
+              title: '服务器异常，请稍后再试！',
+              icon: 'none',
+              duration: 1500
+            })
           }
         }) 
         // var code = res.code 
@@ -126,7 +141,7 @@ Page({
       }
     })
   
-  },   
+  }, 
   /**
    * 生命周期函数--监听页面加载
    */
