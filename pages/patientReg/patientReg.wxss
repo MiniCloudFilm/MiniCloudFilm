@@ -129,9 +129,10 @@ picker{
     left: 0;
 }
 .ruleZhezhaoContent{
-    padding: 20rpx 0;
-    width: 80%;
-    background: #e1d2b1;
+    padding: 2rpx 0 20rpx 0;
+    width: 90%;
+    /* background: #e1d2b1; */
+    background: #fff;
     margin: 5% auto;
     border-radius: 20rpx;
     display: flex;
@@ -141,15 +142,25 @@ picker{
     position: relative;
 }
 .ruleZhezhaoText{
-    width: 88%;
-    color: #856d5f;
+    width: 94%;
+    color: #55585a;
     align-items: center;
-    margin: 25rpx 0 25rpx 0;
+    margin: 20rpx 0;
 }
 .ruleZhezhaoText text{
     font-size: 26rpx;
     display: block;
-    line-height: 34rpx;
+    line-height: 40rpx;
+}
+.titleH1{
+  text-align:center;
+  font-weight:bolder;
+  font-size:30rpx;
+  padding-bottom:5px;
+
+}
+.textH2{
+  font-weight: bolder;
 }
 button.ruleHide{
   width: 60%;
