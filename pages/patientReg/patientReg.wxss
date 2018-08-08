@@ -110,3 +110,57 @@ picker{
 .mobileStyle{
   color: rgba(187, 187, 187, 0.8);
 }
+
+/* 同意协议 */
+/* 规则提示层  */
+.isRuleShow{
+    display: block;
+}
+.isRuleHide{
+    display: none;
+}
+.ruleZhezhao{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color:rgba(0, 0, 0, .5);
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+.ruleZhezhaoContent{
+    padding: 20rpx 0;
+    width: 80%;
+    background: #e1d2b1;
+    margin: 5% auto;
+    border-radius: 20rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+.ruleZhezhaoText{
+    width: 88%;
+    color: #856d5f;
+    align-items: center;
+    margin: 25rpx 0 25rpx 0;
+}
+.ruleZhezhaoText text{
+    font-size: 26rpx;
+    display: block;
+    line-height: 34rpx;
+}
+button.ruleHide{
+  width: 60%;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 30rpx;
+  background-color: rgba(3, 94, 173, 0.09);
+  color: #1C7EFF;
+  font-size: 26rpx;
+  text-align: center;
+  font-family: Arial;
+  border: 2rpx solid #1C7EFF;
+}
+/*  end  */

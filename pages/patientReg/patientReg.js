@@ -305,6 +305,19 @@ Page({
       index: personalInfo.sex == 'M' ? 0 : (personalInfo.sex == 'W'?1:2),
     })
   },
+
+  //打开服务协议提示
+  showRule: function () {
+    this.setData({
+      isRuleTrue: true
+    })
+  },
+  //关闭服务协议提示
+  hideRule: function () {
+    this.setData({
+      isRuleTrue: false
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
