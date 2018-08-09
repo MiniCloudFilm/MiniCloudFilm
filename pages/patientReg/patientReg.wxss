@@ -13,7 +13,7 @@ form{
 /* 删除 */
 .iconClear{
   width:80rpx;
-  height:70rpx;
+  height:71rpx;
   padding-top: 10rpx;
   text-align: center;
   border-bottom: 2rpx solid rgba(187, 187, 187, 1);
@@ -27,7 +27,7 @@ button[plain].code{
   border-radius: 0rpx;
   text-align: center;
   width:210rpx;
-  height:82rpx;
+  height:83rpx;
   line-height:82rpx;
   background-color: white;
   border: 0 solid transparent;
