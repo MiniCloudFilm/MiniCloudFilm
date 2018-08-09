@@ -13,7 +13,7 @@ form{
 /* 删除 */
 .iconClear{
   width:80rpx;
-  height:70rpx;
+  height:71rpx;
   padding-top: 10rpx;
   text-align: center;
   border-bottom: 2rpx solid rgba(187, 187, 187, 1);
@@ -27,7 +27,7 @@ button[plain].code{
   border-radius: 0rpx;
   text-align: center;
   width:210rpx;
-  height:82rpx;
+  height:83rpx;
   line-height:82rpx;
   background-color: white;
   border: 0 solid transparent;
@@ -110,3 +110,70 @@ picker{
 .mobileStyle{
   color: rgba(187, 187, 187, 0.8);
 }
+
+/* 同意协议 */
+/* 规则提示层  */
+.isRuleShow{
+    display: block;
+}
+.isRuleHide{
+    display: none;
+}
+.ruleZhezhao{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color:rgba(0, 0, 0, .5);
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+.ruleZhezhaoContent{
+    padding: 2rpx 0 20rpx 0;
+    width: 90%;
+    height:93%;
+    background: #fff;
+    margin: 5% auto;
+    border-radius: 20rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+.ruleZhezhaoText{
+    width: 94%;
+    color: #55585a;
+    align-items: center;
+    margin: 20rpx 0;
+    flex: 1;
+    overflow: auto;
+}
+.ruleZhezhaoText text{
+    font-size: 26rpx;
+    display: block;
+    line-height: 40rpx;
+}
+.titleH1{
+  text-align:center;
+  font-weight:bolder;
+  font-size:30rpx;
+  padding-bottom:5px;
+
+}
+.textH2{
+  font-weight: bolder;
+}
+button.ruleHide{
+  width: 60%;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 30rpx;
+  background-color: rgba(3, 94, 173, 0.09);
+  color: #1C7EFF;
+  font-size: 26rpx;
+  text-align: center;
+  font-family: Arial;
+  border: 2rpx solid #1C7EFF;
+}
+/*  end  */

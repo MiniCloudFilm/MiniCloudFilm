@@ -35,7 +35,7 @@
       </view>
     </view>
     <view class='inputContainer'>
-      <input password='{{password}}' placeholder="{{from=='personalInfo'?'确认密码（可选填）':'确认密码'}}" placeholder-class="placeholder" value="{{secondP}}" bindinput="secondPwd"></input>
+      <input password='{{password}}' cursor-spacing='20' placeholder="{{from=='personalInfo'?'确认密码（可选填）':'确认密码'}}" placeholder-class="placeholder" value="{{secondP}}" bindinput="secondPwd"></input>
       <view class="iconClear" wx:if="{{secondP.length>0}}" bindtap="clearsecondP">
         <icon type="clear" size="16"></icon>
       </view>
@@ -54,6 +54,22 @@
   </form>
   <view class="agree-box" wx:if="{{from=='register'}}">
     <text>注册即表示同意</text>
-    <text class="agree">《服务协议》</text>
+    <text class="agree" bindtap='showRule'>《服务协议》</text>
+  </view>
+</view>
+<!--  服务协议  -->
+<view class="ruleZhezhao {{isRuleTrue?'isRuleShow':'isRuleHide'}}">
+  <view class='ruleZhezhaoContent'>
+    <scroll-view class='ruleZhezhaoText' scroll-y>
+      <text class='titleH1'>《服务协议》</text>
+      <text class='textH2'>一、用户数据及隐私政策</text>
+      <text>1.1 用户向我们提供的所有注册资料应当是真实、完整、准确、合法、有效的。如果有用户提供的注册资料有所变更，用户应当及时更新，我们将依法不时地对用户信息进行检查核实，用户应当配合提供最及时真实、完整的信息。</text>
+      <text>1.2 我们将对医生用户上传的注册认证资料和视频资料的真实性、合法性进行审核，并可能提出合理的质询和疑问，或作出审核不通过的结果；用户可以通过再次重新提交认证。</text>
+      <text>1.3 依法保护用户隐私是我们的一项基本政策，我们保证不对外公开或向第三方提供单个用户的注册资料信息。</text>
+      <text class='textH2'>二、违约责任</text>
+      <text>2.1 如因我们违反有关法律、法规或本协议项下的任何条款而给用户造成实际损失，我们同意承担由此造成的违约责任。</text>
+      <text>2.2 用户同意保障和维护我们及其他用户的合法权益，如因用户违反法律、法规或本协议项下的任何条款而给我们或任何第三方造成损失，用户同意承担由此造成的违约责任，包括但不限于赔偿我们并使我们免于因此遭受所有直接和间接损失（包括任何直接经济损失、商誉损失及对外支付的赔偿金、和解款、律师费诉讼费等）。</text>
+    </scroll-view>
+    <button type='default' class='ruleHide' bindtap='hideRule'>我知道了</button>
   </view>
 </view>

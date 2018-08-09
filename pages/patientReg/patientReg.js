@@ -16,6 +16,7 @@ Page({
         name: '医生'
       }
     ],
+    scrolltop:500,
     index: 0,
     mobile: '',
     getCodeButtonText: '获取验证码',
@@ -303,6 +304,19 @@ Page({
       idcard: personalInfo.userIdcard,
       mobile: personalInfo.mobile,
       index: personalInfo.sex == 'M' ? 0 : (personalInfo.sex == 'W'?1:2),
+    })
+  },
+
+  //打开服务协议提示
+  showRule: function () {
+    this.setData({
+      isRuleTrue: true
+    })
+  },
+  //关闭服务协议提示
+  hideRule: function () {
+    this.setData({
+      isRuleTrue: false
     })
   },
   /**
