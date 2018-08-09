@@ -1,4 +1,5 @@
 <view class="page-body">
+  <view wx:if="{{doctorList.doctorStatus=='3'}}" class="remind"> *{{doctorList.doctorRemark}}</view>
   <form bindsubmit="formSubmit">
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">

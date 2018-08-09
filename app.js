@@ -1,5 +1,4 @@
-//app.js
-let code = '';
+//app.js 
 let APPID = 'wxa4cd3f1e2af9b0dd'
 const api = require('utils/apiConfig')
 const util = require('utils/util')
@@ -15,8 +14,32 @@ App({
     this.globalData.pageLoad = check;
     this.globalData.userList = wx.getStorageSync('userList');
     this.globalData.token = wx.getStorageSync('token');
-    console.log(this.globalData.userList);
-    console.log(this.globalData.token);
+    // console.log(this.globalData.userList);
+    // console.log(this.globalData.token);
+    console.log(wx.canIUse('input.adjust-position'));
+    wx.getSystemInfo({
+      success: function (res) {
+        console.log(res.model)
+        console.log(res.pixelRatio)
+        console.log(res.windowWidth)
+        console.log(res.windowHeight)
+        console.log(res.language)
+        console.log(res.version)
+        console.log(res.platform)
+      }
+    })
+    try {
+      var res = wx.getSystemInfoSync()
+      console.log(res.model)
+      console.log(res.pixelRatio)
+      console.log(res.windowWidth)
+      console.log(res.windowHeight)
+      console.log(res.language)
+      console.log(res.version)
+      console.log(res.platform)
+    } catch (e) {
+      // Do something when catch error
+    }
     // 获取用户信息
     wx.getSetting({
       success: res => {

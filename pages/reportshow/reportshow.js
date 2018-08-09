@@ -24,6 +24,7 @@ Page({
     })
   }, 
   onLoad: function (options) {
+    console.log(getCurrentPages()); 
     this.setData({
       reportUrl: app.globalData.api.filmshow.reportUrl + options.studyUid
     });

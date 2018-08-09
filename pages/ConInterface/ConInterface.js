@@ -69,6 +69,7 @@ Page({
   },
   // 页面加载完成
   onShow: function() {
+    console.log(getCurrentPages());
     var that = this;
     if (this.data.fromWhere == 'noRecord' || this.data.fromWhere == 'waiting') {
       if (!this.data.socketOpen) {
