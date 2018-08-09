@@ -16,6 +16,7 @@ Page({
         name: '医生'
       }
     ],
+    scrolltop:500,
     index: 0,
     mobile: '',
     getCodeButtonText: '获取验证码',

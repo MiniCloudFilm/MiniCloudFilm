@@ -131,7 +131,7 @@ picker{
 .ruleZhezhaoContent{
     padding: 2rpx 0 20rpx 0;
     width: 90%;
-    /* background: #e1d2b1; */
+    height:93%;
     background: #fff;
     margin: 5% auto;
     border-radius: 20rpx;
@@ -146,6 +146,8 @@ picker{
     color: #55585a;
     align-items: center;
     margin: 20rpx 0;
+    flex: 1;
+    overflow: auto;
 }
 .ruleZhezhaoText text{
     font-size: 26rpx;
