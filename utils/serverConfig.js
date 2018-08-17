@@ -1,8 +1,8 @@
 // const IP ='http://192.168.131.63';
 // const port = '8080'; 
 const http = 'https://'; 
-const domainName ="reader.lanwon.com"
-const port = '9991'; 
+const domainName ="film.lanwon.com"
+const port = '8445'; 
 module.exports = {
   url: http + domainName+':'+port,
   // url:'http://192.168.131.212:8080',

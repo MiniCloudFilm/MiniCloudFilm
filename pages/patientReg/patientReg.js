@@ -26,7 +26,9 @@ Page({
     invisible: true,
     name: '',
     idcard: '',
-    secCode: ''
+    secCode: '',
+    firstP:'',
+    secondP:''
   },
   // 绑定输入
   getName: function(e) {

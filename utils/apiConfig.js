@@ -2,7 +2,6 @@ const server = require('serverConfig.js')
 const basePath = server.url;
 // const basePath = 'http://192.168.131.186:8080'
 // const basePath = 'http://192.168.131.102:8080'
-// const basePath = 'http://192.168.131.102:8080'
 module.exports = {
   url: basePath,
   // 会话页面
@@ -91,9 +90,9 @@ module.exports = {
   },
   //影像
   filmshow: {
-    filmUrl: 'https://reader.lanwon.com/clinicWebPacsViewMobile/mobile.html#',
-    reportUrl: 'https://reader.lanwon.com/clinicWebPacsViewMobile/report.html#',
-    news:'https://reader.lanwon.com/news.html#'
+    filmUrl: 'https://film.lanwon.com/clinicWebPacsViewMobile/mobile.html#',
+    reportUrl: 'https://film.lanwon.com/clinicWebPacsViewMobile/report.html#',
+    news:'https://film.lanwon.com/clinicWebPacsViewMobile/news.html#'
   },
   index: {
     postFormId: basePath + '/wxapi/wechatForm',
