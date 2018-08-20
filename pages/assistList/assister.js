@@ -22,71 +22,47 @@ Page({
 
   //获取专家列表
   getExpert: function (areaId, deptId,page) {
-    wx.request({
-      url: app.globalData.api.expertList.expertList,
-      data: {
-        'token': '',
-        'areaId': areaId,
-        'deptId': deptId,
-        'page': page,
-        'pageSize': 10
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        wx.hideLoading();
-        if (res.data.code == "200") {
-          this.setData({
-            expertList: app.globalData.pageLoad.check(this.data.expertList, res.data.data.datas, 10, this)
-          })
-        }
-      },
-      fail: res => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败");
-      } 
-
-    })
+    let url = app.globalData.api.expertList.expertList;
+    let params = {
+      'areaId': areaId,
+      'deptId': deptId,
+      'page': page,
+      'pageSize': 10
+    }
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      this.setData({
+        expertList: app.globalData.pageLoad.check(this.data.expertList, res.data.datas, 10, this)
+      })
+    });
   },
   //获取科室
   getDepartment: function () {
-    wx.request({
-      url: app.globalData.api.picker.getDepartment, //仅为示例，并非真实的接口地址
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        // console.log(res.data)
-        let arr = res.data.data;
-        let arr0 = {
-          "deptName": "全部",
-          "children": [],
-          "deptId": 'all',
-          "parentId": 0
-        }
-        arr.unshift(arr0);
-        // console.log(arr);
-        if (res.data.code == "200") {
-          this.setData({
-            departList: arr
-          })
-          let depart = [
-            [],
-            []
-          ]
-          for (let i = 0; i < arr.length; i++) {
-            depart[0].push(arr[i])
-          }
-          depart[1] = arr[0].children;
-          // console.log(depart);
-          this.setData({
-            department: depart
-          })
-        }
+    let url = app.globalData.api.picker.getDepartment;
+    app.globalData.util.request(url, {}, false, "get", "json", (res) => {
+      let arr = res.data;
+      let arr0 = {
+        "deptName": "科室",
+        "children": [],
+        "deptId": 'all',
+        "parentId": 0
       }
-    })
+      arr.unshift(arr0);
+      this.setData({
+        departList: arr
+      })
+      let depart = [
+        [],
+        []
+      ]
+      for (let i = 0; i < arr.length; i++) {
+        depart[0].push(arr[i])
+      }
+      depart[1] = arr[0].children;
+      // console.log(depart);
+      this.setData({
+        department: depart
+      })
+    });
   },
   //获取科室列
   bindMultiPickerColumnChange: function (e) {
@@ -212,55 +188,45 @@ Page({
   },
   //获取地市
   getArea: function (parentId, level) {
-    wx.request({
-      url: app.globalData.api.picker.getArea,
-      data: {
-        'token': '',
-        'parentId': parentId,
-        'level': level
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        // console.log(res);
-        // console.log(res.data.data)
-        if (res.data.code == "200") {
-          let list = res.data.data;
-          let first = {
-            "areaId": 'all',
-            "areaName": '全部',
-            "areaLevel": level,
-            "parentId": parentId
-          }
-          list.unshift(first)
-          let DList = this.data.areaList;
-          if (level == 1) {
-            DList[0] = list;
-            this.setData({
-              areaList: DList
-            })
-          } else if (level == 2) {
-            DList[2] = [];
-            DList[2].push(first);
-            this.setData({
-              arealist: DList
-            })
-            DList[1] = list;
-            this.setData({
-              areaList: DList
-            })
-          } else if (level == 3) {
-            DList[2] = [];
-            DList[2] = list;
-            this.setData({
-              areaList: DList
-            })
-          }
-        }
+    let url = app.globalData.api.picker.getArea;
+    let params = {
+      'token': '',
+      'parentId': parentId,
+      'level': level
+    };
+    app.globalData.util.request(url, params, false, "get", "x-www-form-urlencoded", (res) => {
+      let list = res.data;
+      let first = {
+        "areaId": 'all',
+        "areaName": '全部',
+        "areaLevel": level,
+        "parentId": parentId
       }
-    })
+      list.unshift(first)
+      let DList = this.data.areaList;
+      if (level == 1) {
+        DList[0] = list;
+        this.setData({
+          areaList: DList
+        })
+      } else if (level == 2) {
+        DList[2] = [];
+        DList[2].push(first);
+        this.setData({
+          arealist: DList
+        })
+        DList[1] = list;
+        this.setData({
+          areaList: DList
+        })
+      } else if (level == 3) {
+        DList[2] = [];
+        DList[2] = list;
+        this.setData({
+          areaList: DList
+        })
+      }
+    });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -291,37 +257,57 @@ Page({
     } else if (this.data.assisterId == undefined) {
       app.globalData.util.showWarning("请选择协助者");
     } else {
-      wx.request({
-        url: app.globalData.api.assistList.chooseAssist,
-        data: {
-          'token': wx.getStorageSync('token'),
-          'userId': this.data.assisterId,
-          "dialogId": this.data.dialogId,
-          "userType": 3
-        },
-        method: 'post',
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: res => {
-          if(res.data.code=='200'){
-            let pages = getCurrentPages();//当前页
-            let prevPage = pages[pages.length - 2];//上一页
-            prevPage.setData({
-              ifNeedAssist: "false"//去掉协助按钮
-            });
-            wx.navigateBack({
-              delta: 1
-            });
-          }else{
-            app.globalData.util.showFail("请求失败")
-          }
-          
-        },
-        fail:function(){
-          app.globalData.util.showFail("服务连接失败")
-        }
+
+      let url = app.globalData.api.assistList.chooseAssist;
+      let params = {
+        'token': wx.getStorageSync('token'),
+        'userId': this.data.assisterId,
+        "dialogId": this.data.dialogId,
+        "userType": 3
+      };
+      app.globalData.util.request(url, params, false, "post", "json", (res) => {
+        let pages = getCurrentPages();//当前页
+        let prevPage = pages[pages.length - 2];//上一页
+        prevPage.setData({
+          ifNeedAssist: "false"//去掉协助按钮
+        });
+        wx.navigateBack({
+          delta: 1
+        });
       });
+
+
+      // wx.request({
+      //   url: app.globalData.api.assistList.chooseAssist,
+      //   data: {
+      //     'token': wx.getStorageSync('token'),
+      //     'userId': this.data.assisterId,
+      //     "dialogId": this.data.dialogId,
+      //     "userType": 3
+      //   },
+      //   method: 'post',
+      //   header: {
+      //     'content-type': 'application/json' // 默认值
+      //   },
+      //   success: res => {
+      //     if(res.data.code=='200'){
+      //       let pages = getCurrentPages();//当前页
+      //       let prevPage = pages[pages.length - 2];//上一页
+      //       prevPage.setData({
+      //         ifNeedAssist: "false"//去掉协助按钮
+      //       });
+      //       wx.navigateBack({
+      //         delta: 1
+      //       });
+      //     }else{
+      //       app.globalData.util.showFail("请求失败")
+      //     }
+          
+      //   },
+      //   fail:function(){
+      //     app.globalData.util.showFail("服务连接失败")
+      //   }
+      // });
 
     }
   },

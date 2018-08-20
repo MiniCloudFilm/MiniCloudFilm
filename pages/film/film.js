@@ -62,138 +62,209 @@ Page({
     }
   },
   //获取视频
-  getVideo:function(api){ 
-    wx.request({
-      // url: app.globalData.api.film.getChargeVideo,
-      url: api,
-      data: {
-        "userId":this.data.user.userId,
-        "page": this.data.page,
-        "token": this.data.token
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        console.log(res.data) 
-          if (res.data.code == "200") {
-            this.setData({
-              videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
-            })
-          }
-        console.log(this.data.videoList);
-        wx.hideLoading()
-      },
-      fail:res=>{
-        wx.hideLoading()
-        app.globalData.util.showFail("服务连接失败");
-      }
-    })
+  getVideo:function(api){
+    let params = {
+      "userId": this.data.user.userId,
+      "page": this.data.page,
+      "token": this.data.token
+    }
+    app.globalData.util.request(api, params, true, "get", "json", (res) => {
+      this.setData({
+        videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.datas, 15, this)
+      })
+    });
+
+    // wx.request({
+    //   // url: app.globalData.api.film.getChargeVideo,
+    //   url: api,
+    //   data: {
+    //     "userId":this.data.user.userId,
+    //     "page": this.data.page,
+    //     "token": this.data.token
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res.data) 
+    //       if (res.data.code == "200") {
+    //         this.setData({
+    //           videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
+    //         })
+    //       }
+    //     console.log(this.data.videoList);
+    //     wx.hideLoading()
+    //   },
+    //   fail:res=>{
+    //     wx.hideLoading()
+    //     app.globalData.util.showFail("服务连接失败");
+    //   }
+    // })
   }, 
   //获取观看记录
   getQueryVideoLog: function() { 
-    wx.request({ 
-      url: app.globalData.api.film.getQueryVideoLog, 
-      data: {
-        "userId": this.data.user.userId,
-        "page": this.data.page,
-        "token": this.data.token
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        console.log(res.data)
-        if (res.data.code == "200") {
-            this.setData({
-              videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
-            })
-          }
-        console.log(this.data.videoList);
-        wx.hideLoading()
-      },
-      fail: res => {
-        wx.hideLoading()
-        app.globalData.util.showFail("服务连接失败");
-      }
-    })
+    let url = app.globalData.api.film.getQueryVideoLog;
+    let params = {
+      "userId": this.data.user.userId,
+      "page": this.data.page,
+      "token": this.data.token
+    }
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      this.setData({
+        videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.datas, 15, this)
+      })
+    });
+
+    // wx.request({ 
+    //   url: app.globalData.api.film.getQueryVideoLog, 
+    //   data: {
+    //     "userId": this.data.user.userId,
+    //     "page": this.data.page,
+    //     "token": this.data.token
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res.data)
+    //     if (res.data.code == "200") {
+    //         this.setData({
+    //           videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
+    //         })
+    //       }
+    //     console.log(this.data.videoList);
+    //     wx.hideLoading()
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading()
+    //     app.globalData.util.showFail("服务连接失败");
+    //   }
+    // })
   },
   //观看记录保存
-  getSaveVideoLog: function(data) { 
-    console.log(data);
-    wx.request({ 
-      url: app.globalData.api.film.getSaveVideoLog, 
-      data: {
-        "videoId": data.videoId,
-        "videoViewer": this.data.user.userId,
-        "token": this.data.token
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/json' // 默认值
-      }, 
-      success: res => {
-        console.log(res.data)
-        if (res.data.code == "200") { 
-          if (this.data.check == '0') {
-            this.getVideo(this.data.free);
-          } else if (this.data.check  == '1') {
-            this.getVideo(this.data.charge);
-          } else if (this.data.check  == '2') {
-            this.getQueryVideoLog();
-          }
-          console.log(data);
-          if (data.isBuy || data.isCharge == 'N' || data.userId == this.data.user.userId) {
-            let arr = data.videoUrl.split('?');
-            wx.navigateTo({
-              url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
-            }) 
-          } 
-        }
-      }
-    })
+  getSaveVideoLog: function(data) {
+    let url = app.globalData.api.film.getSaveVideoLog;
+    let params = {
+      "videoId": data.videoId,
+      "videoViewer": this.data.user.userId,
+      "token": this.data.token
+    }
+    app.globalData.util.request(url, params, false, "post", "json", (res) => {
+      if (this.data.check == '0') {
+        this.getVideo(this.data.free);
+      } else if (this.data.check == '1') {
+        this.getVideo(this.data.charge);
+      } else if (this.data.check == '2') {
+        this.getQueryVideoLog();
+      };
+      if (data.isBuy || data.isCharge == 'N' || data.userId == this.data.user.userId) {
+        let arr = data.videoUrl.split('?');
+        wx.navigateTo({
+          url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
+        })
+      } 
+    });
+
+    // wx.request({ 
+    //   url: app.globalData.api.film.getSaveVideoLog, 
+    //   data: {
+    //     "videoId": data.videoId,
+    //     "videoViewer": this.data.user.userId,
+    //     "token": this.data.token
+    //   },
+    //   method: 'POST',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   }, 
+    //   success: res => {
+    //     console.log(res.data)
+    //     if (res.data.code == "200") { 
+    //       if (this.data.check == '0') {
+    //         this.getVideo(this.data.free);
+    //       } else if (this.data.check  == '1') {
+    //         this.getVideo(this.data.charge);
+    //       } else if (this.data.check  == '2') {
+    //         this.getQueryVideoLog();
+    //       }
+    //       console.log(data);
+    //       if (data.isBuy || data.isCharge == 'N' || data.userId == this.data.user.userId) {
+    //         let arr = data.videoUrl.split('?');
+    //         wx.navigateTo({
+    //           url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
+    //         }) 
+    //       } 
+    //     }
+    //   }
+    // })
   },
   //判断是否购买
   checkIsBuy: function(data, userId) {
-    console.log(data);
-    wx.request({ 
-      url: app.globalData.api.film.checkIsBuy, 
-      data: {
-        "videoId": data.videoId,
-        "userId": userId
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        console.log(res.data)
-        if (res.data.code == "200") {
-          this.setData({
-            isBuy: res.data.data
-          })
-          if (!this.data.isBuy) { 
-            wx.showModal({
-              title: '提示',
-              content: `是否购买《${data.title}》?`,
-              success: res=> {
-                if (res.confirm) { 
-                  this.getSaveVideoLog(data);
-                  wx.navigateTo({
-                    url: `../confirmPay/confirmPay?videoId=${data.videoId}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
-                  })
-                } else if (res.cancel) {
-                  // console.log('用户点击取消')
-                }
-              }
-            })
-           
-          }else{ 
-            this.getSaveVideoLog(data);
+    let url = app.globalData.api.film.checkIsBuy;
+    let params = {
+      "videoId": data.videoId,
+      "userId": userId
+    }
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      this.setData({
+        isBuy: res.data
+      })
+      if (!this.data.isBuy) {
+        wx.showModal({
+          title: '提示',
+          content: `是否购买《${data.title}》?`,
+          success: resA => {
+            if (resA.confirm) {
+              this.getSaveVideoLog(data);
+              wx.navigateTo({
+                url: `../confirmPay/confirmPay?videoId=${data.videoId}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
+              })
+            }
           }
-        }
+        })
+
+      } else {
+        this.getSaveVideoLog(data);
       }
-    })
+    });
+
+    // wx.request({ 
+    //   url: app.globalData.api.film.checkIsBuy, 
+    //   data: {
+    //     "videoId": data.videoId,
+    //     "userId": userId
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res.data)
+    //     if (res.data.code == "200") {
+    //       this.setData({
+    //         isBuy: res.data.data
+    //       })
+    //       if (!this.data.isBuy) { 
+    //         wx.showModal({
+    //           title: '提示',
+    //           content: `是否购买《${data.title}》?`,
+    //           success: res=> {
+    //             if (res.confirm) { 
+    //               this.getSaveVideoLog(data);
+    //               wx.navigateTo({
+    //                 url: `../confirmPay/confirmPay?videoId=${data.videoId}&charge=${data.charge}&title=${data.title}&upId=${data.userId}&type=2`
+    //               })
+    //             } else if (res.cancel) {
+    //               // console.log('用户点击取消')
+    //             }
+    //           }
+    //         })
+           
+    //       }else{ 
+    //         this.getSaveVideoLog(data);
+    //       }
+    //     }
+    //   }
+    // })
   }, 
   onLoad: function() {
     wx.showLoading({

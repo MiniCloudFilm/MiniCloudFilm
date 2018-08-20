@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ifHasRecord: true, //账号记录
+    ifHasRecord: false, //账号记录
     cardType: '',
     name: '',
     phoneNumber: '',
@@ -32,42 +32,62 @@ Page({
   },
   //提交转账信息
   submitInfos: function(cardId) {
-      var that = this;
-      wx.request({
-        url: app.globalData.api.pickupCach.submitInfos,
-        data: {
-          'reflectCharge': this.data.reflectCharge,
-          "bankCardId": cardId,
-          'token': this.data.token
-        },
-        method: 'POST',
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
+    let url = app.globalData.api.pickupCach.submitInfos;
+    let params = {
+      'reflectCharge': this.data.reflectCharge,
+      "bankCardId": cardId,
+      'token': this.data.token
+    }
+    app.globalData.util.request(url, params, false, "post", "json", (res) => {
+      wx.showModal({
+        title: '提现成功',
+        content: '我们将在3个工作日把款项转至您账户,请耐心等待。',
+        showCancel: false,
         success: function (res) {
-          if (res.data.code=="200"){
-            wx.showModal({
-              title: '提现成功',
-              content: '我们将在3个工作日把款项转至您账户,请耐心等待。',
-              showCancel:false,
-              success: function (res) {
-                if (res.confirm) {
-                  wx.navigateBack({
-                    url: "../myAccount/account"
-                  })
-                }
-              }
-            })
-          }else{
-            wx.showToast({
-              title:'提现失败，请稍后再试！',
-              icon: 'none',
-              image: '',
-              duration: 1500
+          if (res.confirm) {
+            wx.navigateBack({
+              url: "../myAccount/account"
             })
           }
         }
       })
+    });
+
+      // wx.request({
+      //   url: app.globalData.api.pickupCach.submitInfos,
+      //   data: {
+      //     'reflectCharge': this.data.reflectCharge,
+      //     "bankCardId": cardId,
+      //     'token': this.data.token
+      //   },
+      //   method: 'POST',
+      //   header: {
+      //     'content-type': 'application/json' // 默认值
+      //   },
+      //   success: function (res) {
+      //     if (res.data.code=="200"){
+      //       wx.showModal({
+      //         title: '提现成功',
+      //         content: '我们将在3个工作日把款项转至您账户,请耐心等待。',
+      //         showCancel:false,
+      //         success: function (res) {
+      //           if (res.confirm) {
+      //             wx.navigateBack({
+      //               url: "../myAccount/account"
+      //             })
+      //           }
+      //         }
+      //       })
+      //     }else{
+      //       wx.showToast({
+      //         title:'提现失败，请稍后再试！',
+      //         icon: 'none',
+      //         image: '',
+      //         duration: 1500
+      //       })
+      //     }
+      //   }
+      // })
 
   },
   //新增银行卡--提现按钮触发
@@ -99,23 +119,35 @@ Page({
         }
       });
       if (!flag){//如果不重复 则保存  
-        wx.request({
-          url: app.globalData.api.pickupCach.saveCard,
-          data: {
-            'cardBankName': this.data.cardType,
-            'cardUserName': this.data.name,
-            'cardNumber': bankNumber,
-            'token': this.data.token
-          },
-          method: "post",
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: function (res) {
-            var cardId = res.data.data.id;
-            that.submitInfos(cardId)
-          }
+        let url = app.globalData.api.pickupCach.saveCard;
+        let params = {
+          'cardBankName': this.data.cardType,
+          'cardUserName': this.data.name,
+          'cardNumber': bankNumber,
+          'token': this.data.token
+        }
+        app.globalData.util.request(url, params, false, "post", "json", (res) => {
+          var cardId = res.data.id;
+          that.submitInfos(cardId)
         });
+
+        // wx.request({
+        //   url: app.globalData.api.pickupCach.saveCard,
+        //   data: {
+        //     'cardBankName': this.data.cardType,
+        //     'cardUserName': this.data.name,
+        //     'cardNumber': bankNumber,
+        //     'token': this.data.token
+        //   },
+        //   method: "post",
+        //   header: {
+        //     'content-type': 'application/json' // 默认值
+        //   },
+        //   success: function (res) {
+        //     var cardId = res.data.data.id;
+        //     that.submitInfos(cardId)
+        //   }
+        // });
       }else{//直接提现
           that.submitInfos(this.data.cardId);
       }
@@ -123,42 +155,57 @@ Page({
   },
   //查询银行卡
   searchCard: function(e) {
-    var that = this;
-    wx.request({
-      url: app.globalData.api.pickupCach.searchCard,
-      data: {
-        'token': this.data.token
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: function(res) {
-        if (res.data.code == 200) {
-          if (res.data.data.length == 0) {
-            that.setData({
-              ifHasRecord: false
-            })
-          } else {
-            var cardMesArr = [];
-            var cardMesObj = res.data.data;
-            cardMesObj.forEach(function (val, i) {
-              cardMesArr.push(val.cardBankName + "-" + val.cardNumber)
-            });
-            var value = cardMesObj[0].cardNumber.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ");
-            that.setData({
-              cardList: cardMesObj,
-              cardMesArr: cardMesArr,//展示数据的
-              cardType: cardMesObj[0].cardBankName,
-              bankNumber: value
-            });
-          }
-        } else {
-          that.setData({
-            ifHasRecord: false
-          })
-        }
+    let url = app.globalData.api.pickupCach.searchCard;
+    let params = {
+      'token': this.data.token
+    }
+    app.globalData.util.request(url, params, true, "get", "x-www-form-urlencoded", (res) => {
+      if (res.data.length > 0) {
+        var cardMesArr = [];
+        var cardMesObj = res.data;
+        cardMesObj.forEach(function (val, i) {
+          cardMesArr.push(val.cardBankName + "-" + val.cardNumber)
+        });
+        var value = cardMesObj[0].cardNumber.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ");
+        this.setData({
+          cardList: cardMesObj,
+          cardMesArr: cardMesArr,//展示数据的
+          cardType: cardMesObj[0].cardBankName,
+          bankNumber: value,
+          ifHasRecord: true
+        });
       }
-    })
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.pickupCach.searchCard,
+    //   data: {
+    //     'token': this.data.token
+    //   },
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: function(res) {
+    //     if (res.data.code == 200) {
+    //       if (res.data.data.length>0) {
+    //         var cardMesArr = [];
+    //         var cardMesObj = res.data.data;
+    //         cardMesObj.forEach(function (val, i) {
+    //           cardMesArr.push(val.cardBankName + "-" + val.cardNumber)
+    //         });
+    //         var value = cardMesObj[0].cardNumber.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ");
+    //         that.setData({
+    //           cardList: cardMesObj,
+    //           cardMesArr: cardMesArr,//展示数据的
+    //           cardType: cardMesObj[0].cardBankName,
+    //           bankNumber: value,
+    //           ifHasRecord:true
+    //         });
+    //       }
+    //     }
+    //   }
+    // })
   },
   //选择账号
   bindPickerChange: function(e) {

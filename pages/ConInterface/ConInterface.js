@@ -1,4 +1,3 @@
-var util = require("../../utils/util.js");
 var app = getApp();
 var upload_url = '请填写您的图片上传接口地址';
 Page({
@@ -21,9 +20,9 @@ Page({
     var userList = app.globalData.userList;
     console.log(options)
     // 调用函数时，传入new Date()参数，返回值是日期和时间
-    var time = util.formatTime(new Date());
-    if(options.firstEnter){
-      wx:wx.showModal({
+    var time = app.globalData.util.formatTime(new Date());
+    if (options.firstEnter) {
+      wx: wx.showModal({
         title: '温馨提示',
         content: '医生暂未接收您的会诊，接收之后将会看到您的留言！',
         showCancel: false,
@@ -48,24 +47,16 @@ Page({
   },
   // 根据studyUid获取报告
   getReport: function(reportId) {
-    wx.request({
-      url: app.globalData.api.ConInterface.getReport,
-      data: {
-        'token': app.globalData.token,
-        'reportId': reportId
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        if (res.data.code == "200") {
-          this.setData({
-            reportDetail: res.data.data
-          })
-        }
-      }
-    })
+    let url = app.globalData.api.ConInterface.getReport;
+    let params={
+      'token': app.globalData.token,
+      'reportId': reportId
+    }
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      this.setData({
+        reportDetail: res.data
+      })
+    });
   },
   // 页面加载完成
   onShow: function() {
@@ -100,12 +91,12 @@ Page({
         //   that.data.allContentList.push(onMessage_data[i]);
         // }
         let dialogArr;
-        if (that.data.allContentList){
+        if (that.data.allContentList) {
           dialogArr = that.data.allContentList;
-        }else{
+        } else {
           dialogArr = [];
         };
-        dialogArr.push.apply(dialogArr,onMessage_data);
+        dialogArr.push.apply(dialogArr, onMessage_data);
         console.log(dialogArr)
         that.setData({
           allContentList: dialogArr
@@ -140,9 +131,7 @@ Page({
   // 提交文字
   submitTo: function(e) {
     let formId = e.detail.formId;
-    if (formId && formId != 'the formId is a mock one') {
-      this.saveFormId(formId)
-    };
+    app.saveFormId(formId);
     if (this.data.inputValue.length == 0) {
       app.globalData.util.showWarning("内容不能为空");
       return false;
@@ -152,7 +141,7 @@ Page({
       var data = {
         isMy: true,
         content: this.data.inputValue,
-        time: util.formatTime(new Date()),
+        time: app.globalData.util.formatTime(new Date()),
         myId: this.data.myId,
         name: this.data.myName,
         dialogId: this.data.dialogId
@@ -191,44 +180,30 @@ Page({
   },
   //结束会话
   endDialog: function() {
-    wx.request({
-      url: app.globalData.api.ConInterface.endDialog,
-      data: {
-        'consultId': this.data.consultId,
-        'userType':this.data.myType
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        if (res.data.code == "200") {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'success',
-            duration: 2000,
-            success: function() {
-              setTimeout(function() {
-                //要延时执行的代码
-                wx.navigateBack({
-                  delta: 1
-                })
-              }, 2000) //延迟时间
-            }
-          });
-        }
-      }
-    })
+    let url = app.globalData.api.ConInterface.endDialog;
+    let params = {
+      'consultId': this.data.consultId,
+      'userType': this.data.myType
+    }
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      app.globalData.util.showSuccess(res.msg,()=>{
+        setTimeout(function () {
+          wx.navigateBack({
+            delta: 1
+          })
+        }, 2500)
+      })
+    });
   },
   // 是否结束
-  confirmEndDialog:function(){
-    wx:wx.showModal({
+  confirmEndDialog: function() {
+    wx: wx.showModal({
       title: '提示',
       content: '结束之后将不能再次进行对话，确认结束此次会诊？',
       cancelText: '取消',
       confirmText: '确认结束',
-      success: res=>{
-        if(res.confirm){
+      success: res => {
+        if (res.confirm) {
           this.endDialog();
         }
       }
@@ -285,36 +260,12 @@ Page({
   },
   // 获取会话记录
   getDialogRecord: function() {
-    wx.request({
-      url: app.globalData.api.ConInterface.getDialogRecord + this.data.myId + '/' + this.data.dialogId,
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        if (res.data.code == "200") {
-          this.setData({
-            allContentList: res.data.data
-          });
-          this.bottom(); //置底
-        }
-      }
-    });
-
-  },
-  // 保存formId
-  saveFormId: function (formId) {
-    wx.request({//通过网络请求发送openId和formIds到服务器
-      url: app.globalData.api.index.postFormId,
-      method: 'post',
-      data: {
-        "userId": app.globalData.userList.userId,
-        "openId": app.globalData.userList.userOpenId,
-        "formId": formId
-      },
-      success: function (res) {
-        // console.log(res)
-      }
+    let url = app.globalData.api.ConInterface.getDialogRecord + this.data.myId + '/' + this.data.dialogId;
+    app.globalData.util.request(url, {}, false, "get", "json", (res) => {
+      this.setData({
+        allContentList: res.data
+      });
+      this.bottom(); //置底
     });
   }
 })

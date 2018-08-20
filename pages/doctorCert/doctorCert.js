@@ -284,38 +284,53 @@ Page({
               'synopsis': data.introduction,
               'qualification': data.doctorNum
             }
-            console.log(data);
-            wx.request({
-              url: app.globalData.api.doctorCert.formSubmit,
-              data: dataList,
-              method: 'POST',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded' // 默认值
-              },
-              success: res => {
-                console.log(res);
-                if (res.data.code == "200") {
-                  wx.hideLoading()
-                  wx.showModal({
-                    title: '提示',
-                    content: '认证信息提交成功！',
-                    showCancel: false,
-                    success: function(res) {
-                      if (res.confirm) {
-                        wx.reLaunch({
-                          url: '../user/user'
-                        })
-                      }
-                    }
-                  })
+            // console.log(data);
+            let url = app.globalData.api.doctorCert.formSubmit;
+            app.globalData.util.request(url, dataList, true, "post", "x-www-form-urlencoded", (res) => {
+              wx.showModal({
+                title: '提示',
+                content: '认证信息提交成功！',
+                showCancel: false,
+                success: function(resA) {
+                  if (resA.confirm) {
+                    wx.reLaunch({
+                      url: '../user/user'
+                    })
+                  }
                 }
+              })
+            });
+            // wx.request({
+            //   url: app.globalData.api.doctorCert.formSubmit,
+            //   data: dataList,
+            //   method: 'POST',
+            //   header: {
+            //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+            //   },
+            //   success: res => {
+            //     console.log(res);
+            //     if (res.data.code == "200") {
+            //       wx.hideLoading()
+            //       wx.showModal({
+            //         title: '提示',
+            //         content: '认证信息提交成功！',
+            //         showCancel: false,
+            //         success: function(res) {
+            //           if (res.confirm) {
+            //             wx.reLaunch({
+            //               url: '../user/user'
+            //             })
+            //           }
+            //         }
+            //       })
+            //     }
 
-              },
-              fail: res => {
-                wx.hideLoading()
-                app.globalData.util.showFail("服务连接失败");
-              }
-            })
+            //   },
+            //   fail: res => {
+            //     wx.hideLoading()
+            //     app.globalData.util.showFail("服务连接失败");
+            //   }
+            // })
           }
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -325,42 +340,71 @@ Page({
   },
   //获取科室
   getDepartment: function() {
-    wx.request({
-      url: app.globalData.api.picker.getDepartment,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        // console.log(res.data) 
-        let arr = res.data.data;
-        let arr0 = {
-          "deptName": "请选择科室",
-          "children": [],
-          "deptId": 'all',
-          "parentId": 0
-        }
-        arr.unshift(arr0);
-        // console.log(arr);
-        if (res.data.code == "200") {
-          this.setData({
-            departList: arr
-          })
-          let depart = [
-            [],
-            []
-          ]
-          for (let i = 0; i < arr.length; i++) {
-            depart[0].push(arr[i])
-          }
-          depart[1] = arr[0].children;
-          // console.log(depart);
-          this.setData({
-            department: depart
-          })
-          console.log(this.data.department);
-        }
+    let url = app.globalData.api.picker.getDepartment;
+    app.globalData.util.request(url, {}, false, "get", "json", (res) => {
+      let arr = res.data;
+      let arr0 = {
+        "deptName": "请选择科室",
+        "children": [],
+        "deptId": 'all',
+        "parentId": 0
       }
-    })
+      arr.unshift(arr0);
+      this.setData({
+        departList: arr
+      })
+      let depart = [
+        [],
+        []
+      ]
+      for (let i = 0; i < arr.length; i++) {
+        depart[0].push(arr[i])
+      }
+      depart[1] = arr[0].children;
+      // console.log(depart);
+      this.setData({
+        department: depart
+      })
+    });
+
+
+
+    // wx.request({
+    //   url: app.globalData.api.picker.getDepartment,
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     // console.log(res.data) 
+    //     let arr = res.data.data;
+    //     let arr0 = {
+    //       "deptName": "请选择科室",
+    //       "children": [],
+    //       "deptId": 'all',
+    //       "parentId": 0
+    //     }
+    //     arr.unshift(arr0);
+    //     // console.log(arr);
+    //     if (res.data.code == "200") {
+    //       this.setData({
+    //         departList: arr
+    //       })
+    //       let depart = [
+    //         [],
+    //         []
+    //       ]
+    //       for (let i = 0; i < arr.length; i++) {
+    //         depart[0].push(arr[i])
+    //       }
+    //       depart[1] = arr[0].children;
+    //       // console.log(depart);
+    //       this.setData({
+    //         department: depart
+    //       })
+    //       console.log(this.data.department);
+    //     }
+    //   }
+    // })
   },
   //获取科室列
   bindMultiPickerColumnChange: function(e) {
@@ -472,136 +516,225 @@ Page({
   },
   //获取地市
   getArea: function(parentId, level) {
-    wx.request({
-      url: app.globalData.api.picker.getArea,
-      data: {
-        'token': '',
-        'parentId': parentId,
-        'level': level
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        // console.log(res);
-        // console.log(res.data.data)
-        if (res.data.code == "200") {
-          let list = res.data.data;
-          let first = {
-            "areaId": 'all',
-            "areaName": '全部',
-            "areaLevel": level,
-            "parentId": parentId
-          }
-          list.unshift(first)
-          let DList = this.data.areaList;
-          if (level == 1) {
-            DList[0] = list;
-            this.setData({
-              areaList: DList
-            })
-          } else if (level == 2) {
-            DList[2] = [];
-            DList[2].push(first);
-            this.setData({
-              arealist: DList
-            })
-            DList[1] = list;
-            this.setData({
-              areaList: DList
-            })
-          } else if (level == 3) {
-            DList[2] = [];
-            DList[2] = list;
-            this.setData({
-              areaList: DList
-            })
-          }
-        }
+    let url = app.globalData.api.picker.getArea;
+    let params ={
+      'token': '',
+      'parentId': parentId,
+      'level': level
+    };
+    app.globalData.util.request(url, params, false, "get", "x-www-form-urlencoded", (res) => {
+      let list = res.data;
+      let first = {
+        "areaId": 'all',
+        "areaName": '全部',
+        "areaLevel": level,
+        "parentId": parentId
       }
-    })
+      list.unshift(first)
+      let DList = this.data.areaList;
+      if (level == 1) {
+        DList[0] = list;
+        this.setData({
+          areaList: DList
+        })
+      } else if (level == 2) {
+        DList[2] = [];
+        DList[2].push(first);
+        this.setData({
+          arealist: DList
+        })
+        DList[1] = list;
+        this.setData({
+          areaList: DList
+        })
+      } else if (level == 3) {
+        DList[2] = [];
+        DList[2] = list;
+        this.setData({
+          areaList: DList
+        })
+      }
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.picker.getArea,
+    //   data: {
+    //     'token': '',
+    //     'parentId': parentId,
+    //     'level': level
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     // console.log(res);
+    //     // console.log(res.data.data)
+    //     if (res.data.code == "200") {
+    //       let list = res.data.data;
+    //       let first = {
+    //         "areaId": 'all',
+    //         "areaName": '全部',
+    //         "areaLevel": level,
+    //         "parentId": parentId
+    //       }
+    //       list.unshift(first)
+    //       let DList = this.data.areaList;
+    //       if (level == 1) {
+    //         DList[0] = list;
+    //         this.setData({
+    //           areaList: DList
+    //         })
+    //       } else if (level == 2) {
+    //         DList[2] = [];
+    //         DList[2].push(first);
+    //         this.setData({
+    //           arealist: DList
+    //         })
+    //         DList[1] = list;
+    //         this.setData({
+    //           areaList: DList
+    //         })
+    //       } else if (level == 3) {
+    //         DList[2] = [];
+    //         DList[2] = list;
+    //         this.setData({
+    //           areaList: DList
+    //         })
+    //       }
+    //     }
+    //   }
+    // })
   },
   //获取医生信息
   getDoctor: function() {
-    wx.request({
-      url: app.globalData.api.doctorCert.getDoctorInfo,
-      // url: 'http://192.168.131.102:8080/doctor/api/v1/doctorInfo',
-      data: {
-        'token': app.globalData.token
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        console.log(res);
-        if (res.data.code == '200') {
-          if (res.data.data.doctorStatus != 0) {
-            this.setData({
-              doctorList: res.data.data,
-              image: [app.globalData.api.doctorCert.getDoctorImg + app.globalData.userList.doctorId],
-              head: [app.globalData.api.expertList.image + app.globalData.userList.doctorId]
-            })
-            let doctor = this.data.doctorList;
-            if (doctor.areaId) {
-              this.getHospital(doctor.areaId)
-            } else if (doctor.cityId) {
-              this.getHospital(doctor.cityId)
-            } else if (doctor.provinceId) {
-              this.getHospital(doctor.provinceId)
-            }
-          }
+    let url = app.globalData.api.doctorCert.getDoctorInfo;
+    let params = {
+      'token': app.globalData.token
+    };
+    app.globalData.util.request(url, params, false, "get", "x-www-form-urlencoded", (res) => {
+      if (res.data.doctorStatus != 0) {
+        this.setData({
+          doctorList: res.data,
+          image: [app.globalData.api.doctorCert.getDoctorImg + app.globalData.userList.doctorId],
+          head: [app.globalData.api.expertList.image + app.globalData.userList.doctorId]
+        })
+        let doctor = this.data.doctorList;
+        if (doctor.areaId) {
+          this.getHospital(doctor.areaId)
+        } else if (doctor.cityId) {
+          this.getHospital(doctor.cityId)
+        } else if (doctor.provinceId) {
+          this.getHospital(doctor.provinceId)
         }
-        console.log(this.data.doctorList)
-      },
-      fail: () => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败");
       }
-    })
+    });
+
+    // wx.request({
+    //   url: app.globalData.api.doctorCert.getDoctorInfo,
+    //   // url: 'http://192.168.131.102:8080/doctor/api/v1/doctorInfo',
+    //   data: {
+    //     'token': app.globalData.token
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res);
+    //     if (res.data.code == '200') {
+    //       if (res.data.data.doctorStatus != 0) {
+    //         this.setData({
+    //           doctorList: res.data.data,
+    //           image: [app.globalData.api.doctorCert.getDoctorImg + app.globalData.userList.doctorId],
+    //           head: [app.globalData.api.expertList.image + app.globalData.userList.doctorId]
+    //         })
+    //         let doctor = this.data.doctorList;
+    //         if (doctor.areaId) {
+    //           this.getHospital(doctor.areaId)
+    //         } else if (doctor.cityId) {
+    //           this.getHospital(doctor.cityId)
+    //         } else if (doctor.provinceId) {
+    //           this.getHospital(doctor.provinceId)
+    //         }
+    //       }
+    //     }
+    //     console.log(this.data.doctorList)
+    //   },
+    //   fail: () => {
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败");
+    //   }
+    // })
   },
   //获取医院
   getHospital: function(areaId) {
     this.setData({
       hospital: []
-    })
-    wx.request({
-      url: app.globalData.api.doctorCert.getHospital,
-      data: {
-        'token': '',
-        'areaId': areaId
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        console.log(res.data.data);
-        if (res.data.code == "200") {
-          if (res.data.data.length == 0) {
-            this.setData({
-              hospital: [{
-                "hospitalId": "0",
-                "hospitalLevel": "3",
-                "hospitalName": "该地区医院暂时未备案！"
-              }]
-            })
-          } else {
-            this.data.hospital = [{
-              "hospitalId": "0",
-              "hospitalLevel": "3",
-              "hospitalName": "请选择医院"
-            }]
-            let arr = this.data.hospital;
-            arr = arr.concat(res.data.data);
-            this.setData({
-              hospital: arr
-            })
-          }
-        }
+    });
+    let url = app.globalData.api.doctorCert.getHospital;
+    let params = {
+      'areaId': areaId
+    };
+    app.globalData.util.request(url, params, false, "get", "x-www-form-urlencoded", (res) => {
+      if (res.data.length == 0) {
+        this.setData({
+          hospital: [{
+            "hospitalId": "0",
+            "hospitalLevel": "3",
+            "hospitalName": "该地区医院暂时未备案！"
+          }]
+        })
+      } else {
+        this.data.hospital = [{
+          "hospitalId": "0",
+          "hospitalLevel": "3",
+          "hospitalName": "请选择医院"
+        }]
+        let arr = this.data.hospital;
+        arr = arr.concat(res.data);
+        this.setData({
+          hospital: arr
+        })
       }
-    })
+    });
+
+    // wx.request({
+    //   url: app.globalData.api.doctorCert.getHospital,
+    //   data: {
+    //     'areaId': areaId
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res.data.data);
+    //     if (res.data.code == "200") {
+    //       if (res.data.data.length == 0) {
+    //         this.setData({
+    //           hospital: [{
+    //             "hospitalId": "0",
+    //             "hospitalLevel": "3",
+    //             "hospitalName": "该地区医院暂时未备案！"
+    //           }]
+    //         })
+    //       } else {
+    //         this.data.hospital = [{
+    //           "hospitalId": "0",
+    //           "hospitalLevel": "3",
+    //           "hospitalName": "请选择医院"
+    //         }]
+    //         let arr = this.data.hospital;
+    //         arr = arr.concat(res.data.data);
+    //         this.setData({
+    //           hospital: arr
+    //         })
+    //       }
+    //     }
+    //   }
+    // })
   },
 
   /**

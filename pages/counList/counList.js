@@ -65,8 +65,7 @@ Page({
     })
   },
   //退款
-  refund: function(e) {
-    console.log(e)
+  refund: function(e) {  
     wx.request({
       url: app.globalData.api.counList.refund,
       data: {
@@ -95,313 +94,539 @@ Page({
   //接受
   accept: function(e) {
     // console.log(e.currentTarget.dataset.consult);
-    wx.request({
-      url: app.globalData.api.counList.accept,
-      data: {
-        'consultId': e.currentTarget.dataset.consult,
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        // console.log(res);
-        if (res.data.code == '200') {
-          let dialoger = e.currentTarget.dataset.dialoger;
-          let dialogId = e.currentTarget.dataset.dialogId;
-          let reportId = e.currentTarget.dataset.reportId;
-          let consultId = e.currentTarget.dataset.consult;
-          wx.navigateTo({
-            url: `../ConInterface/ConInterface?dialogId=${dialogId}&reportId=${reportId}&dialoger=${dialoger}&ifNeedAssist=true&consultId=${consultId}&fromWhere=noRecord&endbutton=true`
-          })
-        }
-      }
-    })
+    let url = app.globalData.api.counList.accept;
+    let params = {
+      'consultId': e.currentTarget.dataset.consult
+    };
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      let dialoger = e.currentTarget.dataset.dialoger;
+      let dialogId = e.currentTarget.dataset.dialogId;
+      let reportId = e.currentTarget.dataset.reportId;
+      let consultId = e.currentTarget.dataset.consult;
+      wx.navigateTo({
+        url: `../ConInterface/ConInterface?dialogId=${dialogId}&reportId=${reportId}&dialoger=${dialoger}&ifNeedAssist=true&consultId=${consultId}&fromWhere=noRecord&endbutton=true`
+      })
+    });
+
+    // wx.request({
+    //   url: app.globalData.api.counList.accept,
+    //   data: {
+    //     'consultId': e.currentTarget.dataset.consult,
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     // console.log(res);
+    //     if (res.data.code == '200') {
+    //       let dialoger = e.currentTarget.dataset.dialoger;
+    //       let dialogId = e.currentTarget.dataset.dialogId;
+    //       let reportId = e.currentTarget.dataset.reportId;
+    //       let consultId = e.currentTarget.dataset.consult;
+    //       wx.navigateTo({
+    //         url: `../ConInterface/ConInterface?dialogId=${dialogId}&reportId=${reportId}&dialoger=${dialoger}&ifNeedAssist=true&consultId=${consultId}&fromWhere=noRecord&endbutton=true`
+    //       })
+    //     }
+    //   }
+    // })
   },
   //拒绝
   refuse: function(consult) {
-    wx.request({
-      url: app.globalData.api.counList.refuse,
-      data: {
-        'consultId': consult,
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        // console.log(res);
-        if (res.data.code == "200") {
-          this.pendingAction(1);
-        }
-      }
-    })
+    let url = app.globalData.api.counList.refuse;
+    let params = {
+      'consultId': consult
+    };
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      this.pendingAction(1);
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.counList.refuse,
+    //   data: {
+    //     'consultId': consult,
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     // console.log(res);
+    //     if (res.data.code == "200") {
+    //       this.pendingAction(1);
+    //     }
+    //   }
+    // })
   },
   //获取咨询列表---患者端
   getCounListOfPatient: function(page) {
-    wx.request({
-      url: app.globalData.api.counList.getCounListOfPatient,
-      data: {
-        "token": app.globalData.token,
-        "page": page,
-        "pageSize": this.data.pageSize
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        if (res.data.code == '200') {
-          let mesArr;
-          if (page > 1) {
-            mesArr = this.data.counList;
-          } else {
-            mesArr = [];
-          };
-          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
+    let url = app.globalData.api.counList.getCounListOfPatient;
+    let params = {
+      "token": app.globalData.token,
+      "page": page,
+      "pageSize": this.data.pageSize
+    };
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      let mesArr;
+      if (page > 1) {
+        mesArr = this.data.counList;
+      } else {
+        mesArr = [];
+      };
+      mesArr.push.apply(mesArr, res.data.datas); //合并数组
+      this.setData({
+        counList: mesArr
+      });
+      // 判断是否换页
+      if (res.data.datas.length == 0) {
+        this.setData({
+          ifHasData: false,
+          showNoData: true
+        })
+        if (page > 1) {
           this.setData({
-            counList: mesArr
-          });
-          // 判断是否换页
-          if (res.data.data.datas.length == 0) {
-            this.setData({
-              ifHasData: false,
-              showNoData: true
-            })
-            if (page > 1) {
-              this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true
-              })
-            }
-          } else {
-            if (res.data.data.datas.length < this.data.pageSize) {
-              this.setData({
-                ifHasData: false
-              })
-              if (page > 1) {
-                this.setData({
-                  nodataIsHidden: false,
-                  loadingIsHidden: true
-                })
-              }
-            } else {
-              this.setData({
-                loadingIsHidden: true,
-                page: ++page
-              })
-            }
-          };
-          wx.hideLoading();
-        } else {
-          app.globalData.util.showFail("查询列表失败");
+            nodataIsHidden: false,
+            loadingIsHidden: true
+          })
         }
-      },
-      fail: res => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败")
-      }
-    })
+      } else {
+        if (res.data.datas.length < this.data.pageSize) {
+          this.setData({
+            ifHasData: false
+          })
+          if (page > 1) {
+            this.setData({
+              nodataIsHidden: false,
+              loadingIsHidden: true
+            })
+          }
+        } else {
+          this.setData({
+            loadingIsHidden: true,
+            page: ++page
+          })
+        }
+      };
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.counList.getCounListOfPatient,
+    //   data: {
+    //     "token": app.globalData.token,
+    //     "page": page,
+    //     "pageSize": this.data.pageSize
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     if (res.data.code == '200') {
+    //       let mesArr;
+    //       if (page > 1) {
+    //         mesArr = this.data.counList;
+    //       } else {
+    //         mesArr = [];
+    //       };
+    //       mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
+    //       this.setData({
+    //         counList: mesArr
+    //       });
+    //       // 判断是否换页
+    //       if (res.data.data.datas.length == 0) {
+    //         this.setData({
+    //           ifHasData: false,
+    //           showNoData: true
+    //         })
+    //         if (page > 1) {
+    //           this.setData({
+    //             nodataIsHidden: false,
+    //             loadingIsHidden: true
+    //           })
+    //         }
+    //       } else {
+    //         if (res.data.data.datas.length < this.data.pageSize) {
+    //           this.setData({
+    //             ifHasData: false
+    //           })
+    //           if (page > 1) {
+    //             this.setData({
+    //               nodataIsHidden: false,
+    //               loadingIsHidden: true
+    //             })
+    //           }
+    //         } else {
+    //           this.setData({
+    //             loadingIsHidden: true,
+    //             page: ++page
+    //           })
+    //         }
+    //       };
+    //       wx.hideLoading();
+    //     } else {
+    //       app.globalData.util.showFail("查询列表失败");
+    //     }
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败")
+    //   }
+    // })
   },
   //获取咨询列表---医生端
   getCounList: function(page) {
-    wx.request({
-      url: app.globalData.api.counList.getCounList,
-      data: {
-        "token": app.globalData.token,
-        "page": page,
-        "pageSize": this.data.pageSize
-
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        wx.hideLoading()
-        if (res.data.code == "200") {
-          let mesArr;
-          if (page > 1) {
-            mesArr = this.data.counList;
-          } else {
-            mesArr = [];
-          };
-          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
+    let url = app.globalData.api.counList.getCounList;
+    let params = {
+      "token": app.globalData.token,
+      "page": page,
+      "pageSize": this.data.pageSize
+    };
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      let mesArr;
+      if (page > 1) {
+        mesArr = this.data.counList;
+      } else {
+        mesArr = [];
+      };
+      mesArr.push.apply(mesArr, res.data.datas); //合并数组
+      this.setData({
+        counList: mesArr
+      });
+      // 判断是否换页
+      if (res.data.datas.length == 0) {
+        this.setData({
+          showNoData: true,
+          ifHasData: false
+        })
+        if (page > 1) {
           this.setData({
-            counList: mesArr
-          });
-          // 判断是否换页
-          if (res.data.data.datas.length == 0) {
-            this.setData({
-              showNoData: true,
-              ifHasData: false
-            })
-            if (page > 1) {
-              this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true
-              })
-            }
-          } else {
-            if (res.data.data.datas.length < this.data.pageSize) {
-              this.setData({
-                ifHasData: false
-              })
-
-              if (page > 1) {
-                this.setData({
-                  nodataIsHidden: false,
-                  loadingIsHidden: true
-                })
-              }
-            } else {
-              this.setData({
-                loadingIsHidden: true,
-                page: ++page
-              })
-            }
-          };
-        } else {
-          app.globalData.util.showFail("查询列表失败");
+            nodataIsHidden: false,
+            loadingIsHidden: true
+          })
         }
-      },
-      fail: res => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败")
-      }
-    })
+      } else {
+        if (res.data.datas.length < this.data.pageSize) {
+          this.setData({
+            ifHasData: false
+          })
+
+          if (page > 1) {
+            this.setData({
+              nodataIsHidden: false,
+              loadingIsHidden: true
+            })
+          }
+        } else {
+          this.setData({
+            loadingIsHidden: true,
+            page: ++page
+          })
+        }
+      };
+    });
+    
+    // wx.request({
+    //   url: app.globalData.api.counList.getCounList,
+    //   data: {
+    //     "token": app.globalData.token,
+    //     "page": page,
+    //     "pageSize": this.data.pageSize
+
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     wx.hideLoading()
+    //     if (res.data.code == "200") {
+    //       let mesArr;
+    //       if (page > 1) {
+    //         mesArr = this.data.counList;
+    //       } else {
+    //         mesArr = [];
+    //       };
+    //       mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
+    //       this.setData({
+    //         counList: mesArr
+    //       });
+    //       // 判断是否换页
+    //       if (res.data.data.datas.length == 0) {
+    //         this.setData({
+    //           showNoData: true,
+    //           ifHasData: false
+    //         })
+    //         if (page > 1) {
+    //           this.setData({
+    //             nodataIsHidden: false,
+    //             loadingIsHidden: true
+    //           })
+    //         }
+    //       } else {
+    //         if (res.data.data.datas.length < this.data.pageSize) {
+    //           this.setData({
+    //             ifHasData: false
+    //           })
+
+    //           if (page > 1) {
+    //             this.setData({
+    //               nodataIsHidden: false,
+    //               loadingIsHidden: true
+    //             })
+    //           }
+    //         } else {
+    //           this.setData({
+    //             loadingIsHidden: true,
+    //             page: ++page
+    //           })
+    //         }
+    //       };
+    //     } else {
+    //       app.globalData.util.showFail("查询列表失败");
+    //     }
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败")
+    //   }
+    // })
   },
   receiveAssist: function(page) { //我接收的协助
-    wx.request({
-      url: app.globalData.api.counList.receiveAssist,
-      data: {
-        "token": app.globalData.token,
-        "page": page,
-        "pageSize": this.data.pageSize
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        wx.hideLoading();
-        if (res.data.code == "200") {
-          let mesArr;
-          if (page > 1) {
-            mesArr = this.data.receiveAssistList;
-          } else {
-            mesArr = [];
-          };
-          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
-          this.setData({
-            receiveAssistList: mesArr
-          });
-          // 判断是否换页
-          if (res.data.data.datas.length == 0) {
-            this.setData({
-              showNoData: true,
-              ifHasData: false
-            })
-            if (page > 1) {
-              this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true
-              })
-            }
-          } else {
-            if (res.data.data.datas.length < this.data.pageSize) {
-              this.setData({
-                ifHasData: false
-              })
 
-              if (page > 1) {
-                this.setData({
-                  nodataIsHidden: false,
-                  loadingIsHidden: true
-                })
-              }
-            } else {
-              this.setData({
-                loadingIsHidden: true,
-                page: ++page
-              })
-            }
-          };
-        } else {
-          app.globalData.util.showFail("查询列表失败");
+    let url = app.globalData.api.counList.receiveAssist;
+    let params = {
+      "token": app.globalData.token,
+      "page": page,
+      "pageSize": this.data.pageSize
+    };
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      let mesArr;
+      if (page > 1) {
+        mesArr = this.data.receiveAssistList;
+      } else {
+        mesArr = [];
+      };
+      mesArr.push.apply(mesArr, res.data.datas); //合并数组
+      this.setData({
+        receiveAssistList: mesArr
+      });
+      // 判断是否换页
+      if (res.data.datas.length == 0) {
+        this.setData({
+          showNoData: true,
+          ifHasData: false
+        })
+        if (page > 1) {
+          this.setData({
+            nodataIsHidden: false,
+            loadingIsHidden: true
+          })
         }
-      },
-      fail: res => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败")
-      }
-    })
+      } else {
+        if (res.data.datas.length < this.data.pageSize) {
+          this.setData({
+            ifHasData: false
+          })
+
+          if (page > 1) {
+            this.setData({
+              nodataIsHidden: false,
+              loadingIsHidden: true
+            })
+          }
+        } else {
+          this.setData({
+            loadingIsHidden: true,
+            page: ++page
+          })
+        }
+      };
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.counList.receiveAssist,
+    //   data: {
+    //     "token": app.globalData.token,
+    //     "page": page,
+    //     "pageSize": this.data.pageSize
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     wx.hideLoading();
+    //     if (res.data.code == "200") {
+    //       let mesArr;
+    //       if (page > 1) {
+    //         mesArr = this.data.receiveAssistList;
+    //       } else {
+    //         mesArr = [];
+    //       };
+    //       mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
+    //       this.setData({
+    //         receiveAssistList: mesArr
+    //       });
+    //       // 判断是否换页
+    //       if (res.data.data.datas.length == 0) {
+    //         this.setData({
+    //           showNoData: true,
+    //           ifHasData: false
+    //         })
+    //         if (page > 1) {
+    //           this.setData({
+    //             nodataIsHidden: false,
+    //             loadingIsHidden: true
+    //           })
+    //         }
+    //       } else {
+    //         if (res.data.data.datas.length < this.data.pageSize) {
+    //           this.setData({
+    //             ifHasData: false
+    //           })
+
+    //           if (page > 1) {
+    //             this.setData({
+    //               nodataIsHidden: false,
+    //               loadingIsHidden: true
+    //             })
+    //           }
+    //         } else {
+    //           this.setData({
+    //             loadingIsHidden: true,
+    //             page: ++page
+    //           })
+    //         }
+    //       };
+    //     } else {
+    //       app.globalData.util.showFail("查询列表失败");
+    //     }
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败")
+    //   }
+    // })
   },
   pendingAction: function(page) { //待处理
-    wx.request({
-      url: app.globalData.api.counList.pendingAction,
-      data: {
-        "token": app.globalData.token,
-        "page": page,
-        "pageSize": this.data.pageSize
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        wx.hideLoading();
-        if (res.data.code == "200") {
-          let mesArr;
-          if (page > 1) {
-            mesArr = this.data.pendingActionList;
-          } else {
-            mesArr = [];
-          };
-          mesArr.push.apply(mesArr, res.data.data.data); //合并数组
+    let url = app.globalData.api.counList.pendingAction;
+    let params = {
+      "token": app.globalData.token,
+      "page": page,
+      "pageSize": this.data.pageSize
+    };
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      let mesArr;
+      if (page > 1) {
+        mesArr = this.data.pendingActionList;
+      } else {
+        mesArr = [];
+      };
+      mesArr.push.apply(mesArr, res.data.data); //合并数组
+      this.setData({
+        totalPending: res.data.pageCount,
+        pendingActionList: mesArr
+      });
+      // 判断是否换页
+      if (res.data.data.length == 0) {
+        this.setData({
+          showNoData: true,
+          ifHasData: false
+        })
+        if (page > 1) {
           this.setData({
-            totalPending: res.data.data.pageCount,
-            pendingActionList: mesArr
-          });
-          // 判断是否换页
-          if (res.data.data.data.length == 0) {
-            this.setData({
-              showNoData: true,
-              ifHasData: false
-            })
-            if (page > 1) {
-              this.setData({
-                nodataIsHidden: false,
-                loadingIsHidden: true
-              })
-            }
-          } else {
-            if (res.data.data.data.length < this.data.pageSize) {
-              this.setData({
-                ifHasData: false
-              })
-              if (page > 1) {
-                this.setData({
-                  nodataIsHidden: false,
-                  loadingIsHidden: true
-                })
-              }
-            } else {
-              this.setData({
-                loadingIsHidden: true,
-                page: ++page
-              })
-            }
-          };
-        } else {
-          app.globalData.util.showFail("查询列表失败");
+            nodataIsHidden: false,
+            loadingIsHidden: true
+          })
         }
-      },
-      fail: res => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败")
-      }
-    })
+      } else {
+        if (res.data.data.length < this.data.pageSize) {
+          this.setData({
+            ifHasData: false
+          })
+          if (page > 1) {
+            this.setData({
+              nodataIsHidden: false,
+              loadingIsHidden: true
+            })
+          }
+        } else {
+          this.setData({
+            loadingIsHidden: true,
+            page: ++page
+          })
+        }
+      };
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.counList.pendingAction,
+    //   data: {
+    //     "token": app.globalData.token,
+    //     "page": page,
+    //     "pageSize": this.data.pageSize
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     wx.hideLoading();
+    //     if (res.data.code == "200") {
+    //       let mesArr;
+    //       if (page > 1) {
+    //         mesArr = this.data.pendingActionList;
+    //       } else {
+    //         mesArr = [];
+    //       };
+    //       mesArr.push.apply(mesArr, res.data.data.data); //合并数组
+    //       this.setData({
+    //         totalPending: res.data.data.pageCount,
+    //         pendingActionList: mesArr
+    //       });
+    //       // 判断是否换页
+    //       if (res.data.data.data.length == 0) {
+    //         this.setData({
+    //           showNoData: true,
+    //           ifHasData: false
+    //         })
+    //         if (page > 1) {
+    //           this.setData({
+    //             nodataIsHidden: false,
+    //             loadingIsHidden: true
+    //           })
+    //         }
+    //       } else {
+    //         if (res.data.data.data.length < this.data.pageSize) {
+    //           this.setData({
+    //             ifHasData: false
+    //           })
+    //           if (page > 1) {
+    //             this.setData({
+    //               nodataIsHidden: false,
+    //               loadingIsHidden: true
+    //             })
+    //           }
+    //         } else {
+    //           this.setData({
+    //             loadingIsHidden: true,
+    //             page: ++page
+    //           })
+    //         }
+    //       };
+    //     } else {
+    //       app.globalData.util.showFail("查询列表失败");
+    //     }
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败")
+    //   }
+    // })
   },
   /**
    * 生命周期函数--监听页面加载

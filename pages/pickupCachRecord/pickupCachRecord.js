@@ -21,26 +21,37 @@ Page({
     this.getCashRecord();
   },
   getCashRecord: function (){
-    wx.request({
-      url: app.globalData.api.pickupCachRecord.getCashRecord,
-      data: {
-        'token': app.globalData.token,
-        'page': this.data.page,
-        'pageSize': this.data.pageSize
-      },
-      method: 'get',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        console.log(res)
-        if (res.data.code == "200") {
-          this.setData({
-            pickupCashRecord: app.globalData.pageLoad.check(this.data.pickupCashRecord, res.data.data.datas, this.data.pageSize, this)
-          });
-        };
-      }
-    })
+    let url = app.globalData.api.pickupCachRecord.getCashRecord;
+    let params = {
+      'token': app.globalData.token,
+      'page': this.data.page,
+      'pageSize': this.data.pageSize
+    }
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      this.setData({
+        pickupCashRecord: app.globalData.pageLoad.check(this.data.pickupCashRecord, res.data.datas, this.data.pageSize, this)
+      });
+    });
+
+    // wx.request({
+    //   url: app.globalData.api.pickupCachRecord.getCashRecord,
+    //   data: {
+    //     'token': app.globalData.token,
+    //     'page': this.data.page,
+    //     'pageSize': this.data.pageSize
+    //   },
+    //   method: 'get',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     if (res.data.code == "200") {
+    //       this.setData({
+    //         pickupCashRecord: app.globalData.pageLoad.check(this.data.pickupCashRecord, res.data.data.datas, this.data.pageSize, this)
+    //       });
+    //     };
+    //   }
+    // })
     
   },
 

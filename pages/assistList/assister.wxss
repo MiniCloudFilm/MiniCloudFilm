@@ -1,5 +1,7 @@
 /* pages/expertList/expert.wxss */
-
+.container{
+  padding-bottom:80rpx;
+}
 .drop-box {
   width: 100%;
   padding: 10px 0;
@@ -74,10 +76,6 @@ button {
   border-radius: 0;
   background: #1c7eff;
   color: #fff;
-}
-
-.weui-loadmore {
-  margin-bottom: 120rpx;
 }
 
 .weui-cells:before {

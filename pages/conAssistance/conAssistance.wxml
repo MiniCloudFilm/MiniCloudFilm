@@ -19,7 +19,7 @@
             <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=false&fromWhere=record&endbutton=false&consultId=">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                  <image src="/image/icon-doctor.png" style="width: 98rpx; height: 98rpx; display: block" />
+                  <image src="/image/icon-sex0.png" style="width: 98rpx; height: 98rpx; display: block" />
                   <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
                 </view>
                 <view class="weui-cell__bd">
@@ -50,7 +50,7 @@
             <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=false&fromWhere=record&endbutton=false&consultId=">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                  <image src="/image/icon-doctor.png" style="width: 98rpx; height: 98rpx; display: block" />
+                  <image src="/image/icon-sex0.png" style="width: 98rpx; height: 98rpx; display: block" />
                   <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
                 </view>
                 <view class="weui-cell__bd">
@@ -85,7 +85,7 @@
             <navigator url="../ConInterface/ConInterface?dialogId={{item.dialogId}}&reportId={{item.dialogReportId}}&dialoger={{item.aponsorName}}&ifNeedAssist=false&fromWhere=record&endbutton=false&consultId=">
               <view class="weui-cell doctor-b">
                 <view class="weui-cell__hd doctorImg" style="position: relative;margin-right: 10px;">
-                  <image src="/image/icon-doctor.png" style="width: 98rpx; height: 98rpx; display: block" />
+                  <image src="/image/icon-sex0.png" style="width: 98rpx; height: 98rpx; display: block" />
                   <view wx:if="{{!isDoctor}}" style="height:36px;"></view>
                 </view>
                 <view class="weui-cell__bd">

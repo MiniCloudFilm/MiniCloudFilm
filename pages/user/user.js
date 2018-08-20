@@ -12,31 +12,43 @@ Page({
    * 生命周期函数--监听页面加载
    */
   outLogin: function() {
-    wx.request({
-      // url: app.globalData.api.login.login,
-      url: app.globalData.api.user.exit,
-      data: {
-        'token': app.globalData.token
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        console.log(res);
-        if(res.data.code=="200"){ 
-          wx.removeStorageSync('userList');
-          app.globalData.userList = null;
-          wx.navigateTo({
-            url: '../login/login?backUrl=../user/user'
-          })
-        }
-      },
-      fail:()=>{
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败");
-      }
-    })
+    let url = app.globalData.api.user.exit;
+    let params = {
+      'token': app.globalData.token
+    }
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      wx.removeStorageSync('userList');
+      app.globalData.userList = null;
+      wx.navigateTo({
+        url: '../login/login?backUrl=../user/user'
+      })
+    });
+
+    // wx.request({
+    //   // url: app.globalData.api.login.login,
+    //   url: app.globalData.api.user.exit,
+    //   data: {
+    //     'token': app.globalData.token
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res);
+    //     if(res.data.code=="200"){ 
+    //       wx.removeStorageSync('userList');
+    //       app.globalData.userList = null;
+    //       wx.navigateTo({
+    //         url: '../login/login?backUrl=../user/user'
+    //       })
+    //     }
+    //   },
+    //   fail:()=>{
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败");
+    //   }
+    // })
   },
   //获取头像
   getUserInfo: function(e) { 

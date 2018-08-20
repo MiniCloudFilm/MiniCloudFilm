@@ -29,27 +29,40 @@ Page({
   onLoad: function (options) {
 
   },
+  // 获取余额
   getBalance:function(){
     let user = app.globalData.userList;
     let token = app.globalData.token;
-    wx.request({
-      url: app.globalData.api.myAccount.postFormId,
-      data: {
-        'userId': user.userId,
-        'token': token,
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: res => {
-        if (res.data.code == "200") {
-          this.setData({
-            balance: res.data.data
-          })
-        };
-      }
-    })
+
+    let url = app.globalData.api.myAccount.postFormId;
+    let params = {
+      'userId': user.userId,
+      'token': token,
+    }
+    app.globalData.util.request(url, params, false, "get", "x-www-form-urlencoded", (res) => {
+      this.setData({
+        balance: res.data
+      })
+    });
+
+    // wx.request({
+    //   url: app.globalData.api.myAccount.postFormId,
+    //   data: {
+    //     'userId': user.userId,
+    //     'token': token,
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+    //   },
+    //   success: res => {
+    //     if (res.data.code == "200") {
+    //       this.setData({
+    //         balance: res.data.data
+    //       })
+    //     };
+    //   }
+    // })
   },
 
   /**

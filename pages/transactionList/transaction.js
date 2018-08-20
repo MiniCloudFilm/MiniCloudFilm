@@ -12,31 +12,42 @@ Page({
     var doctorUrl = app.globalData.api.transactionList.myPayList;
     var patientUrl = app.globalData.api.transactionList.myPayListOfPatient;
     var url = this.data.userType == 2 ? doctorUrl : patientUrl;
-    // console.log(token)  
-    wx.request({
-      url: url,
-      data: {
-        'page': this.data.page,
-        'token': token
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        if (res.data.code == "200") {
-          this.setData({
-            transactionList: app.globalData.pageLoad.check(this.data.transactionList, res.data.data.datas, 15, this)
-          })
-        }else{
-          app.globalData.util.showFail("获取列表失败");
-        }
-        wx.hideLoading();
-      },
-      fail: res => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败");
-      }  
-    })
+
+    let params = {
+      'page': this.data.page,
+      'token': token
+    }
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      this.setData({
+        transactionList: app.globalData.pageLoad.check(this.data.transactionList, res.data.datas, 15, this)
+      })
+    });
+
+
+    // wx.request({
+    //   url: url,
+    //   data: {
+    //     'page': this.data.page,
+    //     'token': token
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     if (res.data.code == "200") {
+    //       this.setData({
+    //         transactionList: app.globalData.pageLoad.check(this.data.transactionList, res.data.data.datas, 15, this)
+    //       })
+    //     }else{
+    //       app.globalData.util.showFail("获取列表失败");
+    //     }
+    //     wx.hideLoading();
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败");
+    //   }  
+    // })
   },
   openDetail: function(e) {
     let orderId = e.currentTarget.dataset.orderId;

@@ -30,10 +30,13 @@ var showToast = text => wx.showToast({
 })
 
 // 显示成功提示
-var showSuccess = text => wx.showToast({
+var showSuccess = (text,success) => wx.showToast({
   title: text,
   icon: 'success',
-  duration: 2000
+  duration: 2000,
+  success:(res)=>{
+    success()
+  }
 })
 
 // 显示警告提示
@@ -59,6 +62,42 @@ var showModel = (title, content) => {
     content: JSON.stringify(content),
     showCancel: false
   })
+};
+
+
+/**展示进度条的网络请求
+ * url:网络请求的url
+ * params:请求参数
+ * message:进度条的提示信息
+ * success:成功的回调函数
+ * fail：失败的回调
+ */
+var request = (url, params, hideLoading,type,contentType, success)=>{
+  wx.request({
+    url: url,
+    data: params,
+    header: {
+      'content-type': `application/${contentType}`
+    },
+    method: type,
+    success:res=> {
+      if (hideLoading) {
+        wx.hideLoading()
+      };
+      if (res.data.code == 200) {
+        success(res.data)
+      } else{
+        showFail("获取数据失败")
+      };
+
+    },
+    fail: function (res) {
+      if (hideLoading) {
+        wx.hideLoading()
+      };
+      showFail("连接服务器失败")
+    }
+  })
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showWarning, showFail,showModel, showToast } 
+module.exports = { formatTime, showBusy, showSuccess, showWarning, showFail,showModel, showToast,request} 

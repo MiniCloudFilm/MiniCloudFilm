@@ -105,22 +105,13 @@ App({
   // 保存formID
   saveFormId: function(formId) {
     if (formId && formId != 'the formId is a mock one') {
-      wx.request({ //通过网络请求发送openId和formIds到服务器
-        url: this.globalData.api.index.postFormId,
-        method: 'post',
-        data: {
-          "userId": this.globalData.userList.userId,
-          "openId": this.globalData.userList.userOpenId,
-          "formId": formId
-        },
-        success: function(res) {
-          // console.log(res)
-        }
-      });
-    } else {
-      // return false;
-      console.log("电脑端")
-    }
-
+      let url = this.globalData.api.index.postFormId;
+      let params = {
+        "userId": this.globalData.userList.userId,
+        "openId": this.globalData.userList.userOpenId,
+        "formId": formId
+      };
+      this.globalData.util.request(url, params, false, "post", "json", (res) => { });
+    };
   }
 })

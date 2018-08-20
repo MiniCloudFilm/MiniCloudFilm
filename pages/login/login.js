@@ -48,7 +48,7 @@ Page({
     wx.login({ 
       success: resA => {  
         //登录
-        wx.request({
+         wx.request({
           url: app.globalData.api.login.login,
           data: {
             'userName': e.detail.value.userName,

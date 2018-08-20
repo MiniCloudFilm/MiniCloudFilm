@@ -61,7 +61,7 @@
     ]
   },
   "networkTimeout": {
-    "request": "1000000",
+    "request": "60000",
     "uploadFile": "1000000",
     "downloadFile": "1000000"
   }

@@ -29,36 +29,49 @@ Page({
   },
   //获取视频
   getData: function (pg) {
-    wx.showNavigationBarLoading();
     let user = wx.getStorageSync('userList')
     let token = wx.getStorageSync('token')
     pg = pg ? pg : 0; 
-    wx.request({
-      url: app.globalData.api.myVideo.myVideoDoctor, 
-      data:{
-        "userId":user.userId ,
-         "page":pg ,
-         "token":token
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        if (res.data.code == "200") {
-          console.log(res);
-          this.setData({
-            videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
-          })
-        }
-        console.log(this.data.videoList);
-        wx.hideLoading();
-        wx.hideNavigationBarLoading()
-      },
-      fail: res => {
-        wx.hideLoading()
-        app.globalData.util.showFail("服务连接失败");
-      }
-    })
+
+    let url = app.globalData.api.myVideo.myVideoDoctor;
+    let params = {
+      "userId": user.userId,
+      "page": pg,
+      "token": token
+    }
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      this.setData({
+        videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.datas, 15, this)
+      })
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.myVideo.myVideoDoctor, 
+    //   data:{
+    //     "userId":user.userId ,
+    //      "page":pg ,
+    //      "token":token
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     if (res.data.code == "200") {
+    //       console.log(res);
+    //       this.setData({
+    //         videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
+    //       })
+    //     }
+    //     console.log(this.data.videoList);
+    //     wx.hideLoading();
+    //     wx.hideNavigationBarLoading()
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading()
+    //     app.globalData.util.showFail("服务连接失败");
+    //   }
+    // })
   },
   //观看记录保存
   getSaveVideoLog: function (data) {
@@ -66,28 +79,42 @@ Page({
       user:wx.getStorageSync("userList"),
       token:wx.getStorageSync("token")
     })
-    wx.request({
-      url: app.globalData.api.film.getSaveVideoLog,
-      data: {
-        "videoId": data.videoId,
-        "videoViewer": this.data.user.userId,
-        "token": this.data.token
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        // console.log(res.data)
-        if (res.data.code == "200") {
-          // console.log(data);
-          let arr = data.videoUrl.split('?');
-          wx.navigateTo({
-            url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
-          })
-        }
-      }
-    })
+    let url = app.globalData.api.film.getSaveVideoLog;
+    let params = {
+      "videoId": data.videoId,
+      "videoViewer": this.data.user.userId,
+      "token": this.data.token
+    }
+    app.globalData.util.request(url, params, false, "post", "json", (res) => {
+      let arr = data.videoUrl.split('?');
+      wx.navigateTo({
+        url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
+      })
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.film.getSaveVideoLog,
+    //   data: {
+    //     "videoId": data.videoId,
+    //     "videoViewer": this.data.user.userId,
+    //     "token": this.data.token
+    //   },
+    //   method: 'POST',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     // console.log(res.data)
+    //     if (res.data.code == "200") {
+    //       // console.log(data);
+    //       let arr = data.videoUrl.split('?');
+    //       wx.navigateTo({
+    //         url: `../video/video?title=${data.title}&frontUrl=${arr[0]}&${arr[1]}`,
+    //       })
+    //     }
+    //   }
+    // })
   },
   //视频观看
   videoType: function (e) {

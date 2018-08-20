@@ -99,21 +99,30 @@ Page({
     if (!phoneReg.test(this.data.mobile)) { //验证手机号码
       app.globalData.util.showWarning("手机号码有误");
     } else {
-      console.log(this.data.mobile);
-      wx.request({
-        url: app.globalData.api.patientReg.sendCode,
-        data: {
-          'mobile': this.data.mobile
-        },
-        method: 'POST',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: res => {
-          app.globalData.util.showSuccess("获取验证码成功");
-          this.setTime();
-        }
-      })
+      let url = app.globalData.api.patientReg.sendCode;
+      let params = {
+        'mobile': this.data.mobile
+      }
+      app.globalData.util.request(url, params, false, "post", "x-www-form-urlencoded", (res) => {
+        app.globalData.util.showSuccess("获取验证码成功");
+        this.setTime();
+      });
+
+
+      // wx.request({
+      //   url: app.globalData.api.patientReg.sendCode,
+      //   data: {
+      //     'mobile': this.data.mobile
+      //   },
+      //   method: 'POST',
+      //   header: {
+      //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+      //   },
+      //   success: res => {
+      //     app.globalData.util.showSuccess("获取验证码成功");
+      //     this.setTime();
+      //   }
+      // })
     }
   },
   formSubmit: function(e) {
@@ -172,35 +181,48 @@ Page({
                   };
                   tipTitle = "重置密码成功"
                 }
-                wx.request({
-                  url: url,
-                  data: data,
-                  method: 'POST',
-                  header: {
-                    'content-type': 'application/x-www-form-urlencoded' // 默认值
-                  },
-                  success: resB => {
-                    if (resB.data.code == "200") {
-                      wx.showToast({
-                        title: tipTitle,
-                        icon: 'success',
-                        image: '',
-                        duration: 1000,
-                        success: resC => {
-                          setTimeout(() => {
-                            wx.setStorageSync('user', this.data.mobile)
-                            wx.setStorageSync('type', e.detail.value.userType)
-                            wx.navigateBack({
-                              delta: 1
-                            });
-                          }, 2000)
-                        }
+
+                app.globalData.util.request(url, data, false, "post", "x-www-form-urlencoded", (resB) => {
+                  app.globalData.util.showSuccess(tipTitle,()=>{
+                    setTimeout(() => {
+                      wx.setStorageSync('user', this.data.mobile)
+                      wx.setStorageSync('type', e.detail.value.userType)
+                      wx.navigateBack({
+                        delta: 1
                       });
-                    } else {
-                      app.globalData.util.showFail(resB.data.msg);
-                    }
-                  }
-                })
+                    }, 2000)
+                  });
+                });
+
+                // wx.request({
+                //   url: url,
+                //   data: data,
+                //   method: 'POST',
+                //   header: {
+                //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+                //   },
+                //   success: resB => {
+                //     if (resB.data.code == "200") {
+                //       wx.showToast({
+                //         title: tipTitle,
+                //         icon: 'success',
+                //         image: '',
+                //         duration: 1000,
+                //         success: resC => {
+                //           setTimeout(() => {
+                //             wx.setStorageSync('user', this.data.mobile)
+                //             wx.setStorageSync('type', e.detail.value.userType)
+                //             wx.navigateBack({
+                //               delta: 1
+                //             });
+                //           }, 2000)
+                //         }
+                //       });
+                //     } else {
+                //       app.globalData.util.showFail(resB.data.msg);
+                //     }
+                //   }
+                // })
               } else {
                 app.globalData.util.showFail(resA.data.msg);
               }
@@ -227,44 +249,66 @@ Page({
       app.globalData.util.showWarning("身份证格式有误");
     } else if (this.data.firstP != this.data.secondP) {
       app.globalData.util.showWarning("两次密码不一致");
-    } else { //注册逻辑
-      wx.request({
-        url: app.globalData.api.patientReg.modifyInfo,
-        data: {
-          'token': app.globalData.token,
-          'name': e.detail.value.name,
-          'idcard': e.detail.value.idCard,
-          'mobile': e.detail.value.mobile,
-          'password': e.detail.value.pwd,
-          'sex': e.detail.value.sex,
-        },
-        method: 'POST',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: resB => {
-          console.log(resB.data);
-          if (resB.data.code == "200") {
-            wx.setStorageSync('userList', resB.data.data.user);
-            app.globalData.userList = resB.data.data.user;
-            wx.showToast({
-              title: '修改信息成功！',
-              icon: 'success',
-              image: '',
-              duration: 2000,
-              success: resC => {
-                setTimeout(() => {
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                }, 2000)
-              }
-            });
-          } else {
-            app.globalData.util.showFail("修改信息失败");
-          }
-        }
+    } else { 
+
+      let url = app.globalData.api.patientReg.modifyInfo;
+      let params = {
+        'token': app.globalData.token,
+        'name': e.detail.value.name,
+        'idcard': e.detail.value.idCard,
+        'mobile': e.detail.value.mobile,
+        'password': e.detail.value.pwd,
+        'sex': e.detail.value.sex,
+      }
+      app.globalData.util.request(url, params, false, "post", "x-www-form-urlencoded", (resB) => {
+        wx.setStorageSync('userList', resB.data.user);
+        app.globalData.userList = resB.data.user;
+        app.globalData.util.showSuccess('修改信息成功', ()=> {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 2000)
+        });
       });
+
+      // wx.request({
+      //   url: app.globalData.api.patientReg.modifyInfo,
+      //   data: {
+      //     'token': app.globalData.token,
+      //     'name': e.detail.value.name,
+      //     'idcard': e.detail.value.idCard,
+      //     'mobile': e.detail.value.mobile,
+      //     'password': e.detail.value.pwd,
+      //     'sex': e.detail.value.sex,
+      //   },
+      //   method: 'POST',
+      //   header: {
+      //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+      //   },
+      //   success: resB => {
+      //     console.log(resB.data);
+      //     if (resB.data.code == "200") {
+      //       wx.setStorageSync('userList', resB.data.data.user);
+      //       app.globalData.userList = resB.data.data.user;
+      //       wx.showToast({
+      //         title: '修改信息成功！',
+      //         icon: 'success',
+      //         image: '',
+      //         duration: 2000,
+      //         success: resC => {
+      //           setTimeout(() => {
+      //             wx.navigateBack({
+      //               delta: 1
+      //             })
+      //           }, 2000)
+      //         }
+      //       });
+      //     } else {
+      //       app.globalData.util.showFail("修改信息失败");
+      //     }
+      //   }
+      // });
     }
   },
   //重新获取验证码

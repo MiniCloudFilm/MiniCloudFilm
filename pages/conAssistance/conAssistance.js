@@ -59,96 +59,72 @@ Page({
       this.receiveAssist(1);
     }
   },
-  myALLConsult: function(page) { //所有患者的咨询---医生端
-    wx.request({
-      url: app.globalData.api.conAssistance.myALLConsult,
-      data: {
-        'token': this.data.token,
-        'page': page,
-        'pageSize': this.data.pageSize
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        wx.hideLoading();
-        if (res.data.code == '200') {
-          let mesArr;
-          if (page > 1) {
-            mesArr = this.data.myALLConsultList;
-          } else {
-            mesArr = [];
-          };
-          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
-          this.setData({
-            myALLConsultList: mesArr
-          });
-          // 判断是否换页
-          this.switchPage(res.data.data.datas, page)
-        }
-      }
-    })
+  myALLConsult: function(page) { //所有患者的咨询
+    let url = app.globalData.api.conAssistance.myALLConsult;
+    let params = {
+      'token': this.data.token,
+      'page': page,
+      'pageSize': this.data.pageSize
+    };
+    app.globalData.util.request(url, params, true, "get", "json", (res) => {
+      let mesArr;
+      if (page > 1) {
+        mesArr = this.data.myALLConsultList;
+      } else {
+        mesArr = [];
+      };
+      mesArr.push.apply(mesArr, res.data.datas); //合并数组
+      this.setData({
+        myALLConsultList: mesArr
+      });
+      // 判断是否换页
+      this.switchPage(res.data.datas, page)
+    });
   },
   sendAssist: function(page) { //我向别人发起协助的会诊
-    wx.request({
-      url: app.globalData.api.conAssistance.sendAssist, //仅为示例，并非真实的接口地址
-      data: {
-        'token': this.data.token,
-        'page': page,
-        'pageSize': this.data.pageSize
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        if (res.data.code == '200') {
-          let mesArr;
-          if (page > 1) {
-            mesArr = this.data.sendAssistList;
-          } else {
-            mesArr = [];
-          };
-          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
-          this.setData({
-            sendAssistList: mesArr
-          });
-          // 判断是否换页
-          this.switchPage(res.data.data.datas, page);
-        }
-      }
-    })
+
+    let url = app.globalData.api.conAssistance.sendAssist;
+    let params = {
+      'token': this.data.token,
+      'page': page,
+      'pageSize': this.data.pageSize
+    };
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      let mesArr;
+      if (page > 1) {
+        mesArr = this.data.sendAssistList;
+      } else {
+        mesArr = [];
+      };
+      mesArr.push.apply(mesArr, res.data.datas); //合并数组
+      this.setData({
+        sendAssistList: mesArr
+      });
+      // 判断是否换页
+      this.switchPage(res.data.datas, page);
+    });
   },
   receiveAssist: function(page) { //别人向我发起的协助会诊
-    wx.request({
-      url: app.globalData.api.conAssistance.receiveAssist,
-      data: {
-        'token': this.data.token,
-        'page': page,
-        'pageSize': this.data.pageSize
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        if (res.data.code == '200') {
-          let mesArr;
-          if (page > 1) {
-            mesArr = this.data.receiveAssistList;
-          } else {
-            mesArr = [];
-          };
-          mesArr.push.apply(mesArr, res.data.data.datas); //合并数组
-          this.setData({
-            receiveAssistList: mesArr
-          });
-          // 判断是否换页
-          this.switchPage(res.data.data.datas, page);
-        }
-      }
-    })
+    let url = app.globalData.api.conAssistance.receiveAssist;
+    let params = {
+      'token': this.data.token,
+      'page': page,
+      'pageSize': this.data.pageSize
+    };
+    app.globalData.util.request(url, params, false, "get", "json", (res) => {
+      let mesArr;
+      if (page > 1) {
+        mesArr = this.data.receiveAssistList;
+      } else {
+        mesArr = [];
+      };
+      mesArr.push.apply(mesArr, res.data.datas); //合并数组
+      this.setData({
+        receiveAssistList: mesArr
+      });
+      // 判断是否换页
+      this.switchPage(res.data.datas, page);
+    });
   },
   // 重置参数
   reset: function() {

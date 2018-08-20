@@ -139,87 +139,123 @@ Page({
     this.setData({
       videoList: []
     })
-    wx.request({
-      url: app.globalData.api.videoMag.upVideo,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      data: {
-        'videoId': data.videoId,
-        "token": this.data.token,
-        'type': type
-      },
-      method: 'GET',
-      success: res => {
-        // console.log(res);
-        //do something
-        if (res.data.code == "200") {
-          this.getData(data.status, 1)
-        }
-      }
-    })
+    let url = app.globalData.api.videoMag.upVideo;
+    let params = {
+      'videoId': data.videoId,
+      "token": this.data.token,
+      'type': type
+    }
+    util.request(url, params, false, "get", "json", (res) => {
+      this.getData(data.status, 1)
+    });
+
+
+    // wx.request({
+    //   url: app.globalData.api.videoMag.upVideo,
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   data: {
+    //     'videoId': data.videoId,
+    //     "token": this.data.token,
+    //     'type': type
+    //   },
+    //   method: 'GET',
+    //   success: res => {
+    //     // console.log(res);
+    //     //do something
+    //     if (res.data.code == "200") {
+    //       this.getData(data.status, 1)
+    //     }
+    //   }
+    // })
   },
   //视频删除
   deleteVideo: function(data) {
     this.setData({
       videoList: []
     })
-    wx.request({
-      url: app.globalData.api.videoMag.deleteVideo,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      data: {
-        'videoId': data.videoId,
-        "token": this.data.token
-      },
-      method: 'GET',
-      success: res => {
-        // console.log(res);
-        if (res.data.code == "200") {
-          wx.showToast({
-            title: `视频删除成功！`,
-            icon: 'success',
-            duration: 2000,
-            success: resA => {
-              this.getData(data.status, 1)
-            }
-          })
-        }
-      }
-    })
+    let url = app.globalData.api.videoMag.deleteVideo;
+    let params = {
+      'videoId': data.videoId,
+      "token": this.data.token
+    }
+    util.request(url, params, true, "get", "json", (res) => {
+      util.showSuccess('视频删除成功', () => {
+        this.getData(data.status, 1)
+      })
+    });
+
+    // wx.request({
+    //   url: app.globalData.api.videoMag.deleteVideo,
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   data: {
+    //     'videoId': data.videoId,
+    //     "token": this.data.token
+    //   },
+    //   method: 'GET',
+    //   success: res => {
+    //     // console.log(res);
+    //     if (res.data.code == "200") {
+    //       wx.showToast({
+    //         title: `视频删除成功！`,
+    //         icon: 'success',
+    //         duration: 2000,
+    //         success: resA => {
+    //           this.getData(data.status, 1)
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
   },
   //视频修改
   updateVideo: function(data) {},
   //视频
   getData: function(status, page) {
     let user = app.globalData.userList;
-    wx.request({
-      url: app.globalData.api.videoMag.myUploadVideo,
-      data: {
-        "userId": user.userId,
-        "page": page,
-        "status": status,
-        "token": this.data.token
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        console.log(res)
-        if (res.data.code == "200") {
-          this.setData({
-            videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
-          })
-        }
-        wx.hideNavigationBarLoading();
-        wx.hideLoading()
-      },
-      fail: res => {
-        wx.hideLoading();
-        app.globalData.util.showFail("服务连接失败");
-      }
-    })
+
+    let url = app.globalData.api.videoMag.myUploadVideo;
+    let params = {
+      "userId": user.userId,
+      "page": page,
+      "status": status,
+      "token": this.data.token
+    }
+    util.request(url, params, true, "get", "json", (res) => {
+      this.setData({
+        videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.datas, 15, this)
+      })
+    });
+
+    // wx.request({
+    //   url: app.globalData.api.videoMag.myUploadVideo,
+    //   data: {
+    //     "userId": user.userId,
+    //     "page": page,
+    //     "status": status,
+    //     "token": this.data.token
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success: res => {
+    //     console.log(res)
+    //     if (res.data.code == "200") {
+    //       this.setData({
+    //         videoList: app.globalData.pageLoad.check(this.data.videoList, res.data.data.datas, 15, this)
+    //       })
+    //     }
+    //     wx.hideNavigationBarLoading();
+    //     wx.hideLoading()
+    //   },
+    //   fail: res => {
+    //     wx.hideLoading();
+    //     app.globalData.util.showFail("服务连接失败");
+    //   }
+    // })
   },
   //视频观看
   videoType: function(e) {
