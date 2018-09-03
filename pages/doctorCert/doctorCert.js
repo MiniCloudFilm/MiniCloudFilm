@@ -435,7 +435,7 @@ Page({
     // console.log(e);  
     if (this.data.doctorList) {
       this.data.doctorList.deptId = '';
-      console.log(this.data.doctorList.deptId);
+      // console.log(this.data.doctorList.deptId);
       this.setData({
         doctorList: this.data.doctorList
       })

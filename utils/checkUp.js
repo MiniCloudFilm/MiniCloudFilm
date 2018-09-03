@@ -89,6 +89,9 @@ var outTime=(res)=>{
             url: '../login/login',
           })
         } else if (res.cancel) {
+          wx.reLaunch({
+            url: '../index/index',
+          })
         }
       }
     }) 

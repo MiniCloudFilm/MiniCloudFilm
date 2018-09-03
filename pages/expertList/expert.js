@@ -29,9 +29,9 @@ Page({
         url: `../chRepCon/chRepCon?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&order=after`
       })
     } else {
-      console.log(this.data.doctorMes.doctoruserid)
-      console.log(e.currentTarget.dataset.doctorid)
-      console.log(this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid))
+      // console.log(this.data.doctorMes.doctoruserid)
+      // console.log(e.currentTarget.dataset.doctorid)
+      // console.log(this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid))
       if (this.data.doctorMes.doctoruserid.indexOf(e.currentTarget.dataset.doctorid)!=-1){
         wx.showModal({
           title: '温馨提示',
@@ -41,7 +41,8 @@ Page({
         });
         return false;
       }
-      wx.navigateTo({
+      // 专家页面消失 避免重复付款
+      wx.redirectTo({
         url: `../confirmPay/confirmPay?doctorName=${e.currentTarget.dataset.doctor}&belong=${e.currentTarget.dataset.belong}&price=${e.currentTarget.dataset.price}&doctorId=${e.currentTarget.dataset.doctorid}&reportId=${this.data.doctorMes.reportId}&type=1`
       })
 
@@ -410,8 +411,7 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () { 
-    console.log(this)
+  onPullDownRefresh: function () {
     app.globalData.pageLoad.pullDownRefresh(this, this.getExpert, [this.data.areaId, this.data.deptId,1]); 
   },
   /**

@@ -65,12 +65,13 @@ var showModel = (title, content) => {
 };
 
 
-/**展示进度条的网络请求
+/**网络请求
  * url:网络请求的url
  * params:请求参数
- * message:进度条的提示信息
+ * hideLoading:是否隐藏loading
+ * type：请求方式
+ * contentType：请求头
  * success:成功的回调函数
- * fail：失败的回调
  */
 var request = (url, params, hideLoading,type,contentType, success)=>{
   wx.request({

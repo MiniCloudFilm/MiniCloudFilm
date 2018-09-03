@@ -75,7 +75,7 @@ Page({
                   url: '../user/user',
                 })
               } else {
-                console.log(this.data.backUrl);
+                // console.log(this.data.backUrl);
                 if (this.data.backUrl == '../user/user' || this.data.backUrl == '../counList/counList') {
                   wx.switchTab({
                     url: this.data.backUrl
@@ -131,7 +131,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) { 
+  onLoad: function (options) {
     this.setData({ 
       backUrl: options.backUrl ? options.backUrl : null
     }) 
@@ -161,7 +161,7 @@ Page({
       currentTab: wx.getStorageSync('type') ? wx.getStorageSync('type') : 1,
       userName: wx.getStorageSync('user')
     })
-    console.log(wx.getStorageSync('user'));
+    // console.log(wx.getStorageSync('user'));
 },
 
   /**

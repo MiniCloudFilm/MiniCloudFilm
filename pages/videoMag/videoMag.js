@@ -109,7 +109,7 @@ Page({
           itemList: ['上架'],
           itemColor: '#1c7eff',
           success: res => {
-            console.log(res);
+            // console.log(res);
             if (!res.cancel) {
               this.upVideo(data, 1);
             }

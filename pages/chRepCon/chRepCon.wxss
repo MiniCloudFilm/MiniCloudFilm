@@ -54,6 +54,16 @@
   top:10rpx;
   z-index:10000;
 }
+
+/* 检查类型 */
+.modalityType{
+position:absolute;
+right:70rpx;
+top:30rpx;
+font-size:26rpx;
+line-height: 26rpx;
+color:#1e9ae5;
+}
 .pay-con image{
   margin-top:10rpx;
   width:60rpx;

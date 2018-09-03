@@ -18,7 +18,7 @@ Page({
   // 页面加载
   onLoad: function(options) {
     var userList = app.globalData.userList;
-    console.log(options)
+    // console.log(options)
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var time = app.globalData.util.formatTime(new Date());
     if (options.firstEnter) {
@@ -60,7 +60,7 @@ Page({
   },
   // 页面加载完成
   onShow: function() {
-    console.log(getCurrentPages());
+    // console.log(getCurrentPages());
     var that = this;
     if (this.data.fromWhere == 'noRecord' || this.data.fromWhere == 'waiting') {
       if (!this.data.socketOpen) {
@@ -70,22 +70,22 @@ Page({
         this.setData({
           socketOpen: true
         })
-        console.log('监听 WebSocket 连接打开事件。', res)
+        // console.log('监听 WebSocket 连接打开事件。', res)
       });
       this.data.SocketTask.onClose(onClose => {
-        console.log('监听 WebSocket 连接关闭事件。', onClose)
+        // console.log('监听 WebSocket 连接关闭事件。', onClose)
         this.setData({
           socketOpen: false
         });
       });
       this.data.SocketTask.onError(onError => {
-        console.log('监听 WebSocket 错误。错误信息', onError)
+        // console.log('监听 WebSocket 错误。错误信息', onError)
         this.setData({
           socketOpen: false
         });
       });
       this.data.SocketTask.onMessage(onMessage => {
-        console.log('监听WebSocket接受到服务器的消息事件。服务器返回的消息', JSON.parse(onMessage.data))
+        // console.log('监听WebSocket接受到服务器的消息事件。服务器返回的消息', JSON.parse(onMessage.data))
         var onMessage_data = JSON.parse(onMessage.data);
         // for (var i in onMessage_data) {
         //   that.data.allContentList.push(onMessage_data[i]);
@@ -97,7 +97,7 @@ Page({
           dialogArr = [];
         };
         dialogArr.push.apply(dialogArr, onMessage_data);
-        console.log(dialogArr)
+        // console.log(dialogArr)
         that.setData({
           allContentList: dialogArr
         })
@@ -119,7 +119,7 @@ Page({
         },
         method: 'post',
         success: function(res) {
-          console.log('WebSocket连接创建', res)
+          // console.log('WebSocket连接创建', res)
         },
         fail: function(err) {
           app.globalData.util.showFail("服务连接失败")
@@ -164,7 +164,7 @@ Page({
   onUnload: function() {
     if (this.data.SocketTask) {
       this.data.SocketTask.close(function(close) {
-        console.log('关闭 WebSocket 连接。', close)
+        // console.log('关闭 WebSocket 连接。', close)
       })
     }
   },
@@ -174,7 +174,7 @@ Page({
     });
     if (this.data.SocketTask) {
       this.data.SocketTask.close(function(close) {
-        console.log('关闭 WebSocket 连接。', close)
+        // console.log('关闭 WebSocket 连接。', close)
       });
     }
   },
@@ -251,11 +251,11 @@ Page({
   },
   //通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
   sendSocketMessage: function(msg) {
-    console.log('通过 WebSocket 连接发送数据', JSON.stringify(msg))
+    // console.log('通过 WebSocket 连接发送数据', JSON.stringify(msg))
     this.data.SocketTask.send({
       data: JSON.stringify(msg)
     }, function(res) {
-      console.log('已发送', res)
+      // console.log('已发送', res)
     })
   },
   // 获取会话记录

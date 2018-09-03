@@ -70,7 +70,7 @@ Page({
     // console.log(this.data.userType);
   },
   getUserInfo: function(e) {
-    console.log(e)
+    // console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -92,6 +92,14 @@ Page({
     let formId = e.detail.formId;
     wx.navigateTo({
       url: "../chRepCon/chRepCon?order=before"
+    });
+    app.saveFormId(formId);
+  },
+  // 报告示例
+  turnToChRepConCase: function (e) {
+    let formId = e.detail.formId;
+    wx.navigateTo({
+      url: "../chRepCon/chRepCon?order=case"
     });
     app.saveFormId(formId);
   },

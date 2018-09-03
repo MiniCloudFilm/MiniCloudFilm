@@ -12,9 +12,9 @@ Page({
         url: `../expertList/expert?reportId=${e.currentTarget.dataset.reportid}&doctoruserid=${e.currentTarget.dataset.doctoruserid}`
       })
     } else {
-      console.log(e.currentTarget.dataset.doctoruserid)
-      console.log(this.data.doctorMes.doctorId)
-      console.log(e.currentTarget.dataset.doctoruserid.indexOf(this.data.doctorMes.doctorId))
+      // console.log(e.currentTarget.dataset.doctoruserid)
+      // console.log(this.data.doctorMes.doctorId)
+      // console.log(e.currentTarget.dataset.doctoruserid.indexOf(this.data.doctorMes.doctorId))
       if (e.currentTarget.dataset.doctoruserid.indexOf(this.data.doctorMes.doctorId) != -1) {
         wx.showModal({
           title: '温馨提示',
@@ -41,25 +41,28 @@ Page({
     this.setData({
       isHideLoadMore: true,
       isEnd: true,
-      page: 1
+      page: 1,
+      doctorMes: options
     })
-    if (options.order == 'before') {
+    if (this.data.doctorMes.order=='case'){
       this.setData({
-        doctorMes: options
-      })
-    } else {
+        url: app.globalData.api.chRepCon.getReportList
+      });
+      wx.setNavigationBarTitle({ title: '演示案例' })  
+    }else{
       this.setData({
-        doctorMes: options
+        url: app.globalData.api.chRepCon.getReportList
       })
-      // console.log(this.data.doctorMes);
+      //验证登录状态
+      app.checkLoginInfo(app.getCurrentUrl());
     }
-    app.checkLoginInfo(app.getCurrentUrl());
+   
   },
 
   //获取列表
-  getReportList: function() {
+  getReportList: function(url) {
     wx.request({
-      url: app.globalData.api.chRepCon.getReportList,
+      url: url,
       data: {
         'token': app.globalData.token,
         'name': app.globalData.userList.name,
@@ -71,13 +74,12 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res);
         if (res.data.code == "200") {
           this.setData({
             reportList: app.globalData.pageLoad.check(this.data.reportList, res.data.data.datas, 5, this)
           })
         };
-        if (res.data.code == "400") {
+        if (res.data.code == "400" && this.data.doctorMes.order != 'case') {
           app.globalData.pageLoad.outTime(res);
         }
         // console.log(this.data.page);
@@ -101,7 +103,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getReportList()
+    this.getReportList(this.data.url)
   },
 
   /**
@@ -118,14 +120,14 @@ Page({
 
   },
   onPullDownRefresh: function() {
-    app.globalData.pageLoad.pullDownRefresh(this, this.getReportList);
+    app.globalData.pageLoad.pullDownRefresh(this, this.getReportList, [this.data.url]);
   },
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
     // 显示加载图标   
-    app.globalData.pageLoad.reachBottom(this, this.getReportList);
+    app.globalData.pageLoad.reachBottom(this, this.getReportList,[ this.data.url]);
   },
   /**
    * 用户点击右上角分享

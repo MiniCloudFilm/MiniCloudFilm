@@ -29,7 +29,7 @@ Page({
     });
     var that = this;
     app.checkLoginInfo(app.getCurrentUrl());
-    console.log(that.data.activeIndex)
+    // console.log(that.data.activeIndex)
     wx.getSystemInfo({
       success: function(res) {
         that.setData({

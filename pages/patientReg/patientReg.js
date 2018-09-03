@@ -127,8 +127,8 @@ Page({
   },
   formSubmit: function(e) {
     var idCardReg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
-    console.log(e.detail.value.name);
-    console.log(e.detail.value.idCard)
+    // console.log(e.detail.value.name);
+    // console.log(e.detail.value.idCard)
     if (this.data.from == 'register' && e.detail.value.name == '') {
       app.globalData.util.showWarning("姓名不能为空");
     } else if (this.data.from == 'register' && e.detail.value.idCard == '') {
@@ -369,7 +369,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options.from)
+    // console.log(options.from)
     if (options.from == "personalInfo") {
       wx.setNavigationBarTitle({
         title: '用户信息修改'

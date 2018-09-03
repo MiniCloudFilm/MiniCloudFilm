@@ -21,12 +21,17 @@
             <text>检查部位：</text>
             <text>{{item.bodyPart}}</text>
           </view>
-          <view class="pay-con" data-doctoruserid="{{item.doctorUserId}}" data-reportid="{{item.reportId}}" bindtap="turn">
+          <view wx:if="{{doctorMes.order!='case'}}" class="pay-con" data-doctoruserid="{{item.doctorUserId}}" data-reportid="{{item.reportId}}" bindtap="turn">
             <view>
               <image src="/image/icon-zixun.png"> </image>
             </view>
             <view>
               {{doctorMes.order=='before'?'选择专家':'购买'}}
+            </view>
+          </view>
+           <view wx:if="{{doctorMes.order=='case'}}" class="modalityType">
+            <view>
+              {{item.modalityType}}
             </view>
           </view>
         </view>

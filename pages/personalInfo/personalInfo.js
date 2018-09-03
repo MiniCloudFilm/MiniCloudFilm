@@ -110,7 +110,7 @@ Page({
         duration: 1000
       })
     } else {
-      console.log(this.data.mobile);
+      // console.log(this.data.mobile);
       wx.request({
         url: app.globalData.api.patientReg.sendCode,
         data: {
@@ -121,7 +121,7 @@ Page({
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: res => {
-          console.log(res)
+          // console.log(res)
           wx.showToast({
             title: '获取验证码成功！',
             icon: 'none',
@@ -186,7 +186,7 @@ Page({
         duration: 1000
       })
     } else {
-      console.log(app.globalData.api.personalInfo.modifyInfo)
+      // console.log(app.globalData.api.personalInfo.modifyInfo)
       wx.request({
         url: app.globalData.api.personalInfo.modifyInfo,
         data: {
@@ -202,7 +202,7 @@ Page({
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: resB => {
-          console.log(resB.data);
+          // console.log(resB.data);
           if (resB.data.code == "200") {
             wx.showToast({
               title: '修改信息成功！',

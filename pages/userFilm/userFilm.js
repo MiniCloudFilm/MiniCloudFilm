@@ -136,7 +136,7 @@ Page({
     }
   },
   videoType: function(e) {
-    console.log(e.currentTarget.dataset.delFlag);
+    // console.log(e.currentTarget.dataset.delFlag);
     if (e.currentTarget.dataset.delFlag == "1") {
       wx.showModal({
         title: '提示',
@@ -191,7 +191,7 @@ Page({
   },
   //监听页面滚动
   onPageScroll: function(e) {
-    console.log(e);
+    // console.log(e);
     if (e.scrollTop > 0) {
       this.setData({
         fixed: true

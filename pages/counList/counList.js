@@ -52,7 +52,7 @@ Page({
 
   // 确认拒绝会诊
   confirmrefuse: function(e) {
-    console.log(e)
+    // console.log(e)
     wx.showModal({
       title: '提示',
       content: '确定拒绝此会诊？',
@@ -668,7 +668,7 @@ Page({
     //登录校验
     app.checkLoginInfo(app.getCurrentUrl());
     let user = app.globalData.userList;
-    console.log(user);
+    // console.log(user);
     if (user) {
       this.setData({
         userType: user.userType,
@@ -682,7 +682,7 @@ Page({
         userType: null
       });
     };
-    console.log(this.data.ifHasData)
+    // console.log(this.data.ifHasData)
     if (this.data.userType == 1) {
       this.getCounListOfPatient(1);
       return false;

@@ -10,7 +10,7 @@ Page({
     allow: true
   },
   radioChange: function(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    // console.log('radio发生change事件，携带value值为：', e.detail.value)
   },
   radioAllow: function(e) {
     this.data.allow = !this.data.allow;
@@ -34,7 +34,7 @@ Page({
         'signType': wxPay.data.signType,
         'paySign': wxPay.data.paySign,
         success: res => {
-          console.log(res);
+          // console.log(res);
           //确认订单
           this.setData({
             disabled: true
@@ -42,10 +42,10 @@ Page({
           this.saveOrder(user, payList, wxPay);
         },
         fail: res => {
-          console.log('fail');
+          // console.log('fail');
         },
         complete: res => {
-          console.log('complete');
+          // console.log('complete');
         }
       })
     });
@@ -223,7 +223,7 @@ Page({
   openConfirm: function() {
     // console.log(this.data.allow);
     let payList = this.data.payList;
-    console.log(payList)
+    // console.log(payList)
     if (payList.type == "1") {
       this.goPay(payList)
     } else if (payList.type == "2") {
@@ -234,13 +234,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options);
+    // console.log(options);
     let user = wx.getStorageSync("userList")
     // console.log(user);
     this.setData({
       payList: options
     });
-    console.log(this.data.payList)
+    // console.log(this.data.payList)
   },
 
   /**

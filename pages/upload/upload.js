@@ -16,8 +16,8 @@ Page({
       maxDuration: 60,
       camera: 'back',
       success: (res) => {
-        console.log(res);
-        console.log(res.tempFilePath); 
+        // console.log(res);
+        // console.log(res.tempFilePath); 
         this.setData({
           src: res.tempFilePath
         })
@@ -59,7 +59,7 @@ Page({
                 'Content-Type': 'multipart/form-data' // 默认值
               },
               success: function(res) {
-                console.log(res);
+                // console.log(res);
                 let data = JSON.parse(res.data);
                 //do something
                 if (data.code == "200") {

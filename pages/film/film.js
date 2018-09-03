@@ -37,7 +37,7 @@ Page({
     }
   },
   videoType: function (e) {
-    console.log(e.currentTarget.dataset.delFlag);
+    // console.log(e.currentTarget.dataset.delFlag);
     if (e.currentTarget.dataset.delFlag == "1") { 
         wx.showModal({
           title: '提示',

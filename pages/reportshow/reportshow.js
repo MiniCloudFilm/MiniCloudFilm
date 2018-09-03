@@ -14,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   imgYu: function(event) {
-    console.log(event); 
+    // console.log(event); 
     var imgList = []; //获取data-list
     imgList[0] = event.currentTarget.dataset.src;
     //图片预览
@@ -24,7 +24,7 @@ Page({
     })
   }, 
   onLoad: function (options) {
-    console.log(getCurrentPages()); 
+    // console.log(getCurrentPages()); 
     this.setData({
       reportUrl: app.globalData.api.filmshow.reportUrl + options.studyUid
     });

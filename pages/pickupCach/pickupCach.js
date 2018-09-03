@@ -14,13 +14,12 @@ Page({
   },
   //银行卡号
   getUserIdCardNumber: function(e) {
-    var value = e.detail.value.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ")
+    var value = e.detail.value.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, "$1 ");
     this.setData({
       bankNumber: value
     });
     value = value.replace(/\s/ig, '');
     var temp = util.bankCardAttribution(value);
-    console.log(temp)
     if (temp == Error) {
       temp.bankName = '';
       temp.cardTypeName = '';
@@ -94,19 +93,9 @@ Page({
   saveCard: function() {
     var that = this;
     if (!that.data.bankNumber) {
-      wx.showToast({
-        title: '收款账号不能为空',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
+      app.globalData.util.showWarning("请输入收款账号");
     } else if (!that.data.cardType) {
-      wx.showToast({
-        title: '不支持该类型的银行卡，请更换',
-        icon: 'none',
-        image: '',
-        duration: 1000
-      })
+      app.globalData.util.showWarning("银行卡类型不符");
     } else {
       let bankNumber = this.data.bankNumber.replace(/\s/ig, '');
       var flag = false;//判断卡号是否重复

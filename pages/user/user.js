@@ -79,7 +79,7 @@ getDoctorStatus:function(){
       'content-type': 'application/x-www-form-urlencoded' // 默认值
     },
     success: res => {
-      console.log(res);
+      // console.log(res);
       if (res.data.code == '200') {  
         this.setData({
           doctorStatus:res.data.data.doctorStatus
@@ -112,7 +112,7 @@ getDoctorStatus:function(){
         avatarUrl: app.globalData.userInfo.avatarUrl
       })
     }
-    console.log(this.data.avatarUrl); 
+    // console.log(this.data.avatarUrl); 
     if (app.globalData.userList) {
       this.setData({
         userName: app.globalData.userList.name,

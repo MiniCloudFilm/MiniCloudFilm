@@ -26,7 +26,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    console.log(this.data.videoList.videoId);
+    // console.log(this.data.videoList.videoId);
     this.videoContext = wx.createVideoContext(this.data.videoList.videoId);
     // this.videoContext.requestFullScreen();
   },

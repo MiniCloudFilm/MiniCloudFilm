@@ -13,8 +13,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
-    console.log(app.globalData.api.filmshow.news)
+    // console.log(options);
+    // console.log(app.globalData.api.filmshow.news)
     this.setData({
       newsUrl: app.globalData.api.filmshow.news+options.id
     })
