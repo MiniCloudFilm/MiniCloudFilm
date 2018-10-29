@@ -46,29 +46,34 @@ Page({
     })
     if (this.data.doctorMes.order=='case'){
       this.setData({
-        url: app.globalData.api.chRepCon.getReportList
+        url: app.globalData.api.chRepCon.getExample,
+        params:{
+          'pageSize': 5,
+          'page': this.data.page
+        }
       });
       wx.setNavigationBarTitle({ title: '演示案例' })  
     }else{
-      this.setData({
-        url: app.globalData.api.chRepCon.getReportList
-      })
       //验证登录状态
       app.checkLoginInfo(app.getCurrentUrl());
+      this.setData({
+        url: app.globalData.api.chRepCon.getReportList,
+        params: {
+          'token': app.globalData.token,
+          'name': app.globalData.userList.name,
+          'pageSize': 5,
+          'page': this.data.page
+        }
+      })
     }
    
   },
 
   //获取列表
-  getReportList: function(url) {
+  getReportList: function () {
     wx.request({
-      url: url,
-      data: {
-        'token': app.globalData.token,
-        'name': app.globalData.userList.name,
-        'pageSize': 5,
-        'page': this.data.page
-      },
+      url: this.data.url,
+      data: this.data.params,
       method: 'GET',
       header: {
         'content-type': 'application/json' // 默认值
@@ -103,7 +108,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getReportList(this.data.url)
+    this.getReportList()
   },
 
   /**

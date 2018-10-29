@@ -25,7 +25,8 @@ module.exports = {
   },
   // 患者报告列表
   chRepCon: {
-    getReportList: basePath + '/api/v1/report/findReportList'
+    getReportList: basePath + '/api/v1/report/findReportList',
+    getExample: basePath + '/api/v1/report/findReportExample'
   },
   // 会诊记录（医生）
   conAssistance: {
