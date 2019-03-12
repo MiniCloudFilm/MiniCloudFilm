@@ -210,6 +210,11 @@ Page({
   onReachBottom: function() {
     app.globalData.pageLoad.reachBottom(this, this.getMessage, [2, this.data.page]);
   },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
 
+  }
 
 })

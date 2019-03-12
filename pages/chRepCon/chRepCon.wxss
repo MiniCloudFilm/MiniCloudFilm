@@ -85,6 +85,6 @@ color:#1e9ae5;
   height:70rpx;
   line-height: 70rpx;
 }
-.nav-box view:first-child{
+.nav-box view:first-child,.nav-box view:nth-child(2){
   border-right: 1px solid #dee4e8; 
 }

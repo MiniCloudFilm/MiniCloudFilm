@@ -41,6 +41,9 @@
           </view>
           <view class="weui-flex__item">
             <navigator url='../filmshow/fimshow?studyUid={{item.studyUid}}'>查看影像</navigator>
+          </view >
+          <view  wx:if="{{item.modalityType=='彩超'}}" class="weui-flex__item">
+            <navigator url='../video/video?src={{item.reportId}}'>查看视频</navigator>
           </view>
         </view>
       </view>

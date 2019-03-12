@@ -1,6 +1,7 @@
 <view class="container"> 
   <view class="video" >
-       <video style="width:750rpx" src="{{url+videoList.frontUrl+'?videoId='+videoList.videoId}}"
-      id="{{videoList.videoId}}" autoplay controls></video>  
+       <video style="width:750rpx" src="{{src?src:(url+videoList.frontUrl+'?videoId='+videoList.videoId)}}"
+      autoplay controls></video>  
   </view> 
+   <!-- id="{{videoList.videoId}}" -->
 </view>
